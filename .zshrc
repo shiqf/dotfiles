@@ -122,7 +122,7 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # 设置个人别名，覆盖由oh-my-zsh库提供的个人别名
 # 别名可以放在 env.sh 中利用管理
 # 有关活动别名的完整列表，请运行“alias”。
-source ~/dotfile/env.sh
+source ~/dotfiles/env.sh
 
 # macvim 中启用终端模拟器的时候，解决智能提示白色的问题
 export TERM=xterm-256color
