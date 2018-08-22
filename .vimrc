@@ -22,6 +22,15 @@ source ~/.vim/config/config.vim
 
 " 基本配置--------------------------------------------------------------------
 
+" 80 字符限制提醒
+set colorcolumn=81
+set textwidth=80
+" 其中 m 表示允许在两个汉字中间换行，
+" 而 B 表示将两行合为一行的时候不要在两个汉字之间加入空格。
+set fo+=mB
+" 一行字宽超过屏幕显示不换行显示
+set nowrap
+
 " 设置横屏/纵屏分屏默认位置
 set splitbelow
 set splitright
@@ -56,9 +65,6 @@ set expandtab
 
 " 指定的文件用 tab 键时不转化为空格，例如makefile
 set smarttab
-
-" 一行字宽超过屏幕显示不换行显示
-set nowrap
 
 " 在 Insert 模式下，设置 Backspace 键如何删除光标前边的字符。
 " 这里三个值分别表示空白字符，分行符和插入模式之前的字符。

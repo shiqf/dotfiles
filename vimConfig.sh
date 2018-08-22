@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source ~/dotfiles/softConfigVars.sh
+dotfileDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source ${dotfileDir}/softConfigVars.sh
 
 for vimDependCommand in ${vimDependCommands[@]}; do
     brew list | grep "^${vimDependCommand%% *}$"

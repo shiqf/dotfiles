@@ -70,7 +70,7 @@ done
 #######################################################################
 
 # 引入 soft 中的dotfiles变量
-source ~/dotfiles/softConfigVars.sh
+source ${dotfileDir}/softConfigVars.sh
 
 # 匹配的进行删除
 # [#%] 尽可能短的从[左右]往[右左]删除字符

@@ -1,3 +1,5 @@
+dotfileDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 # aliases 命令别名自定义 ---------------------------------------------------------
 
 alias cls='clear'
@@ -14,7 +16,7 @@ alias pdf='mupdf-gl'
 # 用什么编辑器打开
 export EDITOR='vim'
 
-alias envconfig="${EDITOR} ~/dotfiles/env.sh"
+alias envconfig="${EDITOR} ${dotfileDir}/env.sh"
 alias zshconfig="${EDITOR} ~/.zshrc"
 alias ohmyzsh="${EDITOR} ~/.oh-my-zsh"
 
@@ -30,8 +32,6 @@ alias -s bz2='tar -xjvf'
 alias -s gz='tar -xzvf'
 alias -s tgz='tar -xzvf'
 alias -s zip='unzip'
-
-# oh my zsh插件安装加载 -------------------------------------------------------
 
 # 功能增强----------------------------------------------------------------------
 

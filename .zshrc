@@ -1,3 +1,12 @@
+SOURCE_NAME=${(%):-%N}
+SOURCE=$( cd "$( dirname ${SOURCE_NAME} )" && pwd )
+SOURCE_NAME=${SOURCE_NAME##*/}
+SOURCE=${SOURCE}/${SOURCE_NAME}
+if [[ -L ${SOURCE} ]]; then
+    SOURCE=$(readlink ${SOURCE})
+fi
+dotfileDir=${SOURCE%/*}
+
 # ZSH的环境变量 oh-my-zsh 安装位置
 export ZSH=$HOME/.oh-my-zsh
 
@@ -115,6 +124,9 @@ export LESSCHARSET=utf-8
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+# go
+export PATH=$HOME/go/bin:$PATH
+
 #######################################################################
 #                            环境变量配置                             #
 #######################################################################
@@ -122,7 +134,7 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # 设置个人别名，覆盖由oh-my-zsh库提供的个人别名
 # 别名可以放在 env.sh 中利用管理
 # 有关活动别名的完整列表，请运行“alias”。
-source ~/dotfiles/env.sh
+source ${dotfileDir}/env.sh
 
 # macvim 中启用终端模拟器的时候，解决智能提示白色的问题
 export TERM=xterm-256color

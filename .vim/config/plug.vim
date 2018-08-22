@@ -16,12 +16,8 @@ Plug 'yianwillis/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
-
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
-
-" 方便粘贴历史数据
-Plug 'vim-scripts/YankRing.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 tpope 插件系列                             "
@@ -37,24 +33,20 @@ Plug 'tpope/vim-commentary'
 " vim常用设置项 yon 显示数字，yoh 显示高亮，yol 显示不可见字符...
 " [<space> 向上增加空行 ]<space> 向下增加空行 ]e [e 交换上下行
 " 解码或编码特殊文件字符 xml|html ]x [x   url ]u [u  c风格字符串输出格式 ]y [y
-" 普通模式 [<>=][Pp] 缩进粘贴 插入粘贴模式 y[oO] <ctrl-v> -- 不自动增加缩进 
+" 普通模式 [<>=][Pp] 缩进粘贴 插入粘贴模式 y[oO] <ctrl-v> -- 不自动增加缩进
 Plug 'tpope/vim-unimpaired'
 
 " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
-Plug 'tpope/vim-surround' 
+Plug 'tpope/vim-surround'
 
 " vim 的git版本控制命令包装
 Plug 'tpope/vim-fugitive'
 
 " fugitive功能拓展
-Plug 'gregsexton/gitv'
+Plug 'gregsexton/gitv', { 'on': [ 'Gitv' ] }
 
 " 异步实时在左测显示符号状态列
 Plug 'mhinz/vim-signify'
-
-" git历史回溯, vim 提供 g-, g+ 历史回溯
-Plug 'mbbill/undotree'
-nnoremap <leader>h :UndotreeToggle<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   motion                                   "
@@ -114,19 +106,15 @@ let g:ycm_warning_symbol = '⚠'
 Plug 'Valloric/ListToggle'
 let g:lt_location_list_toggle_map = '<leader>l'
 let g:lt_quickfix_list_toggle_map = '<leader>q'
-let g:lt_height = 10        
+let g:lt_height = 10
 " }}}
 
 " 语义的自动补全（函数调用提示），进入该项目文件并通过 npm install 安装
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx', 'do': ':!npm install' }
 
 " 绝大多数语言语法高亮支持
-" Plug 'sheerun/vim-polyglot', { 'tag': 'v3.3.2' }
 Plug 'sheerun/vim-polyglot'
 " let  g:polyglot_disabled  = [ ' css ' ]
-
-" 支持graphql文件语法及高亮
-" Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
 " 语法检测{{{
 Plug 'htacg/tidy-html5', { 'for': 'html' }
@@ -140,7 +128,7 @@ let g:ale_linters = {
             \}
 " 错误提示符及警告提示符
 let g:ale_sign_error='✗'
-let g:ale_sign_warning='⚠'                   
+let g:ale_sign_warning='⚠'
 
 " }}}
 
@@ -193,8 +181,8 @@ let g:airline_theme='papercolor'
 
 " 目录管理nerdtree{{{
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-" 设置显示／隐藏标签列表 
-nnoremap <leader>8 :NERDTreeToggle<cr> 
+" 设置显示／隐藏标签列表
+nnoremap <leader>8 :NERDTreeToggle<cr>
 
 " nerdtree 插件显示修改状态
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -227,7 +215,7 @@ Plug 'morhetz/gruvbox'
 
 " }}}
 
-" 标签文件自动生成和语法突出显示 easytags {{{
+" 标签文件自动生成 {{{
 " 需要下载Ctags brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
@@ -261,49 +249,62 @@ let g:gutentags_auto_add_gtags_cscope = 0
 " 工具拓展{{{
 
 " 方式对齐
-Plug 'godlygeek/tabular'    
+Plug 'godlygeek/tabular'
 let g:taabular_loaded = 1
 
 " 彩虹括号 利用区分括号配对
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
-" 多游标选择编辑
-" Plug 'terryma/vim-multiple-cursors'
-
 Plug 'sillybun/vim-repl'
 nnoremap <leader>r :REPLToggle<cr>
-let g:sendtorepl_invoke_key = '<leader>w'
+let g:sendtorepl_invoke_key = '<leader>o'
+" 0表示出现在下方，1表示出现在上方，2在左边，3在右边
+let g:repl_position = 3
+let g:repl_height = 10
 let g:repl_program = {
             \   "python": "python3",
-            \   "default": "bash",
             \   "javascript.jsx": "node",
+            \   "java": "jshell",
+            \   "default": "bash",
             \   }
 
 let g:repl_exit_commands = {
-            \   "python3": "exit()",
             \   "python": "exit()",
             \   "bash": "exit",
             \   "zsh": "exit",
             \   "node": ".exit",
+            \   "jshell": "/exit",
             \   "default": "exit",
             \   }
 
-" emmet高速编写网页类代码 {{{
-Plug 'mattn/emmet-vim'
-let g:emmet_html5 = 1
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+let s:packages = [
+            \ "github.com/nsf/gocode",
+            \ "code.google.com/p/go.tools/cmd/goimports",
+            \ "code.google.com/p/rog-go/exp/cmd/godef",
+            \ "code.google.com/p/go.tools/cmd/oracle",
+            \ "code.google.com/p/go.tools/cmd/gorename",
+            \ "github.com/golang/lint/golint",
+            \ "github.com/kisielk/errcheck",
+            \ "github.com/jstemmer/gotags",
+            \ ]
 
-" 帮助emmet显示snippets提示
-Plug 'jceb/emmet.snippets'
-" }}}
+" " emmet高速编写网页类代码 {{{
+" Plug 'mattn/emmet-vim'
+" let g:emmet_html5 = 1
 
-" makrdown{{{
-Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
-Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown', 'on': 'MarkdownPreview' }
-let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
-" or
-let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
-" }}}
+" " 帮助emmet显示snippets提示
+" Plug 'jceb/emmet.snippets'
+" " }}}
+
+" " makrdown{{{
+" Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
+" Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown', 'on': 'MarkdownPreview' }
+" let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
+" " or
+" let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
+" " }}}
 
 " }}}
 

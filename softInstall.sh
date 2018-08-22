@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source ~/dotfiles/softConfigVars.sh
+dotfileDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source ${dotfileDir}/softConfigVars.sh
 
 # iterm2 终端安装配置及相关工具下载
 if [[ `which brew` == /usr/local/bin/brew ]]; then

@@ -51,12 +51,13 @@ let g:ycm_semantic_triggers = {
 let g:ycm_filetype_whitelist = {
             \ "c":1,
             \ "cpp":1,
-            \ "python":1,
+            \ "go":1,
             \ "java":1,
             \ "javascript.jsx":1,
+            \ "python":1,
             \ "sh":1,
-            \ "zsh":1,
             \ "zimbu":1,
+            \ "zsh":1,
             \ }
 " }}}
 
@@ -99,6 +100,7 @@ augroup filetype_indent
     autocmd filetype cpp         setlocal ts=4 sw=4 sts=4
     autocmd filetype css         setlocal ts=2 sw=2 sts=2
     autocmd filetype dockerfile  setlocal ts=4 sw=4 sts=4
+    autocmd filetype go          setlocal ts=4 sw=4 sts=4
     autocmd filetype graphql     setlocal ts=2 sw=2 sts=2
     autocmd filetype html        setlocal ts=2 sw=2 sts=2
     autocmd filetype java        setlocal ts=4 sw=4 sts=4

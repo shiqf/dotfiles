@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source ~/dotfiles/softConfigVars.sh
+dotfileDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source ${dotfileDir}/softConfigVars.sh
 
 # 匹配的进行删除
 # [#%] 尽可能短的从[左右]往[右左]删除字符

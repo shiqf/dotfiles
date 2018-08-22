@@ -8,15 +8,15 @@ IFS=$'\n'
 
 # 数组保存需要删除的软链接文件名
 dotfiles=(
-# .eslintrc.js           # eslint（关于javascript 语法规则错误提示）配置文件
-.gvimrc                # gui 版本 vim 编辑器配置文件
-.tern-project          # javascript 语义补全配置文件
-.tmux                  # tmux 插件安装目录
-.tmux/.tmux.conf       # tmux 终端窗口复用器配置文件
-.vim                   # vim 插件目录
-.vimrc                 # vim 编辑器配置文件
-.ycm_extra_conf.py     # c 语言语义补全配置文件
-.zshrc                 # zsh 的配置文件
+.eslintrc.js       # eslint（关于javascript 语法规则错误提示）配置文件
+.gvimrc            # gui 版本 vim 编辑器配置文件
+.tern-project      # javascript 语义补全配置文件
+.tmux              # tmux 插件安装目录
+.tmux/.tmux.conf   # tmux 终端窗口复用器配置文件
+.vim               # vim 插件目录
+.vimrc             # vim 编辑器配置文件
+.ycm_extra_conf.py # c 语言语义补全配置文件
+.zshrc             # zsh 的配置文件
 )
 
 # 终端所需命令下载
@@ -28,9 +28,6 @@ reattach-to-user-namespace # 用户命名空间，防止因为 shell 的用户�
 the_silver_searcher        # 命令缩写 ag 类似于 grep 命令
 tmux                       # 终端复用窗口拓展
 zsh                        # 最新 zsh 安装
-# zsh-autosuggestions        # 智能提示
-zsh-completions            # zsh 命令补全
-# zsh-syntax-highlighting    # 终端 命令正确提示 高亮插件
 )
 
 # gui 软件下载
