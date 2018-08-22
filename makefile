@@ -1,6 +1,9 @@
 install:
 	bash install.sh
 
+soft:
+	bash softInstall.sh
+
 vim:
 	bash vimConfig.sh
 

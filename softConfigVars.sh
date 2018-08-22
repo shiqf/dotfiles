@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# 解决因为数组中 包含空格的字符串 被空格分割，利于添加安装参数
-# 保存好原来的IFS的值，方便以后还原回来
-PRE_IFS=$IFS
-# 设置IFS仅包括换行符
-IFS=$'\n'
-
 # 数组保存需要删除的软链接文件名
 dotfiles=(
 .eslintrc.js       # eslint（关于javascript 语法规则错误提示）配置文件
@@ -32,7 +26,7 @@ zsh                        # 最新 zsh 安装
 
 # gui 软件下载
 guis=(
-Unarchiver         # 解压缩应用
+the-unarchiver     # 解压缩应用
 cheatsheet         # 长按 command ，将能查看当前程序的快捷键
 # dingtalk           # 叮叮聊天工具
 google-chrome      # 谷歌浏览器
@@ -59,10 +53,10 @@ webpquicklook
 
 # 为 vim 插件提供支持和YouCompleteMe 安装依赖关系
 vimDependCommands=(
-cmake                                           # YouCompleteMe 安装依赖
-python                                          # YouCompleteMe 安装依赖
-universal-ctags/universal-ctags/universal-ctags # 最新标签生成命令
-vim                                             # 最新 vim 安装
+"--HEAD universal-ctags/universal-ctags/universal-ctags" # 最新标签生成命令
+cmake # YouCompleteMe 安装依赖
+python # YouCompleteMe 安装依赖
+vim # 最新 vim 安装
 )
 
 # 用 pip 方式安装所需命令
@@ -71,6 +65,3 @@ cppman
 glances
 icdiff
 )
-
-# 任务执行完毕，把IFS还原回默认值
-IFS=$PRE_IFS
