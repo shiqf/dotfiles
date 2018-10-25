@@ -35,7 +35,7 @@ iterm2             # iterm2 终端安装
 karabiner-elements # 键位设置软件
 keka               # 压缩 开源免费, 压缩比高, 操作便捷, 支持rar等解压, 压缩中文目录后, 在windows下打开不会存在乱码等现象.
 keycastr           # 按键显示，方便录制
-macdown            # markdown 编辑器
+typora            # markdown 编辑器
 macvim             # mac vim GUI客户端
 # neteasemusic       # 网易云音乐
 # omnigraffle        # 画图工具

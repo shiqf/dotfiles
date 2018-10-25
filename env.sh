@@ -19,6 +19,7 @@ export EDITOR='vim'
 alias envconfig="${EDITOR} ${dotfileDir}/env.sh"
 alias zshconfig="${EDITOR} ~/.zshrc"
 alias ohmyzsh="${EDITOR} ~/.oh-my-zsh"
+alias typora="open -a typora"
 
 alias -s c=${EDITOR}
 alias -s html=${EDITOR}

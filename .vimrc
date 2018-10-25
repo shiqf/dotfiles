@@ -22,6 +22,8 @@ source ~/.vim/config/config.vim
 
 " 基本配置--------------------------------------------------------------------
 
+set t_Co=256
+
 " 80 字符限制提醒
 set colorcolumn=81
 set textwidth=80

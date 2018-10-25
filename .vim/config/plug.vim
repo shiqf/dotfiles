@@ -53,13 +53,13 @@ Plug 'mhinz/vim-signify'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'Lokaltog/vim-easymotion'
 map <leader> <plug>(easymotion-prefix)
+nmap <Leader>s <Plug>(easymotion-overwin-f)
 
 " 模式显示所有匹配项
 Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
 map /  <plug>(incsearch-forward)
 map ?  <plug>(incsearch-backward)
-map g/ <plug>(incsearch-stay)
+" map / <plug>(incsearch-stay)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             支持自定义文本对象                             "
@@ -228,7 +228,7 @@ let g:cscopeprg = '/usr/local/bin/gtags-cscope'
 let g:gutentags_project_root = [ '.root' ]
 
 " 去除生成标签的文件夹
-let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', 'node_modules', '*.vim/bundle/*' ]
+let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', '*.vim/bundle/*' ]
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
@@ -256,7 +256,7 @@ let g:taabular_loaded = 1
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
-Plug 'sillybun/vim-repl'
+Plug 'sillybun/vim-repl', { 'do': './install.sh' }
 nnoremap <leader>r :REPLToggle<cr>
 let g:sendtorepl_invoke_key = '<leader>o'
 " 0表示出现在下方，1表示出现在上方，2在左边，3在右边
