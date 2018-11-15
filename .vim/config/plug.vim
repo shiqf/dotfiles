@@ -88,9 +88,10 @@ Plug 'nelstrom/vim-qargs'
 
 " }}}
 
-" 语法高亮检测、自动补全及扩展高亮显示{{{
+" 异步语法检测、自动补全、标签生成{{{
 
-" YouCompleteme智能补全{{{
+" YouCompleteme及其他智能补全{{{
+
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --all' }
 " 触发快捷键设置
 let g:ycm_key_list_select_completion   = ['<C-n>']
@@ -107,17 +108,15 @@ Plug 'Valloric/ListToggle'
 let g:lt_location_list_toggle_map = '<leader>l'
 let g:lt_quickfix_list_toggle_map = '<leader>q'
 let g:lt_height = 10
-" }}}
 
 " 语义的自动补全（函数调用提示），进入该项目文件并通过 npm install 安装
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx', 'do': ':!npm install' }
 
-" 绝大多数语言语法高亮支持
-Plug 'sheerun/vim-polyglot'
-" let  g:polyglot_disabled  = [ ' css ' ]
+" }}}
 
 " 语法检测{{{
 Plug 'htacg/tidy-html5', { 'for': 'html' }
+" 异步语法检测
 Plug 'w0rp/ale'
 " c 或 c++ 需要指定语法分析工具，否则会显示重复的两条数据
 let g:ale_linters = {
@@ -132,17 +131,33 @@ let g:ale_sign_warning='⚠'
 
 " }}}
 
-" snippets 片段扩展 {{{
-" 通过 VimL 语言的支持
-Plug 'honza/vim-snippets'
-" 需要通过 Python 的支持
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
-let g:UltiSnipsSnippetsDir         = ["mysnips"] " '~/.vim/bundle/ultisnips/mysnips'
-let g:UltiSnipsExpandTrigger       = "<Tab>"
-let g:UltiSnipsListSnippets        = '<C-Tab>'
-let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+" 标签文件自动生成 {{{
+" 需要下载Ctags brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
+
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+let g:cscopeprg = '/usr/local/bin/gtags-cscope'
+
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = [ '.root' ]
+
+" 去除生成标签的文件夹
+let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', '*.vim/bundle/*' ]
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 同时开启 ctags 和 gtags 支持：
+let g:gutentags_modules = [ 'ctags', 'gtags_cscope' ]
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+" 禁用 gutentags 自动加载 gtags 数据库的行为
+let g:gutentags_auto_add_gtags_cscope = 0
+
 " }}}
 
 " }}}
@@ -215,47 +230,16 @@ Plug 'morhetz/gruvbox'
 
 " }}}
 
-" 标签文件自动生成 {{{
-" 需要下载Ctags brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
-
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-let g:cscopeprg = '/usr/local/bin/gtags-cscope'
-
-" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = [ '.root' ]
-
-" 去除生成标签的文件夹
-let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', '*.vim/bundle/*' ]
-
-" 所生成的数据文件的名称
-let g:gutentags_ctags_tagfile = '.tags'
-
-" 同时开启 ctags 和 gtags 支持：
-let g:gutentags_modules = [ 'ctags', 'gtags_cscope' ]
-
-" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-" 禁用 gutentags 自动加载 gtags 数据库的行为
-let g:gutentags_auto_add_gtags_cscope = 0
-
-" }}}
-
 " }}}
 
 " 工具拓展{{{
 
-" 方式对齐
+" 方式对齐 {{{
 Plug 'godlygeek/tabular'
 let g:taabular_loaded = 1
+" }}}
 
-" 彩虹括号 利用区分括号配对
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1
-
+" 读取﹣求值﹣输出循环，交互式顶层构件REPL{{{
 Plug 'sillybun/vim-repl', { 'do': './install.sh' }
 nnoremap <leader>r :REPLToggle<cr>
 let g:sendtorepl_invoke_key = '<leader>o'
@@ -277,7 +261,9 @@ let g:repl_exit_commands = {
             \   "jshell": "/exit",
             \   "default": "exit",
             \   }
+" }}}
 
+" go语言支持{{{
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let s:packages = [
             \ "github.com/nsf/gocode",
@@ -289,14 +275,28 @@ let s:packages = [
             \ "github.com/kisielk/errcheck",
             \ "github.com/jstemmer/gotags",
             \ ]
+" }}}
 
-" " emmet高速编写网页类代码 {{{
-" Plug 'mattn/emmet-vim'
-" let g:emmet_html5 = 1
+" emmet高速编写网页类代码 {{{
+Plug 'mattn/emmet-vim'
+let g:emmet_html5 = 1
 
-" " 帮助emmet显示snippets提示
-" Plug 'jceb/emmet.snippets'
-" " }}}
+" 帮助emmet显示snippets提示
+Plug 'jceb/emmet.snippets'
+" }}}
+
+" snippets 片段扩展 {{{
+" 通过 VimL 语言的支持
+Plug 'honza/vim-snippets'
+" 需要通过 Python 的支持
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
+let g:UltiSnipsSnippetsDir         = ["mysnips"] " '~/.vim/bundle/ultisnips/mysnips'
+let g:UltiSnipsExpandTrigger       = "<Tab>"
+let g:UltiSnipsListSnippets        = '<C-Tab>'
+let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+" }}}
 
 " " makrdown{{{
 " Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
@@ -305,6 +305,17 @@ let s:packages = [
 " " or
 " let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
 " " }}}
+
+" }}}
+
+" 绝大多数语言语法高亮支持及括号配对{{{
+
+" 彩虹括号 利用区分括号配对
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
+
+Plug 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['go']
 
 " }}}
 
