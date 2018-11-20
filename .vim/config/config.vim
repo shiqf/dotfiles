@@ -61,6 +61,12 @@ let g:ycm_filetype_whitelist = {
             \ }
 " }}}
 
+" go配置 {{{
+nnoremap gr :GoRun<cr>
+nnoremap gb :GoBuild<cr>
+nnoremap gt :GoTest<cr>
+" }}}
+
 " 背景主题设置{{{ 
 " 首先需要设置iterm2终端的profiles菜单下的Colors中的
 " Color presets 设置为Solarized Dark主题

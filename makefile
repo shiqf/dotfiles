@@ -1,14 +1,17 @@
-install:
-	bash install.sh
+env:
+	bash envInstall.sh
 
-soft:
-	bash softInstall.sh
+cmd:
+	bash config.sh cmds
 
 vim:
-	bash vimConfig.sh
+	bash config.sh vims
 
 npm:
-	bash npmInstall.sh
+	bash config.sh npms
+
+python:
+	bash config.sh pythons
 
 uninstall:
 	bash uninstall.sh
