@@ -2,16 +2,19 @@ env:
 	bash envInstall.sh
 
 cmd:
-	bash config.sh cmds
+	bash install.sh cmds
 
 vim:
-	bash config.sh vims
+	bash install.sh vims
+
+gui:
+	bash install.sh guis
 
 npm:
-	bash config.sh npms
+	bash install.sh npms
 
 python:
-	bash config.sh pythons
+	bash install.sh pythons
 
 uninstall:
 	bash uninstall.sh

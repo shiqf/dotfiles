@@ -14,8 +14,6 @@ source ${dotfileDir}/config.sh
 # cmds guis pythons vims
 for arg in "$@"
 do
-    res=`eval echo '$'"$arg"`
-    echo $res
     echo $arg
     if set | grep -q "^$arg"; then
         case $arg in
