@@ -206,16 +206,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " 界面颜色主题{{{
 
-" solarized{{{
-Plug 'altercation/vim-colors-solarized'
-let g:solarized_termcolors = 256
-let g:solarized_termtrans  = 1
-" let g:solarized_degrade    = 1
-" optional normal high low
-" 背景和文本的对比度??
-let g:solarized_contrast   = "high"
-" set list后不可见字符看见后地颜色
-let g:solarized_visibility = "normal"
+" dracula{{{
+Plug 'dracula/vim', { 'as': 'dracula' }
 " }}}
 
 " molokai{{{
@@ -226,6 +218,8 @@ let g:rehash256 = 1
 
 " gruvbox{{{
 Plug 'morhetz/gruvbox'
+let g:gruvbox_contrast_light = "hard"
+let g:gruvbox_hls_cursor = "red"
 " }}}
 
 " }}}
