@@ -115,7 +115,6 @@ Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx', 'do': ':!npm install' }
 " }}}
 
 " 语法检测{{{
-Plug 'htacg/tidy-html5', { 'for': 'html' }
 " 异步语法检测
 Plug 'w0rp/ale'
 " c 或 c++ 需要指定语法分析工具，否则会显示重复的两条数据
