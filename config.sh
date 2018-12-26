@@ -18,12 +18,12 @@ dotfiles=(
 
 # 终端所需命令下载
 cmds=(
-autojump                   # 支持快速跳转到曾经打开过的目录下
 git                        # 版本控制安装
 proxychains-ng             # 终端代理命令
 reattach-to-user-namespace # 用户命名空间，防止因为 shell 的用户空间非当前用户
 the_silver_searcher        # 命令缩写 ag 类似于 grep 命令
 tmux                       # 终端复用窗口拓展
+z                          # 支持快速跳转到曾经打开过的目录下
 zsh                        # 最新 zsh 安装
 )
 
@@ -44,9 +44,9 @@ karabiner-elements # 键位设置软件
 keka               # 压缩 开源免费, 压缩比高, 操作便捷, 支持rar等解压, 压缩中文目录后, 在windows下打开不会存在乱码等现象.
 keycastr           # 按键显示，方便录制
 macvim             # mac vim GUI客户端
-qlcolorcode        # 预览代码渲染
+qlcolorcode        # 预览语法高亮
 qlmarkdown         # 预览markdown 渲染
-qlstephen          # 预览渲染
+qlstephen          # 预览未知扩展名的文本 添加行号defaults write org.n8gray.QLColorCode extraHLFlags '-l'
 the-unarchiver     # 解压缩应用
 typora             # markdown 编辑器
 webpquicklook      # 网页快速预览

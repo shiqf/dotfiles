@@ -125,8 +125,9 @@ export LESSCHARSET=utf-8
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-# go
-export PATH=$HOME/go/bin:$PATH
+if [[ ${PATH##*:} != $HOME/go/bin ]]; then
+    export PATH=$PATH:$HOME/go/bin # go 运行环境
+fi
 
 #######################################################################
 #                            环境变量配置                             #
@@ -154,7 +155,6 @@ alias pdf='mupdf-gl'
 # 用什么编辑器打开
 export EDITOR='vim'
 
-alias envconfig="${EDITOR} ${dotfileDir}/env.sh"
 alias zshconfig="${EDITOR} ~/.zshrc"
 alias ohmyzsh="${EDITOR} ~/.oh-my-zsh"
 alias typora="open -a typora"

@@ -145,7 +145,7 @@ let g:cscopeprg = '/usr/local/bin/gtags-cscope'
 let g:gutentags_project_root = [ '.root', '.svn', '.git', '.hg', '.project' ]
 
 " 去除生成标签的文件夹
-let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', '*.vim/bundle/*', '.tmux' ]
+let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', '*.vim/bundle/*', '.tmux', 'node_modules' ]
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
@@ -309,18 +309,6 @@ let g:UltiSnipsExpandTrigger       = "<Tab>"
 let g:UltiSnipsListSnippets        = '<C-Tab>'
 let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
-" }}}
-
-" " makrdown{{{
-" Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
-" Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown', 'on': 'MarkdownPreview' }
-" let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
-" " or
-" let g:mkdp_path_to_chrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
-" " }}}
-
-" plantuml{{{
-Plug 'aklt/plantuml-syntax', { 'for': 'plantuml' }
 " }}}
 
 " }}}
