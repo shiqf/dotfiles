@@ -311,6 +311,8 @@ let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 " }}}
 
+Plug 'aklt/plantuml-syntax'
+
 " }}}
 
 " 绝大多数语言语法高亮支持及括号配对{{{
