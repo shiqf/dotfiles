@@ -311,8 +311,6 @@ let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 " }}}
 
-Plug 'aklt/plantuml-syntax'
-
 " }}}
 
 " 绝大多数语言语法高亮支持及括号配对{{{
@@ -321,6 +319,8 @@ Plug 'aklt/plantuml-syntax'
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
+" 对.pu文件语法高亮
+Plug 'aklt/plantuml-syntax'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['go']
 
