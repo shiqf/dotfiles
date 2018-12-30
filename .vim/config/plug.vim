@@ -321,7 +321,6 @@ Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
 " 对.pu文件语法高亮
-Plug 'aklt/plantuml-syntax'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['go']
 
