@@ -138,9 +138,9 @@ Plug 'skywind3000/gutentags_plus'
 
 " 第一个 GTAGSLABEL 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用
 " gtags 本地分析器，而其他语言使用 pygments 模块。
+let g:gtagsconf_dir = expand('~/.gtags.conf')
 let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-let g:cscopeprg = '/usr/local/bin/gtags-cscope'
+let $GTAGSCONF = g:gtagsconf_dir
 
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = [ '.root', '.svn', '.git', '.hg', '.project' ]
@@ -323,6 +323,7 @@ let g:rainbow_active = 1
 " 对.pu文件语法高亮
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['go']
+let g:vim_markdown_math = 1
 
 " }}}
 
