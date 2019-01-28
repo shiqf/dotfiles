@@ -7,7 +7,7 @@ filetype off
 call plug#begin('~/.vim/bundle')
 
 " vim中文说明文档 ./vimcdoc.sh -i安装
-Plug 'yianwillis/vimcdoc'
+Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 
 " 打开关闭折叠效果 za
 "  基本文本操作功能的增强 {{{
@@ -111,7 +111,7 @@ let g:lt_height = 10
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
 " 语义的自动补全（函数调用提示），进入该项目文件并通过 npm install 安装
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx', 'do': ':!npm install' }
+" Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx', 'do': ':!npm install' }
 
 " }}}
 
