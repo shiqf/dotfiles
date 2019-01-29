@@ -14,8 +14,8 @@ Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 
 " 异步命令
 Plug 'skywind3000/asyncrun.vim'
-" 自动打开 quickfix window ，高度为 6
-let g:asyncrun_open = 6
+" 自动打开 quickfix window ，高度为 10
+let g:asyncrun_open = 10
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
 
@@ -248,56 +248,56 @@ let g:gruvbox_hls_cursor = "red"
 
 " 工具拓展{{{
 
-" 方式对齐 {{{
-Plug 'godlygeek/tabular'
-let g:taabular_loaded = 1
-" }}}
+" " 方式对齐 {{{
+" Plug 'godlygeek/tabular'
+" let g:taabular_loaded = 1
+" " }}}
 
-" 读取﹣求值﹣输出循环，交互式顶层构件REPL{{{
-Plug 'sillybun/vim-repl', { 'do': './install.sh' }
-nnoremap <leader>r :REPLToggle<cr>
-let g:sendtorepl_invoke_key = '<leader>o'
-" 0表示出现在下方，1表示出现在上方，2在左边，3在右边
-let g:repl_position = 3
-let g:repl_height = 10
-let g:repl_program = {
-            \   "python": "python3",
-            \   "javascript.jsx": "node",
-            \   "java": "jshell",
-            \   "default": "bash",
-            \   }
+" " 读取﹣求值﹣输出循环，交互式顶层构件REPL{{{
+" Plug 'sillybun/vim-repl', { 'do': './install.sh' }
+" nnoremap <leader>r :REPLToggle<cr>
+" let g:sendtorepl_invoke_key = '<leader>o'
+" " 0表示出现在下方，1表示出现在上方，2在左边，3在右边
+" let g:repl_position = 3
+" let g:repl_height = 10
+" let g:repl_program = {
+"             \   "python": "python3",
+"             \   "javascript.jsx": "node",
+"             \   "java": "jshell",
+"             \   "default": "bash",
+"             \   }
 
-let g:repl_exit_commands = {
-            \   "python": "exit()",
-            \   "bash": "exit",
-            \   "zsh": "exit",
-            \   "node": ".exit",
-            \   "jshell": "/exit",
-            \   "default": "exit",
-            \   }
-" }}}
+" let g:repl_exit_commands = {
+"             \   "python": "exit()",
+"             \   "bash": "exit",
+"             \   "zsh": "exit",
+"             \   "node": ".exit",
+"             \   "jshell": "/exit",
+"             \   "default": "exit",
+"             \   }
+" " }}}
 
-" go语言支持{{{
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-let s:packages = [
-            \ "github.com/nsf/gocode",
-            \ "code.google.com/p/go.tools/cmd/goimports",
-            \ "code.google.com/p/rog-go/exp/cmd/godef",
-            \ "code.google.com/p/go.tools/cmd/oracle",
-            \ "code.google.com/p/go.tools/cmd/gorename",
-            \ "github.com/golang/lint/golint",
-            \ "github.com/kisielk/errcheck",
-            \ "github.com/jstemmer/gotags",
-            \ ]
-" }}}
+" " go语言支持{{{
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" let s:packages = [
+"             \ "github.com/nsf/gocode",
+"             \ "code.google.com/p/go.tools/cmd/goimports",
+"             \ "code.google.com/p/rog-go/exp/cmd/godef",
+"             \ "code.google.com/p/go.tools/cmd/oracle",
+"             \ "code.google.com/p/go.tools/cmd/gorename",
+"             \ "github.com/golang/lint/golint",
+"             \ "github.com/kisielk/errcheck",
+"             \ "github.com/jstemmer/gotags",
+"             \ ]
+" " }}}
 
-" emmet高速编写网页类代码 {{{
-Plug 'mattn/emmet-vim'
-let g:emmet_html5 = 1
+" " emmet高速编写网页类代码 {{{
+" Plug 'mattn/emmet-vim'
+" let g:emmet_html5 = 1
 
-" 帮助emmet显示snippets提示
-Plug 'jceb/emmet.snippets'
-" }}}
+" " 帮助emmet显示snippets提示
+" Plug 'jceb/emmet.snippets'
+" " }}}
 
 " snippets 片段扩展 {{{
 " 通过 VimL 语言的支持
