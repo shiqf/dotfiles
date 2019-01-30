@@ -49,19 +49,6 @@ Plug 'gregsexton/gitv', { 'on': [ 'Gitv' ] }
 Plug 'mhinz/vim-signify'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   motion                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'Lokaltog/vim-easymotion'
-map <leader> <plug>(easymotion-prefix)
-nmap <Leader>s <Plug>(easymotion-overwin-f)
-
-" 模式显示所有匹配项
-Plug 'haya14busa/incsearch.vim'
-map /  <plug>(incsearch-forward)
-map ?  <plug>(incsearch-backward)
-" map / <plug>(incsearch-stay)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             支持自定义文本对象                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'kana/vim-textobj-user'

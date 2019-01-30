@@ -24,6 +24,9 @@ source ~/.vim/config/config.vim
 
 set t_Co=256
 
+" 搜索后直接高亮匹配项目
+set incsearch
+
 " 80 字符限制提醒
 set colorcolumn=81
 set textwidth=80
@@ -45,7 +48,6 @@ set hidden
 
 " 显示行数字
 set number
-" set relativenumber
 
 " 开启语法高亮，根据文件类型侦测。on 使用默认配色
 syntax enable on
