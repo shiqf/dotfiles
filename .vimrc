@@ -28,8 +28,8 @@ set t_Co=256
 set incsearch
 
 " 80 字符限制提醒
-set colorcolumn=81
-set textwidth=80
+set colorcolumn=80
+set textwidth=78
 " 其中 m 表示允许在两个汉字中间换行，
 " 而 B 表示将两行合为一行的时候不要在两个汉字之间加入空格。
 set fo+=mB

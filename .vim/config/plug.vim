@@ -95,13 +95,13 @@ let g:ycm_confirm_extra_conf=0
 " 通过ycm语法检测显示错误符号和警告符号
 let g:ycm_error_symbol   = '✗'
 let g:ycm_warning_symbol = '⚠'
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
 " 显示 quickfix 列表和 location 列表
 Plug 'Valloric/ListToggle'
 let g:lt_location_list_toggle_map = '<leader>l'
 let g:lt_quickfix_list_toggle_map = '<leader>q'
 let g:lt_height = 10
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
 " 语义的自动补全（函数调用提示），进入该项目文件并通过 npm install 安装
 " Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx', 'do': ':!npm install' }
