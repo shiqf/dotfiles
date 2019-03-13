@@ -11,8 +11,8 @@
   "plugins": {
     "requirejs": {
       "baseURL": "./",
-      "paths": {},
-      "node": {}
-    }
+      "paths": {}
+    },
+    "node": {}
   }
 }
