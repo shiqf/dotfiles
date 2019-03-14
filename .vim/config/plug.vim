@@ -103,9 +103,6 @@ let g:lt_location_list_toggle_map = '<leader>l'
 let g:lt_quickfix_list_toggle_map = '<leader>q'
 let g:lt_height = 10
 
-" 语义的自动补全（函数调用提示），进入该项目文件并通过 npm install 安装
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript.jsx', 'do': ':!npm install' }
-
 " }}}
 
 " 语法检测{{{
