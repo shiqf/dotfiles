@@ -85,7 +85,7 @@ Plug 'nelstrom/vim-qargs'
 
 " YouCompleteme及其他智能补全{{{
 
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --all' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --java-completer' }
 " 触发快捷键设置
 let g:ycm_key_list_select_completion   = ['<C-n>']
 let g:ycm_key_list_previous_completion = ['<C-p>']
