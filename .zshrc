@@ -87,8 +87,6 @@ github                  # 为github gem 添加自动补全功能，可以通过g
 jira
 npm
 osx                     # cdf 切换命令行目录到finder显示目录，ofd 打开命令行地址到目录，pfs 返回finder选择的文件或目录。pfd返回最先打开的finder的位置，showfiles，hidefiles，quick-look， man-preview
-pip3
-proxychains4            # brew 代理下载，解决网络问题
 python                  # python解释器的补全
 sudo                    # 通过双击 ESC 在命令最前面添加 sudo
 tmux                    # ta: tmux attach -t, tad:tmux attach -d -t, ts:tmux new-session -s, tl:tmux list-sessions, tksv: tmux kill-server, tkss: tmux kill-session -t
@@ -125,8 +123,12 @@ export LESSCHARSET=utf-8
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-if [[ ${PATH##*:} != $HOME/go/bin ]]; then
+if [[ $PATH != */Users/shiqf/go/bin* ]]; then
     export PATH=$PATH:$HOME/go/bin # go 运行环境
+fi
+
+if [[ $PATH != */usr/local/texlive/2018/bin/x86_64-darwin* ]]; then
+    export PATH=$PATH:/usr/local/texlive/2018/bin/x86_64-darwin
 fi
 
 #######################################################################

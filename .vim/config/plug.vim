@@ -305,6 +305,17 @@ let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 " }}}
 
+" vimtex {{{
+Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex', 'bst'] }
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+let g:vimtex_view_automatic = 1
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+" }}}
+
 " }}}
 
 " 绝大多数语言语法高亮支持及括号配对{{{
@@ -315,7 +326,7 @@ let g:rainbow_active = 1
 
 " 对.pu文件语法高亮
 Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['go']
+let g:polyglot_disabled = ['go', 'latex']
 let g:vim_markdown_math = 1
 
 " }}}
