@@ -246,29 +246,29 @@ Plug 'markonm/traces.vim'
 " let g:taabular_loaded = 1
 " " }}}
 
-" " 读取﹣求值﹣输出循环，交互式顶层构件REPL{{{
-" Plug 'sillybun/vim-repl', { 'do': './install.sh' }
-" nnoremap <leader>r :REPLToggle<cr>
-" let g:sendtorepl_invoke_key = '<leader>o'
-" " 0表示出现在下方，1表示出现在上方，2在左边，3在右边
-" let g:repl_position = 3
-" let g:repl_height = 10
-" let g:repl_program = {
-"             \   "python": "python3",
-"             \   "javascript.jsx": "node",
-"             \   "java": "jshell",
-"             \   "default": "bash",
-"             \   }
+" 读取﹣求值﹣输出循环，交互式顶层构件REPL{{{
+Plug 'sillybun/vim-repl', { 'do': './install.sh' }
+nnoremap <leader>r :REPLToggle<cr>
+let g:sendtorepl_invoke_key = '<leader>o'
+" 0表示出现在下方，1表示出现在上方，2在左边，3在右边
+let g:repl_position = 3
+let g:repl_height = 10
+let g:repl_program = {
+            \   "python": "python3",
+            \   "javascript.jsx": "node",
+            \   "java": "jshell",
+            \   "default": "bash",
+            \   }
 
-" let g:repl_exit_commands = {
-"             \   "python": "exit()",
-"             \   "bash": "exit",
-"             \   "zsh": "exit",
-"             \   "node": ".exit",
-"             \   "jshell": "/exit",
-"             \   "default": "exit",
-"             \   }
-" " }}}
+let g:repl_exit_commands = {
+            \   "python": "exit()",
+            \   "bash": "exit",
+            \   "zsh": "exit",
+            \   "node": ".exit",
+            \   "jshell": "/exit",
+            \   "default": "exit",
+            \   }
+" }}}
 
 " " go语言支持{{{
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -307,7 +307,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 
 " vimtex {{{
 Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex', 'bst'] }
-let g:tex_flavor='latex'
+" let g:tex_flavor='latex'
+let g:tex_flavor='xelatex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 let g:vimtex_view_automatic = 1
