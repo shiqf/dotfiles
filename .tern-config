@@ -1,9 +1,12 @@
 {
+  "ecmaVersion": 6,
   "libs": [
     "ecmascript"
   ],
   "loadEagerly": [],
   "plugins": {
+    "node: {};
+    "es_modules:" {},
     "requirejs": {
       "baseURL": "./",
       "paths": {}
