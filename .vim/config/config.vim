@@ -117,12 +117,13 @@ augroup filetype_indent
     autocmd filetype javascript  setlocal ts=2 sw=2 sts=2
     autocmd filetype json        setlocal ts=2 sw=2 sts=2
     autocmd filetype make        setlocal ts=4 sw=4 sts=4
+    autocmd filetype plantuml    setlocal ts=2 sw=2 sts=2
     autocmd filetype python      setlocal ts=2 sw=2 sts=2
     autocmd filetype sh          setlocal ts=4 sw=4 sts=4
     autocmd filetype sql         setlocal ts=4 sw=4 sts=4
+    autocmd filetype tex         setlocal ts=2 sw=2 sts=2
     autocmd filetype vim         setlocal ts=4 sw=4 sts=4
     autocmd filetype zsh         setlocal ts=4 sw=4 sts=4
-    autocmd filetype tex         setlocal ts=2 sw=2 sts=2
 augroup END
 " }}}
 
