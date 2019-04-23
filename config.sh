@@ -8,7 +8,7 @@ dotfiles=(
 .eslintrc.js       # eslint（关于javascript 语法规则错误提示）配置文件
 .gtags.conf
 .gvimrc            # gui 版本 vim 编辑器配置文件
-.tern-project      # javascript 语义补全配置文件
+.tern-config       # javascript 语义补全配置文件
 .tmux              # tmux 插件安装目录
 .tmux/.tmux.conf   # tmux 终端窗口复用器配置文件
 .vim               # vim 插件目录
