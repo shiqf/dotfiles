@@ -4,7 +4,6 @@
   ],
   "loadEagerly": [],
   "plugins": {
-    "node": {},
     "requirejs": {
       "baseURL": "./",
       "paths": {}
