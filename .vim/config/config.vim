@@ -63,6 +63,7 @@ let g:ycm_filetype_whitelist = {
             \ "java":1,
             \ "javascript.jsx":1,
             \ "javascript":1,
+            \ "typescript":1,
             \ "python":1,
             \ "sh":1,
             \ "zimbu":1,
