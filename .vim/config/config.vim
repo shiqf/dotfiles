@@ -50,7 +50,7 @@ set completeopt=menu,menuone
 " 触发语义补全
 let g:ycm_semantic_triggers = {
             \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-            \ 'cs,lua,javascript': ['re!\w{2}'],
+            \ 'cs,lua,javascript,typescript': ['re!\w{2}'],
             \ }
 
 " 避免编辑白名单外的文件类型时 YCM也在那分析半天，
@@ -62,6 +62,7 @@ let g:ycm_filetype_whitelist = {
             \ "go":1,
             \ "java":1,
             \ "javascript.jsx":1,
+            \ "javascript":1,
             \ "python":1,
             \ "sh":1,
             \ "zimbu":1,
