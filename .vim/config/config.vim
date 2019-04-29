@@ -71,6 +71,18 @@ let g:ycm_filetype_whitelist = {
             \ }
 " }}}
 
+" {{{
+noremap <silent> ycs :GscopeFind s <C-R><C-W><cr>
+noremap <silent> ycg :GscopeFind g <C-R><C-W><cr>
+noremap <silent> ycc :GscopeFind c <C-R><C-W><cr>
+noremap <silent> yct :GscopeFind t <C-R><C-W><cr>
+noremap <silent> yce :GscopeFind e <C-R><C-W><cr>
+noremap <silent> ycf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+noremap <silent> yci :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+noremap <silent> ycd :GscopeFind d <C-R><C-W><cr>
+noremap <silent> yca :GscopeFind a <C-R><C-W><cr>
+" }}}
+
 " go配置 {{{
 nnoremap gr :GoRun<cr>
 nnoremap gb :GoBuild<cr>
