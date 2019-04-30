@@ -21,6 +21,7 @@ cmds=(
     # "--HEAD universal-ctags/universal-ctags/universal-ctags" # 最新标签生成命令
     cmake                      # 跨平台编译工具
     git                        # 版本控制安装
+    global                     # GNU GLOBAL 是一个源代码标记系统
     proxychains-ng             # 终端代理命令
     python                     # 默认 python3
     reattach-to-user-namespace # 用户命名空间，防止因为 shell 的用户空间非当前用户
