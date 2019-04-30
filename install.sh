@@ -11,7 +11,7 @@ IFS=$'\n'
 dotfileDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source ${dotfileDir}/config.sh
 
-# cmds guis pythons vims
+# cmds guis pips npms
 for arg in "$@"
 do
     echo $arg
@@ -37,17 +37,23 @@ do
                     fi
                 done
                 ;;
-            "pythons") echo "four";;
-            "vims")
-                for vim in ${vims[@]}; do
-                    brew list | grep -q "^${vim##*/}$"
+            "pips")
+                for pip in ${pips[@]}; do
+                    pip3 list | grep ${pip}
                     if [[ $? -ne 0 ]]; then
-                        echo "${vim##*/} 未安装---  ... 准备安装"
-                        brew install ${vim##*/}
+                        echo "${pip##*/} 未安装---  ... 准备安装"
+                        pip3 install ${pip##*/}
                     fi
                 done
-                # 安装 vim 插件
-                vim +PlugUpdate +qall
+                ;;
+            "npms")
+                for npm in ${npms[@]}; do
+                    npm list -g | grep -q "${npm##*/}"
+                    if [[ $? -ne 0 ]]; then
+                        echo "${npm##*/} 未安装---  ... 准备安装"
+                        npm install -g --registry=https://registry.npm.taobao.org ${npm##*/}
+                    fi
+                done
                 ;;
             *) echo "没有安装" ;;
         esac

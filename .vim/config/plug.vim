@@ -236,10 +236,10 @@ let g:gruvbox_hls_cursor = "red"
 " 预览命令行命令效果
 Plug 'markonm/traces.vim'
 
-" " 方式对齐 {{{
-" Plug 'godlygeek/tabular'
-" let g:taabular_loaded = 1
-" " }}}
+" 方式对齐 {{{
+Plug 'godlygeek/tabular'
+let g:taabular_loaded = 1
+" }}}
 
 " 读取﹣求值﹣输出循环，交互式顶层构件REPL{{{
 Plug 'sillybun/vim-repl', { 'do': './install.sh' }
