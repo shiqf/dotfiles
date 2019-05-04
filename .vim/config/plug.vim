@@ -200,7 +200,8 @@ let g:airline_theme='papercolor'
 " }}}
 
 " 目录管理nerdtree{{{
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 " 设置显示／隐藏标签列表
 nnoremap <leader>8 :NERDTreeToggle<cr>
 

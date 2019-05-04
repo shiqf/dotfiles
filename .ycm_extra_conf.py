@@ -45,9 +45,9 @@ flags = [
 '-isystem',
 '/usr/local/include',
 '-isystem',
-'/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/c++/v1',
+'/Library/Developer/CommandLineTools/usr/include/c++/v1',
 '-isystem',
-'/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include',
+'/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include',
 ]
 
 

@@ -2,7 +2,7 @@
 let mapleader="\<Space>"
 
 " 保存配置，并实时加载到系统环境当中去----------------------------------------
-nnoremap <silent> <leader>sv :w!<cr> :source %<cr>
+nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " 调用man程序在vim内部查看命令
 runtime ftplugin/man.vim
@@ -86,3 +86,5 @@ set nobackup
 
 " 设置鼠标功能
 set mouse=a
+
+map Q gq

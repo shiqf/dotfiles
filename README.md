@@ -57,10 +57,10 @@
 如果你不想自己单独配置，或嫌配置麻烦，可以通过打开终端运行 `git clone` 该配置文件库，并复制下面代码运行（不包括$）。
 
 ```bash
-$ git clone https://github.com/qw9002/dotfile.git ~/ # 配置文件下载
-$ cd ~/dotfile                                       # 进入配置文件
-$ ./install.sh                                       # 环境所需软件安装、配置
-$ ./softInstall.sh                                   # 自己需要软件安装
+$ git clone https://github.com/shiqf/dotfiles.git ~/ # 配置文件下载
+$ cd ~/dotfiles                                      # 进入配置文件
+$ make env                                           # 环境所需软件安装、配置
+$ make all                                           # 安装所有软件
 ```
 `说明`：
 
@@ -88,8 +88,6 @@ $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/maste
 ```bash
 # 使用 zsh 作为默认 shell
 $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.zshrc
-# 使用 bash 作为默认 shell
-$ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
 ```
 
 `Cmd+T` 打开一个新的 `terminal` 标签页，运行以下命令，确保 `brew` 运行正常。
