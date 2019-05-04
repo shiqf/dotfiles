@@ -122,7 +122,7 @@ endif
 " 缩进控制 ts{tabstop} sw{shiftwidth} sts{softtabstop} {{{
 augroup filetype_indent
     autocmd!
-    autocmd filetype c           setlocal ts=4 sw=4 sts=4
+    autocmd filetype c           setlocal cindent ts=4 sw=4 sts=4
     autocmd filetype cpp         setlocal ts=4 sw=4 sts=4
     autocmd filetype css         setlocal ts=2 sw=2 sts=2
     autocmd filetype dockerfile  setlocal ts=4 sw=4 sts=4
