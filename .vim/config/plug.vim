@@ -82,9 +82,7 @@ Plug 'nelstrom/vim-qargs'
 " }}}
 
 " 异步语法检测、自动补全、标签生成{{{
-
 " YouCompleteme及其他智能补全{{{
-
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --java-completer --ts-completer' }
 " 触发快捷键设置
 let g:ycm_key_list_select_completion   = ['<C-n>']
