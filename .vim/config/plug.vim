@@ -299,16 +299,21 @@ let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 " }}}
 
-" vimtex {{{
-Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex', 'bst'] }
-" let g:tex_flavor='latex'
-let g:tex_flavor='xelatex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
-let g:vimtex_view_automatic = 1
-set conceallevel=1
-let g:tex_conceal='abdmg'
+" " vimtex {{{
+" Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex', 'bst'] }
+" " let g:tex_flavor='latex'
+" let g:tex_flavor='xelatex'
+" let g:vimtex_view_method='zathura'
+" let g:vimtex_quickfix_mode=0
+" let g:vimtex_view_automatic = 1
+" set conceallevel=1
+" let g:tex_conceal='abdmg'
 
+" " }}}
+
+" tmux 中使用vim 复制{{{
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 " }}}
 
 " }}}
