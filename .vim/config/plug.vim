@@ -83,7 +83,7 @@ Plug 'nelstrom/vim-qargs'
 
 " 异步语法检测、自动补全、标签生成{{{
 " YouCompleteme及其他智能补全{{{
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --java-completer --ts-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --ts-completer' }
 " 触发快捷键设置
 let g:ycm_key_list_select_completion   = ['<C-n>']
 let g:ycm_key_list_previous_completion = ['<C-p>']
@@ -235,34 +235,52 @@ let g:gruvbox_hls_cursor = "red"
 " 预览命令行命令效果
 Plug 'markonm/traces.vim'
 
+" snippets 片段扩展 {{{
+" 通过 VimL 语言的支持
+Plug 'honza/vim-snippets'
+" 需要通过 Python 的支持
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
+let g:UltiSnipsSnippetsDir         = ["mysnips"] " '~/.vim/bundle/ultisnips/mysnips'
+let g:UltiSnipsExpandTrigger       = "<Tab>"
+let g:UltiSnipsListSnippets        = '<C-Tab>'
+let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+" }}}
+
 " 方式对齐 {{{
 Plug 'godlygeek/tabular'
 let g:taabular_loaded = 1
 " }}}
 
-" 读取﹣求值﹣输出循环，交互式顶层构件REPL{{{
-Plug 'sillybun/vim-repl', { 'do': './install.sh' }
-nnoremap <leader>r :REPLToggle<cr>
-let g:sendtorepl_invoke_key = '<leader>o'
-" 0表示出现在下方，1表示出现在上方，2在左边，3在右边
-let g:repl_position = 3
-let g:repl_height = 10
-let g:repl_program = {
-            \   "python": "python3",
-            \   "javascript.jsx": "node",
-            \   "java": "jshell",
-            \   "default": "bash",
-            \   }
-
-let g:repl_exit_commands = {
-            \   "python": "exit()",
-            \   "bash": "exit",
-            \   "zsh": "exit",
-            \   "node": ".exit",
-            \   "jshell": "/exit",
-            \   "default": "exit",
-            \   }
+" tmux 中使用vim 复制{{{
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 " }}}
+
+" " 读取﹣求值﹣输出循环，交互式顶层构件REPL{{{
+" Plug 'sillybun/vim-repl', { 'do': './install.sh' }
+" nnoremap <leader>r :REPLToggle<cr>
+" let g:sendtorepl_invoke_key = '<leader>o'
+" " 0表示出现在下方，1表示出现在上方，2在左边，3在右边
+" let g:repl_position = 3
+" let g:repl_height = 10
+" let g:repl_program = {
+"             \   "python": "python3",
+"             \   "javascript.jsx": "node",
+"             \   "java": "jshell",
+"             \   "default": "bash",
+"             \   }
+
+" let g:repl_exit_commands = {
+"             \   "python": "exit()",
+"             \   "bash": "exit",
+"             \   "zsh": "exit",
+"             \   "node": ".exit",
+"             \   "jshell": "/exit",
+"             \   "default": "exit",
+"             \   }
+" " }}}
 
 " " go语言支持{{{
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -286,19 +304,6 @@ let g:repl_exit_commands = {
 " Plug 'jceb/emmet.snippets'
 " " }}}
 
-" snippets 片段扩展 {{{
-" 通过 VimL 语言的支持
-Plug 'honza/vim-snippets'
-" 需要通过 Python 的支持
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
-let g:UltiSnipsSnippetsDir         = ["mysnips"] " '~/.vim/bundle/ultisnips/mysnips'
-let g:UltiSnipsExpandTrigger       = "<Tab>"
-let g:UltiSnipsListSnippets        = '<C-Tab>'
-let g:UltiSnipsJumpForwardTrigger  = "<Tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
-" }}}
-
 " " vimtex {{{
 " Plug 'lervag/vimtex', { 'for': ['tex', 'plaintex', 'bst'] }
 " " let g:tex_flavor='latex'
@@ -310,11 +315,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 " let g:tex_conceal='abdmg'
 
 " " }}}
-
-" tmux 中使用vim 复制{{{
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-" }}}
 
 " }}}
 
