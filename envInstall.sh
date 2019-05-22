@@ -52,8 +52,8 @@ fi
 #######################################################################
 
 dires=(
-${dotfileDir}/.vim/bundle/. # 创建插件安装文件夹
-~/backup/.                  # 创建备份配置文件夹
+    ${dotfileDir}/.vim/bundle/. # 创建插件安装文件夹
+    ~/backup/.                  # 创建备份配置文件夹
 )
 
 for dir in ${dires[@]}; do
