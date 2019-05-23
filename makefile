@@ -1,5 +1,5 @@
 env:
-	bash envInstall.sh
+	bash init.sh
 
 cmd:
 	bash install.sh cmds
