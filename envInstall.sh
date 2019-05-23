@@ -38,11 +38,6 @@ else
     echo 'other system soft downloads'
 fi
 
-# 安装 oh-my-zsh 插件
-if [[ ! -e ~/.oh-my-zsh ]]; then
-    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-fi
-
 if [[ ! -e ~/.antigen.zsh ]]; then
     curl -L git.io/antigen > ~/.antigen.zsh
 fi
