@@ -20,8 +20,9 @@ elif [[ `uname -s` == 'Darwin' ]]; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         brew doctor # 检测程序是否正常权限是否足够
     fi
-    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-    git clone https://github.com/zplug/zplug ~/.zplug
+    if [[ ! -e ~/.zplug ]]; then
+        git clone https://github.com/zplug/zplug ~/.zplug
+    fi
 
     # 判断 /etc/shells 中是否包含最新 zsh，添加最新 zsh 命令地址到 shell 配置文件中
     grep -q `which zsh` /etc/shells
@@ -38,10 +39,6 @@ else
     #                         其他环境软件安装                            #
     #######################################################################
     echo 'other system soft downloads'
-fi
-
-if [[ ! -e ~/.antigen.zsh ]]; then
-    curl -L git.io/antigen > ~/.antigen.zsh
 fi
 
 #######################################################################

@@ -1,7 +1,4 @@
-# # 加载主题所需列表在 ~/.oh-my-zsh/themes/
-# # 详情请看 https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# # antigen theme robbyrussell
-# antigen theme pygmalion
+#!/usr/bin/env zsh
 
 set -o emacs
 source ~/.zplug/init.zsh
@@ -9,8 +6,8 @@ source ~/.zplug/init.zsh
 # Make sure to use double quotes
 zplug "zsh-users/zsh-autosuggestions"     # 智能提示输入 ctrl-f 确认补全, alt-f 补全单词
 zplug "zsh-users/zsh-completions"         # 命令补全
+zplug "zsh-users/zsh-syntax-highlighting" # 命令高亮插件
 zplug "skywind3000/z.lua"                 # 智能目录调整
-# zplug "zsh-users/zsh-syntax-highlighting" # 命令高亮插件
 
 # Use the package as a command
 # And accept glob patterns (e.g., brace, wildcard, ...)
@@ -111,7 +108,7 @@ zplug "plugins/web-search",     from:oh-my-zsh
 # e.g., zsh-syntax-highlighting must be loaded
 # after executing compinit command and sourcing other plugins
 # (If the defer tag is given 2 or above, run after compinit command)
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # Can manage local plugins
 # zplug "~/.zsh", from:local
