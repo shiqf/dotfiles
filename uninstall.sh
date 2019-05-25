@@ -32,11 +32,9 @@ do
                 for vim in ${vims[@]}; do
                     if brew list | grep -q "^${vim##*/}$"; then
                         echo "${vim##*/} ...准备卸载"
-                        brew install ${vim##*/}
+                        brew uninstall ${vim##*/}
                     fi
                 done
-                # 安装 vim 插件
-                vim +PlugUpdate +qall
                 ;;
             "dotfiles")
                 # 匹配的进行删除

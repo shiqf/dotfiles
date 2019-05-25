@@ -1,8 +1,6 @@
 #!/usr/bin/env zsh
 
-set -o emacs
 source ~/.zplug/init.zsh
-
 # Make sure to use double quotes
 zplug "zsh-users/zsh-autosuggestions"     # 智能提示输入 ctrl-f 确认补全, alt-f 补全单词
 zplug "zsh-users/zsh-completions"         # 命令补全
@@ -21,11 +19,11 @@ zplug "skywind3000/z.lua"                 # 智能目录调整
 
 # Grab binaries from GitHub Releases
 # and rename with the "rename-to:" tag
-# zplug "junegunn/fzf-bin", \
-#     from:gh-r, \
-#     as:command, \
-#     rename-to:fzf, \
-#     use:"*darwin*amd64*"
+zplug "junegunn/fzf-bin", \
+    from:gh-r, \
+    as:command, \
+    rename-to:fzf, \
+    use:"*darwin*amd64*"
 
 # # Supports oh-my-zsh plugins and the like
 
@@ -50,7 +48,7 @@ zplug "plugins/sudo",    from:oh-my-zsh
 zplug "plugins/tmux",     from:oh-my-zsh
 zplug "plugins/npm",     from:oh-my-zsh
 # [baidu|google|bing|ddg] 用什么搜索引擎[百度|谷歌|必应|duckduckgo]
-zplug "plugins/web-search",     from:oh-my-zsh
+# zplug "plugins/web-search",     from:oh-my-zsh
 
 # 为github gem 添加自动补全功能，可以通过gem install github安装
 # antigen bundle github
@@ -126,8 +124,8 @@ zplug 'dracula/zsh', as:theme
 
 # Then, source plugins and add commands to $PATH
 zplug load
-# zplug load --verbose
 
+ZPLUG=~/.zplug/repos
 #######################################################################
 #                        oh-my-zsh 设置                               #
 #######################################################################
@@ -137,7 +135,7 @@ zplug load
 
 # 取消注释以下行以使用连字符不敏感完成。
 # 敏感补全必须关闭。 _和 - 可以互换。
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # 如果不想要自动更新，可以取消注释下面的一行
 # DISABLE_AUTO_UPDATE="true"
@@ -188,6 +186,9 @@ export LESSCHARSET=utf-8
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+source $ZPLUG/robbyrussell/oh-my-zsh/oh-my-zsh.sh
+eval "$(lua $ZPLUG/skywind3000/z.lua/z.lua  --init zsh once enhanced)"
 
 #######################################################################
 #                            环境变量配置                             #
