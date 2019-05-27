@@ -28,6 +28,7 @@ zplug "junegunn/fzf-bin", \
 # # Supports oh-my-zsh plugins and the like
 
 # git 命令别名alias
+zplug "plugins/brew",     from:oh-my-zsh
 zplug "plugins/git",     from:oh-my-zsh
 zplug "plugins/docker",  from:oh-my-zsh
 zplug "plugins/python",  from:oh-my-zsh
