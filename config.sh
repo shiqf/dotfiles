@@ -26,6 +26,7 @@ dotfiles=(
 cmds=(
     # "--HEAD universal-ctags/universal-ctags/universal-ctags" # 最新标签生成命令
     cmake                      # 跨平台编译工具
+    fzf                        # 模糊查询
     git                        # 版本控制安装
     global                     # GNU GLOBAL 是一个源代码标记系统
     proxychains-ng             # 终端代理命令
