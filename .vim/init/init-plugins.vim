@@ -680,6 +680,10 @@ if index(g:bundle_group, 'ycm') >= 0
 endif
 
 if index(g:bundle_group, 'tool') >= 0
+    " tmux 中使用vim 复制
+    Plug 'roxma/vim-tmux-clipboard'
+    Plug 'tmux-plugins/vim-tmux-focus-events'
+
     " 预览命令行命令效果
     Plug 'markonm/traces.vim'
 
