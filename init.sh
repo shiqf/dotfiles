@@ -5,6 +5,9 @@ dirUseBySystem=''
 # 配置文件放置目录
 dotfileDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+if [[ ! -e ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug ~/.zplug
+fi
 # windows 7 64位系统 vim-plug 插件需要安装在 ~/.vim/vimfiles/autoload/ 下
 if [[ `uname -s` == 'MSYS_NT-6.1' || `uname -s` == 'MINGW64_NT-6.1' ]]; then
     #######################################################################
@@ -19,9 +22,6 @@ elif [[ `uname -s` == 'Darwin' ]]; then
         #  home brew 软件管理软件
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         brew doctor # 检测程序是否正常权限是否足够
-    fi
-    if [[ ! -e ~/.zplug ]]; then
-        git clone https://github.com/zplug/zplug ~/.zplug
     fi
 
     # 判断 /etc/shells 中是否包含最新 zsh，添加最新 zsh 命令地址到 shell 配置文件中

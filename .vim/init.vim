@@ -48,6 +48,6 @@ LoadScript init/init-style.vim
 " 自定义按键
 LoadScript init/init-keymaps.vim
 
-" 自定义按键
+" 自定义主题
 LoadScript init/init-colors.vim
 
