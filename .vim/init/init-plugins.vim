@@ -37,6 +37,9 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 " 默认插件 
 "----------------------------------------------------------------------
 
+" vim中文说明文档 ./vimcdoc.sh -i安装
+Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
+
 " 全文快速移动, <leader>f{char} 即可触发
 Plug 'easymotion/vim-easymotion'
 map <leader> <plug>(easymotion-prefix)
