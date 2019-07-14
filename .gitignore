@@ -43,10 +43,12 @@ syntax
 .vim/autoload/plug.vim
 
 # the not need of dir
-# the bundle of vim
+# the bundles of vim
 bundle
+bundles
 .tmux/plugins
 .tmux/resurrect
+cache
 
 
 # tags file
