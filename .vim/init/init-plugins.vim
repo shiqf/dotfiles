@@ -50,7 +50,7 @@ map <leader>k <plug>(easymotion-k)
 let g:EasyMotion_smartcase = 1
 
 " 文件浏览器，代替 netrw
-" Plug 'justinmk/vim-dirvish'
+Plug 'justinmk/vim-dirvish'
 
 " 表格对齐，使用命令 Tabularize
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
@@ -58,6 +58,7 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
 
+" 异步运行并把结果放入quickfix中
 Plug 'skywind3000/asyncrun.vim'
 
 
@@ -311,10 +312,10 @@ endif
 if index(g:bundle_group, 'filetypes') >= 0
 
     " powershell 脚本文件的语法高亮
-    Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
+    " Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
 
     " lua 语法高亮增强
-    Plug 'tbastos/vim-lua', { 'for': 'lua' }
+    " Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
     " C++ 语法高亮增强，支持 11/14/17 标准
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
@@ -326,7 +327,7 @@ if index(g:bundle_group, 'filetypes') >= 0
     Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
     " rust 语法增强
-    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+    " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
     " vim org-mode 
     Plug 'jceb/vim-orgmode', { 'for': 'org' }
@@ -346,8 +347,8 @@ if index(g:bundle_group, 'airline') >= 0
     let g:airline_powerline_fonts = 1
     let g:airline_exclude_preview = 1
     let g:airline_section_b = '%n'
-    let g:airline_theme='papercolor'
-    " let g:airline_theme='deus'
+    " let g:airline_theme='papercolor'
+    let g:airline_theme='deus'
     let g:airline#extensions#branch#enabled = 0
     let g:airline#extensions#syntastic#enabled = 0
     let g:airline#extensions#fugitiveline#enabled = 0
