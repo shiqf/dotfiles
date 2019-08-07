@@ -41,8 +41,13 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 
 " 全文快速移动, <leader>f{char} 即可触发
-Plug 'easymotion/vim-easymotion', { 'on': '<plug>(easymotion-prefix)' }
-map <leader> <plug>(easymotion-prefix)
+Plug 'easymotion/vim-easymotion', { 'on': ['<plug>(easymotion-f)', '<plug>(easymotion-F)', '<plug>(easymotion-j)', '<plug>(easymotion-k)'] }
+map <leader>f <plug>(easymotion-f)
+map <leader>F <plug>(easymotion-F)
+map <leader>j <plug>(easymotion-j)
+map <leader>k <plug>(easymotion-k)
+" 忽略大小写
+let g:EasyMotion_smartcase = 1
 
 " 文件浏览器，代替 netrw
 " Plug 'justinmk/vim-dirvish'
