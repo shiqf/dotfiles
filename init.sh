@@ -5,9 +5,6 @@ dirUseBySystem=''
 # 配置文件放置目录
 dotfileDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-if [[ ! -e ~/.zplug ]]; then
-    git clone https://github.com/zplug/zplug ~/.zplug
-fi
 # windows 7 64位系统 vim-plug 插件需要安装在 ~/.vim/vimfiles/autoload/ 下
 if [[ `uname -s` == 'MSYS_NT-6.1' || `uname -s` == 'MINGW64_NT-6.1' ]]; then
     #######################################################################
@@ -18,6 +15,10 @@ elif [[ `uname -s` == 'Darwin' ]]; then
     #######################################################################
     #                             Mac 环境软件安装                        #
     #######################################################################
+    if [[ ! -e ~/.zplug ]]; then
+        git clone https://github.com/zplug/zplug ~/.zplug
+    fi
+
     if [[ `which brew` != /usr/local/bin/brew ]]; then
         #  home brew 软件管理软件
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"

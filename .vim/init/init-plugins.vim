@@ -41,7 +41,7 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 
 " 全文快速移动, <leader>f{char} 即可触发
-Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion', { 'on': '<plug>(easymotion-prefix)' }
 map <leader> <plug>(easymotion-prefix)
 
 " 文件浏览器，代替 netrw
