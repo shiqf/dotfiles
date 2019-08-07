@@ -45,7 +45,7 @@ Plug 'easymotion/vim-easymotion', { 'on': '<plug>(easymotion-prefix)' }
 map <leader> <plug>(easymotion-prefix)
 
 " 文件浏览器，代替 netrw
-Plug 'justinmk/vim-dirvish'
+" Plug 'justinmk/vim-dirvish'
 
 " 表格对齐，使用命令 Tabularize
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
