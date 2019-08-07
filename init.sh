@@ -36,6 +36,9 @@ elif [[ `uname -s` == 'Darwin' ]]; then
         sudo chsh -s `which zsh`
     fi
 else
+    if [[ ! -e ~/.zplug ]]; then
+        git clone https://github.com/zplug/zplug ~/.zplug
+    fi
     #######################################################################
     #                         其他环境软件安装                            #
     #######################################################################
@@ -91,14 +94,6 @@ done
 #######################################################################
 
 # vim 插件管理插件安装
-# windows 7 vim-plug 插件需要安装在 ~/.vim/vimfiles/autoload/ 下
-# Kernel=`uname -s`
-# case $Kernel in  
-#     'MSYS_NT-6.1') curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs \
-#         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim ;;
-#     *) echo -e "\e[1;30m这是什么颜色?\e[0m" ;;  
-# esac  
-
 if [[ `uname -s` == 'MSYS_NT-6.1' || `uname -s` == 'MINGW64_NT-6.1' ]]; then
     if [[ ! -e ~/vimfiles/autoload/plug.vim ]]; then
         curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs \
