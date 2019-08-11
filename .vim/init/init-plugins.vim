@@ -160,6 +160,15 @@ if index(g:bundle_group, 'basic') >= 0
     " 使用 <space>ha 清除 errormarker 标注的错误
     noremap <silent><space>ha :RemoveErrorMarkers<cr>
 
+    " 默认不显示 startify
+    let g:startify_disable_at_vimenter = 1
+    let g:startify_session_dir = '~/.vim/session'
+    let g:startify_session_persistence = 1
+    let g:startify_session_delete_buffers = 1
+    let g:startify_session_autoload = 0
+    let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc', {'do': '~/plant.md'} ]
+    let g:startify_change_to_dir = 1
+
     " signify 调优
     let g:signify_vcs_list = ['git', 'svn']
     let g:signify_sign_add               = '+'
@@ -172,6 +181,15 @@ if index(g:bundle_group, 'basic') >= 0
     let g:signify_vcs_cmds = {
                 \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
                 \}
+
+    noremap <c-w>p :PreviewTag<cr>
+    noremap <m-u> :PreviewScroll -1<cr>
+    noremap <m-d> :PreviewScroll +1<cr>
+    inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+    inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+
 endif
 
 
