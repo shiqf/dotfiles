@@ -168,6 +168,7 @@ if index(g:bundle_group, 'basic') >= 0
     let g:startify_session_autoload = 0
     let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc', {'do': '~/plant.md'} ]
     let g:startify_change_to_dir = 1
+    noremap <leader>p :Startify<cr>
 
     " signify 调优
     let g:signify_vcs_list = ['git', 'svn']
