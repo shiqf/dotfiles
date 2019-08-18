@@ -52,8 +52,12 @@ let g:EasyMotion_smartcase = 1
 " 文件浏览器，代替 netrw
 Plug 'justinmk/vim-dirvish'
 
-" 表格对齐，使用命令 Tabularize
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+" 对齐
+Plug 'junegunn/vim-easy-align'
+vmap <Enter> <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
@@ -743,6 +747,39 @@ if index(g:bundle_group, 'tool') >= 0
 
     " 帮助emmet显示snippets提示
     Plug 'jceb/emmet.snippets'
+    Plug 'sillybun/vim-repl'
+    let g:repl_program = {
+                \   'python': 'ipython',
+                \   'javascript': 'node',
+                \   'typescript': 'ts-node',
+                \   'r': 'R',
+                \   'lua': 'lua',
+                \   'default': 'zsh',
+                \   }
+
+    let g:repl_exit_commands = {
+                \   'python': 'quit()',
+                \   'bash': 'exit',
+                \   'zsh': 'exit',
+                \   'node': '.exit',
+                \   "ts-node": '.exit',
+                \   'jshell': '/exit',
+                \   'default': 'exit',
+                \   }
+
+    let g:repl_predefine_python = {
+                \   'numpy': 'import numpy as np',
+                \   'matplotlib': 'from matplotlib import pyplot as plt'
+                \   }
+    let g:repl_cursor_down = 1
+    let g:repl_python_automerge = 1
+    let g:repl_ipython_version = '7'
+    nnoremap <leader>r :REPLToggle<Cr>
+    " autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
+    " autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
+    " autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
+    let g:repl_position = 3
+    let g:repl_stayatrepl_when_open = 0
 endif
 
 "----------------------------------------------------------------------
