@@ -94,7 +94,7 @@ done
 #######################################################################
 
 # vim 插件管理插件安装
-if [[ `uname -s` == 'MSYS_NT-6.1' || `uname -s` == 'MINGW64_NT-6.1' ]]; then
+if [[ `uname -s` =~ ^MSYS_NT ]]; then
     if [[ ! -e ~/vimfiles/autoload/plug.vim ]]; then
         curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
