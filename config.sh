@@ -77,7 +77,7 @@ guis=(
 ##############################################################################
 
 pips=(
-    Pygments
+    pygments # 支持其它语言 除[C/C++/Yacc/Java/PHP4/assembly] 之外javascript/typescript等
     cppman
 )
 
@@ -87,4 +87,6 @@ pips=(
 
 npms=(
     eslint
+    typescript
+    ts-node
 )
