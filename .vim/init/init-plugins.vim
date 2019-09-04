@@ -219,8 +219,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'dyng/ctrlsf.vim'
 
     " 配对括号和引号自动补全
-    " Plug 'Raimondi/delimitMate'
-    " Plug 'jiangmiao/auto-pairs', { 'on': ['g:AutoPairsShortcutToggle'] }
     Plug 'jiangmiao/auto-pairs'
      let g:AutoPairsFlyMode = 1
      let g:AutoPairsShortcutBackInsert = '<M-z>'
@@ -786,5 +784,3 @@ endif
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
-
-packadd! termdebug

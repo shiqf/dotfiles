@@ -156,11 +156,11 @@ augroup InitFileTypesGroup
     au FileType qf setlocal nonumber
 
     " 强制对某些扩展名的 filetype 进行纠正
-    au BufNewFile,BufRead *.as setlocal filetype=actionscript
+    au BufNewFile,BufRead *.as  setlocal filetype=actionscript
     au BufNewFile,BufRead *.pro setlocal filetype=prolog
-    au BufNewFile,BufRead *.es setlocal filetype=erlang
+    au BufNewFile,BufRead *.es  setlocal filetype=erlang
     au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
-    au BufNewFile,BufRead *.vl setlocal filetype=verilog
+    au BufNewFile,BufRead *.vl  setlocal filetype=verilog
 
 augroup END
 
@@ -180,7 +180,7 @@ if has('clipboard')
     set clipboard+=unnamed
 endif
 
-" packadd termdebug
+packadd! termdebug
 
 " 设置鼠标功能
 set mouse=a

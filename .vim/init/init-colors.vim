@@ -22,4 +22,3 @@ else
     set background=dark
     colorscheme gruvbox
 endif
-
