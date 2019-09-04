@@ -9,7 +9,7 @@
 
 dotfiles=(
     .eslintrc.js       # eslint（关于javascript 语法规则错误提示）配置文件
-    .gtags.conf
+    .gtags.conf        # ctags 生成方式
     .gvimrc            # gui 版本 vim 编辑器配置文件
     .tmux              # tmux 插件安装目录
     .tmux/.tmux.conf   # tmux 终端窗口复用器配置文件
@@ -46,7 +46,7 @@ cmds=(
 guis=(
     # 系统工具
     cheatsheet         # 长按 command ，将能查看当前程序的快捷键
-    # dash               # 文档
+    devdocs            # 文档
     google-chrome      # 谷歌浏览器
     iina               # 播放器
     iterm2             # iterm2 终端安装
@@ -60,6 +60,7 @@ guis=(
     webpquicklook      # 网页快速预览
 
 # 工作工具
+# dash         # 文档
 # neteasemusic # 网易云音乐
 # omnigraffle  # 画图工具
 # postico      # postgres 数据库
@@ -86,7 +87,8 @@ pips=(
 ##############################################################################
 
 npms=(
-    eslint
+    eslint # javascript 语法检测
+    tslint # typescript 语法检测
     typescript
     ts-node
 )
