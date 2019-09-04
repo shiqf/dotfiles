@@ -10,9 +10,10 @@
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
-    let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
+    let g:bundle_group  = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
     let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
     let g:bundle_group += ['leaderf', 'ycm']
+    let g:bundle_group += ['grammer']
     let g:bundle_group += ['tool']
 endif
 
@@ -190,8 +191,8 @@ if index(g:bundle_group, 'basic') >= 0
     let g:startify_session_persistence    = 1
     let g:startify_session_delete_buffers = 1
     let g:startify_session_autoload       = 0
-    let g:startify_bookmarks              = [ {'c': '~/.vimrc'}, '~/.zshrc', {'do': '~/plant.md'} ]
     let g:startify_change_to_dir          = 1
+    let g:startify_bookmarks              = [ {'c': '~/.vimrc'}, '~/.zshrc', {'do': '~/plant.md'} ]
     noremap <leader>p :Startify<cr>
 
     " signify 调优
@@ -240,13 +241,12 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     " 配对括号和引号自动补全
     Plug 'jiangmiao/auto-pairs'
-     let g:AutoPairsFlyMode = 1
-     let g:AutoPairsShortcutBackInsert = '<M-z>'
-     let g:AutoPairsShortcutToggle = '<M-a>'
-     " let g:AutoPairsShortcutFastWrap = '<Nop>'
-     let g:AutoPairsMapCh = 0
-     let g:AutoPairsMoveCharacter = '<Nop>'
-     let g:AutoPairsShortcutJump = '<Nop>'
+    let g:AutoPairsFlyMode            = 1
+    let g:AutoPairsShortcutBackInsert = '<M-z>'
+    let g:AutoPairsShortcutToggle     = '<M-a>'
+    let g:AutoPairsMapCh              = 0
+    let g:AutoPairsMoveCharacter      = '<Nop>'
+    let g:AutoPairsShortcutJump       = '<Nop>'
 
     " 提供 gist 接口
     Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
@@ -304,7 +304,7 @@ if index(g:bundle_group, 'tags') >= 0
     let g:gutentags_plus_switch = 1
 
     " 设置 ctags 的参数
-    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']
+    let g:gutentags_ctags_extra_args  = ['--fields=+niazS', '--extras=+q']
     let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
     let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
@@ -390,20 +390,19 @@ endif
 if index(g:bundle_group, 'airline') >= 0
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    let g:airline_left_sep = ''
-    let g:airline_left_alt_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_right_alt_sep = ''
-    let g:airline_powerline_fonts = 1
-    let g:airline_exclude_preview = 1
-    let g:airline_section_b = '%n'
-    " let g:airline_theme='papercolor'
-    let g:airline_theme='deus'
-    let g:airline#extensions#branch#enabled = 0
-    let g:airline#extensions#syntastic#enabled = 0
+    let g:airline_left_sep                        = ''
+    let g:airline_left_alt_sep                    = ''
+    let g:airline_right_sep                       = ''
+    let g:airline_right_alt_sep                   = ''
+    let g:airline_powerline_fonts                 = 1
+    let g:airline_exclude_preview                 = 1
+    let g:airline_section_b                       = '%n'
+    let g:airline_theme                           = 'deus'
+    let g:airline#extensions#branch#enabled       = 0
+    let g:airline#extensions#syntastic#enabled    = 0
     let g:airline#extensions#fugitiveline#enabled = 0
-    let g:airline#extensions#csv#enabled = 0
-    let g:airline#extensions#vimagit#enabled = 0
+    let g:airline#extensions#csv#enabled          = 0
+    let g:airline#extensions#vimagit#enabled      = 0
 endif
 
 
@@ -474,6 +473,7 @@ if index(g:bundle_group, 'ale') >= 0
                 \ 'go': ['go build', 'gofmt'],
                 \ 'java': ['javac'],
                 \ 'javascript': ['eslint'],
+                \ 'typescript': ['eslint'],
                 \ }
 
 
@@ -489,19 +489,19 @@ if index(g:bundle_group, 'ale') >= 0
     endfunc
 
     " 设置 flake8/pylint 的参数
-    let g:ale_python_flake8_options = '--conf='.s:lintcfg('flake8.conf')
-    let g:ale_python_pylint_options = '--rcfile='.s:lintcfg('pylint.conf')
+    let g:ale_python_flake8_options  = '--conf='.s:lintcfg('flake8.conf')
+    let g:ale_python_pylint_options  = '--rcfile='.s:lintcfg('pylint.conf')
     let g:ale_python_pylint_options .= ' --disable=W'
-    let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-    let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-    let g:ale_c_cppcheck_options = ''
-    let g:ale_cpp_cppcheck_options = ''
+    let g:ale_c_gcc_options          = '-Wall -O2 -std=c99'
+    let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++14'
+    let g:ale_c_cppcheck_options     = ''
+    let g:ale_cpp_cppcheck_options   = ''
 
     let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
     " 如果没有 gcc 只有 clang 时（FreeBSD）
     if executable('clang') == 0 && executable('gcc')
-        let g:ale_linters.c += ['gcc', 'cppcheck']
+        let g:ale_linters.c   += ['gcc', 'cppcheck']
         let g:ale_linters.cpp += ['gcc', 'cppcheck']
     endif
 
@@ -792,7 +792,7 @@ if index(g:bundle_group, 'tool') >= 0
     let g:repl_cursor_down = 1
     let g:repl_python_automerge = 1
     let g:repl_ipython_version = '7'
-    nnoremap <leader>r :REPLToggle<Cr>
+    nnoremap <leader>s :REPLToggle<Cr>
     " autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
     " autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
     " autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
