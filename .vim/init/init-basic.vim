@@ -14,6 +14,9 @@
 " 禁用 vi 兼容模式
 set nocompatible
 
+" 禁用声音
+set vb t_vb=
+
 " 设置 Backspace 键模式
 set bs=eol,start,indent
 
