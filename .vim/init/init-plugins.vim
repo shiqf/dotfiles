@@ -768,7 +768,7 @@ if index(g:bundle_group, 'tool') >= 0
     Plug 'jceb/emmet.snippets'
     Plug 'sillybun/vim-repl'
     let g:repl_program = {
-                \   'python': 'ipython',
+                \   'python': 'python',
                 \   'javascript': 'node',
                 \   'typescript': 'ts-node',
                 \   'r': 'R',
