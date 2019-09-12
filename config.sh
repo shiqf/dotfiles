@@ -44,8 +44,8 @@ cmds=(
 #                                 Gui工具                                    #
 ##############################################################################
 
+# 系统工具
 guis=(
-    # 系统工具
     cheatsheet         # 长按 command ，将能查看当前程序的快捷键
     devdocs            # 文档
     google-chrome      # 谷歌浏览器
@@ -80,7 +80,8 @@ guis=(
 
 pips=(
     pygments # 支持其它语言 除[C/C++/Yacc/Java/PHP4/assembly] 之外javascript/typescript等
-    cppman
+    cppman   # 高亮 cpp 文档
+    ranger   # 终端文件管理软件
 )
 
 ##############################################################################
@@ -88,8 +89,8 @@ pips=(
 ##############################################################################
 
 npms=(
-    eslint # javascript 语法检测
-    tslint # typescript 语法检测
-    typescript
-    ts-node
+    eslint     # javascript 语法检测
+    ts-node    # typescript 运行环境
+    tslint     # typescript 语法检测
+    typescript # typescript 编译器
 )
