@@ -52,7 +52,7 @@ map <leader>k <plug>(easymotion-k)
 let g:EasyMotion_smartcase = 1
 
 " 文件浏览器，代替 netrw
-Plug 'justinmk/vim-dirvish'
+" Plug 'justinmk/vim-dirvish'
 
 " 对齐
 Plug 'junegunn/vim-easy-align'
@@ -92,36 +92,36 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'skywind3000/asyncrun.vim'
 
 
-"----------------------------------------------------------------------
-" Dirvish 设置：自动排序并隐藏文件，同时定位到相关文件
-" 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序
-" 比默认的纯按照字母排序更友好点。
-"----------------------------------------------------------------------
-function! s:setup_dirvish()
-    if &buftype != 'nofile' && &filetype != 'dirvish'
-        return
-    endif
-    if has('nvim')
-        return
-    endif
-    " 取得光标所在行的文本（当前选中的文件名）
-    let text = getline('.')
-    if ! get(g:, 'dirvish_hide_visible', 0)
-        exec 'silent keeppatterns g@\v[\/]\.[^\/]+[\/]?$@d _'
-    endif
-    " 排序文件名
-    exec 'sort ,^.*[\/],'
-    let name = '^' . escape(text, '.*[]~\') . '[/*|@=|\\*]\=\%($\|\s\+\)'
-    " 定位到之前光标处的文件
-    call search(name, 'wc')
-    noremap <silent><buffer> ~ :Dirvish ~<cr>
-    noremap <buffer> % :e %
-endfunc
+""----------------------------------------------------------------------
+"" Dirvish 设置：自动排序并隐藏文件，同时定位到相关文件
+"" 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序
+"" 比默认的纯按照字母排序更友好点。
+""----------------------------------------------------------------------
+"function! s:setup_dirvish()
+"    if &buftype != 'nofile' && &filetype != 'dirvish'
+"        return
+"    endif
+"    if has('nvim')
+"        return
+"    endif
+"    " 取得光标所在行的文本（当前选中的文件名）
+"    let text = getline('.')
+"    if ! get(g:, 'dirvish_hide_visible', 0)
+"        exec 'silent keeppatterns g@\v[\/]\.[^\/]+[\/]?$@d _'
+"    endif
+"    " 排序文件名
+"    exec 'sort ,^.*[\/],'
+"    let name = '^' . escape(text, '.*[]~\') . '[/*|@=|\\*]\=\%($\|\s\+\)'
+"    " 定位到之前光标处的文件
+"    call search(name, 'wc')
+"    noremap <silent><buffer> ~ :Dirvish ~<cr>
+"    noremap <buffer> % :e %
+"endfunc
 
-augroup MyPluginSetup
-    autocmd!
-    autocmd FileType dirvish call s:setup_dirvish()
-augroup END
+" augroup MyPluginSetup
+"     autocmd!
+"     autocmd FileType dirvish call s:setup_dirvish()
+" augroup END
 
 
 "----------------------------------------------------------------------
@@ -147,9 +147,6 @@ if index(g:bundle_group, 'basic') >= 0
     " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
     " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
     Plug 'mh21/errormarker.vim'
-
-    " 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
-    Plug 't9md/vim-choosewin'
 
     " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
     Plug 'skywind3000/vim-preview'
@@ -178,10 +175,7 @@ if index(g:bundle_group, 'basic') >= 0
     Plug 'nelstrom/vim-visual-star-search'
 
     " 筛选符合条件的 argslist 文件并保存到 args 中去, 使用 argdo 处理匹配文件
-    Plug 'nelstrom/vim-qargs'
-
-    " 使用 ALT+E 来选择窗口
-    nmap <m-e> <Plug>(choosewin)
+    " Plug 'nelstrom/vim-qargs'
 
     " 使用 <space>ha 清除 errormarker 标注的错误
     noremap <silent><space>ha :RemoveErrorMarkers<cr>
@@ -381,7 +375,7 @@ if index(g:bundle_group, 'filetypes') >= 0
     " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
     " vim org-mode 
-    Plug 'jceb/vim-orgmode', { 'for': 'org' }
+    " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 endif
 
 
