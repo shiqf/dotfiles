@@ -103,9 +103,6 @@ set matchtime=2
 " 显示最后一行
 set display=lastline
 
-" 允许下方显示目录
-set wildmenu
-
 " 延迟绘制（提升性能）
 set lazyredraw
 
@@ -150,6 +147,9 @@ endif
 "----------------------------------------------------------------------
 " 文件搜索和补全时忽略下面扩展名
 "----------------------------------------------------------------------
+
+" 允许下方显示目录
+set wildmenu
 
 " longest 最长匹配，list 匹配列表，full 匹配队列
 " set wildmode=longest,list,full
