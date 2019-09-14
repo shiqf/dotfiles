@@ -177,7 +177,7 @@ if index(g:bundle_group, 'basic') >= 0
     Plug 'nelstrom/vim-visual-star-search'
 
     " 筛选符合条件的 argslist 文件并保存到 args 中去, 使用 argdo 处理匹配文件
-    " Plug 'nelstrom/vim-qargs'
+    Plug 'nelstrom/vim-qargs'
 
     " 使用 <space>ha 清除 errormarker 标注的错误
     noremap <silent><space>ha :RemoveErrorMarkers<cr>
