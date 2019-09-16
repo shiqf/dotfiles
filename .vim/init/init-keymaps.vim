@@ -19,6 +19,7 @@
 
 " 查寻高亮在首个匹配上
 nnoremap <silent> * :keepjumps normal! mi*`i<CR>
+
 " 在普通和可视模式上重复上次替换
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
@@ -281,5 +282,7 @@ else
     noremap <silent><leader>2 :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W> 
                 \ --include='*.h' --include='*.c*' --include='*.py' 
                 \ --include='*.js' --include='*.vim'
+                \ --exclude='*.min.js' --exclude='*.min.css'
+                \ --exclude-dir='node_modules' --exclude-dir='doc'
                 \ '<root>' <cr>
 endif
