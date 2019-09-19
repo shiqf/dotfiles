@@ -41,7 +41,8 @@ flags = [
 '-x',
 'c',
 '-isystem',
-'/usr/include', # 类 unix 系统，大多头文件都在这里
+# unix like system，file head is here almost
+'/usr/include',
 '-isystem',
 '/usr/local/include',
 '-isystem',
