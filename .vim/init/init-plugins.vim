@@ -238,7 +238,7 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     " 配对括号和引号自动补全
     Plug 'jiangmiao/auto-pairs'
-    let g:AutoPairsFlyMode            = 1
+    let g:AutoPairsFlyMode            = 0
     let g:AutoPairsShortcutBackInsert = '<M-z>'
     let g:AutoPairsShortcutToggle     = '<M-a>'
     let g:AutoPairsMapCh              = 0
