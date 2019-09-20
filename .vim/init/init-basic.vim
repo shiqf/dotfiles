@@ -46,14 +46,14 @@ set ruler
 " 搜索设置
 "----------------------------------------------------------------------
 
-" 搜索时忽略大小写
-" set ignorecase
+" 搜索时关闭忽略大小写
+set noignorecase
 
 " 智能搜索大小写判断，默认忽略大小写，除非搜索内容包含大写字母
 set smartcase
 
-" 高亮搜索内容
-set hlsearch
+" 关闭高亮搜索内容
+set nohlsearch
 
 " 查找输入时动态增量显示查找结果
 set incsearch
@@ -112,6 +112,12 @@ set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m
 " 设置分隔符可视
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
 
+" 允许下方显示目录
+set wildmenu
+
+" longest 最长匹配，list 匹配列表，full 匹配队列
+" set wildmode=longest,list,full
+set wildmode=full
 
 " 设置 tags：当前文件所在目录往上向根目录搜索直到碰到 .tags 文件
 " 或者 Vim 当前目录包含 .tags 文件
@@ -144,16 +150,6 @@ if has('folding')
     set foldlevel=99
 endif
 
-"----------------------------------------------------------------------
-" 文件搜索和补全时忽略下面扩展名
-"----------------------------------------------------------------------
-
-" 允许下方显示目录
-set wildmenu
-
-" longest 最长匹配，list 匹配列表，full 匹配队列
-" set wildmode=longest,list,full
-set wildmode=full
 
 "----------------------------------------------------------------------
 " 文件搜索和补全时忽略下面扩展名

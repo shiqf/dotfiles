@@ -14,6 +14,7 @@ if has('clipboard')
 endif
 
 packadd! termdebug
+packadd! matchit
 
 " 设置鼠标功能
 if has('mouse')
@@ -142,10 +143,10 @@ if !exists(":DiffOrig")
 endif
 
 
-
 "----------------------------------------------------------------------
 " 文件类型微调
 "----------------------------------------------------------------------
+
 augroup InitFileTypesGroup
 
     " 清除同组的历史 autocommand

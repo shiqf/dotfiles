@@ -9,7 +9,6 @@
 "   - 编译运行
 "   - 符号搜索
 "
-"
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
 
@@ -121,6 +120,7 @@ noremap <silent> <c-w>to :tabonly<cr>
 noremap <silent> <c-w>tt :tab terminal<cr>
 noremap <silent> <c-w>th :call Tab_MoveLeft()<cr>
 noremap <silent> <c-w>tl :call Tab_MoveRight()<cr>
+
 
 "----------------------------------------------------------------------
 " 窗口切换：ALT+SHIFT+hjkl
@@ -260,7 +260,6 @@ function! ExecuteFile()
         exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=0 '. cmd
     endif
 endfunc
-
 
 
 "----------------------------------------------------------------------
