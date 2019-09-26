@@ -205,6 +205,7 @@ export TERM=xterm-256color
 
 # aliases 命令别名自定义 ---------------------------------------------------------
 
+alias -g zplug="LC_MESSAGES=en_US.UTF-8 zplug"
 alias cls='clear'
 alias grep="grep --color=auto"
 alias javac="javac -J-Dfile.encoding=utf8"
