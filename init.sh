@@ -11,15 +11,15 @@ if [[ `uname -s` =~ ^MSYS_NT || `uname -s` =~ ^MINGW64_NT ]]; then
     #                         windows 环境软件安装                        #
     #######################################################################
     echo 'windows soft downloads'
-elif [[ `uname -s` == 'Darwin' ]]; then
+elif [[ `uname -s` =~ Darwin ]]; then
     #######################################################################
     #                             Mac 环境软件安装                        #
     #######################################################################
-    if [[ ! -e ~/.zplug ]]; then
+    if [[ `which zsh` =~ zsh$ && ! -e ~/.zplug ]]; then
         git clone https://github.com/zplug/zplug ~/.zplug
     fi
 
-    if [[ `which brew` != /usr/local/bin/brew ]]; then
+    if [[ `which brew` =~ brew$ ]]; then
         #  home brew 软件管理软件
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         brew doctor # 检测程序是否正常权限是否足够
@@ -32,11 +32,11 @@ elif [[ `uname -s` == 'Darwin' ]]; then
     fi
 
     # 切换系统默认 bash 为最新安装 zsh
-    if [[ ${SHELL##*/} != 'zsh' ]]; then
+    if [[ ! $SHELL =~ zsh$ ]]; then
         sudo chsh -s `which zsh`
     fi
 else
-    if [[ ! -e ~/.zplug ]]; then
+    if [[ `which zsh` =~ zsh$ && ! -e ~/.zplug ]]; then
         git clone https://github.com/zplug/zplug ~/.zplug
     fi
     #######################################################################
@@ -99,7 +99,7 @@ if [[ `uname -s` =~ ^MSYS_NT || `uname -s` =~ ^MINGW64_NT ]]; then
         curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     fi
-elif [[ `uname -s` == 'Darwin' ]]; then
+elif [[ `uname -s` =~ Darwin ]]; then
     if [[ ! -e ~/.vim/autoload/plug.vim ]]; then
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -108,7 +108,7 @@ elif [[ `uname -s` == 'Darwin' ]]; then
     if [[ ! -e ~/.tmux/plugins/tpm ]]; then
         git clone https://github.com/tmux-plugins/tpm  ~/.tmux/plugins/tpm
     fi
-elif [[ `uname -s` == 'Linux' ]]; then
+elif [[ `uname -s` =~ Linux ]]; then
     if [[ ! -e ~/.vim/autoload/plug.vim ]]; then
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
