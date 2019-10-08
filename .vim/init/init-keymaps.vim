@@ -20,6 +20,8 @@
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
 
+nnoremap Q gq
+
 " ALT+h/l 快速左右按单词移动
 " ALT+j/k 逻辑跳转下一行/上一行（按 wrap 逻辑换行进行跳转）
 noremap <m-h> b
