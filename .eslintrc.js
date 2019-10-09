@@ -1,14 +1,15 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: [
-    'typescript',
+    '@typescript-eslint',
+    // 'typescript',
   ],
   env: {
     browser: true,
     node: true,
     es6: true,
   },
-  // extends: 'eslint-config-egg',
+  // extends: 'eslint-config-alloy',
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -22,10 +23,10 @@ module.exports = {
   },
   rules: {
     semi: 'error',
-    eqeqeq: ['error', 'always', { null: 'ignore', }],
+    eqeqeq: [ 2, 'always', { null: 'ignore' } ],
     'no-undef': 'error',
     'no-unused-vars': 1,
     'typescript/no-unused-vars': 1,
-    'typescript/class-name-casing': 'error',
+    'typescript/class-name-casing': 2,
   },
 };
