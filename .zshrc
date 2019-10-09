@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+PATH=/usr/local/sbin:$PATH
+
 source ~/.zplug/init.zsh
 # Make sure to use double quotes
 zplug "zsh-users/zsh-autosuggestions"     # 智能提示输入 ctrl-f 确认补全, alt-f 补全单词
