@@ -773,6 +773,11 @@ if index(g:bundle_group, 'tool') >= 0
     Plug 'mattn/emmet-vim'
     let g:emmet_html5 = 1
 
+    Plug 'ianva/vim-youdao-translater'
+    vnoremap <silent> <C-k> :<C-u>Ydv<CR>
+    nnoremap <silent> <C-k> :<C-u>Ydc<CR>
+    noremap <leader>yd :<C-u>Yde<CR>
+
     " 帮助emmet显示snippets提示
     Plug 'jceb/emmet.snippets'
     Plug 'sillybun/vim-repl'
