@@ -45,6 +45,7 @@ flags = [
 '/usr/include',
 '-isystem',
 '/usr/local/include',
+# echo | clang -v -E -x c++ -
 # '-isystem',
 # '/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1',
 '-isystem',
