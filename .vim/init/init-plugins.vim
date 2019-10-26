@@ -36,7 +36,7 @@ endfunc
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 "----------------------------------------------------------------------
-" 默认插件 
+" 默认插件
 "----------------------------------------------------------------------
 
 " vim中文说明文档 ./vimcdoc.sh -i安装
@@ -161,7 +161,7 @@ if index(g:bundle_group, 'basic') >= 0
     " vim常用设置项 yon 显示数字，yoh 显示高亮，yol 显示不可见字符...
     " [<space> 向上增加空行 ]<space> 向下增加空行 ]e [e 交换上下行
     " 解码或编码特殊文件字符 xml|html ]x [x   url ]u [u  c风格字符串输出格式 ]y [y
-    " 普通模式 [<>=][Pp] 缩进粘贴 插入粘贴模式 y[oO] <ctrl-v> -- 不自动增加缩进 
+    " 普通模式 [<>=][Pp] 缩进粘贴 插入粘贴模式 y[oO] <ctrl-v> -- 不自动增加缩进
     Plug 'tpope/vim-unimpaired'
 
     " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
@@ -287,7 +287,7 @@ if index(g:bundle_group, 'tags') >= 0
     let g:gutentags_project_root = [ '.root', '.svn', '.git', '.hg', '.project' ]
 
     " 去除生成标签的文件夹
-    let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', '.tmux', 'bundles', 'node_modules', '*.svg', '*.md' ]
+    let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', '.tmux', 'bundles', '*.svg', '*.md' ]
 
     if executable('rg')
         let g:gutentags_file_list_command = 'rg --files'
@@ -300,7 +300,7 @@ if index(g:bundle_group, 'tags') >= 0
     let g:gutentags_cache_dir = expand('~/.cache/tags')
 
     " 默认禁用自动生成
-    let g:gutentags_modules = [] 
+    let g:gutentags_modules = []
     " 如果有 ctags 可执行就允许动态生成 ctags 文件
     if executable('ctags')
         let g:gutentags_modules += ['ctags']
@@ -388,7 +388,7 @@ if index(g:bundle_group, 'filetypes') >= 0
     " rust 语法增强
     " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
-    " vim org-mode 
+    " vim org-mode
     " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 endif
 
@@ -687,9 +687,9 @@ if index(g:bundle_group, 'ycm') >= 0
         "----------------------------------------------------------------------
         " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
         "----------------------------------------------------------------------
-        let g:ycm_filetype_whitelist = { 
+        let g:ycm_filetype_whitelist = {
                     \ "c":1,
-                    \ "cpp":1, 
+                    \ "cpp":1,
                     \ "objc":1,
                     \ "objcpp":1,
                     \ "python":1,
@@ -697,7 +697,7 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ "javascript":1,
                     \ "typescript":1,
                     \ "coffee":1,
-                    \ "vim":1, 
+                    \ "vim":1,
                     \ "go":1,
                     \ "cs":1,
                     \ "lua":1,
