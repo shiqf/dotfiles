@@ -62,7 +62,7 @@ Plug 'sgur/vim-textobj-parameter'
 "----------------------------------------------------------------------
 if has('python3')
     " 如果 vim 支持 python 则启用  Leaderf
-    Plug 'Yggdroot/LeaderF'
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
     " CTRL+p 打开文件模糊匹配
     let g:Lf_ShortcutF = '<c-p>'
