@@ -60,8 +60,8 @@ Plug 'sgur/vim-textobj-parameter'
 "----------------------------------------------------------------------
 " LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
 "----------------------------------------------------------------------
-" 如果 vim 支持 python 则启用  Leaderf
-if has('python') || has('python3')
+if has('python3')
+    " 如果 vim 支持 python 则启用  Leaderf
     Plug 'Yggdroot/LeaderF'
 
     " CTRL+p 打开文件模糊匹配
@@ -126,21 +126,13 @@ if has('python') || has('python3')
                 \ "Function": [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
                 \ }
 
-endif
-
-" 显示 quickfix 列表和 location 列表
-Plug 'Valloric/ListToggle'
-let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_map = '<leader>q'
-let g:lt_height = 10
-
-if has('python3')
+    " 显示 quickfix 列表和 location 列表
+    Plug 'Valloric/ListToggle'
+    let g:lt_location_list_toggle_map = '<leader>l'
+    let g:lt_quickfix_list_toggle_map = '<leader>q'
+    let g:lt_height = 10
     Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --ts-completer' }
-elseif has('python')
-    Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clang-completer --ts-completer' }
-endif
 
-if has('python3') || has('python')
     " 触发快捷键设置
     let g:ycm_key_list_select_completion   = ['<C-n>']
     let g:ycm_key_list_previous_completion = ['<C-p>']
