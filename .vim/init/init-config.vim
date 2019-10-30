@@ -91,6 +91,11 @@ call s:key_escape('<S-F12>', '[24;2~')
 " Refer: http://sunaku.github.io/vim-256color-bce.html
 "----------------------------------------------------------------------
 if &term =~ '256color' && $TMUX != ''
+    " 普通模式是方块，插入模式是竖线
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+
     " disable Background Color Erase (BCE) so that color schemes
     " render properly when inside 256-color tmux and GNU screen.
     " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
