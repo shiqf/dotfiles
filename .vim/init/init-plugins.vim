@@ -238,10 +238,10 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'junegunn/fzf'
 
     " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-    Plug 'asins/vim-dict'
+    " Plug 'asins/vim-dict'
 
     " 使用 :FlyGrep 命令进行实时 grep
-    Plug 'wsdjeg/FlyGrep.vim'
+    " Plug 'wsdjeg/FlyGrep.vim'
 
     " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
     Plug 'dyng/ctrlsf.vim'
@@ -252,7 +252,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:AutoPairsShortcutBackInsert = '<M-z>'
     let g:AutoPairsShortcutToggle     = '<M-a>'
     let g:AutoPairsMapCh              = 0
-    let g:AutoPairsMoveCharacter      = '<Nop>'
+    let g:AutoPairsMoveCharacter      = ''
     let g:AutoPairsShortcutJump       = ''
 
     " 提供 gist 接口
@@ -449,7 +449,7 @@ endif
 " ale：动态语法检查
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'ale') >= 0
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
 
     " 设定延迟和提示信息
     let g:ale_completion_delay = 500
@@ -761,12 +761,12 @@ if index(g:bundle_group, 'tool') >= 0
     " snippets 片段扩展
     " 通过 VimL 语言的支持 " 需要通过 Python 的支持
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-    let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
-    let g:UltiSnipsSnippetsDir         = ["mysnips"] " '~/.vim/bundles/ultisnips/mysnips'
-    let g:UltiSnipsExpandTrigger       = "<tab>"
-    let g:UltiSnipsListSnippets        = '<c-tab>'
-    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+    let g:UltiSnipsSnippetDirectories  = [ 'mysnippets' ]
+    let g:UltiSnipsExpandTrigger       = '<tab>'
+    let g:UltiSnipsJumpForwardTrigger  = '<tab>'
+    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+    let g:UltiSnipsListSnippets        = '<m-s>'
+    let g:UltiSnipsEditSplit           = 'vertical'
 
     " emmet高速编写网页类代码 {{{
     Plug 'mattn/emmet-vim'

@@ -230,12 +230,12 @@ endif
 " snippets 片段扩展
 " 通过 VimL 语言的支持 " 需要通过 Python 的支持
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-let g:UltiSnipsSnippetDirectories  = ["UltiSnips"]
-let g:UltiSnipsSnippetsDir         = ["mysnips"] " '~/.vim/bundles/ultisnips/mysnips'
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsListSnippets        = '<c-tab>'
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetDirectories  = [ 'mysnippets' ]
+let g:UltiSnipsExpandTrigger       = '<tab>'
+let g:UltiSnipsJumpForwardTrigger  = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsListSnippets        = '<m-s>'
+let g:UltiSnipsEditSplit           = 'vertical'
 
 "----------------------------------------------------------------------
 " 结束插件安装
