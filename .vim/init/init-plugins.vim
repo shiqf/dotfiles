@@ -220,8 +220,10 @@ if index(g:bundle_group, 'basic') >= 0
     noremap <m-d> :PreviewScroll +1<cr>
     inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
     inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+    augroup QuickFixPreview
+        autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+        autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+    augroup end
 
 endif
 
@@ -478,6 +480,7 @@ if index(g:bundle_group, 'ale') >= 0
                 \ 'lua': ['luac'],
                 \ 'python': ['flake8', 'pylint'],
                 \ 'typescript': ['tslint'],
+                \ 'vim': ['vint'],
                 \ }
 
 
@@ -591,12 +594,12 @@ if index(g:bundle_group, 'leaderf') >= 0
 
         " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
         let g:Lf_NormalMap = {
-                    \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-                    \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-                    \ "Mru": [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-                    \ "Tag": [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
-                    \ "BufTag": [["<ESC>", ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
-                    \ "Function": [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
+                    \ 'File':   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+                    \ 'Buffer': [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
+                    \ 'Mru': [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
+                    \ 'Tag': [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
+                    \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
+                    \ 'Function': [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
                     \ }
 
     else
@@ -686,59 +689,59 @@ if index(g:bundle_group, 'ycm') >= 0
         " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
         "----------------------------------------------------------------------
         let g:ycm_filetype_whitelist = {
-                    \ "c":1,
-                    \ "cpp":1,
-                    \ "objc":1,
-                    \ "objcpp":1,
-                    \ "python":1,
-                    \ "java":1,
-                    \ "javascript":1,
-                    \ "typescript":1,
-                    \ "coffee":1,
-                    \ "vim":1,
-                    \ "go":1,
-                    \ "cs":1,
-                    \ "lua":1,
-                    \ "perl":1,
-                    \ "perl6":1,
-                    \ "php":1,
-                    \ "ruby":1,
-                    \ "rust":1,
-                    \ "erlang":1,
-                    \ "asm":1,
-                    \ "nasm":1,
-                    \ "masm":1,
-                    \ "tasm":1,
-                    \ "asm68k":1,
-                    \ "asmh8300":1,
-                    \ "asciidoc":1,
-                    \ "basic":1,
-                    \ "vb":1,
-                    \ "make":1,
-                    \ "cmake":1,
-                    \ "html":1,
-                    \ "css":1,
-                    \ "less":1,
-                    \ "json":1,
-                    \ "cson":1,
-                    \ "typedscript":1,
-                    \ "haskell":1,
-                    \ "lhaskell":1,
-                    \ "lisp":1,
-                    \ "scheme":1,
-                    \ "sdl":1,
-                    \ "sh":1,
-                    \ "zsh":1,
-                    \ "bash":1,
-                    \ "man":1,
-                    \ "markdown":1,
-                    \ "matlab":1,
-                    \ "maxima":1,
-                    \ "dosini":1,
-                    \ "conf":1,
-                    \ "config":1,
-                    \ "zimbu":1,
-                    \ "ps1":1,
+                    \ 'c':1,
+                    \ 'cpp':1,
+                    \ 'objc':1,
+                    \ 'objcpp':1,
+                    \ 'python':1,
+                    \ 'java':1,
+                    \ 'javascript':1,
+                    \ 'typescript':1,
+                    \ 'coffee':1,
+                    \ 'vim':1,
+                    \ 'go':1,
+                    \ 'cs':1,
+                    \ 'lua':1,
+                    \ 'perl':1,
+                    \ 'perl6':1,
+                    \ 'php':1,
+                    \ 'ruby':1,
+                    \ 'rust':1,
+                    \ 'erlang':1,
+                    \ 'asm':1,
+                    \ 'nasm':1,
+                    \ 'masm':1,
+                    \ 'tasm':1,
+                    \ 'asm68k':1,
+                    \ 'asmh8300':1,
+                    \ 'asciidoc':1,
+                    \ 'basic':1,
+                    \ 'vb':1,
+                    \ 'make':1,
+                    \ 'cmake':1,
+                    \ 'html':1,
+                    \ 'css':1,
+                    \ 'less':1,
+                    \ 'json':1,
+                    \ 'cson':1,
+                    \ 'typedscript':1,
+                    \ 'haskell':1,
+                    \ 'lhaskell':1,
+                    \ 'lisp':1,
+                    \ 'scheme':1,
+                    \ 'sdl':1,
+                    \ 'sh':1,
+                    \ 'zsh':1,
+                    \ 'bash':1,
+                    \ 'man':1,
+                    \ 'markdown':1,
+                    \ 'matlab':1,
+                    \ 'maxima':1,
+                    \ 'dosini':1,
+                    \ 'conf':1,
+                    \ 'config':1,
+                    \ 'zimbu':1,
+                    \ 'ps1':1,
                     \ }
     endif
 endif
@@ -791,7 +794,7 @@ if index(g:bundle_group, 'tool') >= 0
                 \   'bash': 'exit',
                 \   'zsh': 'exit',
                 \   'node': '.exit',
-                \   "ts-node": '.exit',
+                \   'ts-node': '.exit',
                 \   'jshell': '/exit',
                 \   'default': 'exit',
                 \   }
@@ -804,9 +807,6 @@ if index(g:bundle_group, 'tool') >= 0
     let g:repl_python_automerge = 1
     let g:repl_ipython_version = '7'
     nnoremap <leader>r :REPLToggle<Cr>
-    " autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
-    " autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
-    " autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
     let g:repl_position = 3
     let g:repl_stayatrepl_when_open = 0
 endif
@@ -815,3 +815,5 @@ endif
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
+
+scriptencoding utf-8

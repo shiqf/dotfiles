@@ -15,10 +15,10 @@
 set nocompatible
 
 " 禁用声音
-set vb t_vb=
+set visualbell t_vb=
 
 " 设置 Backspace 键模式
-set bs=eol,start,indent
+set backspace=eol,start,indent
 
 " 自动缩进
 set autoindent
@@ -130,7 +130,7 @@ set formatoptions+=m
 set formatoptions+=B
 
 " fileformats 文件换行符，默认使用 unix 换行符
-set ffs=unix,dos,mac
+set fileformats=unix,dos,mac
 
 " 使文件在修改后（不保存），能够使用命令在缓存文件之间跳转
 set hidden
@@ -144,7 +144,7 @@ if has('folding')
     set foldenable
 
     " 代码折叠默认使用缩进
-    set fdm=indent
+    set foldmethod=indent
 
     " 默认打开所有缩进
     set foldlevel=99
@@ -175,3 +175,5 @@ set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/* " 版本控制文件
 set wildignore+=*.sln,*.Master,*.csproj,*.csproj.user,*.cache
 " set wildignore+=tags " 标签文件
+
+scriptencoding utf-8

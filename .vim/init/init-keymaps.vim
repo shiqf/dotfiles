@@ -220,33 +220,33 @@ endif
 "----------------------------------------------------------------------
 function! ExecuteFile()
     let cmd = ''
-    if index(['c', 'cpp', 'rs', 'go'], &ft) >= 0
+    if index(['c', 'cpp', 'rs', 'go'], &filetype) >= 0
         " native 语言，把当前文件名去掉扩展名后作为可执行运行
         " 写全路径名是因为后面 -cwd=? 会改变运行时的当前路径，所以写全路径
         " 加双引号是为了避免路径中包含空格
         let cmd = '"$(VIM_FILEDIR)/$(VIM_FILENOEXT)"'
-    elseif &ft == 'python'
+    elseif &filetype ==# 'python'
         let $PYTHONUNBUFFERED=1 " 关闭 python 缓存，实时看到输出
         let cmd = 'python "$(VIM_FILEPATH)"'
-    elseif &ft == 'javascript'
+    elseif &filetype ==# 'javascript'
         let cmd = 'node "$(VIM_FILEPATH)"'
-    elseif &ft == 'typescript'
+    elseif &filetype ==# 'typescript'
         let cmd = 'ts-node "$(VIM_FILEPATH)"'
-    elseif &ft == 'perl'
+    elseif &filetype ==# 'perl'
         let cmd = 'perl "$(VIM_FILEPATH)"'
-    elseif &ft == 'ruby'
+    elseif &filetype ==# 'ruby'
         let cmd = 'ruby "$(VIM_FILEPATH)"'
-    elseif &ft == 'php'
+    elseif &filetype ==# 'php'
         let cmd = 'php "$(VIM_FILEPATH)"'
-    elseif &ft == 'lua'
+    elseif &filetype ==# 'lua'
         let cmd = 'lua "$(VIM_FILEPATH)"'
-    elseif &ft == 'zsh'
+    elseif &filetype ==# 'zsh'
         let cmd = 'zsh "$(VIM_FILEPATH)"'
-    elseif &ft == 'ps1'
+    elseif &filetype ==# 'ps1'
         let cmd = 'powershell -file "$(VIM_FILEPATH)"'
-    elseif &ft == 'vbs'
+    elseif &filetype ==# 'vbs'
         let cmd = 'cscript -nologo "$(VIM_FILEPATH)"'
-    elseif &ft == 'sh'
+    elseif &filetype ==# 'sh'
         let cmd = 'bash "$(VIM_FILEPATH)"'
     else
         return
@@ -287,3 +287,5 @@ else
                 \ --exclude-dir='node_modules' --exclude-dir='doc'
                 \ '<root>' <cr>
 endif
+
+scriptencoding utf-8

@@ -23,7 +23,7 @@ command! -nargs=1 LoadScript exec 'so '.s:home.'/'.'<args>'
 exec 'set rtp+='.s:home
 
 " 将 ~/.vim 目录加入 runtimepath (有时候 vim 不会自动帮你加入）
-set rtp+=~/.vim
+set runtimepath+=~/.vim
 
 
 "----------------------------------------------------------------------
@@ -51,3 +51,4 @@ LoadScript init/init-keymaps.vim
 " 自定义主题
 LoadScript init/init-colors.vim
 
+scriptencoding utf-8

@@ -11,17 +11,16 @@
 "----------------------------------------------------------------------
 
 " 设置缩进宽度
-set sw=4
+set shiftwidth=4
 
 " 设置 TAB 宽度
-set ts=4
-
-" 禁止展开 tab (noexpandtab)
-set et
+set tabstop=4
 
 " 如果后面设置了 expandtab 那么展开 tab 为多少字符
 set softtabstop=4
 
+" 禁止展开 tab (noexpandtab)
+set expandtab
 
 augroup FileTypeTab
     au!
@@ -46,3 +45,5 @@ augroup FileTypeTab
     au FileType vim         setlocal ts=4 sw=4 sts=4
     au FileType zsh         setlocal ts=4 sw=4 sts=4
 augroup END
+
+scriptencoding utf-8

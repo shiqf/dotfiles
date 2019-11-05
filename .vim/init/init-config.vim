@@ -24,7 +24,7 @@ endif
 "----------------------------------------------------------------------
 " 有 tmux 没有的功能键超时（毫秒）
 "----------------------------------------------------------------------
-if $TMUX != ''
+if $TMUX !=# ''
     set ttimeoutlen=30
 elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
     set ttimeoutlen=80
@@ -37,7 +37,7 @@ endif
 "----------------------------------------------------------------------
 if has('nvim') == 0 && has('gui_running') == 0
     function! s:metacode(key)
-        exec "set <M-".a:key.">=\e".a:key
+        exec 'set <M-'.a:key.">=\e".a:key
     endfunc
     for i in range(10)
         call s:metacode(nr2char(char2nr('0') + i))
@@ -60,7 +60,7 @@ endif
 "----------------------------------------------------------------------
 function! s:key_escape(name, code)
     if has('nvim') == 0 && has('gui_running') == 0
-        exec "set ".a:name."=\e".a:code
+        exec 'set '.a:name."=\e".a:code
     endif
 endfunc
 
@@ -90,7 +90,7 @@ call s:key_escape('<S-F12>', '[24;2~')
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
 "----------------------------------------------------------------------
-if &term =~ '256color' && $TMUX != ''
+if &term =~# '256color' && $TMUX !=# ''
     " 普通模式是方块，插入模式是竖线
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
     let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
@@ -135,14 +135,8 @@ elseif (!has('gui_running')) && has('terminal') && has('patch-8.0.1200')
     set t_SH=
 endif
 
-" 打开文件时恢复上一次光标所在位置
-autocmd BufReadPost *
-            \ if line("'\"") > 1 && line("'\"") <= line("$") |
-            \	 exe "normal! g`\"" |
-            \ endif
-
 " 定义一个 DiffOrig 命令用于查看文件改动
-if !exists(":DiffOrig")
+if !exists(':DiffOrig')
     command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                 \ | wincmd p | diffthis
 endif
@@ -183,6 +177,12 @@ augroup InitFileTypesGroup
     au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
     au BufNewFile,BufRead *.vl  setlocal filetype=verilog
 
+    " 打开文件时恢复上一次光标所在位置
+    autocmd BufReadPost *
+                \ if line("'\"") > 1 && line("'\"") <= line("$") |
+                \	 exe "normal! g`\"" |
+                \ endif
+
 augroup END
 
 " 跳转到对应语言项目中
@@ -194,3 +194,5 @@ augroup FileJump
     autocmd BufLeave *.js   normal! mJ
     autocmd BufLeave *.ts   normal! mT
 augroup END
+
+scriptencoding utf-8
