@@ -43,7 +43,14 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 
 " 全文快速移动, <leader>f{char} 即可触发
-Plug 'easymotion/vim-easymotion', { 'on': ['<plug>(easymotion-f)', '<plug>(easymotion-F)', '<plug>(easymotion-j)', '<plug>(easymotion-k)'] }
+Plug 'easymotion/vim-easymotion', {
+            \ 'on': [
+            \    '<plug>(easymotion-f)',
+            \    '<plug>(easymotion-F)',
+            \    '<plug>(easymotion-j)',
+            \    '<plug>(easymotion-k)'
+            \   ]
+            \ }
 map <leader>f <plug>(easymotion-f)
 map <leader>F <plug>(easymotion-F)
 map <leader>j <plug>(easymotion-j)
