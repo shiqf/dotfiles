@@ -524,6 +524,7 @@ endif
 if index(g:bundle_group, 'echodoc') >= 0
     Plug 'Shougo/echodoc.vim'
     set noshowmode
+    set cmdheight=2
     let g:echodoc#enable_at_startup = 1
 endif
 
