@@ -237,6 +237,37 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsListSnippets        = '<m-s>'
 let g:UltiSnipsEditSplit           = 'vertical'
 
+Plug 'sillybun/vim-repl'
+let g:repl_program = {
+            \   'python': 'python3',
+            \   'javascript': 'node',
+            \   'typescript': 'ts-node',
+            \   'r': 'R',
+            \   'lua': 'lua',
+            \   'default': 'zsh',
+            \   }
+
+let g:repl_exit_commands = {
+            \   'python': 'quit()',
+            \   'bash': 'exit',
+            \   'zsh': 'exit',
+            \   'node': '.exit',
+            \   'ts-node': '.exit',
+            \   'jshell': '/exit',
+            \   'default': 'exit',
+            \   }
+
+let g:repl_predefine_python = {
+            \   'numpy': 'import numpy as np',
+            \   'matplotlib': 'from matplotlib import pyplot as plt'
+            \   }
+let g:repl_cursor_down = 1
+let g:repl_python_automerge = 1
+let g:repl_ipython_version = '7'
+nnoremap <leader>r :REPLToggle<Cr>
+let g:repl_position = 3
+let g:repl_stayatrepl_when_open = 0
+
 "----------------------------------------------------------------------
 " 结束插件安装
 "----------------------------------------------------------------------
