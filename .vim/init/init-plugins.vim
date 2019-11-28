@@ -332,8 +332,8 @@ if index(g:bundle_group, 'tags') >= 0
     " 禁止 gutentags 自动链接 gtags 数据库
     let g:gutentags_auto_add_gtags_cscope = 0
 
-    " let g:gutentags_trace = 1
-    " let g:gutentags_define_advanced_commands = 1
+    let g:gutentags_trace = 1
+    let g:gutentags_define_advanced_commands = 1
 endif
 
 
@@ -609,6 +609,10 @@ if index(g:bundle_group, 'leaderf') >= 0
                     \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
                     \ 'Function': [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
                     \ }
+
+        let g:Lf_PreviewInPopup = 1 " 就可以启用这个功能，缺省未启用。
+        let g:Lf_PreviewHorizontalPosition = 'center' " 指定 popup window / floating window 的位置。
+        let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
 
     else
         " 不支持 python ，使用 CtrlP 代替
