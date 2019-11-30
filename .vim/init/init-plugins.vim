@@ -98,38 +98,6 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'skywind3000/asyncrun.vim'
 
 
-""----------------------------------------------------------------------
-"" Dirvish 设置：自动排序并隐藏文件，同时定位到相关文件
-"" 这个排序函数可以将目录排在前面，文件排在后面，并且按照字母顺序排序
-"" 比默认的纯按照字母排序更友好点。
-""----------------------------------------------------------------------
-"function! s:setup_dirvish()
-"    if &buftype != 'nofile' && &filetype != 'dirvish'
-"        return
-"    endif
-"    if has('nvim')
-"        return
-"    endif
-"    " 取得光标所在行的文本（当前选中的文件名）
-"    let text = getline('.')
-"    if ! get(g:, 'dirvish_hide_visible', 0)
-"        exec 'silent keeppatterns g@\v[\/]\.[^\/]+[\/]?$@d _'
-"    endif
-"    " 排序文件名
-"    exec 'sort ,^.*[\/],'
-"    let name = '^' . escape(text, '.*[]~\') . '[/*|@=|\\*]\=\%($\|\s\+\)'
-"    " 定位到之前光标处的文件
-"    call search(name, 'wc')
-"    noremap <silent><buffer> ~ :Dirvish ~<cr>
-"    noremap <buffer> % :e %
-"endfunc
-
-" augroup MyPluginSetup
-"     autocmd!
-"     autocmd FileType dirvish call s:setup_dirvish()
-" augroup END
-
-
 "----------------------------------------------------------------------
 " 基础插件
 "----------------------------------------------------------------------
@@ -242,9 +210,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     " 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
     Plug 'terryma/vim-expand-region'
-
-    " 快速文件搜索
-    Plug 'junegunn/fzf'
 
     " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
     " Plug 'asins/vim-dict'
@@ -431,23 +396,6 @@ if index(g:bundle_group, 'nerdtree') >= 0
     let g:NERDTreeDirArrows = 1
     let g:NERDTreeHijackNetrw = 0
     noremap <space>nt :NERDTreeToggle<cr>
-endif
-
-
-"----------------------------------------------------------------------
-" LanguageTool 语法检查
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'grammer') >= 0
-    Plug 'rhysd/vim-grammarous'
-    noremap <space>rg :GrammarousCheck --lang=en-US --no-move-to-first-error --no-preview<cr>
-    map <space>rr <Plug>(grammarous-open-info-window)
-    map <space>rv <Plug>(grammarous-move-to-info-window)
-    map <space>rs <Plug>(grammarous-reset)
-    map <space>rx <Plug>(grammarous-close-info-window)
-    map <space>rm <Plug>(grammarous-remove-error)
-    map <space>rd <Plug>(grammarous-disable-rule)
-    map <space>rn <Plug>(grammarous-move-to-next-error)
-    map <space>rp <Plug>(grammarous-move-to-previous-error)
 endif
 
 
