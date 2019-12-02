@@ -100,6 +100,12 @@ if &term =~# '256color' && $TMUX !=# ''
     " render properly when inside 256-color tmux and GNU screen.
     " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
     set t_ut=
+elseif &term =~# '256color' && $TMUX ==# ''
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+    set t_ut=
 endif
 
 
