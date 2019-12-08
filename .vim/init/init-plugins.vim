@@ -434,7 +434,7 @@ if index(g:bundle_group, 'ale') >= 0
                 \ 'javascript': ['eslint'],
                 \ 'lua': ['luac'],
                 \ 'python': ['flake8', 'pylint'],
-                \ 'typescript': ['tslint'],
+                \ 'typescript': ['eslint', 'tslint'],
                 \ 'vim': ['vint'],
                 \ }
 
