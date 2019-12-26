@@ -84,7 +84,7 @@ cnoremap <m-l> <c-right>
 " ALT+y 删除到行末
 noremap <m-y> d$
 inoremap <m-y> <c-\><c-o>d$
-cnoremap <m-y> <c-\><c-o>d$
+" cnoremap <m-y> <c-\><c-o>d$
 
 
 "----------------------------------------------------------------------
