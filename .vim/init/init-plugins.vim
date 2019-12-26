@@ -45,12 +45,14 @@ Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 " 全文快速移动, <leader>f{char} 即可触发
 Plug 'easymotion/vim-easymotion', {
             \ 'on': [
+            \    '<plug>(easymotion-overwin-f)',
             \    '<plug>(easymotion-f)',
             \    '<plug>(easymotion-F)',
             \    '<plug>(easymotion-j)',
             \    '<plug>(easymotion-k)'
             \   ]
             \ }
+map <leader>s <plug>(easymotion-overwin-f)
 map <leader>f <plug>(easymotion-f)
 map <leader>F <plug>(easymotion-F)
 map <leader>j <plug>(easymotion-j)
