@@ -2,7 +2,7 @@
 "
 "  init.vim - intialize config
 "
-"  Created by shiqf on 2019-06-29 23:00              
+"  Created by shiqf on 2019-06-29 23:00
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
