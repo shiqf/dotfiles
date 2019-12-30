@@ -158,6 +158,16 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
     tnoremap ]G <c-_>:tablast<cr>
     tnoremap [G <c-_>:tabfirst<cr>
 
+    if has('win32') || has('win64')
+        tnoremap <c-u> <esc>
+        tnoremap <c-d> exit<cr>
+        tnoremap <c-l> cls<cr>
+        tnoremap <c-p> <up>
+        tnoremap <c-n> <down>
+        tnoremap <c-a> <home>
+        tnoremap <c-e> <end>
+    endif
+
 elseif has('nvim')
     " neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
     tnoremap <m-H> <c-\><c-n><c-w>h
