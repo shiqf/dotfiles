@@ -22,68 +22,90 @@ if has('mouse')
 endif
 
 "----------------------------------------------------------------------
-" 有 tmux 没有的功能键超时（毫秒）
-"----------------------------------------------------------------------
-if $TMUX !=# ''
-    set ttimeoutlen=30
-elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-    set ttimeoutlen=80
-endif
-
-
-"----------------------------------------------------------------------
 " 终端下允许 ALT，详见：http://www.skywind.me/blog/archives/2021
 " 记得设置 ttimeout （见 init-basic.vim） 和 ttimeoutlen （上面）
 "----------------------------------------------------------------------
-if has('nvim') == 0 && has('gui_running') == 0
-    function! s:metacode(key)
-        exec 'set <M-'.a:key.">=\e".a:key
+function! Terminal_MetaMode(mode)
+    set ttimeout
+    if $TMUX !=# ''
+        set ttimeoutlen=30
+    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+        set ttimeoutlen=80
+    endif
+    if has('nvim') || has('gui_running')
+        return
+    endif
+    function! s:metacode(mode, key)
+        if a:mode == 0
+            exec 'set <M-'.a:key.">=\e".a:key
+        else
+            exec 'set <M-'.a:key.">=\e]{0}".a:key.'~'
+        endif
     endfunc
     for i in range(10)
-        call s:metacode(nr2char(char2nr('0') + i))
+        call s:metacode(a:mode, nr2char(char2nr('0') + i))
     endfor
     for i in range(26)
-        call s:metacode(nr2char(char2nr('a') + i))
-        call s:metacode(nr2char(char2nr('A') + i))
+        call s:metacode(a:mode, nr2char(char2nr('a') + i))
+        call s:metacode(a:mode, nr2char(char2nr('A') + i))
     endfor
-    for c in [',', '.', '/', ';', '{', '}']
-        call s:metacode(c)
-    endfor
-    for c in ['?', ':', '-', '_', '+', '=', "'"]
-        call s:metacode(c)
-    endfor
-endif
-
-
-"----------------------------------------------------------------------
-" 终端下功能键设置
-"----------------------------------------------------------------------
-function! s:key_escape(name, code)
-    if has('nvim') == 0 && has('gui_running') == 0
-        exec 'set '.a:name."=\e".a:code
+    if a:mode != 0
+        for c in [',', '.', '/', ';', '[', ']', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_', '+', '=']
+            call s:metacode(a:mode, c)
+        endfor
+    else
+        for c in [',', '.', '/', ';', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_', '+', '=', "'"]
+            call s:metacode(a:mode, c)
+        endfor
     endif
 endfunc
 
 
-"----------------------------------------------------------------------
-" 功能键终端码矫正
-"----------------------------------------------------------------------
-call s:key_escape('<F1>', 'OP')
-call s:key_escape('<F2>', 'OQ')
-call s:key_escape('<F3>', 'OR')
-call s:key_escape('<F4>', 'OS')
-call s:key_escape('<S-F1>', '[1;2P')
-call s:key_escape('<S-F2>', '[1;2Q')
-call s:key_escape('<S-F3>', '[1;2R')
-call s:key_escape('<S-F4>', '[1;2S')
-call s:key_escape('<S-F5>', '[15;2~')
-call s:key_escape('<S-F6>', '[17;2~')
-call s:key_escape('<S-F7>', '[18;2~')
-call s:key_escape('<S-F8>', '[19;2~')
-call s:key_escape('<S-F9>', '[20;2~')
-call s:key_escape('<S-F10>', '[21;2~')
-call s:key_escape('<S-F11>', '[23;2~')
-call s:key_escape('<S-F12>', '[24;2~')
+function! Terminal_KeyEscape(name, code)
+    if has('nvim') || has('gui_running')
+        return
+    endif
+    exec 'set '.a:name."=\e".a:code
+endfunc
+
+
+command! -nargs=0 -bang VimMetaInit call Terminal_MetaMode(<bang>0)
+command! -nargs=+ VimKeyEscape call Terminal_KeyEscape(<f-args>)
+
+
+function! Terminal_FnInit(mode)
+    if has('nvim') || has('gui_running')
+        return
+    endif
+    if a:mode == 1
+        VimKeyEscape <F1> OP
+        VimKeyEscape <F2> OQ
+        VimKeyEscape <F3> OR
+        VimKeyEscape <F4> OS
+        VimKeyEscape <S-F1> [1;2P
+        VimKeyEscape <S-F2> [1;2Q
+        VimKeyEscape <S-F3> [1;2R
+        VimKeyEscape <S-F4> [1;2S
+        VimKeyEscape <S-F5> [15;2~
+        VimKeyEscape <S-F6> [17;2~
+        VimKeyEscape <S-F7> [18;2~
+        VimKeyEscape <S-F8> [19;2~
+        VimKeyEscape <S-F9> [20;2~
+        VimKeyEscape <S-F10> [21;2~
+        VimKeyEscape <S-F11> [23;2~
+        VimKeyEscape <S-F12> [24;2~
+    endif
+endfunc
+
+
+call Terminal_MetaMode(0)
+call Terminal_FnInit(1)
 
 
 "----------------------------------------------------------------------

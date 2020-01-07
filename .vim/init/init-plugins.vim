@@ -257,6 +257,7 @@ if index(g:bundle_group, 'tags') >= 0
     " 第一个 GTAGSLABEL 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用
     " gtags 本地分析器，而其他语言使用 pygments 模块。
     let $GTAGSLABEL = 'native-pygments'
+    " let $GTAGSLABEL = 'native'
     let $GTAGSCONF = expand('~/.gtags.conf')
 
     " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
@@ -634,7 +635,8 @@ if index(g:bundle_group, 'ycm') >= 0
         let g:ycm_collect_identifiers_from_comments_and_strings = 1
         let g:ycm_complete_in_strings=1
         let g:ycm_key_invoke_completion = '<c-z>'
-        set completeopt=menu,menuone,noselect
+        " set completeopt=menu,menuone,noselect
+        set completeopt=menu,menuone,popup
 
         nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
