@@ -359,6 +359,9 @@ if index(g:bundle_group, 'filetypes') >= 0
     " python 语法文件增强
     Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
+    " typescript 语法文件增强
+    Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
+
     " rust 语法增强
     " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 

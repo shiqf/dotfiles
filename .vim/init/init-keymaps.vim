@@ -151,6 +151,7 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
 
     " 终端模式切换普通终端模式
     tnoremap <m-q> <c-\><c-n>
+    tnoremap <m-p> <c-_>"0
 
     " tab 切换
     tnoremap ]g <c-_>:tabnext<cr>
