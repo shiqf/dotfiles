@@ -39,7 +39,7 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 " 默认插件
 "----------------------------------------------------------------------
 
-" vim中文说明文档 ./vimcdoc.sh -i安装
+" vim 中文说明文档 ./vimcdoc.sh -i安装
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 
 " 全文快速移动, <leader>f{char} 即可触发
@@ -59,9 +59,6 @@ map <leader>j <plug>(easymotion-j)
 map <leader>k <plug>(easymotion-k)
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
-
-" 文件浏览器，代替 netrw
-" Plug 'justinmk/vim-dirvish'
 
 " 对齐
 Plug 'junegunn/vim-easy-align'
@@ -112,7 +109,7 @@ if index(g:bundle_group, 'basic') >= 0
     Plug 'flazz/vim-colorschemes'
 
     " 支持库，给其他插件用的函数库
-    Plug 'xolox/vim-misc'
+    " Plug 'xolox/vim-misc'
 
     " 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
     " Plug 'kshenoy/vim-signature'
@@ -145,7 +142,7 @@ if index(g:bundle_group, 'basic') >= 0
     Plug 'tpope/vim-surround'
 
     " 交换两个或更多的单词
-    Plug 'tpope/vim-abolish'
+    " Plug 'tpope/vim-abolish'
 
     " Git 支持
     Plug 'tpope/vim-fugitive'
@@ -164,7 +161,7 @@ if index(g:bundle_group, 'basic') >= 0
     nnoremap <silent> <leader>* :keepjumps normal! mi*`i<CR>
 
     " 筛选符合条件的 argslist 文件并保存到 args 中去, 使用 argdo 处理匹配文件
-    Plug 'nelstrom/vim-qargs'
+    " Plug 'nelstrom/vim-qargs'
 
     " 使用 <space>ha 清除 errormarker 标注的错误
     noremap <silent><space>ha :RemoveErrorMarkers<cr>
@@ -176,7 +173,11 @@ if index(g:bundle_group, 'basic') >= 0
     let g:startify_session_delete_buffers = 1
     let g:startify_session_autoload       = 0
     let g:startify_change_to_dir          = 1
-    let g:startify_bookmarks              = [ {'c': '~/.vimrc'}, '~/.zshrc', {'do': '~/plant.md'} ]
+    let g:startify_bookmarks              = [
+                \ {'c': '~/.vimrc'},
+                \ '~/.zshrc',
+                \ {'do': '~/plant.md'}
+                \ ]
     noremap <leader>p :Startify<cr>
 
     " signify 调优
@@ -209,15 +210,8 @@ endif
 " 增强插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'enhanced') >= 0
-
-    " 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
-    Plug 'terryma/vim-expand-region'
-
     " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
     " Plug 'asins/vim-dict'
-
-    " 使用 :FlyGrep 命令进行实时 grep
-    " Plug 'wsdjeg/FlyGrep.vim'
 
     " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
     Plug 'dyng/ctrlsf.vim'
@@ -234,9 +228,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     " 提供 gist 接口
     Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 
-    " ALT_+/- 用于按分隔符扩大缩小 v 选区
-    map <m-=> <Plug>(expand_region_expand)
-    map <m--> <Plug>(expand_region_shrink)
 endif
 
 
@@ -257,7 +248,6 @@ if index(g:bundle_group, 'tags') >= 0
     " 第一个 GTAGSLABEL 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用
     " gtags 本地分析器，而其他语言使用 pygments 模块。
     let $GTAGSLABEL = 'native-pygments'
-    " let $GTAGSLABEL = 'native'
     let $GTAGSCONF = expand('~/.gtags.conf')
 
     " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
@@ -332,10 +322,10 @@ if index(g:bundle_group, 'textobj') >= 0
     Plug 'sgur/vim-textobj-parameter'
 
     " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
-    Plug 'bps/vim-textobj-python', {'for': 'python'}
+    " Plug 'bps/vim-textobj-python', {'for': 'python'}
 
     " 提供 uri/url 的文本对象，iu/au 表示
-    Plug 'jceb/vim-textobj-uri'
+    " Plug 'jceb/vim-textobj-uri'
 endif
 
 
@@ -351,7 +341,7 @@ if index(g:bundle_group, 'filetypes') >= 0
     " Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
     " C++ 语法高亮增强，支持 11/14/17 标准
-    Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+    " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
     " 额外语法文件
     Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
@@ -364,9 +354,6 @@ if index(g:bundle_group, 'filetypes') >= 0
 
     " rust 语法增强
     " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-
-    " vim org-mode
-    " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 endif
 
 
@@ -495,7 +482,7 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'leaderf') >= 0
     " 如果 vim 支持 python 则启用  Leaderf
-    if has('python') || has('python3')
+    if has('python3')
         if has('win32') || has('win64')
             Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
         else
@@ -567,39 +554,6 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_PreviewInPopup = 1 " 就可以启用这个功能，缺省未启用。
         let g:Lf_PreviewHorizontalPosition = 'center' " 指定 popup window / floating window 的位置。
         let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
-
-    else
-        " 不支持 python ，使用 CtrlP 代替
-        Plug 'ctrlpvim/ctrlp.vim'
-
-        " 显示函数列表的扩展插件
-        Plug 'tacahiroy/ctrlp-funky'
-
-        " 忽略默认键位
-        let g:ctrlp_map = ''
-
-        " 模糊匹配忽略
-        let g:ctrlp_custom_ignore = {
-                    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-                    \ 'file': '\v\.(exe|so|dll|mp3|wav|sdf|suo|mht)$',
-                    \ 'link': 'some_bad_symbolic_links',
-                    \ }
-
-        " 项目标志
-        let g:ctrlp_root_markers = ['.project', '.root', '.svn', '.git']
-        let g:ctrlp_working_path = 0
-
-        " CTRL+p 打开文件模糊匹配
-        noremap <c-p> :CtrlP<cr>
-
-        " CTRL+n 打开最近访问过的文件的匹配
-        noremap <c-n> :CtrlPMRUFiles<cr>
-
-        " ALT+p 显示当前文件的函数列表
-        noremap <m-p> :CtrlPFunky<cr>
-
-        " ALT+n 匹配 buffer
-        noremap <m-n> :CtrlPBuffer<cr>
     endif
 endif
 
@@ -611,12 +565,14 @@ if index(g:bundle_group, 'ycm') >= 0
     let g:lt_height = 10
 
     if has('python3')
-        Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --ts-completer' }
-    elseif has('python')
-        Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clang-completer --ts-completer' }
+        Plug 'ycm-core/YouCompleteMe', {
+                    \ 'do': 'python3 install.py
+                    \ --clang-completer
+                    \ --ts-completer'
+                    \ }
     endif
 
-    if has('python3') || has('python')
+    if has('python3')
         " 触发快捷键设置
         let g:ycm_key_list_select_completion   = ['<C-n>']
         let g:ycm_key_list_previous_completion = ['<C-p>']
@@ -656,59 +612,59 @@ if index(g:bundle_group, 'ycm') >= 0
         " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
         "----------------------------------------------------------------------
         let g:ycm_filetype_whitelist = {
+                    \ 'asciidoc':1,
+                    \ 'asm':1,
+                    \ 'asm68k':1,
+                    \ 'asmh8300':1,
+                    \ 'bash':1,
+                    \ 'basic':1,
                     \ 'c':1,
+                    \ 'cmake':1,
+                    \ 'coffee':1,
+                    \ 'conf':1,
+                    \ 'config':1,
                     \ 'cpp':1,
-                    \ 'objc':1,
-                    \ 'objcpp':1,
-                    \ 'python':1,
+                    \ 'cs':1,
+                    \ 'cson':1,
+                    \ 'css':1,
+                    \ 'dosini':1,
+                    \ 'erlang':1,
+                    \ 'go':1,
+                    \ 'haskell':1,
+                    \ 'html':1,
                     \ 'java':1,
                     \ 'javascript':1,
-                    \ 'typescript':1,
-                    \ 'coffee':1,
-                    \ 'vim':1,
-                    \ 'go':1,
-                    \ 'cs':1,
+                    \ 'json':1,
+                    \ 'less':1,
+                    \ 'lhaskell':1,
+                    \ 'lisp':1,
                     \ 'lua':1,
+                    \ 'make':1,
+                    \ 'man':1,
+                    \ 'markdown':1,
+                    \ 'masm':1,
+                    \ 'matlab':1,
+                    \ 'maxima':1,
+                    \ 'nasm':1,
+                    \ 'objc':1,
+                    \ 'objcpp':1,
                     \ 'perl':1,
                     \ 'perl6':1,
                     \ 'php':1,
+                    \ 'ps1':1,
+                    \ 'python':1,
                     \ 'ruby':1,
                     \ 'rust':1,
-                    \ 'erlang':1,
-                    \ 'asm':1,
-                    \ 'nasm':1,
-                    \ 'masm':1,
-                    \ 'tasm':1,
-                    \ 'asm68k':1,
-                    \ 'asmh8300':1,
-                    \ 'asciidoc':1,
-                    \ 'basic':1,
-                    \ 'vb':1,
-                    \ 'make':1,
-                    \ 'cmake':1,
-                    \ 'html':1,
-                    \ 'css':1,
-                    \ 'less':1,
-                    \ 'json':1,
-                    \ 'cson':1,
-                    \ 'typedscript':1,
-                    \ 'haskell':1,
-                    \ 'lhaskell':1,
-                    \ 'lisp':1,
                     \ 'scheme':1,
                     \ 'sdl':1,
                     \ 'sh':1,
-                    \ 'zsh':1,
-                    \ 'bash':1,
-                    \ 'man':1,
-                    \ 'markdown':1,
-                    \ 'matlab':1,
-                    \ 'maxima':1,
-                    \ 'dosini':1,
-                    \ 'conf':1,
-                    \ 'config':1,
+                    \ 'tasm':1,
+                    \ 'typedscript':1,
+                    \ 'typescript':1,
+                    \ 'vb':1,
+                    \ 'vim':1,
                     \ 'zimbu':1,
-                    \ 'ps1':1,
+                    \ 'zsh':1,
                     \ }
     endif
 endif
@@ -716,7 +672,6 @@ endif
 if index(g:bundle_group, 'tool') >= 0
     " tmux 中使用vim 复制
     Plug 'roxma/vim-tmux-clipboard'
-    " Plug 'tmux-plugins/vim-tmux-focus-events'
 
     " 预览命令行命令效果
     Plug 'markonm/traces.vim'
@@ -739,8 +694,8 @@ if index(g:bundle_group, 'tool') >= 0
     let g:UltiSnipsEditSplit           = 'vertical'
 
     " emmet高速编写网页类代码 {{{
-    Plug 'mattn/emmet-vim'
-    let g:emmet_html5 = 1
+    " Plug 'mattn/emmet-vim'
+    " let g:emmet_html5 = 1
 
     Plug 'ianva/vim-youdao-translater'
     vnoremap <silent> <C-k> :<C-u>Ydv<CR>
