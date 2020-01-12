@@ -11,6 +11,8 @@ let mapleader="\<Space>"
 " Vim自动把默认剪贴板和系统剪贴板的内容同步
 if has('clipboard')
     set clipboard^=unnamed,unnamedplus
+elseif has('unix') && executable('xclip') && executable('xsel')
+    vnoremap <m-y> :w !xclip -i -sel c<cr><cr>
 endif
 
 packadd! termdebug
