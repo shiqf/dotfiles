@@ -12,8 +12,8 @@ let mapleader="\<Space>"
 if has('clipboard')
     set clipboard^=unnamed,unnamedplus
 elseif has('unix') && executable('xclip') && executable('xsel')
-    vnoremap <silent><m-y> y
-                \:call system('echo ' . getreg('@0') . ' \| xclip -sel c')<cr>
+    vnoremap <silent><m-y> y:call
+                \ system('echo ' . getreg('@0') . ' \| xclip -sel c')<cr>
 endif
 
 packadd! termdebug
