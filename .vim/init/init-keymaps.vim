@@ -197,7 +197,7 @@ nnoremap <silent> <leader>7 :AsyncRun -cwd=<root> make <cr>
 nnoremap <silent> <leader>6 :AsyncRun -cwd=<root> -raw make test <cr>
 
 " F5 运行文件
-nnoremap <sile
+nnoremap <silent> <leader>5 :call ExecuteFile()<cr>
 
 " 更新 cmake
 nnoremap <silent> <leader>4 :AsyncRun -cwd=<root> cmake . <cr>
