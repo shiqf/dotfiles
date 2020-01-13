@@ -163,7 +163,7 @@ elseif has('nvim')
     tnoremap <m-J> <c-\><c-n><c-w>j
     tnoremap <m-K> <c-\><c-n><c-w>k
     tnoremap <m-q> <c-\><c-n>
-    tnoremap <m-p> <c-_>"0pa
+    tnoremap <m-p> <c-\><c-n>"0pa
 endif
 
 
@@ -197,7 +197,7 @@ nnoremap <silent> <leader>7 :AsyncRun -cwd=<root> make <cr>
 nnoremap <silent> <leader>6 :AsyncRun -cwd=<root> -raw make test <cr>
 
 " F5 运行文件
-nnoremap <silent> <leader>5 :call ExecuteFile()<cr>
+nnoremap <sile
 
 " 更新 cmake
 nnoremap <silent> <leader>4 :AsyncRun -cwd=<root> cmake . <cr>
