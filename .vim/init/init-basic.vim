@@ -175,5 +175,3 @@ set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/* " 版本控制文件
 set wildignore+=*.sln,*.Master,*.csproj,*.csproj.user,*.cache
 " set wildignore+=tags " 标签文件
-
-scriptencoding utf-8

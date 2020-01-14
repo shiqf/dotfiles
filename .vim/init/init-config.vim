@@ -31,9 +31,9 @@ endif
 function! Terminal_MetaMode(mode)
     set ttimeout
     if $TMUX !=# ''
-        set ttimeoutlen=30
+        set ttimeoutlen=35
     elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-        set ttimeoutlen=80
+        set ttimeoutlen=85
     endif
     if has('nvim') || has('gui_running')
         return
@@ -225,5 +225,3 @@ augroup FileJump
     autocmd BufLeave *.js   normal! mJ
     autocmd BufLeave *.ts   normal! mT
 augroup END
-
-scriptencoding utf-8

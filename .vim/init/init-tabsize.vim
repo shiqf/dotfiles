@@ -45,5 +45,3 @@ augroup FileTypeTab
     au FileType vim         setlocal ts=4 sw=4 sts=4
     au FileType zsh         setlocal ts=4 sw=4 sts=4
 augroup END
-
-scriptencoding utf-8

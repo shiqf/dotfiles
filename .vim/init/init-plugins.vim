@@ -23,7 +23,6 @@ endif
 " 计算当前 vim-init 的子路径
 "----------------------------------------------------------------------
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-
 function! s:path(path)
     let path = expand(s:home . '/' . a:path )
     return substitute(path, '\\', '/', 'g')
@@ -256,7 +255,17 @@ if index(g:bundle_group, 'tags') >= 0
     let g:gutentags_project_root = [ '.root', '.svn', '.git', '.hg', '.project' ]
 
     " 去除生成标签的文件夹
-    let g:gutentags_ctags_exclude = [ '*.min.js', '*.min.css', 'build', 'vendor', '.git', '.tmux', 'bundles', '*.svg', '*.md' ]
+    let g:gutentags_ctags_exclude = [
+                \ '*.min.js',
+                \ '*.min.css',
+                \ 'build',
+                \ 'vendor',
+                \ '.git',
+                \ '.tmux',
+                \ 'bundles',
+                \ '*.svg',
+                \ '*.md',
+                \ ]
 
     if executable('rg')
         let g:gutentags_file_list_command = 'rg --files'
@@ -742,5 +751,3 @@ endif
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
-
-scriptencoding utf-8

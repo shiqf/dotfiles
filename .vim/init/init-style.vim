@@ -117,5 +117,3 @@ augroup VimInitStyle
     au!
     au FileType qf setlocal nonumber
 augroup END
-
-scriptencoding utf-8

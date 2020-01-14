@@ -271,13 +271,13 @@ endfunc
 if executable('rg')
     noremap <silent><leader>2 :AsyncRun! -cwd=<root> rg -n --no-heading
                 \ --color never
-                \ -g "*.h" -g "*.c*" -g "*.py"
-                \ -g "*.js" -g "*.ts" -g "*.vim"
+                \ -g '*.h' -g '*.c*' -g '*.py'
+                \ -g '*.js' -g '*.ts' -g '*.vim'
                 \ <C-R><C-W> "<root>" <cr>
 elseif has('win32') || has('win64')
-    noremap <silent><leader>2 :AsyncRun! -cwd=<root> findstr /n /s /C:"<C-R><C-W>"
-                \ "\%CD\%\*.h" "\%CD\%\*.c*" "\%CD\%\*.py"
-                \ "\%CD\%\*.js" "\%CD\%\*.ts" "\%CD\%\*.vim"
+    noremap <silent><leader>2 :AsyncRun! -cwd=<root> findstr /n /s /C:'<C-R><C-W>'
+                \ '\%CD\%\*.h' '\%CD\%\*.c*' '\%CD\%\*.py'
+                \ '\%CD\%\*.js' '\%CD\%\*.ts' '\%CD\%\*.vim'
                 \ <cr>
 else
     noremap <silent><leader>2 :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W>
@@ -287,5 +287,3 @@ else
                 \ --exclude-dir='node_modules' --exclude-dir='doc'
                 \ '<root>' <cr>
 endif
-
-scriptencoding utf-8

@@ -22,5 +22,3 @@ else
     set background=dark
     colorscheme gruvbox
 endif
-
-scriptencoding utf-8
