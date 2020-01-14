@@ -174,9 +174,9 @@ if index(g:bundle_group, 'basic') >= 0
     let g:startify_session_autoload       = 0
     let g:startify_change_to_dir          = 1
     let g:startify_bookmarks              = [
-                \ {'c': '~/.vimrc'},
-                \ '~/.zshrc',
-                \ {'do': '~/plant.md'}
+                \   {'c': '~/.vimrc'},
+                \   '~/.zshrc',
+                \   {'do': '~/plant.md'},
                 \ ]
     noremap <leader>p :Startify<cr>
 
@@ -193,7 +193,9 @@ if index(g:bundle_group, 'basic') >= 0
                 \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
                 \}
 
-    noremap <c-w>p :PreviewTag<cr>
+    noremap <m-;> :PreviewTag<cr>
+    noremap <m-e> :PreviewGoto edit<cr>
+    noremap <m-t> :PreviewGoto tabe<cr>
     noremap <m-u> :PreviewScroll -1<cr>
     noremap <m-d> :PreviewScroll +1<cr>
     inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>

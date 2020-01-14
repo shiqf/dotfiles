@@ -47,6 +47,9 @@ inoremap <m-k> <c-\><c-o>gk
 inoremap <m-h> <c-left>
 inoremap <m-l> <c-right>
 
+" ctrl+k 删除到行末
+inoremap <c-k> <c-\><c-o>d$
+
 " vim原组合键 使用 <c-_> 代替
 inoremap <c-_> <c-k>
 
@@ -68,10 +71,6 @@ cnoremap <m-l> <c-right>
 
 " 使用 ctrl-_ 打开命令、查询等历史窗口
 cnoremap <c-_> <c-f>
-
-" ctrl+k 删除到行末
-noremap <c-k> d$
-inoremap <c-k> <c-\><c-o>d$
 
 
 "----------------------------------------------------------------------
