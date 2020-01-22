@@ -118,7 +118,10 @@ if index(g:bundle_group, 'basic') >= 0
 
     " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
     " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
-    Plug 'mh21/errormarker.vim'
+    " Plug 'mh21/errormarker.vim'
+
+    " " 使用 <space>ha 清除 errormarker 标注的错误
+    " noremap <silent><space>ha :RemoveErrorMarkers<cr>
 
     " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
     Plug 'skywind3000/vim-preview'
@@ -162,9 +165,6 @@ if index(g:bundle_group, 'basic') >= 0
     " 筛选符合条件的 argslist 文件并保存到 args 中去, 使用 argdo 处理匹配文件
     " Plug 'nelstrom/vim-qargs'
 
-    " 使用 <space>ha 清除 errormarker 标注的错误
-    noremap <silent><space>ha :RemoveErrorMarkers<cr>
-
     " 默认不显示 startify
     let g:startify_disable_at_vimenter    = 1
     let g:startify_session_dir            = '~/.vim/session'
@@ -193,6 +193,7 @@ if index(g:bundle_group, 'basic') >= 0
                 \}
 
     noremap <m-;> :PreviewTag<cr>
+    noremap <m-'> :PreviewClose<cr>
     noremap <m-e> :PreviewGoto edit<cr>
     noremap <m-t> :PreviewGoto tabe<cr>
     noremap <m-u> :PreviewScroll -1<cr>
@@ -323,14 +324,14 @@ if index(g:bundle_group, 'textobj') >= 0
     " indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
     Plug 'kana/vim-textobj-indent'
 
-    " 语法文本对象：iy/ay 基于语法的文本对象
-    Plug 'kana/vim-textobj-syntax'
-
-    " 函数文本对象：if/af 支持 c/c++/vim/java
-    Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
-
     " 参数文本对象：i,/a, 包括参数或者列表元素
     Plug 'sgur/vim-textobj-parameter'
+
+    " " 语法文本对象：iy/ay 基于语法的文本对象
+    " Plug 'kana/vim-textobj-syntax'
+
+    " 函数文本对象：if/af 支持 c/c++/vim/java
+    " Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 
     " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
     " Plug 'bps/vim-textobj-python', {'for': 'python'}
@@ -477,15 +478,15 @@ if index(g:bundle_group, 'ale') >= 0
 endif
 
 
-"----------------------------------------------------------------------
-" echodoc：搭配 YCM/deoplete 在底部显示函数参数
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'echodoc') >= 0
-    Plug 'Shougo/echodoc.vim'
-    set noshowmode
-    set cmdheight=2
-    let g:echodoc#enable_at_startup = 1
-endif
+""----------------------------------------------------------------------
+"" echodoc：搭配 YCM/deoplete 在底部显示函数参数
+""----------------------------------------------------------------------
+"if index(g:bundle_group, 'echodoc') >= 0
+"    Plug 'Shougo/echodoc.vim'
+"    set noshowmode
+"    set cmdheight=2
+"    let g:echodoc#enable_at_startup = 1
+"endif
 
 
 "----------------------------------------------------------------------
@@ -609,6 +610,7 @@ if index(g:bundle_group, 'ycm') >= 0
         set completeopt=menu,menuone,popup
 
         nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+        nnoremap <leader>i :YcmCompleter OrganizeImports<CR>
 
         " noremap <c-z> <NOP>
 
@@ -670,7 +672,6 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ 'sdl':1,
                     \ 'sh':1,
                     \ 'tasm':1,
-                    \ 'typedscript':1,
                     \ 'typescript':1,
                     \ 'vb':1,
                     \ 'vim':1,

@@ -12,18 +12,24 @@
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
 
-"----------------------------------------------------------------------
-" NORMAL 模式
-"----------------------------------------------------------------------
 
 " 在普通和可视模式上重复上次替换
-nnoremap & :&&<CR>
-xnoremap & :&&<CR>
+nnoremap <silent> & :~&<CR>
+xnoremap <silent> & :~&<CR>
+xnoremap <silent> . :normal ;.<CR>
+xnoremap <silent> @ :normal @@<CR>
+
+cnoremap <c-p> <up>
+cnoremap <c-n> <down>
 
 nnoremap Q gq
 
 " ALT+h/l 快速左右按单词移动
 " ALT+j/k 逻辑跳转下一行/上一行（按 wrap 逻辑换行进行跳转）
+
+"----------------------------------------------------------------------
+" NORMAL 模式
+"----------------------------------------------------------------------
 noremap <m-h> b
 noremap <m-l> w
 noremap <m-j> gj
@@ -50,7 +56,7 @@ inoremap <m-l> <c-right>
 " ctrl+k 删除到行末
 inoremap <c-k> <c-\><c-o>d$
 
-" vim原组合键 使用 <c-_> 代替
+" 使用 <c-_> 代替 <c-k>
 inoremap <c-_> <c-k>
 
 
@@ -69,8 +75,14 @@ cnoremap <m-b> <c-left>
 cnoremap <m-h> <c-left>
 cnoremap <m-l> <c-right>
 
-" 使用 ctrl-_ 打开命令、查询等历史窗口
-cnoremap <c-_> <c-f>
+" ctrl+k 删除到行末
+cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
+
+" 使用 <c-_> 代替 <c-k>
+cnoremap <c-_> <c-k>
+
+" 使用 alt-q 打开命令、查询等历史窗口
+cnoremap <m-q> <c-f>
 
 
 "----------------------------------------------------------------------
