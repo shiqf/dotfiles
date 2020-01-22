@@ -219,7 +219,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'dyng/ctrlsf.vim'
 
     " 配对括号和引号自动补全
-    Plug 'jiangmiao/auto-pairs', { 'for': [ 'c', 'cpp', 'javascript', 'typescript', 'vim', 'java' ] }
+    Plug 'jiangmiao/auto-pairs', { 'for': [ 'c', 'cpp', 'javascript', 'typescript', 'vim', 'java', 'html' ] }
     let g:AutoPairsFlyMode            = 0
     let g:AutoPairsShortcutBackInsert = '<M-z>'
     let g:AutoPairsShortcutToggle     = '<M-a>'
@@ -706,8 +706,8 @@ if index(g:bundle_group, 'tool') >= 0
     let g:UltiSnipsEditSplit           = 'vertical'
 
     " emmet高速编写网页类代码 {{{
-    " Plug 'mattn/emmet-vim'
-    " let g:emmet_html5 = 1
+    Plug 'mattn/emmet-vim', { 'for': ['html'] }
+    let g:emmet_html5 = 1
 
     Plug 'ianva/vim-youdao-translater'
     vnoremap <silent> <C-k> :<C-u>Ydv<CR>
