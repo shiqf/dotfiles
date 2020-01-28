@@ -88,6 +88,10 @@ cnoremap <m-q> <c-f>
 " TAB：创建，关闭，上一个，下一个，首个，末个，左移，右移，
 "----------------------------------------------------------------------
 
+" 禁用 gt 和 gT, 需要反注释
+noremap gt <nop>
+noremap gT <nop>
+
 " 快速切换tab 使用标签 参考unimparied
 nnoremap ]g :tabnext<cr>
 nnoremap [g :tabprevious<cr>

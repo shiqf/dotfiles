@@ -620,6 +620,10 @@ if index(g:bundle_group, 'ycm') >= 0
         " 不显示load python 提示
         let g:ycm_confirm_extra_conf=0
 
+        " 最少字符开启补全功能
+        " let g:ycm_min_num_of_chars_for_completion = 1
+
+
         " 通过ycm语法检测显示错误符号和警告符号
         " let g:ycm_error_symbol   = '✗'
         " let g:ycm_warning_symbol = '⚠'
@@ -638,7 +642,27 @@ if index(g:bundle_group, 'ycm') >= 0
         " set completeopt=menu,menuone,noselect
         set completeopt=menu,menuone,popup
 
-        nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+        " nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+        nnoremap gd :YcmCompleter GoTo<CR>
+
+        " 重构后的结果会加入到 quickfix 中，方便后期查看
+        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
+                    \ nnoremap <leader>gr :YcmCompleter RefactorRename 
+
+        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
+                    \ nnoremap <leader>gR :YcmCompleter RestartServer<CR>
+
+        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
+                    \ noremap <leader>gF :YcmCompleter Format<CR>
+
+        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
+                    \ nnoremap <leader>gt :YcmCompleter GetType<CR>
+
+        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
+                    \ nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+
+        autocmd FileType java,javascript,typescript
+                    \ nnoremap <leader>gi :YcmCompleter OrganizeImports<CR>
 
         " noremap <c-z> <NOP>
 
