@@ -37,7 +37,7 @@ function! s:VSetSearch()
 endfunction
 
 " 配对括号和引号自动补全
-Plug 'jiangmiao/auto-pairs', { 'for': [ 'c', 'cpp', 'javascript', 'typescript', 'vim', 'java', 'html' ] }
+Plug 'jiangmiao/auto-pairs', { 'for': [ 'c', 'cpp', 'html', 'java', 'javascript', 'typescript', 'vim' ] }
 let g:AutoPairsFlyMode            = 0
 let g:AutoPairsShortcutBackInsert = '<M-z>'
 let g:AutoPairsShortcutToggle     = '<M-a>'
