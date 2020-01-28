@@ -500,20 +500,26 @@ if index(g:bundle_group, 'leaderf') >= 0
         " ALT+b 打开 buffer 模糊匹配
         let g:Lf_ShortcutB = '<m-b>'
 
-        " CTRL+n 打开最近使用的文件 MRU，进行模糊匹配
-        noremap <c-n> :LeaderfMru<cr>
+        " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
+        noremap <c-n> :LeaderfMruCwd<cr>
+
+        " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
+        noremap <m-n> :LeaderfMru<cr>
 
         " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
         noremap <m-f> :LeaderfFunction!<cr>
 
+        " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
+        noremap <m-F> :LeaderfFunctionAll!<cr>
+
         " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
         noremap <m-t> :LeaderfBufTag!<cr>
 
-        " " ALT+n 打开 buffer 列表进行模糊匹配
-        " noremap <m-n> :LeaderfBuffer<cr>
-
         " 全局 tags 模糊匹配
         noremap <m-T> :LeaderfTag<cr>
+
+        " Leaderf 自己的命令模糊匹配
+        noremap <m-s> :<c-u>LeaderfSelf<cr>
 
         " 最大历史文件保存 2048 个
         let g:Lf_MruMaxFiles = 2048
