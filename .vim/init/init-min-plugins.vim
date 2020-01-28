@@ -25,6 +25,9 @@ Plug 'tpope/vim-surround'
 " Git 支持
 Plug 'tpope/vim-fugitive'
 
+" 筛选符合条件的 argslist 文件并保存到 args 中去, 使用 argdo 处理匹配文件
+Plug 'nelstrom/vim-qargs'
+
 " 可视模式下用 * 号匹配字符串
 function! s:VSetSearch()
     let temp = @@
@@ -34,7 +37,7 @@ function! s:VSetSearch()
 endfunction
 
 " 配对括号和引号自动补全
-Plug 'jiangmiao/auto-pairs', { 'for': [ 'c', 'cpp', 'javascript', 'typescript', 'vim', 'java' ] }
+Plug 'jiangmiao/auto-pairs', { 'for': [ 'c', 'cpp', 'javascript', 'typescript', 'vim', 'java', 'html' ] }
 let g:AutoPairsFlyMode            = 0
 let g:AutoPairsShortcutBackInsert = '<M-z>'
 let g:AutoPairsShortcutToggle     = '<M-a>'
@@ -44,6 +47,8 @@ let g:AutoPairsShortcutJump       = ''
 
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
+" 查寻高亮在首个匹配上
+nnoremap <silent> <leader>* :keepjumps normal! mi*`i<CR>
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
 Plug 'kana/vim-textobj-user'
@@ -53,6 +58,9 @@ Plug 'kana/vim-textobj-entire'
 
 " 增加行文本对象: l   dal yal cil
 Plug 'kana/vim-textobj-line'
+
+" indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
+Plug 'kana/vim-textobj-indent'
 
 " 参数文本对象：i,/a, 包括参数或者列表元素
 Plug 'sgur/vim-textobj-parameter'
@@ -67,23 +75,29 @@ if has('python3')
     " CTRL+p 打开文件模糊匹配
     let g:Lf_ShortcutF = '<c-p>'
 
-    " ALT+n 打开 buffer 模糊匹配
-    let g:Lf_ShortcutB = '<m-n>'
+    " ALT+b 打开 buffer 模糊匹配
+    let g:Lf_ShortcutB = '<m-b>'
 
-    " CTRL+n 打开最近使用的文件 MRU，进行模糊匹配
-    noremap <c-n> :LeaderfMru<cr>
+    " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
+    noremap <c-n> :LeaderfMruCwd<cr>
 
-    " ALT+p 打开函数列表，按 i 进入模糊匹配，ESC 退出
-    noremap <m-p> :LeaderfFunction!<cr>
+    " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
+    noremap <m-n> :LeaderfMru<cr>
 
-    " ALT+SHIFT+p 打开 tag 列表，i 进入模糊匹配，ESC退出
-    noremap <m-P> :LeaderfBufTag!<cr>
+    " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
+    noremap <m-f> :LeaderfFunction!<cr>
 
-    " ALT+n 打开 buffer 列表进行模糊匹配
-    noremap <m-n> :LeaderfBuffer<cr>
+    " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
+    noremap <m-F> :LeaderfFunctionAll!<cr>
+
+    " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
+    noremap <m-t> :LeaderfBufTag!<cr>
 
     " 全局 tags 模糊匹配
-    noremap <m-m> :LeaderfTag<cr>
+    noremap <m-T> :LeaderfTag<cr>
+
+    " Leaderf 自己的命令模糊匹配
+    noremap <m-s> :<c-u>LeaderfSelf<cr>
 
     " 最大历史文件保存 2048 个
     let g:Lf_MruMaxFiles = 2048
@@ -114,28 +128,56 @@ if has('python3')
     let g:Lf_StlColorscheme = 'powerline'
 
     " 禁用 function/buftag 的预览功能，可以手动用 p 预览
-    let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+    let g:Lf_PreviewResult = { 'Function':0, 'BufTag':0 }
 
+    " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
+    " {
+    "     bufTag: 当前缓冲区标签,
+    "     buffer: 项目缓冲文件名,
+    "     cmdHistory: 命令行历史,
+    "     colorscheme: 色彩方案,
+    "     command: 可用命令,
+    "     file: 项目文件名,
+    "     filetype: 项目文件类型指定,
+    "     function: 当前缓冲区函数,
+    "     gtags: gnu global符号索引,
+    "     help: 帮助标签,
+    "     line: 搜索行在缓冲区中,
+    "     mru: 最近使用的文件,
+    "     rg: ripgrep 文本搜索,
+    "     searchHistory: 搜索命令行历史,
+    "     self: Leaderf自己的命令,
+    "     tag: 当前项目所有标签,
+    " }
     " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
     let g:Lf_NormalMap = {
-                \ 'File':   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-                \ 'Buffer': [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-                \ 'Mru': [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-                \ 'Tag': [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
                 \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
+                \ 'Buffer': [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
+                \ 'File':   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
                 \ 'Function': [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
+                \ 'Mru': [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
+                \ 'Rg': [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
+                \ 'Self': [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
+                \ 'Tag': [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
                 \ }
 
+    " 开启后不能在普通模式中使用搜索/
+    " let g:Lf_WindowPosition = 'popup'
     let g:Lf_PreviewInPopup = 1 " 就可以启用这个功能，缺省未启用。
     let g:Lf_PreviewHorizontalPosition = 'center' " 指定 popup window / floating window 的位置。
     let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
+
+    if executable('rg')
+        xnoremap <leader>gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+    endif
+    noremap <leader>cr :<C-U>Leaderf! --recall<CR>
 
     " 显示 quickfix 列表和 location 列表
     Plug 'Valloric/ListToggle'
     let g:lt_location_list_toggle_map = '<leader>l'
     let g:lt_quickfix_list_toggle_map = '<leader>q'
     let g:lt_height = 10
-    Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --ts-completer' }
+    Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer' }
 
     " 触发快捷键设置
     let g:ycm_key_list_select_completion   = ['<C-n>']
@@ -144,8 +186,8 @@ if has('python3')
     " 不显示load python 提示
     let g:ycm_confirm_extra_conf=0
     " 通过ycm语法检测显示错误符号和警告符号
-    let g:ycm_error_symbol   = '✗'
-    let g:ycm_warning_symbol = '⚠'
+    " let g:ycm_error_symbol   = '✗'
+    " let g:ycm_warning_symbol = '⚠'
     let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
     " 禁用预览功能：扰乱视听
@@ -380,5 +422,3 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 " - :cl to list errors
 " - :cc# to jump to error by number
 " - :cn and :cp to navigate forward and back
-
-scriptencoding utf-8
