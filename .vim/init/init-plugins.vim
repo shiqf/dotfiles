@@ -614,10 +614,10 @@ if index(g:bundle_group, 'ycm') >= 0
 
     if has('python3')
         " 触发快捷键设置
-        let g:ycm_key_list_select_completion   = ['<C-j>']
-        let g:ycm_key_list_previous_completion = ['<C-k>']
+        let g:ycm_key_list_select_completion   = ['<C-n>']
+        let g:ycm_key_list_previous_completion = ['<C-p>']
         let g:ycm_key_list_stop_completion = ['<C-y>']
-        let g:SuperTabDefaultCompletionType = '<C-n>'
+        " let g:SuperTabDefaultCompletionType = '<C-n>'
         let g:ycm_key_invoke_completion = '<C-z>'
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
@@ -766,9 +766,10 @@ if index(g:bundle_group, 'tool') >= 0
     endif
     Plug 'honza/vim-snippets'
     let g:UltiSnipsSnippetDirectories  = [ 'UltiSnips', 'mysnippets' ]
+    " ctrl+i
     let g:UltiSnipsExpandTrigger       = '<tab>'
-    let g:UltiSnipsJumpForwardTrigger  = '<tab>'
-    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+    let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
+    let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
     let g:UltiSnipsListSnippets        = '<m-s>'
     let g:UltiSnipsEditSplit           = 'vertical'
 
