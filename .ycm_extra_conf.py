@@ -96,7 +96,7 @@ get_python_inc(),
 '-isystem',
 '/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0/include',
 '-isystem',
-'/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include',
+'/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include'
 ]
 
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
@@ -130,12 +130,13 @@ def IsHeaderFile( filename ):
 
 
 def FindCorrespondingSourceFile( filename ):
-    if IsHeaderFile( filename ):
-        basename = os.path.splitext( filename )[ 0 ]
-    for extension in SOURCE_EXTENSIONS:
-        replacement_file = basename + extension
-      if os.path.exists( replacement_file ):
-          return replacement_file
+  basename = '';
+  if IsHeaderFile( filename ):
+    basename = os.path.splitext( filename )[ 0 ]
+  for extension in SOURCE_EXTENSIONS:
+    replacement_file = basename + extension
+    if os.path.exists( replacement_file ):
+      return replacement_file
   return filename
 
 
