@@ -742,7 +742,7 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ nnoremap gcd :YcmCompleter GetDoc<CR>
 
         autocmd FileType java,javascript,typescript
-                    \ nnoremap gci :YcmCompleter OrganizeImports<CR>
+                    \ nnoremap gcI :YcmCompleter OrganizeImports<CR>
 
     endif
 endif
