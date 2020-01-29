@@ -770,7 +770,7 @@ if index(g:bundle_group, 'tool') >= 0
     let g:UltiSnipsExpandTrigger       = '<tab>'
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-    let g:UltiSnipsListSnippets        = '<m-s>'
+    let g:UltiSnipsListSnippets        = '<c-l>'
     let g:UltiSnipsEditSplit           = 'vertical'
 
     " " emmet高速编写网页类代码 {{{
