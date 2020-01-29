@@ -614,64 +614,56 @@ if index(g:bundle_group, 'ycm') >= 0
 
     if has('python3')
         " 触发快捷键设置
-        let g:ycm_key_list_select_completion   = ['<C-n>']
-        let g:ycm_key_list_previous_completion = ['<C-p>']
-        let g:SuperTabDefaultCompletionType    = '<C-n>'
-        " 不显示load python 提示
-        let g:ycm_confirm_extra_conf=0
-
-        " 最少字符开启补全功能
-        " let g:ycm_min_num_of_chars_for_completion = 1
-
-
-        " 通过ycm语法检测显示错误符号和警告符号
-        " let g:ycm_error_symbol   = '✗'
-        " let g:ycm_warning_symbol = '⚠'
-        let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-
-        " 禁用预览功能：扰乱视听
-        let g:ycm_add_preview_to_completeopt = 0
-
-        " 禁用诊断功能：我们用前面更好用的 ALE 代替
-        let g:ycm_show_diagnostics_ui = 0
-        let g:ycm_server_log_level = 'info'
-        let g:ycm_min_num_identifier_candidate_chars = 2
-        let g:ycm_collect_identifiers_from_comments_and_strings = 1
-        let g:ycm_complete_in_strings=1
-        let g:ycm_key_invoke_completion = '<c-z>'
-        " set completeopt=menu,menuone,noselect
+        let g:ycm_key_list_select_completion   = ['<C-j>']
+        let g:ycm_key_list_previous_completion = ['<C-k>']
+        let g:ycm_key_list_stop_completion = ['<C-y>']
+        let g:SuperTabDefaultCompletionType = '<C-n>'
+        let g:ycm_key_invoke_completion = '<C-z>'
+        " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
+        let g:ycm_key_detailed_diagnostics = '<leader>d'
         set completeopt=menu,menuone,popup
-
-        " nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-        nnoremap gd :YcmCompleter GoTo<CR>
-
-        " 重构后的结果会加入到 quickfix 中，方便后期查看
-        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
-                    \ nnoremap <leader>gr :YcmCompleter RefactorRename 
-
-        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
-                    \ nnoremap <leader>gR :YcmCompleter RestartServer<CR>
-
-        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
-                    \ noremap <leader>gF :YcmCompleter Format<CR>
-
-        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
-                    \ nnoremap <leader>gt :YcmCompleter GetType<CR>
-
-        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
-                    \ nnoremap <leader>gd :YcmCompleter GetDoc<CR>
-
-        autocmd FileType java,javascript,typescript
-                    \ nnoremap <leader>gi :YcmCompleter OrganizeImports<CR>
 
         " noremap <c-z> <NOP>
 
+        let g:ycm_server_log_level = 'info'
+        " 禁用诊断功能：我们用前面更好用的 ALE 代替
+        let g:ycm_show_diagnostics_ui = 0
+        " 禁用预览功能：扰乱视听
+        let g:ycm_add_preview_to_completeopt = 0
+        let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+        " 不显示load python 提示
+        let g:ycm_confirm_extra_conf=0
+        " 通过ycm语法检测显示错误符号和警告符号
+        " let g:ycm_error_symbol   = '✗'
+        " let g:ycm_warning_symbol = '⚠'
+
+        " 输入最少字符开启字符补全功能 默认 2
+        " let g:ycm_min_num_of_chars_for_completion = 2
+        " 显示字符候选标识符最少的字符数 默认 0
+        let g:ycm_min_num_identifier_candidate_chars = 2
+        " 最大语义补全符数量 默认 50
+        " let g:ycm_max_num_candidates = 50
+        " 最大标识符数量 默认 10
+        let g:ycm_max_num_identifier_candidates = 5
+        " 设置为 0 时，不再触发语义补全
+        " let g:ycm_auto_trigger = 1
+        " c 语言中的 #include 会自动补全文件
+        let g:ycm_complete_in_strings=1
+        " 设置为 1 时，补全标识符信息会从注释中获取 默认为 0
+        let g:ycm_collect_identifiers_from_comments_and_strings = 1
+        " 当此选项设置为1时，YCM的标识符完成器还将从标记文件中收集标识符
+        let g:ycm_collect_identifiers_from_tags_files = 1
+
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers =  {
-                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-                    \ 'cs,lua,javascript,typescript': ['re!\w{2}'],
+                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{3}'],
+                    \ 'cs,lua,javascript,typescript': ['re!\w{3}'],
                     \ }
 
+        " 关闭相关文件类型的语义补全
+        let g:ycm_filetype_specific_completion_to_disable = {
+                    \ 'gitcommit': 1
+                    \}
 
         "----------------------------------------------------------------------
         " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
@@ -730,6 +722,28 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ 'zimbu':1,
                     \ 'zsh':1,
                     \ }
+
+        nnoremap gd :YcmCompleter GoTo<CR>
+
+        " 重构后的结果会加入到 quickfix 中，方便查看修改
+        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
+                    \ nnoremap gcr :YcmCompleter RefactorRename 
+
+        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
+                    \ nnoremap gcR :YcmCompleter RestartServer<CR>
+
+        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
+                    \ noremap gcF :YcmCompleter Format<CR>
+
+        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
+                    \ nnoremap gct :YcmCompleter GetType<CR>
+
+        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
+                    \ nnoremap gcd :YcmCompleter GetDoc<CR>
+
+        autocmd FileType java,javascript,typescript
+                    \ nnoremap gci :YcmCompleter OrganizeImports<CR>
+
     endif
 endif
 

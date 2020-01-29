@@ -180,8 +180,8 @@ if has('python3')
     Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer' }
 
     " 触发快捷键设置
-    let g:ycm_key_list_select_completion   = ['<C-n>']
-    let g:ycm_key_list_previous_completion = ['<C-p>']
+    let g:ycm_key_list_select_completion   = ['<C-j>']
+    let g:ycm_key_list_previous_completion = ['<C-k>']
     let g:SuperTabDefaultCompletionType    = '<C-n>'
     " 不显示load python 提示
     let g:ycm_confirm_extra_conf=0
@@ -202,7 +202,7 @@ if has('python3')
     let g:ycm_key_invoke_completion = '<c-z>'
     set completeopt=menu,menuone,noselect
 
-    nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    nnoremap gd :YcmCompleter GoTo<CR>
 
     " noremap <c-z> <NOP>
 
