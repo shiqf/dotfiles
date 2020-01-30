@@ -736,7 +736,7 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ noremap gcF :YcmCompleter Format<CR>
 
         autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
-                    \ nnoremap gct :YcmCompleter GetType<CR>
+                    \ nnoremap gcT :YcmCompleter GetType<CR>
 
         autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
                     \ nnoremap gcd :YcmCompleter GetDoc<CR>
@@ -766,7 +766,6 @@ if index(g:bundle_group, 'tool') >= 0
     endif
     Plug 'honza/vim-snippets'
     let g:UltiSnipsSnippetDirectories  = [ 'UltiSnips', 'mysnippets' ]
-    " ctrl+i
     let g:UltiSnipsExpandTrigger       = '<tab>'
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
