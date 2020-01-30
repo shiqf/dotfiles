@@ -148,6 +148,7 @@ if index(g:bundle_group, 'basic') >= 0
     augroup QuickFixPreview
         autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
         autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+        autocmd FileType qf noremap <silent><buffer> <esc> :<c-u>q<cr>
     augroup end
 
 endif
