@@ -1,6 +1,6 @@
 :!echo > uml.pu
 :r !ag -l startuml
-:norm ggVGJ
+:<c-u>normal ggVGJ
 :g/^$/ d
 :argadd 
 :argdo g/@startuml/ .,/@enduml/ norm gcc

@@ -12,9 +12,9 @@ runtime ftplugin/man.vim
 " 默认情况下的分组，可以再前面覆盖之
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
-    let g:bundle_group  = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
-    let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
-    let g:bundle_group += ['leaderf', 'ycm']
+    let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'filetypes']
+    let g:bundle_group += ['airline', 'nerdtree', 'ale']
+    let g:bundle_group += ['tags', 'leaderf', 'ycm', 'snippets']
     let g:bundle_group += ['tool']
 endif
 
@@ -40,61 +40,6 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 " vim 中文说明文档 ./vimcdoc.sh -i安装
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
-
-" 全文快速移动, <leader>f{char} 即可触发
-Plug 'easymotion/vim-easymotion', {
-            \ 'on': [
-            \    '<plug>(easymotion-overwin-f)',
-            \    '<plug>(easymotion-f)',
-            \    '<plug>(easymotion-F)',
-            \    '<plug>(easymotion-j)',
-            \    '<plug>(easymotion-k)'
-            \   ]
-            \ }
-map <leader>s <plug>(easymotion-overwin-f)
-map <leader>f <plug>(easymotion-f)
-map <leader>F <plug>(easymotion-F)
-map <leader>j <plug>(easymotion-j)
-map <leader>k <plug>(easymotion-k)
-" 忽略大小写
-let g:EasyMotion_smartcase = 1
-
-" " 对齐
-" Plug 'junegunn/vim-easy-align'
-" vmap <Enter> <Plug>(EasyAlign)
-" xmap ga <Plug>(EasyAlign)
-" let g:easy_align_delimiters = {
-"             \ '>': { 'pattern': '>>\|=>\|>' },
-"             \ '/': {
-"             \     'pattern':         '//\+\|/\*\|\*/',
-"             \     'delimiter_align': 'l',
-"             \     'ignore_groups':   ['!Comment'] },
-"             \ ']': {
-"             \     'pattern':       '[[\]]',
-"             \     'left_margin':   0,
-"             \     'right_margin':  0,
-"             \     'stick_to_left': 0
-"             \   },
-"             \ ')': {
-"             \     'pattern':       '[()]',
-"             \     'left_margin':   0,
-"             \     'right_margin':  0,
-"             \     'stick_to_left': 0
-"             \   },
-"             \ 'd': {
-"             \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-"             \     'left_margin':  0,
-"             \     'right_margin': 0
-"             \   }
-"             \ }
-
-
-" Diff 增强，支持 histogram / patience 等更科学的 diff 算法
-Plug 'chrisbra/vim-diff-enhanced'
-
-" 异步运行并把结果放入quickfix中
-Plug 'skywind3000/asyncrun.vim'
-
 
 "----------------------------------------------------------------------
 " 基础插件
@@ -212,6 +157,30 @@ endif
 " 增强插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'enhanced') >= 0
+    " 异步运行并把结果放入quickfix中
+    Plug 'skywind3000/asyncrun.vim'
+
+    " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
+    Plug 'chrisbra/vim-diff-enhanced'
+
+    " 全文快速移动, <leader>f{char} 即可触发
+    Plug 'easymotion/vim-easymotion', {
+                \ 'on': [
+                \    '<plug>(easymotion-overwin-f)',
+                \    '<plug>(easymotion-f)',
+                \    '<plug>(easymotion-F)',
+                \    '<plug>(easymotion-j)',
+                \    '<plug>(easymotion-k)'
+                \   ]
+                \ }
+    map <leader>s <plug>(easymotion-overwin-f)
+    map <leader>f <plug>(easymotion-f)
+    map <leader>F <plug>(easymotion-F)
+    map <leader>j <plug>(easymotion-j)
+    map <leader>k <plug>(easymotion-k)
+    " 忽略大小写
+    let g:EasyMotion_smartcase = 1
+
     " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
     " Plug 'asins/vim-dict'
 
@@ -730,35 +699,24 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ nnoremap gcr :YcmCompleter RefactorRename 
 
         autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
-                    \ nnoremap gcR :YcmCompleter RestartServer<CR>
+                    \ nnoremap gcs :YcmCompleter RestartServer<CR>
 
         autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
-                    \ noremap gcF :YcmCompleter Format<CR>
+                    \ noremap gcf :YcmCompleter Format<CR>
 
         autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
-                    \ nnoremap gcT :YcmCompleter GetType<CR>
+                    \ nnoremap gct :YcmCompleter GetType<CR>
 
         autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
                     \ nnoremap gcd :YcmCompleter GetDoc<CR>
 
         autocmd FileType java,javascript,typescript
-                    \ nnoremap gcI :YcmCompleter OrganizeImports<CR>
+                    \ nnoremap gco :YcmCompleter OrganizeImports<CR>
 
     endif
 endif
 
-
-if index(g:bundle_group, 'tool') >= 0
-    " tmux 中使用vim 复制
-    Plug 'roxma/vim-tmux-clipboard'
-
-    " 预览命令行命令效果
-    Plug 'markonm/traces.vim'
-
-    " 彩虹括号 利用区分括号配对
-    Plug 'luochen1990/rainbow'
-    let g:rainbow_active = 1
-
+if index(g:bundle_group, 'snippets') >= 0
     " snippets 片段扩展
     " 通过 VimL 语言的支持 " 需要通过 Python 的支持
     if has('python3')
@@ -771,6 +729,49 @@ if index(g:bundle_group, 'tool') >= 0
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
     let g:UltiSnipsListSnippets        = '<c-l>'
     let g:UltiSnipsEditSplit           = 'vertical'
+
+endif
+
+if index(g:bundle_group, 'tool') >= 0
+
+    " " 对齐
+    " Plug 'junegunn/vim-easy-align'
+    " vmap <Enter> <Plug>(EasyAlign)
+    " xmap ga <Plug>(EasyAlign)
+    " let g:easy_align_delimiters = {
+    "             \ '>': { 'pattern': '>>\|=>\|>' },
+    "             \ '/': {
+    "             \     'pattern':         '//\+\|/\*\|\*/',
+    "             \     'delimiter_align': 'l',
+    "             \     'ignore_groups':   ['!Comment'] },
+    "             \ ']': {
+    "             \     'pattern':       '[[\]]',
+    "             \     'left_margin':   0,
+    "             \     'right_margin':  0,
+    "             \     'stick_to_left': 0
+    "             \   },
+    "             \ ')': {
+    "             \     'pattern':       '[()]',
+    "             \     'left_margin':   0,
+    "             \     'right_margin':  0,
+    "             \     'stick_to_left': 0
+    "             \   },
+    "             \ 'd': {
+    "             \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+    "             \     'left_margin':  0,
+    "             \     'right_margin': 0
+    "             \   }
+    "             \ }
+
+    " tmux 中使用vim 复制
+    Plug 'roxma/vim-tmux-clipboard'
+
+    " 预览命令行命令效果
+    Plug 'markonm/traces.vim'
+
+    " 彩虹括号 利用区分括号配对
+    Plug 'luochen1990/rainbow'
+    let g:rainbow_active = 1
 
     " " emmet高速编写网页类代码 {{{
     " Plug 'mattn/emmet-vim', { 'for': ['html'] }
