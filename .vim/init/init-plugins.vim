@@ -403,6 +403,8 @@ if index(g:bundle_group, 'tags') >= 0
 
     " 去除生成标签的文件夹
     let g:gutentags_ctags_exclude = [
+                \ '*.json',
+                \ '*.lock',
                 \ '*.md',
                 \ '*.min.css',
                 \ '*.min.js',
@@ -440,6 +442,7 @@ if index(g:bundle_group, 'tags') >= 0
     let g:gutentags_ctags_extra_args  = ['--fields=+niazS', '--extras=+q']
     let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
     let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    " let g:gutentags_ctags_extra_args += ['--typescript-kinds=+fc']
 
     " 使用 universal-ctags 的话需要下面这行，请反注释
     let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
