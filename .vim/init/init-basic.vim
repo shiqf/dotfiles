@@ -156,8 +156,8 @@ endif
 "----------------------------------------------------------------------
 set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class " 临时文件
 
-set wildignore=*.bak,*.info,*.egg-info,*.tmp" 临时文件
-set wildignore+=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,cscope.* " 补全时忽略
+" set wildignore=*.bak,*.info,*.egg-info,*.tmp " 临时文件
+set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,cscope.* " 补全时忽略
 set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex,*.min.* " 编译文件
 set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz " MacOSX/Linux 压缩文件
 set wildignore+=*DS_Store*,*.ipch
