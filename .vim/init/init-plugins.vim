@@ -399,7 +399,7 @@ if index(g:bundle_group, 'tags') >= 0
     let $GTAGSCONF = expand('~/.gtags.conf')
 
     " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
-    let g:gutentags_project_root = [ '.root', '.svn', '.git', '.hg', '.project' ]
+    let g:gutentags_project_root = [ '.root', '.svn', '.git', '.hg', '.project', 'package.json' ]
 
     " 去除生成标签的文件夹
     let g:gutentags_ctags_exclude = [
