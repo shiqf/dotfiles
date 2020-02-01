@@ -403,22 +403,32 @@ if index(g:bundle_group, 'tags') >= 0
 
     " 去除生成标签的文件夹
     let g:gutentags_ctags_exclude = [
-                \ '*.json',
-                \ '*.lock',
                 \ '*.md',
-                \ '*.min.css',
-                \ '*.min.js',
-                \ '*.svg',
-                \ '.git',
                 \ '.tmux',
-                \ 'build',
+                \ 'bundle',
                 \ 'bundles',
                 \ 'vendor',
                 \ ]
 
-    if executable('rg')
-        let g:gutentags_file_list_command = 'rg --files'
-    endif
+    autocmd FileType * ++once if index(['typescript', 'javascript'], &filetype) >= 0 |
+                \ let g:gutentags_ctags_exclude += [
+                \   "\\@typescript-eslint",
+                \   '*.css',
+                \   '*.json',
+                \   '*.lock',
+                \   'bower_components',
+                \   'build',
+                \   'dist',
+                \   'doc',
+                \   'eslint',
+                \   'eslint-config-alloy',
+                \   'esprima',
+                \   'prettier',
+                \   'wkx',
+                \ ] |
+                \ elseif executable('rg') |
+                \     let g:gutentags_file_list_command = 'rg --files' |
+                \ endif
 
     " 所生成的数据文件的名称
     let g:gutentags_ctags_tagfile = '.tags'
@@ -564,6 +574,7 @@ if index(g:bundle_group, 'leaderf') >= 0
 
         if executable('rg')
             xnoremap <leader>gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+            noremap <leader>gs :<C-U>Leaderf! rg 
         endif
         noremap <leader>cr :<C-U>Leaderf! --recall<CR>
     endif
@@ -698,24 +709,29 @@ if index(g:bundle_group, 'ycm') >= 0
 
         nnoremap gd :YcmCompleter GoTo<CR>
 
-        " 重构后的结果会加入到 quickfix 中，方便查看修改
-        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
-                    \ nnoremap gcr :YcmCompleter RefactorRename 
+        augroup ycmFileTypeMap
+            autocmd!
 
-        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
-                    \ nnoremap gcs :YcmCompleter RestartServer<CR>
+            " 重构后的结果会加入到 quickfix 中，方便查看修改
+            autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
+                        \ nnoremap gcr :YcmCompleter RefactorRename 
 
-        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
-                    \ noremap gcf :YcmCompleter Format<CR>
+            autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
+                        \ nnoremap gcs :YcmCompleter RestartServer<CR>
 
-        autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
-                    \ nnoremap gct :YcmCompleter GetType<CR>
+            autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
+                        \ noremap gcf :YcmCompleter Format<CR>
 
-        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
-                    \ nnoremap gcd :YcmCompleter GetDoc<CR>
+            autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
+                        \ nnoremap gct :YcmCompleter GetType<CR>
 
-        autocmd FileType java,javascript,typescript
-                    \ nnoremap gco :YcmCompleter OrganizeImports<CR>
+            autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
+                        \ nnoremap gcd :YcmCompleter GetDoc<CR>
+
+            autocmd FileType java,javascript,typescript
+                        \ nnoremap gco :YcmCompleter OrganizeImports<CR>
+
+        augroup end
 
     endif
 endif
