@@ -413,18 +413,13 @@ if index(g:bundle_group, 'tags') >= 0
     autocmd FileType * ++once if index(['typescript', 'javascript'], &filetype) >= 0 |
                 \ let g:gutentags_ctags_exclude += [
                 \   "\\@typescript-eslint",
-                \   '*.css',
-                \   '*.json',
-                \   '*.lock',
                 \   'bower_components',
                 \   'build',
                 \   'dist',
                 \   'doc',
                 \   'eslint',
                 \   'eslint-config-alloy',
-                \   'esprima',
                 \   'prettier',
-                \   'wkx',
                 \ ] |
                 \ elseif executable('rg') |
                 \     let g:gutentags_file_list_command = 'rg --files' |
