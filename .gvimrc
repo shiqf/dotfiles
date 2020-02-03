@@ -1,6 +1,9 @@
 " 不兼容vi模式
 set nocompatible
 
+" macvim 支持 alt 键作为 meta
+set macmeta
+
 " 取消游标闪烁
 set gcr=a:block-blinkon0
 
@@ -11,4 +14,4 @@ set lines=30 columns=120
 set guioptions=
 
 " 设置字体及大小
-set guifont=Source_Code_Pro_for_Powerline:h12
+set guifont=Source_Code_Pro_for_Powerline:h14
