@@ -404,21 +404,21 @@ if index(g:bundle_group, 'tags') >= 0
     " 去除生成标签的文件夹
     let g:gutentags_ctags_exclude = []
 
-    autocmd FileType * ++once if index(['typescript', 'javascript'], &filetype) >= 0 |
+    autocmd FileType * ++once
+                \ if index(['typescript', 'javascript'], &filetype) >= 0 |
                 \   let g:gutentags_ctags_exclude += [
+                \     '*.md',
                 \     'build',
+                \     'database',
                 \     'dist',
                 \     'node_modules',
+                \     'vendor',
                 \   ] |
                 \ elseif &filetype ==# 'vim' |
                 \   let g:gutentags_ctags_exclude += [
                 \     '.tmux',
                 \     'bundle',
                 \     'bundles',
-                \   ] |
-                \ elseif &filetype ==# 'markdown' |
-                \   let g:gutentags_ctags_exclude += [
-                \     '*.md',
                 \   ]
                 \ | " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
                 \ elseif executable('rg') |
