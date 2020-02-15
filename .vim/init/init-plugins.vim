@@ -450,11 +450,11 @@ if index(g:bundle_group, 'tags') >= 0
                 \     'syntax',
                 \   ] |
                 \ elseif executable('rg') |
-                \     let g:gutentags_file_list_command = 'rg --files' |
+                \     let g:gutentags_file_list_command = 'rg --files --color=never' |
                 \ endif
 
     " " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
-    " let g:gutentags_file_list_command = 'rg --files'
+    " let g:gutentags_file_list_command = 'rg --files --color=never'
 
     " 所生成的数据文件的名称
     let g:gutentags_ctags_tagfile = '.tags'
