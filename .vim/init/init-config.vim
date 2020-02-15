@@ -16,9 +16,6 @@ elseif has('unix') && executable('xclip') && executable('xsel')
                 \ system('echo -n ' . getreg('@0') . ' \| xclip -sel c')<cr>
 endif
 
-packadd! termdebug
-packadd! matchit
-
 " 设置鼠标功能
 if has('mouse')
     set mouse=a

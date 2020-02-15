@@ -5,6 +5,9 @@
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
 
+packadd! termdebug
+packadd! matchit
+
 " 调用man程序在vim内部查看命令
 runtime ftplugin/man.vim
 
@@ -148,7 +151,7 @@ if index(g:bundle_group, 'basic') >= 0
     augroup QuickFixPreview
         autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
         autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-        autocmd FileType qf noremap <silent><buffer> <esc> :<c-u>q<cr>
+        autocmd FileType qf nnoremap <silent><buffer> q :q<cr>
     augroup end
 
 endif
@@ -171,7 +174,7 @@ if index(g:bundle_group, 'enhanced') >= 0
                 \    '<plug>(easymotion-f)',
                 \    '<plug>(easymotion-F)',
                 \    '<plug>(easymotion-j)',
-                \    '<plug>(easymotion-k)'
+                \    '<plug>(easymotion-k)',
                 \   ]
                 \ }
     map <leader>s <plug>(easymotion-overwin-f)
@@ -189,7 +192,18 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'dyng/ctrlsf.vim'
 
     " 配对括号和引号自动补全
-    Plug 'jiangmiao/auto-pairs', { 'for': [ 'c', 'cpp', 'html', 'java', 'javascript', 'typescript', 'vim' ] }
+    Plug 'jiangmiao/auto-pairs', {
+                \ 'for': [
+                \   'c',
+                \   'cpp',
+                \   'html',
+                \   'java',
+                \   'javascript',
+                \   'typescript',
+                \   'vim',
+                \   ]
+                \ }
+
     let g:AutoPairsFlyMode            = 0
     let g:AutoPairsShortcutBackInsert = '<M-z>'
     let g:AutoPairsShortcutToggle     = '<M-a>'
@@ -399,7 +413,14 @@ if index(g:bundle_group, 'tags') >= 0
     let $GTAGSCONF = expand('~/.gtags.conf')
 
     " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
-    let g:gutentags_project_root = [ '.root', '.svn', '.git', '.hg', '.project', 'package.json' ]
+    let g:gutentags_project_root = [
+                \ '.git',
+                \ '.hg',
+                \ '.project',
+                \ '.root',
+                \ '.svn',
+                \ 'package.json',
+                \ ]
 
     let g:gutentags_exclude_filetypes = ['startify']
 
@@ -411,6 +432,7 @@ if index(g:bundle_group, 'tags') >= 0
                 \   let g:gutentags_ctags_exclude += [
                 \     '*.json',
                 \     '*.md',
+                \     '*rc*',
                 \     'node_modules',
                 \     'vendor',
                 \   ] |
@@ -431,7 +453,7 @@ if index(g:bundle_group, 'tags') >= 0
                 \     let g:gutentags_file_list_command = 'rg --files' |
                 \ endif
 
-    " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
+    " " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
     " let g:gutentags_file_list_command = 'rg --files'
 
     " 所生成的数据文件的名称
@@ -487,25 +509,25 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_ShortcutB = '<m-b>'
 
         " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
-        noremap <c-n> :LeaderfMruCwd<cr>
+        nnoremap <c-n> :LeaderfMruCwd<cr>
 
         " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
-        noremap <m-n> :LeaderfMru<cr>
+        nnoremap <m-n> :LeaderfMru<cr>
 
         " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-        noremap <m-f> :LeaderfFunction!<cr>
+        nnoremap <m-f> :LeaderfFunction!<cr>
 
         " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-        noremap <m-F> :LeaderfFunctionAll!<cr>
+        nnoremap <m-F> :LeaderfFunctionAll!<cr>
 
         " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
-        noremap <m-t> :LeaderfBufTag!<cr>
+        nnoremap <m-t> :LeaderfBufTag!<cr>
 
         " 全局 tags 模糊匹配
-        noremap <m-T> :LeaderfTag<cr>
+        nnoremap <m-T> :LeaderfTag<cr>
 
         " Leaderf 自己的命令模糊匹配
-        noremap <m-s> :<c-u>LeaderfSelf<cr>
+        nnoremap <m-s> :LeaderfSelf<cr>
 
         " 最大历史文件保存 2048 个
         let g:Lf_MruMaxFiles = 2048
@@ -627,7 +649,7 @@ if index(g:bundle_group, 'ycm') >= 0
         " 输入最少字符开启字符补全功能 默认 2
         " let g:ycm_min_num_of_chars_for_completion = 2
         " 显示字符候选标识符最少的字符数 默认 0
-        let g:ycm_min_num_identifier_candidate_chars = 2
+        let g:ycm_min_num_identifier_candidate_chars = 4
         " 最大语义补全符数量 默认 50
         " let g:ycm_max_num_candidates = 50
         " 最大标识符数量 默认 10
@@ -643,8 +665,8 @@ if index(g:bundle_group, 'ycm') >= 0
 
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers =  {
-                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{3}'],
-                    \ 'cs,lua,javascript,typescript': ['re!\w{3}'],
+                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{4}'],
+                    \ 'cs,lua,javascript,typescript': ['re!\w{4}'],
                     \ }
 
         " 关闭相关文件类型的语义补全
@@ -723,7 +745,7 @@ if index(g:bundle_group, 'ycm') >= 0
                         \ nnoremap gcs :YcmCompleter RestartServer<CR>
 
             autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
-                        \ noremap gcf :YcmCompleter Format<CR>
+                        \ nnoremap gcf :YcmCompleter Format<CR>
 
             autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
                         \ nnoremap gct :YcmCompleter GetType<CR>
@@ -788,6 +810,9 @@ if index(g:bundle_group, 'tool') >= 0
 
     " tmux 中使用vim 复制
     Plug 'roxma/vim-tmux-clipboard'
+    let g:vimspector_enable_mappings = 'HUMAN'
+
+    Plug 'puremourning/vimspector'
 
     " 预览命令行命令效果
     Plug 'markonm/traces.vim'
