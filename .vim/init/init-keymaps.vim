@@ -21,6 +21,8 @@ xnoremap <silent> @ :normal @@<CR>
 
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
+nnoremap 1p "1p
+nnoremap 1P "1P
 
 nnoremap Q gq
 
@@ -41,7 +43,7 @@ inoremap <m-b> <c-left>
 " inoremap <m-l> <c-right>
 
 " ctrl+k 删除到行末
-inoremap <c-k> <c-\><c-o>d$
+inoremap <c-k> <c-\><c-o>"_d$
 
 " 使用 <c-_> 代替 <c-k>
 inoremap <c-_> <c-k>
