@@ -162,9 +162,25 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'enhanced') >= 0
     Plug 'skywind3000/asynctasks.vim'
-    let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
     " 异步运行并把结果放入quickfix中
     Plug 'skywind3000/asyncrun.vim'
+
+    let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
+    let g:asynctasks_term_pos = 'tab'
+    let g:asyncrun_open = 6
+    let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
+    let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
+    let g:asynctasks_term_reuse = 1
+    let g:asynctasks_term_focus = 0
+
+    nnoremap <leader>ar :AsyncRun.
+    nnoremap <leader>as :AsyncStop<cr>
+    nnoremap <leader>am :AsyncTaskMacro<cr>
+    nnoremap <leader>ae :AsyncTaskEdit<cr>
+    nnoremap <leader>al :AsyncTaskList<cr>
+
+    nnoremap <leader>5 :AsyncTask file-run<cr>
+    nnoremap <leader>9 :AsyncTask file-build<cr>
 
     " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
     Plug 'chrisbra/vim-diff-enhanced'
