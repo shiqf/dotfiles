@@ -71,9 +71,6 @@ if index(g:bundle_group, 'basic') >= 0
     " " 使用 <space>ha 清除 errormarker 标注的错误
     " noremap <silent><space>ha :RemoveErrorMarkers<cr>
 
-    " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
-    Plug 'skywind3000/vim-preview'
-
     " 为其他插件提供重复操作'.'功能
     Plug 'tpope/vim-repeat'
 
@@ -140,20 +137,6 @@ if index(g:bundle_group, 'basic') >= 0
                 \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
                 \}
 
-    noremap <m-;> :PreviewTag<cr>
-    noremap <m-'> :PreviewClose<cr>
-    noremap <m-,> :PreviewGoto edit<cr>
-    noremap <m-.> :PreviewGoto tabe<cr>
-    noremap <m-u> :PreviewScroll -1<cr>
-    noremap <m-d> :PreviewScroll +1<cr>
-    inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
-    inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
-    augroup QuickFixPreview
-        autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-        autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-        autocmd FileType qf nnoremap <silent><buffer> q :q<cr>
-    augroup end
-
 endif
 
 
@@ -161,9 +144,9 @@ endif
 " 增强插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'enhanced') >= 0
-    Plug 'skywind3000/asynctasks.vim'
     " 异步运行并把结果放入quickfix中
     Plug 'skywind3000/asyncrun.vim'
+    Plug 'skywind3000/asynctasks.vim'
 
     let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
     let g:asynctasks_term_pos = 'tab'
@@ -505,6 +488,23 @@ if index(g:bundle_group, 'tags') >= 0
 
     " let g:gutentags_trace = 1
     " let g:gutentags_define_advanced_commands = 1
+
+    " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
+    Plug 'skywind3000/vim-preview'
+
+    noremap <m-;> :PreviewTag<cr>
+    noremap <m-'> :PreviewClose<cr>
+    noremap <m-,> :PreviewGoto edit<cr>
+    noremap <m-.> :PreviewGoto tabe<cr>
+    noremap <m-u> :PreviewScroll -1<cr>
+    noremap <m-d> :PreviewScroll +1<cr>
+    inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+    inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+    augroup QuickFixPreview
+        autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+        autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+        autocmd FileType qf nnoremap <silent><buffer> q :q<cr>
+    augroup end
 endif
 
 
@@ -542,7 +542,7 @@ if index(g:bundle_group, 'leaderf') >= 0
         nnoremap <m-t> :LeaderfBufTag!<cr>
 
         " 全局 tags 模糊匹配
-        nnoremap <m-T> :LeaderfTag<cr>
+        nnoremap <m-T> :LeaderfBufTagAll<cr>
 
         " Leaderf 自己的命令模糊匹配
         nnoremap <m-s> :LeaderfSelf<cr>
@@ -616,8 +616,8 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
 
         if executable('rg')
-            xnoremap <leader>gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
-            noremap <leader>gs :<C-U>Leaderf! rg 
+            xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+            noremap gs :<C-U>Leaderf! rg 
         endif
         noremap <leader>cr :<C-U>Leaderf! --recall<CR>
     endif
@@ -641,11 +641,11 @@ if index(g:bundle_group, 'ycm') >= 0
 
     if has('python3')
         " 触发快捷键设置
-        let g:ycm_key_list_select_completion   = ['<C-n>']
-        let g:ycm_key_list_previous_completion = ['<C-p>']
-        let g:ycm_key_list_stop_completion = ['<C-y>']
+        let g:ycm_key_list_select_completion   = ['<c-n>']
+        let g:ycm_key_list_previous_completion = ['<c-p>']
+        let g:ycm_key_list_stop_completion = ['<c-y>']
         " let g:SuperTabDefaultCompletionType = '<C-n>'
-        let g:ycm_key_invoke_completion = '<C-z>'
+        let g:ycm_key_invoke_completion = '<c-z>'
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
         set completeopt=menu,menuone,popup

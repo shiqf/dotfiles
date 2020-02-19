@@ -3,7 +3,26 @@
 "----------------------------------------------------------------------
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
+" 异步运行并把结果放入quickfix中
 Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asynctasks.vim'
+
+let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
+let g:asynctasks_term_pos = 'tab'
+let g:asyncrun_open = 6
+let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
+let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
+let g:asynctasks_term_reuse = 1
+let g:asynctasks_term_focus = 0
+
+nnoremap <leader>ar :AsyncRun.
+nnoremap <leader>as :AsyncStop<cr>
+nnoremap <leader>am :AsyncTaskMacro<cr>
+nnoremap <leader>ae :AsyncTaskEdit<cr>
+nnoremap <leader>al :AsyncTaskList<cr>
+
+nnoremap <leader>5 :AsyncTask file-run<cr>
+nnoremap <leader>9 :AsyncTask file-build<cr>
 
 " 为其他插件提供重复操作'.'功能
 Plug 'tpope/vim-repeat'
@@ -37,7 +56,18 @@ function! s:VSetSearch()
 endfunction
 
 " 配对括号和引号自动补全
-Plug 'jiangmiao/auto-pairs', { 'for': [ 'c', 'cpp', 'html', 'java', 'javascript', 'typescript', 'vim' ] }
+Plug 'jiangmiao/auto-pairs', {
+            \ 'for': [
+            \   'c',
+            \   'cpp',
+            \   'html',
+            \   'java',
+            \   'javascript',
+            \   'typescript',
+            \   'vim',
+            \   ]
+            \ }
+
 let g:AutoPairsFlyMode            = 0
 let g:AutoPairsShortcutBackInsert = '<M-z>'
 let g:AutoPairsShortcutToggle     = '<M-a>'
@@ -79,25 +109,25 @@ if has('python3')
     let g:Lf_ShortcutB = '<m-b>'
 
     " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
-    noremap <c-n> :LeaderfMruCwd<cr>
+    nnoremap <c-n> :LeaderfMruCwd<cr>
 
     " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
-    noremap <m-n> :LeaderfMru<cr>
+    nnoremap <m-n> :LeaderfMru<cr>
 
     " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-    noremap <m-f> :LeaderfFunction!<cr>
+    nnoremap <m-f> :LeaderfFunction!<cr>
 
     " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-    noremap <m-F> :LeaderfFunctionAll!<cr>
+    nnoremap <m-F> :LeaderfFunctionAll!<cr>
 
     " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
-    noremap <m-t> :LeaderfBufTag!<cr>
+    nnoremap <m-t> :LeaderfBufTag!<cr>
 
     " 全局 tags 模糊匹配
-    noremap <m-T> :LeaderfTag<cr>
+    nnoremap <m-T> :LeaderfBufTagAll<cr>
 
     " Leaderf 自己的命令模糊匹配
-    noremap <m-s> :<c-u>LeaderfSelf<cr>
+    nnoremap <m-s> :LeaderfSelf<cr>
 
     " 最大历史文件保存 2048 个
     let g:Lf_MruMaxFiles = 2048
@@ -168,7 +198,8 @@ if has('python3')
     let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
 
     if executable('rg')
-        xnoremap <leader>gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+        xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+        noremap gs :<C-U>Leaderf! rg 
     endif
     noremap <leader>cr :<C-U>Leaderf! --recall<CR>
 
@@ -180,10 +211,10 @@ if has('python3')
     Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer' }
 
         " 触发快捷键设置
-        let g:ycm_key_list_select_completion   = ['<C-n>']
-        let g:ycm_key_list_previous_completion = ['<C-p>']
-        let g:ycm_key_list_stop_completion = ['<C-y>']
-        let g:ycm_key_invoke_completion = '<C-z>'
+        let g:ycm_key_list_select_completion   = ['<c-n>']
+        let g:ycm_key_list_previous_completion = ['<c-p>']
+        let g:ycm_key_list_stop_completion = ['<c-y>']
+        let g:ycm_key_invoke_completion = '<c-z>'
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
         set completeopt=menu,menuone,popup
@@ -192,20 +223,20 @@ if has('python3')
 
         let g:ycm_server_log_level = 'info'
         " 禁用诊断功能：我们用前面更好用的 ALE 代替
-        let g:ycm_show_diagnostics_ui = 0
+        let g:ycm_show_diagnostics_ui = 1
         " 禁用预览功能：扰乱视听
         let g:ycm_add_preview_to_completeopt = 0
         let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
         " 不显示load python 提示
         let g:ycm_confirm_extra_conf=0
         " 通过ycm语法检测显示错误符号和警告符号
-        " let g:ycm_error_symbol   = '✗'
-        " let g:ycm_warning_symbol = '⚠'
+        let g:ycm_error_symbol   = '✗'
+        let g:ycm_warning_symbol = '⚠'
 
         " 输入最少字符开启字符补全功能 默认 2
         " let g:ycm_min_num_of_chars_for_completion = 2
         " 显示字符候选标识符最少的字符数 默认 0
-        let g:ycm_min_num_identifier_candidate_chars = 2
+        let g:ycm_min_num_identifier_candidate_chars = 4
         " 最大语义补全符数量 默认 50
         " let g:ycm_max_num_candidates = 50
         " 最大标识符数量 默认 10
@@ -221,8 +252,8 @@ if has('python3')
 
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers =  {
-                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{3}'],
-                    \ 'cs,lua,javascript,typescript': ['re!\w{3}'],
+                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{4}'],
+                    \ 'cs,lua,javascript,typescript': ['re!\w{4}'],
                     \ }
 
         "----------------------------------------------------------------------
@@ -293,7 +324,7 @@ if has('python3')
                     \ nnoremap gcs :YcmCompleter RestartServer<CR>
 
         autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
-                    \ noremap gcf :YcmCompleter Format<CR>
+                    \ nnoremap gcf :YcmCompleter Format<CR>
 
         autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
                     \ nnoremap gct :YcmCompleter GetType<CR>
@@ -311,9 +342,9 @@ endif
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 let g:UltiSnipsSnippetDirectories  = [ 'UltiSnips', 'mysnippets' ]
 let g:UltiSnipsExpandTrigger       = '<tab>'
-let g:UltiSnipsJumpForwardTrigger  = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-let g:UltiSnipsListSnippets        = '<m-s>'
+let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+let g:UltiSnipsListSnippets        = '<c-l>'
 let g:UltiSnipsEditSplit           = 'vertical'
 
 Plug 'sillybun/vim-repl'
