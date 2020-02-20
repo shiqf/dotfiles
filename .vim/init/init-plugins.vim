@@ -881,6 +881,12 @@ if index(g:bundle_group, 'tool') >= 0
     nnoremap <leader>r :REPLToggle<Cr>
     let g:repl_position = 3
     let g:repl_stayatrepl_when_open = 0
+
+    Plug 'godlygeek/tabular'
+    Plug 'mzlogin/vim-markdown-toc', { 'for': [ 'markdown' ] }
+    let g:vmt_auto_update_on_save = 1
+    let g:vmt_cycle_list_item_markers = 1
+    Plug 'plasticboy/vim-markdown', { 'for': [ 'markdown' ] }
 endif
 
 "----------------------------------------------------------------------

@@ -232,6 +232,7 @@ if has('python3')
         " 通过ycm语法检测显示错误符号和警告符号
         let g:ycm_error_symbol   = '✗'
         let g:ycm_warning_symbol = '⚠'
+        let g:ycm_always_populate_location_list = 1
 
         " 输入最少字符开启字符补全功能 默认 2
         " let g:ycm_min_num_of_chars_for_completion = 2
