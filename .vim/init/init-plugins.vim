@@ -654,7 +654,7 @@ if index(g:bundle_group, 'ycm') >= 0
 
         let g:ycm_server_log_level = 'info'
         " 禁用诊断功能：我们用前面更好用的 ALE 代替
-        let g:ycm_show_diagnostics_ui = 0
+        let g:ycm_show_diagnostics_ui = 1
         " 禁用预览功能：扰乱视听
         let g:ycm_add_preview_to_completeopt = 0
         let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
@@ -663,6 +663,7 @@ if index(g:bundle_group, 'ycm') >= 0
         " 通过ycm语法检测显示错误符号和警告符号
         " let g:ycm_error_symbol   = '✗'
         " let g:ycm_warning_symbol = '⚠'
+        let g:ycm_always_populate_location_list = 1
 
         " 输入最少字符开启字符补全功能 默认 2
         " let g:ycm_min_num_of_chars_for_completion = 2
@@ -893,3 +894,30 @@ endif
 " 结束插件安装
 "----------------------------------------------------------------------
 call plug#end()
+
+
+"----------------------------------------------------------------------
+" F2 在项目目录下 Grep 光标下单词，默认 C/C++/Py/Js ，扩展名自己扩充
+" 支持 rg/grep/findstr ，其他类型可以自己扩充
+" 不是在当前目录 grep，而是会去到当前文件所属的项目目录 project root
+" 下面进行 grep，这样能方便的对相关项目进行搜索
+"----------------------------------------------------------------------
+if executable('rg')
+    noremap <silent><leader>2 :AsyncRun! -cwd=<root> rg -n --no-heading
+                \ --color never
+                \ -g '*.h' -g '*.c*' -g '*.py'
+                \ -g '*.js' -g '*.ts' -g '*.vim'
+                \ <C-R><C-W> "<root>" <cr>
+elseif has('win32') || has('win64')
+    noremap <silent><leader>2 :AsyncRun! -cwd=<root> findstr /n /s /C:'<C-R><C-W>'
+                \ '\%CD\%\*.h' '\%CD\%\*.c*' '\%CD\%\*.py'
+                \ '\%CD\%\*.js' '\%CD\%\*.ts' '\%CD\%\*.vim'
+                \ <cr>
+else
+    noremap <silent><leader>2 :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W>
+                \ --include='*.h' --include='*.c*' --include='*.py'
+                \ --include='*.js' --include='*.ts' --include='*.vim'
+                \ --exclude='*.min.js' --exclude='*.min.css'
+                \ --exclude-dir='node_modules' --exclude-dir='doc'
+                \ '<root>' <cr>
+endif

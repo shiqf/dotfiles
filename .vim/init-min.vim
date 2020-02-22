@@ -1,6 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-"  no_plugins.vim - intialize config
+"  min_plugins.vim - intialize config
 "
 "  Created by shiqf on 2019-06-29 23:00
 "
@@ -46,5 +46,3 @@ LoadScript init/init-style.vim
 
 " 插件配置
 LoadScript init/init-min-plugins.vim
-
-scriptencoding utf-8

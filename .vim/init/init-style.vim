@@ -34,6 +34,8 @@ set showcmd
 
 " 水平切割窗口时，默认在右边显示新窗口
 set splitright
+" 垂直切割窗口时，默认在下边显示新窗口
+set splitbelow
 
 
 "----------------------------------------------------------------------
@@ -95,25 +97,3 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
 " 修正补全目录的色彩：默认太难看
 hi! Pmenu guibg=gray guifg=black ctermbg=gray ctermfg=black
 hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
-
-
-"----------------------------------------------------------------------
-" 终端设置，隐藏行号和侧边栏
-"----------------------------------------------------------------------
-if has('terminal') && exists(':terminal') == 2
-    if exists('##TerminalOpen')
-        augroup VimUnixTerminalGroup
-            au! 
-            au TerminalOpen * setlocal nonumber signcolumn=no
-        augroup END
-    endif
-endif
-
-
-"----------------------------------------------------------------------
-" quickfix 设置，隐藏行号
-"----------------------------------------------------------------------
-augroup VimInitStyle
-    au!
-    au FileType qf setlocal nonumber
-augroup END

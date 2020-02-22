@@ -212,15 +212,15 @@ export TERM=xterm-256color
 
 # aliases 命令别名自定义 ---------------------------------------------------------
 
-alias -g zplug="LC_MESSAGES=en_US.UTF-8 zplug"
+alias -g zplug='LC_MESSAGES=en_US.UTF-8 zplug'
 alias cls='clear'
-alias grep="grep --color=auto"
-alias javac="javac -J-Dfile.encoding=utf8"
+alias grep='grep --color=auto'
+alias javac='javac -J-Dfile.encoding=utf8'
 alias la='ls -a'
 alias ll='ls -l'
 alias tmux='tmux -2'
-alias vi="vim -u ~/dotfiles/.vim/init-min.vim"
-alias v='vim -u NONE -N'
+alias vi='vim -u ~/dotfiles/.vim/init-min.vim'
+alias v='vim -u ~/dotfiles/.vim/init-no-plugin.vim'
 
 # z 命令别名
 alias zc='z -c' # 严格匹配当前路径的子路径
