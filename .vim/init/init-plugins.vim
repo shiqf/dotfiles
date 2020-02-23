@@ -349,7 +349,7 @@ if index(g:bundle_group, 'ale') >= 0
                 \ 'javascript': ['eslint'],
                 \ 'lua': ['luac'],
                 \ 'python': ['flake8', 'pylint'],
-                \ 'typescript': ['eslint', 'tslint'],
+                \ 'typescript': ['eslint'],
                 \ }
 
 
@@ -775,6 +775,8 @@ if index(g:bundle_group, 'ycm') >= 0
             autocmd FileType java,javascript,typescript
                         \ nnoremap gco :YcmCompleter OrganizeImports<CR>
 
+            autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
+                        \ nnoremap gcx :YcmCompleter FixIt<CR>
         augroup end
 
     endif

@@ -336,6 +336,9 @@ if has('python3')
         autocmd FileType java,javascript,typescript
                     \ nnoremap gco :YcmCompleter OrganizeImports<CR>
 
+        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
+                    \ nnoremap gcx :YcmCompleter FixIt<CR>
+
 endif
 
 " snippets 片段扩展
