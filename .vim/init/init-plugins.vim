@@ -5,6 +5,8 @@
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
 
+abbr teh the
+
 packadd! termdebug
 packadd! matchit
 
@@ -186,8 +188,13 @@ if index(g:bundle_group, 'enhanced') >= 0
     " 忽略大小写
     let g:EasyMotion_smartcase = 1
 
-    " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
+    " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
     " Plug 'asins/vim-dict'
+    " let g:vim_dict_config = {
+    "             \ 'html': ['css', 'javascript'],
+    "             \ 'javascript': [ 'javascript','jsx'],
+    "             \ 'typescript': ['javascript'],
+    "             \}
 
     " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
     Plug 'dyng/ctrlsf.vim'
@@ -349,7 +356,7 @@ if index(g:bundle_group, 'ale') >= 0
                 \ 'javascript': ['eslint'],
                 \ 'lua': ['luac'],
                 \ 'python': ['flake8', 'pylint'],
-                \ 'typescript': ['eslint'],
+                \ 'typescript': ['eslint', 'tslint'],
                 \ }
 
 
@@ -504,6 +511,7 @@ if index(g:bundle_group, 'tags') >= 0
         autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
         autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
         autocmd FileType qf nnoremap <silent><buffer> q :q<cr>
+        autocmd FileType leaderf set nonu
     augroup end
 endif
 
@@ -648,7 +656,7 @@ if index(g:bundle_group, 'ycm') >= 0
         let g:ycm_key_invoke_completion = '<c-z>'
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
-        set completeopt=menu,menuone,popup
+        set completeopt+=menu,menuone,popup
 
         " noremap <c-z> <NOP>
 
@@ -751,10 +759,11 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ 'zsh':1,
                     \ }
 
-        nnoremap gd :YcmCompleter GoTo<CR>
-
         augroup ycmFileTypeMap
             autocmd!
+
+            autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,rust,typescript
+                        \ nnoremap gd :YcmCompleter GoTo<CR>
 
             " 重构后的结果会加入到 quickfix 中，方便查看修改
             autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
@@ -831,12 +840,12 @@ if index(g:bundle_group, 'tool') >= 0
 
     " tmux 中使用vim 复制
     Plug 'roxma/vim-tmux-clipboard'
-    let g:vimspector_enable_mappings = 'HUMAN'
 
     Plug 'puremourning/vimspector'
+    let g:vimspector_enable_mappings = 'HUMAN'
 
-    " 预览命令行命令效果
-    Plug 'markonm/traces.vim'
+    " " 预览命令行命令效果
+    " Plug 'markonm/traces.vim'
 
     " 彩虹括号 利用区分括号配对
     Plug 'luochen1990/rainbow'
@@ -923,3 +932,6 @@ else
                 \ --exclude-dir='node_modules' --exclude-dir='doc'
                 \ '<root>' <cr>
 endif
+
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete

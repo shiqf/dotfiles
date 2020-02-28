@@ -315,7 +315,8 @@ if has('python3')
                     \ 'zsh':1,
                     \ }
 
-        nnoremap gd :YcmCompleter GoTo<CR>
+        autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,rust,typescript
+                    \ nnoremap gd :YcmCompleter GoTo<CR>
 
         " 重构后的结果会加入到 quickfix 中，方便查看修改
         autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs

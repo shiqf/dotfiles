@@ -73,8 +73,8 @@ cnoremap <m-q> <c-f>
 "----------------------------------------------------------------------
 
 " 快速切换tab 使用标签 参考unimparied
-nnoremap ]g :tabnext<cr>
-nnoremap [g :tabprevious<cr>
+nnoremap ]g gt<cr>
+nnoremap [g gT<cr>
 nnoremap [G :tabfirst<cr>
 nnoremap ]G :tablast<cr>
 
@@ -138,10 +138,13 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
     tnoremap <m-p> <c-_>"0
 
     " tab 切换
-    tnoremap ]g <c-_>:tabnext<cr>
-    tnoremap [g <c-_>:tabprevious<cr>
+    tnoremap ]g <c-_>gt<cr>
+    tnoremap [g <c-_>gT<cr>
     tnoremap ]G <c-_>:tablast<cr>
     tnoremap [G <c-_>:tabfirst<cr>
+
+    tnoremap <Esc> <c-_>N
+    set notimeout ttimeout timeoutlen=100
 
     if has('win32') || has('win64')
         tnoremap <c-u> <esc>
