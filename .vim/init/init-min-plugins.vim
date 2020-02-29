@@ -344,44 +344,13 @@ endif
 
 " snippets 片段扩展
 " 通过 VimL 语言的支持 " 需要通过 Python 的支持
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetDirectories  = [ 'UltiSnips', 'mysnippets' ]
-let g:UltiSnipsExpandTrigger       = '<tab>'
+let g:UltiSnipsExpandTrigger       = '<c-i>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 let g:UltiSnipsListSnippets        = '<c-l>'
 let g:UltiSnipsEditSplit           = 'vertical'
-
-Plug 'sillybun/vim-repl'
-let g:repl_program = {
-            \   'python': 'python3',
-            \   'javascript': 'node',
-            \   'typescript': 'ts-node',
-            \   'r': 'R',
-            \   'lua': 'lua',
-            \   'default': 'zsh',
-            \   }
-
-let g:repl_exit_commands = {
-            \   'python': 'quit()',
-            \   'bash': 'exit',
-            \   'zsh': 'exit',
-            \   'node': '.exit',
-            \   'ts-node': '.exit',
-            \   'jshell': '/exit',
-            \   'default': 'exit',
-            \   }
-
-let g:repl_predefine_python = {
-            \   'numpy': 'import numpy as np',
-            \   'matplotlib': 'from matplotlib import pyplot as plt'
-            \   }
-let g:repl_cursor_down = 1
-let g:repl_python_automerge = 1
-let g:repl_ipython_version = '7'
-nnoremap <leader>r :REPLToggle<Cr>
-let g:repl_position = 3
-let g:repl_stayatrepl_when_open = 0
 
 "----------------------------------------------------------------------
 " 结束插件安装
@@ -394,8 +363,8 @@ let g:netrw_banner=0        " disable annoying banner
 " let g:netrw_browse_split=4  " open in prior window
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+" let g:netrw_list_hide=netrw_gitignore#Hide()
+" let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 "----------------------------------------------------------------------
 " F2 在项目目录下 Grep 光标下单词，默认 C/C++/Py/Js ，扩展名自己扩充
