@@ -102,6 +102,11 @@ if has('python3')
     " 如果 vim 支持 python 则启用  Leaderf
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
+    let g:Lf_CtagsFuncOpts = {
+                \ 'javascript': '--kinds-javascript=fm',
+                \ 'typescript': '--kinds-typescript=fm',
+                \ }
+
     " CTRL+p 打开文件模糊匹配
     let g:Lf_ShortcutF = '<c-p>'
 
