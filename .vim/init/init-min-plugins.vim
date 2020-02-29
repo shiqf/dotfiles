@@ -247,7 +247,7 @@ if has('python3')
         " c 语言中的 #include 会自动补全文件
         let g:ycm_complete_in_strings=1
         " 设置为 1 时，补全标识符信息会从注释中获取 默认为 0
-        let g:ycm_collect_identifiers_from_comments_and_strings = 1
+        " let g:ycm_collect_identifiers_from_comments_and_strings = 1
         " 当此选项设置为1时，YCM的标识符完成器还将从标记文件中收集标识符
         let g:ycm_collect_identifiers_from_tags_files = 1
 

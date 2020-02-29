@@ -143,7 +143,7 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
     tnoremap ]G <c-_>:tablast<cr>
     tnoremap [G <c-_>:tabfirst<cr>
 
-    tnoremap <Esc> <c-_>N
+    " tnoremap <Esc> <c-_>N
     set notimeout ttimeout timeoutlen=100
 
     if has('win32') || has('win64')

@@ -481,7 +481,8 @@ if index(g:bundle_group, 'tags') >= 0
     let g:gutentags_plus_switch = 1
 
     " 设置 ctags 的参数
-    let g:gutentags_ctags_extra_args  = ['--fields=+niazSlm', '--extras=+q']
+    " let g:gutentags_ctags_extra_args  = ['--fields=+niazSlm', '--extras=+q']
+    let g:gutentags_ctags_extra_args  = ['--fields=+niazSlm']
     let g:gutentags_ctags_extra_args += ['--kinds-c++=+px']
     let g:gutentags_ctags_extra_args += ['--kinds-c=+px']
 
@@ -525,6 +526,11 @@ if index(g:bundle_group, 'leaderf') >= 0
         else
             Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
         endif
+
+        let g:Lf_CtagsFuncOpts = {
+                    \ 'javascript': '--kinds-javascript=fm',
+                    \ 'typescript': '--kinds-typescript=fm',
+                    \ }
 
         " CTRL+p 打开文件模糊匹配
         let g:Lf_ShortcutF = '<c-p>'
@@ -650,7 +656,6 @@ if index(g:bundle_group, 'ycm') >= 0
         let g:ycm_key_list_select_completion   = ['<c-n>']
         let g:ycm_key_list_previous_completion = ['<c-p>']
         let g:ycm_key_list_stop_completion = ['<c-y>']
-        " let g:SuperTabDefaultCompletionType = '<C-n>'
         let g:ycm_key_invoke_completion = '<c-z>'
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
@@ -684,9 +689,11 @@ if index(g:bundle_group, 'ycm') >= 0
         " c 语言中的 #include 会自动补全文件
         let g:ycm_complete_in_strings=1
         " 设置为 1 时，补全标识符信息会从注释中获取 默认为 0
-        let g:ycm_collect_identifiers_from_comments_and_strings = 1
+        " let g:ycm_collect_identifiers_from_comments_and_strings = 1
         " 当此选项设置为1时，YCM的标识符完成器还将从标记文件中收集标识符
         let g:ycm_collect_identifiers_from_tags_files = 1
+        " 打开 ultisnipes, 默认 1
+        " let g:ycm_use_ultisnips_completer = 0
 
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers =  {
