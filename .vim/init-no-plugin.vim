@@ -47,6 +47,8 @@ LoadScript init/init-style.vim
 " 加载错误修正
 LoadScript init/init-abbr.vim
 
+set relativenumber
+
 " FEATURES TO COVER:
 " - Fuzzy File Search
 " - Tag jumping
