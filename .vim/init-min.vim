@@ -46,3 +46,6 @@ LoadScript init/init-style.vim
 
 " 插件配置
 LoadScript init/init-min-plugins.vim
+
+" 加载错误修正
+LoadScript init/init-abbr.vim

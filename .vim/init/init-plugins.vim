@@ -5,8 +5,6 @@
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
 
-abbr teh the
-
 packadd! termdebug
 packadd! matchit
 
@@ -932,6 +930,3 @@ else
                 \ --exclude-dir='node_modules' --exclude-dir='doc'
                 \ '<root>' <cr>
 endif
-
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete

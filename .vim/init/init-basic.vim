@@ -79,6 +79,7 @@ endif
 "----------------------------------------------------------------------
 if has('autocmd')
     filetype plugin indent on
+    set omnifunc=syntaxcomplete#Complete
 endif
 
 
