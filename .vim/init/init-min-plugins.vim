@@ -257,8 +257,9 @@ if has('python3')
 
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers =  {
-                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{4}'],
-                    \ 'cs,lua,javascript,typescript': ['re!\w{4}'],
+                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+                    \ 'cs,lua': ['re!\w{2}'],
+                    \ 'javascript,typescript': ['re!([A-Z]\w|\w[A-Z]|\w{2}[A-Z]|\w{4})'],
                     \ }
 
         "----------------------------------------------------------------------

@@ -1,9 +1,19 @@
-snippet af "箭头" i
+snippet af "箭头函数" w
 () => {
-|   ${0:表达式}
+	${VISUAL}
 }
 endsnippet
 
 snippet cl
-console.log(${0});
+console.log(${VISUAL:/;$//g});
+endsnippet
+
+snippet fun "function" w
+${2:void }${1:name}(${3}) {
+	${4:${VISUAL}}
+}
+endsnippet
+
+snippet "^re" "const ... require()" rw
+const ${2:$1} = require('${1}');
 endsnippet
