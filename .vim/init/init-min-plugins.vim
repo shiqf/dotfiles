@@ -103,7 +103,7 @@ if has('python3')
 
     let g:Lf_CtagsFuncOpts = {
                 \ 'javascript': '--kinds-javascript=fm',
-                \ 'typescript': '--kinds-typescript=fm',
+                \ 'typescript': '--kinds-typescript=fmc',
                 \ }
 
     " CTRL+p 打开文件模糊匹配

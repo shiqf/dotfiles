@@ -527,7 +527,7 @@ if index(g:bundle_group, 'leaderf') >= 0
 
         let g:Lf_CtagsFuncOpts = {
                     \ 'javascript': '--kinds-javascript=fm',
-                    \ 'typescript': '--kinds-typescript=fm',
+                    \ 'typescript': '--kinds-typescript=fmc',
                     \ }
 
         " CTRL+p 打开文件模糊匹配
