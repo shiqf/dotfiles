@@ -1,3 +1,5 @@
+packadd! cfilter
+
 "----------------------------------------------------------------------
 " 在 ~/.vim/bundles 下安装插件
 "----------------------------------------------------------------------
@@ -43,9 +45,6 @@ Plug 'tpope/vim-surround'
 
 " Git 支持
 Plug 'tpope/vim-fugitive'
-
-" 筛选符合条件的 argslist 文件并保存到 args 中去, 使用 argdo 处理匹配文件
-Plug 'nelstrom/vim-qargs'
 
 " 可视模式下用 * 号匹配字符串
 function! s:VSetSearch()
@@ -203,8 +202,8 @@ if has('python3')
     let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
 
     if executable('rg')
-        xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
-        noremap gs :<C-U>Leaderf! rg 
+        xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+        nnoremap gs :<C-U>Leaderf! rg 
     endif
     noremap <leader>cr :<C-U>Leaderf! --recall<CR>
 
@@ -222,7 +221,7 @@ if has('python3')
         let g:ycm_key_invoke_completion = '<c-z>'
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
-        set completeopt=menu,menuone,popup
+        set completeopt+=popup
 
         " noremap <c-z> <NOP>
 
@@ -370,29 +369,3 @@ let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
 " let g:netrw_list_hide=netrw_gitignore#Hide()
 " let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-
-"----------------------------------------------------------------------
-" F2 在项目目录下 Grep 光标下单词，默认 C/C++/Py/Js ，扩展名自己扩充
-" 支持 rg/grep/findstr ，其他类型可以自己扩充
-" 不是在当前目录 grep，而是会去到当前文件所属的项目目录 project root
-" 下面进行 grep，这样能方便的对相关项目进行搜索
-"----------------------------------------------------------------------
-if executable('rg')
-    noremap <silent><leader>2 :AsyncRun! -cwd=<root> rg -n --no-heading
-                \ --color never
-                \ -g '*.h' -g '*.c*' -g '*.py'
-                \ -g '*.js' -g '*.ts' -g '*.vim'
-                \ <C-R><C-W> "<root>" <cr>
-elseif has('win32') || has('win64')
-    noremap <silent><leader>2 :AsyncRun! -cwd=<root> findstr /n /s /C:'<C-R><C-W>'
-                \ '\%CD\%\*.h' '\%CD\%\*.c*' '\%CD\%\*.py'
-                \ '\%CD\%\*.js' '\%CD\%\*.ts' '\%CD\%\*.vim'
-                \ <cr>
-else
-    noremap <silent><leader>2 :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W>
-                \ --include='*.h' --include='*.c*' --include='*.py'
-                \ --include='*.js' --include='*.ts' --include='*.vim'
-                \ --exclude='*.min.js' --exclude='*.min.css'
-                \ --exclude-dir='node_modules' --exclude-dir='doc'
-                \ '<root>' <cr>
-endif
