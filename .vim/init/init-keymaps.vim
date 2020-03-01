@@ -67,6 +67,17 @@ cnoremap <c-_> <c-k>
 " 使用 alt-q 打开命令、查询等历史窗口
 cnoremap <m-q> <c-f>
 
+function Cd()
+    if (strlen(getcmdline()) == 0)
+        return "\<esc>"
+    elseif (strlen(getcmdline()) != 0 && strlen(getcmdline()) > getcmdpos() - 1)
+        let s:cmdline = strpart(getcmdline(), 0, getcmdpos() - 1) . strpart(getcmdline(), getcmdpos())
+        return "\<c-\>e(\"" . s:cmdline . "\")" . "\<cr>"
+    else
+        return "\<c-d>"
+    endif
+endfunc
+cnoremap <expr> <c-d> Cd()
 
 "----------------------------------------------------------------------
 " TAB：创建，关闭，上一个，下一个，首个，末个，左移，右移，
