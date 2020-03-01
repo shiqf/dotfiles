@@ -674,6 +674,8 @@ if index(g:bundle_group, 'ycm') >= 0
         " let g:ycm_warning_symbol = '⚠'
         let g:ycm_always_populate_location_list = 1
 
+        " 打开 ultisnipes, 默认 1
+        " let g:ycm_use_ultisnips_completer = 0
         " 输入最少字符开启字符补全功能 默认 2
         " let g:ycm_min_num_of_chars_for_completion = 2
         " 显示字符候选标识符最少的字符数 默认 0
@@ -690,8 +692,6 @@ if index(g:bundle_group, 'ycm') >= 0
         " let g:ycm_collect_identifiers_from_comments_and_strings = 1
         " 当此选项设置为1时，YCM的标识符完成器还将从标记文件中收集标识符
         let g:ycm_collect_identifiers_from_tags_files = 1
-        " 打开 ultisnipes, 默认 1
-        " let g:ycm_use_ultisnips_completer = 0
 
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers =  {

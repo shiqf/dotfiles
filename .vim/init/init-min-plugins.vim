@@ -253,7 +253,7 @@ if has('python3')
         " 设置为 1 时，补全标识符信息会从注释中获取 默认为 0
         " let g:ycm_collect_identifiers_from_comments_and_strings = 1
         " 当此选项设置为1时，YCM的标识符完成器还将从标记文件中收集标识符
-        let g:ycm_collect_identifiers_from_tags_files = 1
+        " let g:ycm_collect_identifiers_from_tags_files = 1
 
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers =  {
