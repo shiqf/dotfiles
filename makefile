@@ -1,4 +1,4 @@
-env:
+install:
 	bash init.sh
 
 cmd:

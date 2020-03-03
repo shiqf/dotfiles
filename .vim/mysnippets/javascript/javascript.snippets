@@ -1,0 +1,17 @@
+priority -60
+
+snippet af "箭头函数" ws
+() => {
+	${1:${VISUAL}}
+}${0}
+endsnippet
+
+snippet cl "console.log()" w
+console.log(${1:${VISUAL:/;$//}});
+endsnippet
+
+snippet fun "function" w
+function ${1:name}(${2}) {
+	${3:${VISUAL}}
+}${0}
+endsnippet

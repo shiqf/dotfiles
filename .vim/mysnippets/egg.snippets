@@ -1,0 +1,34 @@
+snippet "^cla" "egg class" rw
+import { Controller } from 'egg';
+
+export default class `!v substitute(fnamemodify(bufname(), ":r"), "\\v([a-z]+)_?", "\\u\\1", "g")`Controller extends Controller {
+$0
+}
+endsnippet
+
+snippet "\s*mtd" "egg method" rbw
+
+	/**
+	 * @api {${1|GET,POST,DELETE,PUT|}} ${2:`!v
+	 substitute(fnamemodify(bufname(), ":r"), "\\v([a-z]+)_?", "/\\1", "g")
+	 `} Request information
+	 * @apiName GetUser
+	 * @apiGroup ${3:`!v substitute(bufname(), "\\v([a-z]+).*", "\\u\\1", "")`}
+	 *
+	 * @apiParam {Number} id Users unique ID.
+	 *
+	 * @apiSuccessExample {json} Param:
+	 *  {
+	 *  }
+	 */
+
+	public async ${4}() {
+		const { ctx, service, logger } = this;
+
+		const rule = {
+			name: { type: 'string', required: false },
+		};
+
+		ctx.success();
+	}
+endsnippet

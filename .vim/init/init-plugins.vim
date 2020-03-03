@@ -17,9 +17,12 @@ runtime ftplugin/man.vim
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
     let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'filetypes']
-    let g:bundle_group += ['airline', 'nerdtree', 'ale']
-    let g:bundle_group += ['tags', 'leaderf', 'ycm', 'snippets']
-    let g:bundle_group += ['tool']
+    " tags 标签、文件快速导航、智能补全、代码片段、语法检测
+    let g:bundle_group += ['tags', 'leaderf', 'ycm', 'snippets', 'ale']
+    " 状态栏、目录
+    let g:bundle_group += ['airline', 'nerdtree']
+    " 工具、调试，交互执行、markdown
+    let g:bundle_group += ['tool', 'debug', 'repl', 'markdown']
 endif
 
 
@@ -38,10 +41,6 @@ endfunc
 "----------------------------------------------------------------------
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
-"----------------------------------------------------------------------
-" 默认插件
-"----------------------------------------------------------------------
-
 " vim 中文说明文档 ./vimcdoc.sh -i安装
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 
@@ -49,29 +48,6 @@ Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 " 基础插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'basic') >= 0
-
-    " 展示开始画面，显示最近编辑过的文件
-    Plug 'mhinz/vim-startify'
-
-    " 一次性安装一大堆 colorscheme
-    Plug 'flazz/vim-colorschemes'
-
-    " 支持库，给其他插件用的函数库
-    " Plug 'xolox/vim-misc'
-
-    " 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
-    " Plug 'kshenoy/vim-signature'
-
-    " 用于在侧边符号栏显示 git/svn 的 diff
-    Plug 'mhinz/vim-signify'
-
-    " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
-    " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
-    " Plug 'mh21/errormarker.vim'
-
-    " " 使用 <space>ha 清除 errormarker 标注的错误
-    " noremap <silent><space>ha :RemoveErrorMarkers<cr>
-
     " 为其他插件提供重复操作'.'功能
     Plug 'tpope/vim-repeat'
 
@@ -89,7 +65,7 @@ if index(g:bundle_group, 'basic') >= 0
     " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
     Plug 'tpope/vim-surround'
 
-    " 交换两个或更多的单词
+    " " 交换两个或更多的单词
     " Plug 'tpope/vim-abolish'
 
     " Git 支持
@@ -108,6 +84,25 @@ if index(g:bundle_group, 'basic') >= 0
     " 查寻高亮在首个匹配上
     nnoremap <silent> <leader>* :keepjumps normal! mi*`i<CR>
 
+    " 一次性安装一大堆 colorscheme
+    Plug 'flazz/vim-colorschemes'
+
+    " 支持库，给其他插件用的函数库
+    " Plug 'xolox/vim-misc'
+
+    " 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
+    " Plug 'kshenoy/vim-signature'
+
+    " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
+    " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
+    " Plug 'mh21/errormarker.vim'
+
+    " " 使用 <space>ha 清除 errormarker 标注的错误
+    " noremap <silent><space>ha :RemoveErrorMarkers<cr>
+
+    " 展示开始画面，显示最近编辑过的文件
+    Plug 'mhinz/vim-startify'
+
     " 默认不显示 startify
     let g:startify_disable_at_vimenter    = 0
     let g:startify_session_dir            = '~/.vim/session'
@@ -116,11 +111,13 @@ if index(g:bundle_group, 'basic') >= 0
     let g:startify_session_autoload       = 0
     let g:startify_change_to_dir          = 1
     let g:startify_bookmarks              = [
-                \   {'c': '~/.vimrc'},
-                \   '~/.zshrc',
-                \   {'do': '~/plant.md'},
+                \   {'v': '~/.vimrc'},
+                \   {'z': '~/.zshrc'},
                 \ ]
     noremap <leader>p :Startify<cr>
+
+    " 用于在侧边符号栏显示 git/svn 的 diff
+    Plug 'mhinz/vim-signify'
 
     " signify 调优
     let g:signify_vcs_list               = ['git', 'svn']
@@ -184,17 +181,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     " 忽略大小写
     let g:EasyMotion_smartcase = 1
 
-    " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-    " Plug 'asins/vim-dict'
-    " let g:vim_dict_config = {
-    "             \ 'html': ['css', 'javascript'],
-    "             \ 'javascript': [ 'javascript','jsx'],
-    "             \ 'typescript': ['javascript'],
-    "             \}
-
-    " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
-    Plug 'dyng/ctrlsf.vim'
-
     " 配对括号和引号自动补全
     Plug 'jiangmiao/auto-pairs', {
                 \ 'for': [
@@ -215,8 +201,19 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:AutoPairsMoveCharacter      = ''
     let g:AutoPairsShortcutJump       = ''
 
-    " 提供 gist 接口
-    Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
+    " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
+    " Plug 'asins/vim-dict'
+    " let g:vim_dict_config = {
+    "             \ 'html': ['css', 'javascript'],
+    "             \ 'javascript': [ 'javascript','jsx'],
+    "             \ 'typescript': ['javascript'],
+    "             \}
+
+    " " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
+    " Plug 'dyng/ctrlsf.vim'
+
+    " " 提供 gist 接口
+    " Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 endif
 
 
@@ -240,14 +237,15 @@ if index(g:bundle_group, 'textobj') >= 0
     " 参数文本对象：i,/a, 包括参数或者列表元素
     Plug 'sgur/vim-textobj-parameter'
 
-    " " 语法文本对象：iy/ay 基于语法的文本对象
-    " Plug 'kana/vim-textobj-syntax'
-
-    " 函数文本对象：if/af 支持 c/c++/vim/java
+    " " 函数文本对象：if/af 支持 c/c++/vim/java
     " Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 
-    " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
-    " Plug 'bps/vim-textobj-python', {'for': 'python'}
+    " " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
+    " Plug 'bps/vim-textobj-python', { 'for': 'python' }
+    " let g:textobj_python_no_default_key_mappings = 1
+
+    " " 语法文本对象：iy/ay 基于语法的文本对象
+    " Plug 'kana/vim-textobj-syntax'
 
     " 提供 uri/url 的文本对象，iu/au 表示
     " Plug 'jceb/vim-textobj-uri'
@@ -314,79 +312,6 @@ if index(g:bundle_group, 'nerdtree') >= 0
     let g:NERDTreeDirArrows = 1
     let g:NERDTreeHijackNetrw = 0
     noremap <space>nt :NERDTreeToggle<cr>
-endif
-
-
-"----------------------------------------------------------------------
-" ale：动态语法检查
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'ale') >= 0
-    Plug 'dense-analysis/ale'
-
-    " 设定延迟和提示信息
-    let g:ale_completion_delay = 500
-    let g:ale_echo_delay = 20
-    let g:ale_lint_delay = 500
-    let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-
-    " 设定检测的时机：normal 模式文字改变，或者离开 insert模式
-    " 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
-    let g:ale_lint_on_text_changed = 'normal'
-    let g:ale_lint_on_insert_leave = 1
-
-    " 在 linux/mac 下降低语法检查程序的进程优先级（不要卡到前台进程）
-    if has('win32') == 0 && has('win64') == 0 && has('win32unix') == 0
-        let g:ale_command_wrapper = 'nice -n5'
-    endif
-
-    " 允许 airline 集成
-    let g:airline#extensions#ale#enabled = 1
-
-    " 编辑不同文件类型需要的语法检查器
-    let g:ale_linters = {
-                \ 'bash': ['shellcheck'],
-                \ 'c': ['clang'],
-                \ 'cpp': ['clang'],
-                \ 'go': ['go build', 'gofmt'],
-                \ 'java': ['javac'],
-                \ 'javascript': ['eslint'],
-                \ 'lua': ['luac'],
-                \ 'python': ['flake8', 'pylint'],
-                \ 'typescript': ['eslint', 'tslint'],
-                \ }
-
-
-    " 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
-    function s:lintcfg(name)
-        let conf = s:path('tools/conf/')
-        let path1 = conf . a:name
-        let path2 = expand('~/.vim/linter/'. a:name)
-        if filereadable(path2)
-            return path2
-        endif
-        return shellescape(filereadable(path2)? path2 : path1)
-    endfunc
-
-    " 设置 flake8/pylint 的参数
-    let g:ale_python_flake8_options  = '--conf='.s:lintcfg('flake8.conf')
-    let g:ale_python_pylint_options  = '--rcfile='.s:lintcfg('pylint.conf')
-    let g:ale_python_pylint_options .= ' --disable=W'
-    let g:ale_c_gcc_options          = '-Wall -O2 -std=c99'
-    let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++14'
-    let g:ale_c_cppcheck_options     = ''
-    let g:ale_cpp_cppcheck_options   = ''
-
-    let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
-
-    " 如果没有 gcc 只有 clang 时（FreeBSD）
-    if executable('clang') && executable('gcc') == 0
-        let g:ale_linters.c   += ['clang', 'cppcheck']
-        let g:ale_linters.cpp += ['clang', 'cppcheck']
-    endif
-
-    " 错误提示符及警告提示符
-    let g:ale_sign_error='✗'
-    let g:ale_sign_warning='⚠'
 endif
 
 
@@ -642,14 +567,8 @@ if index(g:bundle_group, 'ycm') >= 0
     let g:lt_height = 10
 
     if has('python3')
-        Plug 'ycm-core/YouCompleteMe', {
-                    \ 'do': 'python3 install.py
-                    \ --clangd-completer
-                    \ --ts-completer'
-                    \ }
-    endif
+        Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer' }
 
-    if has('python3')
         " 触发快捷键设置
         let g:ycm_key_list_select_completion   = ['<c-n>']
         let g:ycm_key_list_previous_completion = ['<c-p>']
@@ -658,8 +577,6 @@ if index(g:bundle_group, 'ycm') >= 0
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
         set completeopt+=popup
-
-        " noremap <c-z> <NOP>
 
         let g:ycm_server_log_level = 'info'
         " 禁用诊断功能：我们用前面更好用的 ALE 代替
@@ -802,18 +719,99 @@ if index(g:bundle_group, 'snippets') >= 0
         Plug 'SirVer/ultisnips'
     endif
     Plug 'honza/vim-snippets'
-    let g:UltiSnipsSnippetDirectories  = [ 'UltiSnips', 'mysnippets' ]
+    let g:UltiSnipsSnippetDirectories  = ['UltiSnips', 'mysnippets']
     let g:UltiSnipsExpandTrigger       = '<tab>'
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
     let g:UltiSnipsListSnippets        = '<c-l>'
     let g:UltiSnipsEditSplit           = 'vertical'
+    nnoremap <leader>ua :UltiSnipsAddFiletypes snippets
+
+    " emmet高速编写网页类代码 {{{
+    Plug 'mattn/emmet-vim', { 'for': ['html'] }
+    let g:emmet_html5 = 1
+
+    " 帮助emmet显示snippets提示
+    Plug 'jceb/emmet.snippets', { 'for': ['html'] }
 
 endif
 
+
+"----------------------------------------------------------------------
+" ale：动态语法检查
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'ale') >= 0
+    Plug 'dense-analysis/ale'
+
+    " 设定延迟和提示信息
+    let g:ale_completion_delay = 500
+    let g:ale_echo_delay = 20
+    let g:ale_lint_delay = 500
+    let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+
+    " 设定检测的时机：normal 模式文字改变，或者离开 insert模式
+    " 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
+    let g:ale_lint_on_text_changed = 'normal'
+    let g:ale_lint_on_insert_leave = 1
+
+    " 在 linux/mac 下降低语法检查程序的进程优先级（不要卡到前台进程）
+    if has('win32') == 0 && has('win64') == 0 && has('win32unix') == 0
+        let g:ale_command_wrapper = 'nice -n5'
+    endif
+
+    " 允许 airline 集成
+    let g:airline#extensions#ale#enabled = 1
+
+    " 编辑不同文件类型需要的语法检查器
+    let g:ale_linters = {
+                \ 'bash': ['shellcheck'],
+                \ 'c': ['clang'],
+                \ 'cpp': ['clang'],
+                \ 'go': ['go build', 'gofmt'],
+                \ 'java': ['javac'],
+                \ 'javascript': ['eslint'],
+                \ 'lua': ['luac'],
+                \ 'python': ['flake8', 'pylint'],
+                \ 'typescript': ['eslint', 'tslint'],
+                \ }
+
+
+    " 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
+    function s:lintcfg(name)
+        let conf = s:path('tools/conf/')
+        let path1 = conf . a:name
+        let path2 = expand('~/.vim/linter/'. a:name)
+        if filereadable(path2)
+            return path2
+        endif
+        return shellescape(filereadable(path2)? path2 : path1)
+    endfunc
+
+    " 设置 flake8/pylint 的参数
+    let g:ale_python_flake8_options  = '--conf='.s:lintcfg('flake8.conf')
+    let g:ale_python_pylint_options  = '--rcfile='.s:lintcfg('pylint.conf')
+    let g:ale_python_pylint_options .= ' --disable=W'
+    let g:ale_c_gcc_options          = '-Wall -O2 -std=c99'
+    let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++14'
+    let g:ale_c_cppcheck_options     = ''
+    let g:ale_cpp_cppcheck_options   = ''
+
+    let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
+
+    " 如果没有 gcc 只有 clang 时（FreeBSD）
+    if executable('clang') && executable('gcc') == 0
+        let g:ale_linters.c   += ['clang', 'cppcheck']
+        let g:ale_linters.cpp += ['clang', 'cppcheck']
+    endif
+
+    " 错误提示符及警告提示符
+    let g:ale_sign_error='✗'
+    let g:ale_sign_warning='⚠'
+endif
+
+
 if index(g:bundle_group, 'tool') >= 0
 
-    " " 对齐
     " Plug 'junegunn/vim-easy-align'
     " vmap <Enter> <Plug>(EasyAlign)
     " xmap ga <Plug>(EasyAlign)
@@ -842,11 +840,11 @@ if index(g:bundle_group, 'tool') >= 0
     "             \   }
     "             \ }
 
+    " 对齐
+    Plug 'godlygeek/tabular'
+
     " tmux 中使用vim 复制
     Plug 'roxma/vim-tmux-clipboard'
-
-    Plug 'puremourning/vimspector'
-    let g:vimspector_enable_mappings = 'HUMAN'
 
     " " 预览命令行命令效果
     " Plug 'markonm/traces.vim'
@@ -855,18 +853,22 @@ if index(g:bundle_group, 'tool') >= 0
     Plug 'luochen1990/rainbow'
     let g:rainbow_active = 1
 
-    " " emmet高速编写网页类代码 {{{
-    " Plug 'mattn/emmet-vim', { 'for': ['html'] }
-    " let g:emmet_html5 = 1
-
-    " " 帮助emmet显示snippets提示
-    " Plug 'jceb/emmet.snippets'
-
     Plug 'ianva/vim-youdao-translater'
     vnoremap <silent> <C-k> :<C-u>Ydv<CR>
     nnoremap <silent> <C-k> :<C-u>Ydc<CR>
     noremap <leader>yd :<C-u>Yde<CR>
 
+
+    " Plug 'lervag/vimtex'
+    " let g:tex_flavor='latex'
+    " let g:vimtex_view_method='zathura'
+    " let g:vimtex_quickfix_mode=0
+    " set conceallevel=1
+    " let g:tex_conceal='abdmg'
+endif
+
+
+if index(g:bundle_group, 'repl') >= 0
     Plug 'sillybun/vim-repl'
     let g:repl_program = {
                 \   'python': 'python3',
@@ -897,13 +899,38 @@ if index(g:bundle_group, 'tool') >= 0
     nnoremap <leader>r :REPLToggle<Cr>
     let g:repl_position = 3
     let g:repl_stayatrepl_when_open = 0
+endif
 
-    Plug 'godlygeek/tabular'
+
+if index(g:bundle_group, 'debug') >= 0
+    Plug 'puremourning/vimspector'
+    let g:vimspector_enable_mappings = 'HUMAN'
+endif
+
+
+if index(g:bundle_group, 'markdown') >= 0
     Plug 'mzlogin/vim-markdown-toc', { 'for': [ 'markdown' ] }
     let g:vmt_auto_update_on_save = 1
     let g:vmt_cycle_list_item_markers = 1
     Plug 'plasticboy/vim-markdown', { 'for': [ 'markdown' ] }
+    Plug 'iamcco/markdown-preview.nvim', {
+                \ 'do': 'cd app & yarn install --registry=https://registry.npm.taobao.org',
+                \ 'for': [ 'markdown' ]
+                \ }
+    let g:vim_markdown_math = 1
+    let g:mkdp_preview_options = {
+                \ 'mkit': {},
+                \ 'katex': {},
+                \ 'uml': {},
+                \ 'maid': {},
+                \ 'disable_sync_scroll': 0,
+                \ 'sync_scroll_type': 'middle',
+                \ 'hide_yaml_meta': 1,
+                \ 'sequence_diagrams': {},
+                \ 'flowchart_diagrams': {}
+                \ }
 endif
+
 
 "----------------------------------------------------------------------
 " 结束插件安装
