@@ -189,6 +189,7 @@ if index(g:bundle_group, 'enhanced') >= 0
                 \   'html',
                 \   'java',
                 \   'javascript',
+                \   'python',
                 \   'typescript',
                 \   'vim',
                 \   ]

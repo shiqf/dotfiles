@@ -36,6 +36,9 @@ inoremap <c-e> <end>
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
 
+" 跳转到下一行末尾
+inoremap <c-j> <c-o>m`<c-o>2$
+
 " ctrl+k 删除到行末
 inoremap <c-k> <c-\><c-o>"_d$
 
@@ -84,8 +87,8 @@ cnoremap <expr> <c-d> Cd()
 "----------------------------------------------------------------------
 
 " 快速切换tab 使用标签 参考unimparied
-nnoremap ]g gt<cr>
-nnoremap [g gT<cr>
+nnoremap ]g gt
+nnoremap [g gT
 nnoremap [G :tabfirst<cr>
 nnoremap ]G :tablast<cr>
 
@@ -111,7 +114,7 @@ noremap <silent> <c-w>to :tabonly<cr>
 noremap <silent> <c-w>tt :tab terminal<cr>
 noremap <silent> <c-w>th :call Tab_MoveLeft()<cr>
 noremap <silent> <c-w>tl :call Tab_MoveRight()<cr>
-noremap <silent> <c-w>td :tabdo 
+noremap <c-w>td :tabdo 
 
 
 "----------------------------------------------------------------------
@@ -149,8 +152,8 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
     tnoremap <m-p> <c-_>"0
 
     " tab 切换
-    tnoremap ]g <c-_>gt<cr>
-    tnoremap [g <c-_>gT<cr>
+    tnoremap ]g <c-_>gt
+    tnoremap [g <c-_>gT
     tnoremap ]G <c-_>:tablast<cr>
     tnoremap [G <c-_>:tabfirst<cr>
 
