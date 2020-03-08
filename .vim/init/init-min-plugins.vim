@@ -61,6 +61,7 @@ Plug 'jiangmiao/auto-pairs', {
             \   'cpp',
             \   'html',
             \   'java',
+            \   'python',
             \   'javascript',
             \   'typescript',
             \   'vim',
@@ -221,15 +222,15 @@ if has('python3')
         let g:ycm_key_invoke_completion = '<c-z>'
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
-        set completeopt+=popup
 
-        " noremap <c-z> <NOP>
+        " set completeopt+=popup
+        " 禁用预览功能：扰乱视听 默认 0 为禁用
+        let g:ycm_add_preview_to_completeopt = 1
+        let g:ycm_autoclose_preview_window_after_completion = 1
 
         let g:ycm_server_log_level = 'info'
         " 禁用诊断功能：我们用前面更好用的 ALE 代替
         let g:ycm_show_diagnostics_ui = 1
-        " 禁用预览功能：扰乱视听
-        let g:ycm_add_preview_to_completeopt = 0
         let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
         " 不显示load python 提示
         let g:ycm_confirm_extra_conf=0
@@ -350,6 +351,7 @@ endif
 " snippets 片段扩展
 " 通过 VimL 语言的支持 " 需要通过 Python 的支持
 Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 let g:UltiSnipsSnippetDirectories  = [ 'UltiSnips', 'mysnippets' ]
 let g:UltiSnipsExpandTrigger       = '<c-i>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
