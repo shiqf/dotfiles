@@ -46,6 +46,3 @@ LoadScript init/init-keymaps.vim
 
 " 自定义主题
 LoadScript init/init-colors.vim
-
-" 加载错误修正
-LoadScript init/init-abbr.vim

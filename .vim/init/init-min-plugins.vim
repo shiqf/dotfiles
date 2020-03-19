@@ -43,6 +43,9 @@ Plug 'tpope/vim-unimpaired'
 " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
 Plug 'tpope/vim-surround'
 
+" 多单词查询、代替、缩写
+Plug 'tpope/vim-abolish'
+
 " Git 支持
 Plug 'tpope/vim-fugitive'
 

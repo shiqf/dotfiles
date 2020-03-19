@@ -23,6 +23,7 @@ cnoremap <c-p> <up>
 cnoremap <c-n> <down>
 nnoremap 1p "1p
 nnoremap 1P "1P
+inoremap <m-y> <c-a>
 
 nnoremap Q gq
 
