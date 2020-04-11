@@ -32,7 +32,8 @@ nnoremap Q gq
 "----------------------------------------------------------------------
 inoremap <c-f> <right>
 inoremap <c-b> <left>
-inoremap <c-a> <home>
+" inoremap <c-a> <home>
+inoremap <c-a> <c-\><c-o>^
 inoremap <c-e> <end>
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
