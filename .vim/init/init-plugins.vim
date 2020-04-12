@@ -570,6 +570,8 @@ if index(g:bundle_group, 'ycm') >= 0
     if has('python3')
         Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer' }
 
+        let g:ycm_max_diagnostics_to_display = 0
+
         " 触发快捷键设置
         let g:ycm_key_list_select_completion   = ['<c-n>']
         let g:ycm_key_list_previous_completion = ['<c-p>']
