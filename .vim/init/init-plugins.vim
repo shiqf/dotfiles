@@ -487,7 +487,13 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_MruMaxFiles = 2048
 
         " ui 定制
+        " let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
         let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+        " 使用 / 寄存器存储 rg -e 使用的正则表达式
+        let g:Lf_RgStorePattern = '/'
+
+        let g:Lf_UseVersionControlTool = 0
 
         " 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
         let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
@@ -501,11 +507,19 @@ if index(g:bundle_group, 'leaderf') >= 0
         " 隐藏帮助
         let g:Lf_HideHelp = 1
 
+        let g:Lf_DiscardEmptyBuffer = 1
+
         " 模糊匹配忽略扩展名
         let g:Lf_WildIgnore = {
-                    \ 'dir': ['.svn','.git','.hg'],
-                    \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+                    \ 'dir': ['.svn','.git','.hg', 'doc'],
+                    \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico']
                     \ }
+
+        " 忽略最近文件
+        let g:Lf_MruWildIgnore = {
+                    \ 'dir': [ 'doc', 'node_modules' ],
+                    \ 'file': []
+                    \}
 
         " MRU 文件忽略扩展名
         let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
@@ -547,13 +561,17 @@ if index(g:bundle_group, 'leaderf') >= 0
 
         " 开启后不能在普通模式中使用搜索/
         let g:Lf_WindowPosition = 'popup'
+        let g:Lf_PopupPosition = [0, 0]
         let g:Lf_PreviewInPopup = 1 " 就可以启用这个功能，缺省未启用。
-        let g:Lf_PreviewHorizontalPosition = 'center' " 指定 popup window / floating window 的位置。
+        let g:Lf_PopupWidth = '0.6'
+        let g:Lf_PopupHeight = '0.3'
+
         let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
+        let g:Lf_PopupPreviewPosition = 'cursor' " 指定 popup window / floating window 的位置。
 
         if executable('rg')
             xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", leaderf#Rg#visual())<CR><CR>
-            nnoremap gs :<C-U><C-R>=printf("Leaderf! rg %s", expand("<cword>"))<CR>
+            nnoremap gs :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR>
         endif
         noremap <leader>cr :<C-U>Leaderf! --recall<CR>
     endif
