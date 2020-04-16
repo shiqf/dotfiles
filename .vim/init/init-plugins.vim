@@ -487,13 +487,12 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_MruMaxFiles = 2048
 
         " ui 定制
-        " let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
-        let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+        let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
 
         " 使用 / 寄存器存储 rg -e 使用的正则表达式
         let g:Lf_RgStorePattern = '/'
 
-        let g:Lf_UseVersionControlTool = 0
+        let g:Lf_ShowRelativePath = 1
 
         " 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
         let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
@@ -502,16 +501,17 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
         " 显示绝对路径
-        let g:Lf_ShowRelativePath = 0
+        let g:Lf_ShowRelativePath = 1
 
         " 隐藏帮助
         let g:Lf_HideHelp = 1
 
         let g:Lf_DiscardEmptyBuffer = 1
 
+        " let g:Lf_UseVersionControlTool = 0
         " 模糊匹配忽略扩展名
         let g:Lf_WildIgnore = {
-                    \ 'dir': ['.svn','.git','.hg', 'doc'],
+                    \ 'dir': ['.svn','.git','.hg'],
                     \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico']
                     \ }
 
