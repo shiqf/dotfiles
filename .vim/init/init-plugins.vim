@@ -486,19 +486,17 @@ if index(g:bundle_group, 'leaderf') >= 0
         " 最大历史文件保存 2048 个
         let g:Lf_MruMaxFiles = 2048
 
-        " ui 定制
-        let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
-
-        " 使用 / 寄存器存储 rg -e 使用的正则表达式
-        let g:Lf_RgStorePattern = '/'
-
-        let g:Lf_ShowRelativePath = 1
-
         " 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
         let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
         let g:Lf_WorkingDirectoryMode = 'Ac'
         let g:Lf_WindowHeight = 0.30
         let g:Lf_CacheDirectory = expand('~/.vim/cache')
+
+        " ui 定制
+        let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
+
+        " 使用 / 寄存器存储 rg -e 使用的正则表达式
+        let g:Lf_RgStorePattern = '/'
 
         " 显示绝对路径
         let g:Lf_ShowRelativePath = 1
@@ -507,6 +505,7 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_HideHelp = 1
 
         let g:Lf_DiscardEmptyBuffer = 1
+        let g:Lf_RememberLastSearch = 1
 
         " let g:Lf_UseVersionControlTool = 0
         " 模糊匹配忽略扩展名
@@ -517,7 +516,7 @@ if index(g:bundle_group, 'leaderf') >= 0
 
         " 忽略最近文件
         let g:Lf_MruWildIgnore = {
-                    \ 'dir': [ 'doc', 'node_modules' ],
+                    \ 'dir': ['node_modules'],
                     \ 'file': []
                     \}
 
@@ -568,10 +567,11 @@ if index(g:bundle_group, 'leaderf') >= 0
 
         let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
         let g:Lf_PopupPreviewPosition = 'cursor' " 指定 popup window / floating window 的位置。
+        let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
 
         if executable('rg')
             xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", leaderf#Rg#visual())<CR><CR>
-            nnoremap gs :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR>
+            nnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", expand("<cword>"))<CR>
         endif
         noremap <leader>cr :<C-U>Leaderf! --recall<CR>
     endif

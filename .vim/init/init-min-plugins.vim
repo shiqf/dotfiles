@@ -140,26 +140,38 @@ if has('python3')
     " 最大历史文件保存 2048 个
     let g:Lf_MruMaxFiles = 2048
 
-    " ui 定制
-    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-
     " 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_WindowHeight = 0.30
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
+    " ui 定制
+    let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
+
+    " 使用 / 寄存器存储 rg -e 使用的正则表达式
+    let g:Lf_RgStorePattern = '/'
+
     " 显示绝对路径
-    let g:Lf_ShowRelativePath = 0
+    let g:Lf_ShowRelativePath = 1
 
     " 隐藏帮助
     let g:Lf_HideHelp = 1
+
+    let g:Lf_DiscardEmptyBuffer = 1
+    let g:Lf_RememberLastSearch = 1
 
     " 模糊匹配忽略扩展名
     let g:Lf_WildIgnore = {
                 \ 'dir': ['.svn','.git','.hg'],
                 \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
                 \ }
+
+    " 忽略最近文件
+    let g:Lf_MruWildIgnore = {
+                \ 'dir': ['node_modules'],
+                \ 'file': []
+                \}
 
     " MRU 文件忽略扩展名
     let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
@@ -201,9 +213,14 @@ if has('python3')
 
     " 开启后不能在普通模式中使用搜索/
     let g:Lf_WindowPosition = 'popup'
+    let g:Lf_PopupPosition = [0, 0]
     let g:Lf_PreviewInPopup = 1 " 就可以启用这个功能，缺省未启用。
-    let g:Lf_PreviewHorizontalPosition = 'center' " 指定 popup window / floating window 的位置。
+    let g:Lf_PopupWidth = '0.6'
+    let g:Lf_PopupHeight = '0.3'
+
     let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
+    let g:Lf_PopupPreviewPosition = 'cursor' " 指定 popup window / floating window 的位置。
+    let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
 
     if executable('rg')
         xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", leaderf#Rg#visual())<CR><CR>
@@ -217,6 +234,8 @@ if has('python3')
     let g:lt_quickfix_list_toggle_map = '<leader>q'
     let g:lt_height = 10
     Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer' }
+
+    let g:ycm_max_diagnostics_to_display = 0
 
     " 触发快捷键设置
     let g:ycm_key_list_select_completion   = ['<c-n>']
