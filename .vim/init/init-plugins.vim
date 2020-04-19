@@ -330,11 +330,13 @@ if index(g:bundle_group, 'tags') >= 0
     " <leader>cg - 查看光标下符号的定义
     " <leader>cs - 查看光标下符号的引用
     " <leader>cc - 查看有哪些函数调用了该函数
+    " <leader>cd - 查看该函数调用了哪些函数
     " <leader>cf - 查找光标下的文件
     " <leader>ci - 查找哪些文件 include 了本文件
     " <leader>ct - 查看光标下字符串
     " <leader>ce - 查看光标下正则
-    " <leader>ca - 查看光标下符号的分配位置
+    " <leader>ca - 查看光标下符号的分配位置 assign
+    " <leader>cz - 查看光标下符号赋值的地方
     Plug 'skywind3000/gutentags_plus'
 
     " 第一个 GTAGSLABEL 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用
@@ -469,10 +471,10 @@ if index(g:bundle_group, 'leaderf') >= 0
         nnoremap <m-n> :LeaderfMru<cr>
 
         " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-        nnoremap <m-f> :LeaderfFunction!<cr>
+        nnoremap <m-f> :LeaderfFunction<cr>
 
         " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-        nnoremap <m-F> :LeaderfFunctionAll!<cr>
+        nnoremap <m-F> :LeaderfFunctionAll<cr>
 
         " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
         nnoremap <m-t> :LeaderfBufTag!<cr>
@@ -598,10 +600,10 @@ if index(g:bundle_group, 'ycm') >= 0
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
 
-        " set completeopt+=popup
+        set completeopt+=popup
         " 禁用预览功能：扰乱视听 默认 0 为禁用
-        let g:ycm_add_preview_to_completeopt = 1
-        let g:ycm_autoclose_preview_window_after_completion = 1
+        let g:ycm_add_preview_to_completeopt = 0
+        let g:ycm_autoclose_preview_window_after_completion = 0
 
         let g:ycm_server_log_level = 'info'
         " 禁用诊断功能：我们用前面更好用的 ALE 代替
@@ -703,6 +705,16 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ 'zsh':1,
                     \ }
 
+        let s:ycm_hover_popup = -1
+        function s:Hover()
+            let response = youcompleteme#GetCommandResponse( 'GetDoc' )
+            if response == ''
+                return
+            endif
+            call popup_hide( s:ycm_hover_popup )
+            let s:ycm_hover_popup = popup_atcursor( balloon_split( response ), {} )
+        endfunction
+
         augroup ycmFileTypeMap
             autocmd!
 
@@ -723,7 +735,8 @@ if index(g:bundle_group, 'ycm') >= 0
                         \ nnoremap gct :YcmCompleter GetType<CR>
 
             autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
-                        \ nnoremap gcd :YcmCompleter GetDoc<CR>
+                        \ nnoremap <silent>gcd :call <SID>Hover()<CR>
+                        " \ nnoremap gcd :YcmCompleter GetDoc<CR>
 
             autocmd FileType java,javascript,typescript
                         \ nnoremap gco :YcmCompleter OrganizeImports<CR>
