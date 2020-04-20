@@ -471,7 +471,7 @@ if index(g:bundle_group, 'leaderf') >= 0
         nnoremap <m-n> :LeaderfMru<cr>
 
         " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-        nnoremap <m-f> :LeaderfFunction<cr>
+        nnoremap <m-f> :LeaderfFunction!<cr>
 
         " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
         nnoremap <m-F> :LeaderfFunctionAll<cr>
@@ -507,7 +507,7 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_HideHelp = 1
 
         let g:Lf_DiscardEmptyBuffer = 1
-        let g:Lf_RememberLastSearch = 1
+        " let g:Lf_RememberLastSearch = 1
 
         " let g:Lf_UseVersionControlTool = 0
         " 模糊匹配忽略扩展名

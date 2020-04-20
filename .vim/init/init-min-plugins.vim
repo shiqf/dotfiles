@@ -123,13 +123,13 @@ if has('python3')
     nnoremap <m-n> :LeaderfMru<cr>
 
     " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-    nnoremap <m-f> :LeaderfFunction<cr>
+    nnoremap <m-f> :LeaderfFunction!<cr>
 
     " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
     nnoremap <m-F> :LeaderfFunctionAll!<cr>
 
     " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
-    nnoremap <m-t> :LeaderfBufTag<cr>
+    nnoremap <m-t> :LeaderfBufTag!<cr>
 
     " 全局 tags 模糊匹配
     nnoremap <m-T> :LeaderfBufTagAll<cr>
@@ -159,7 +159,7 @@ if has('python3')
     let g:Lf_HideHelp = 1
 
     let g:Lf_DiscardEmptyBuffer = 1
-    let g:Lf_RememberLastSearch = 1
+    " let g:Lf_RememberLastSearch = 1
 
     " 模糊匹配忽略扩展名
     let g:Lf_WildIgnore = {

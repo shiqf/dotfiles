@@ -18,7 +18,8 @@ set nocompatible
 set visualbell t_vb=
 
 " 设置 Backspace 键模式
-set backspace=eol,start,indent
+" set backspace=indent,eol,start
+set backspace=3
 
 " 自动缩进
 set autoindent
