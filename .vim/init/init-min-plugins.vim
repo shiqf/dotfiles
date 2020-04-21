@@ -386,6 +386,8 @@ let g:UltiSnipsEditSplit           = 'vertical'
 "----------------------------------------------------------------------
 call plug#end()
 
+set relativenumber
+
 set path+=**
 " Tweaks for browsing
 let g:netrw_banner=0        " disable annoying banner
