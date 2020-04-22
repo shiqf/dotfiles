@@ -50,6 +50,7 @@ bundles
 .tmux/resurrect
 cache
 session
+autoload
 
 
 # tags file
