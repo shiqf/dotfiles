@@ -12,7 +12,6 @@
 "======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
 
-
 " 在普通和可视模式上重复上次替换
 nnoremap <silent> & :~&<CR>
 xnoremap <silent> & :~&<CR>
@@ -27,14 +26,16 @@ inoremap <m-y> <c-a>
 
 nnoremap Q gq
 
+onoremap ]z V]z
+onoremap [z V[z
+
 "----------------------------------------------------------------------
 " INSERT 模式下使用 EMACS 键位
 "----------------------------------------------------------------------
 inoremap <c-f> <right>
 inoremap <c-b> <left>
-" inoremap <c-a> <home>
-inoremap <c-a> <c-\><c-o>^
-inoremap <c-e> <end>
+inoremap <c-a> <c-\><c-o>_
+inoremap <c-e> <esc>g_a
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
 

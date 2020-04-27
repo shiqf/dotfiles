@@ -91,7 +91,7 @@ if index(g:bundle_group, 'basic') >= 0
     " Plug 'xolox/vim-misc'
 
     " 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
-    " Plug 'kshenoy/vim-signature'
+    Plug 'kshenoy/vim-signature'
 
     " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
     " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
