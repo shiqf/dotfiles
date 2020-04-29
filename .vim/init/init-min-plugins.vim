@@ -81,7 +81,7 @@ let g:AutoPairsShortcutJump       = ''
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 " 查寻高亮在首个匹配上
-nnoremap <silent> <leader>* :keepjumps normal! mi*`i<CR>
+nnoremap <silent> 0* :keepjumps normal! mi*`i<CR>
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
 Plug 'kana/vim-textobj-user'

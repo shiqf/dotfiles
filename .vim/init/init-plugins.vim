@@ -82,7 +82,7 @@ if index(g:bundle_group, 'basic') >= 0
     vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
     vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
     " 查寻高亮在首个匹配上
-    nnoremap <silent> <leader>* :keepjumps normal! mi*`i<CR>
+    nnoremap <silent> 0* :keepjumps normal! mi*`i<CR>
 
     " 一次性安装一大堆 colorscheme
     Plug 'flazz/vim-colorschemes'
