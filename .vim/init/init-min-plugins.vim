@@ -80,8 +80,27 @@ let g:AutoPairsShortcutJump       = ''
 
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
-" 查寻高亮在首个匹配上
-nnoremap <silent> 0* :keepjumps normal! mi*`i<CR>
+
+" 配对括号和引号自动补全
+Plug 'jiangmiao/auto-pairs', {
+            \ 'for': [
+            \   'c',
+            \   'cpp',
+            \   'html',
+            \   'java',
+            \   'python',
+            \   'javascript',
+            \   'typescript',
+            \   'vim',
+            \   ]
+            \ }
+
+let g:AutoPairsFlyMode            = 0
+let g:AutoPairsShortcutBackInsert = '<M-z>'
+let g:AutoPairsShortcutToggle     = '<M-a>'
+let g:AutoPairsMapCh              = 0
+let g:AutoPairsMoveCharacter      = ''
+let g:AutoPairsShortcutJump       = ''
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
 Plug 'kana/vim-textobj-user'
