@@ -593,7 +593,7 @@ if index(g:bundle_group, 'ycm') >= 0
         " 触发快捷键设置
         let g:ycm_key_list_select_completion   = ['<c-n>']
         let g:ycm_key_list_previous_completion = ['<c-p>']
-        let g:ycm_key_list_stop_completion = ['<c-y>']
+        let g:ycm_key_list_stop_completion = ['<c-s>']
         let g:ycm_key_invoke_completion = '<c-z>'
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
@@ -703,6 +703,7 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ 'zsh':1,
                     \ }
 
+        let g:ycm_auto_hover = ''
         let s:ycm_hover_popup = -1
         function s:Hover()
             let response = youcompleteme#GetCommandResponse( 'GetDoc' )
@@ -734,7 +735,6 @@ if index(g:bundle_group, 'ycm') >= 0
 
             autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
                         \ nnoremap <silent>gcd :call <SID>Hover()<CR>
-                        " \ nnoremap gcd :YcmCompleter GetDoc<CR>
 
             autocmd FileType java,javascript,typescript
                         \ nnoremap gco :YcmCompleter OrganizeImports<CR>

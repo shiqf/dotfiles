@@ -39,6 +39,9 @@ inoremap <c-e> <esc>g_a
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
 
+" 类似终端下的 ctrl-y
+inoremap <c-y> <c-a>
+
 " 跳转到下一行末尾
 inoremap <c-j> <c-o>m`<c-o>2$
 
