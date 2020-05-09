@@ -761,8 +761,9 @@ if index(g:bundle_group, 'snippets') >= 0
     let g:UltiSnipsEditSplit           = 'vertical'
     nnoremap <leader>ua :UltiSnipsAddFiletypes snippets
 
-    " emmet高速编写网页类代码 {{{
-    Plug 'mattn/emmet-vim', { 'for': ['html'] }
+    " emmet高速编写网页类代码
+    Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
+    let g:user_emmet_leader_key='<c-g>'
     let g:emmet_html5 = 1
 
     " 帮助emmet显示snippets提示
