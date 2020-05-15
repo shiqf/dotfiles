@@ -76,7 +76,7 @@ cnoremap <c-_> <c-k>
 " 使用 alt-q 打开命令、查询等历史窗口
 cnoremap <m-q> <c-f>
 
-function Cd()
+function! Cd()
     if (strlen(getcmdline()) == 0)
         return "\<esc>"
     elseif (strlen(getcmdline()) != 0 && strlen(getcmdline()) > getcmdpos() - 1)

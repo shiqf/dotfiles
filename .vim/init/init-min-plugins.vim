@@ -17,14 +17,16 @@ let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
 let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_focus = 0
 
-nnoremap <leader>ar :AsyncRun.
-nnoremap <leader>as :AsyncStop<cr>
-nnoremap <leader>am :AsyncTaskMacro<cr>
-nnoremap <leader>ae :AsyncTaskEdit<cr>
-nnoremap <leader>al :AsyncTaskList<cr>
+nnoremap <silent> <leader>ar :AsyncRun.
+nnoremap <silent> <leader>as :AsyncStop<cr>
+nnoremap <silent> <leader>am :AsyncTaskMacro<cr>
+nnoremap <silent> <leader>ae :AsyncTaskEdit<cr>
+nnoremap <silent> <leader>al :AsyncTaskList<cr>
 
-nnoremap <leader>5 :AsyncTask file-run<cr>
-nnoremap <leader>9 :AsyncTask file-build<cr>
+nnoremap <silent> <leader>5 :AsyncTask file-run<cr>
+nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
+nnoremap <silent> <leader>6 :AsyncTask project-run<cr>
+nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
 
 " 为其他插件提供重复操作'.'功能
 Plug 'tpope/vim-repeat'
