@@ -60,8 +60,8 @@ endfunction
 " 配对括号和引号自动补全
 Plug 'jiangmiao/auto-pairs', {
             \ 'for': [
-            \   'c',
-            \   'cpp',
+            \   '*.c',
+            \   '*.cpp',
             \   'html',
             \   'java',
             \   'python',
