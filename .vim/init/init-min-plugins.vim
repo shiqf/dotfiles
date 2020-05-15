@@ -64,8 +64,8 @@ Plug 'jiangmiao/auto-pairs', {
             \   '*.cpp',
             \   'html',
             \   'java',
-            \   'python',
             \   'javascript',
+            \   'python',
             \   'typescript',
             \   'vim',
             \   ]

@@ -257,7 +257,7 @@ endif
 if index(g:bundle_group, 'filetypes') >= 0
 
     " 额外语法文件
-    Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
+    Plug 'justinmk/vim-syntax-extra', { 'for': ['bison', '*.c', '*.cpp', 'flex'] }
 
     " C++ 语法高亮增强，支持 11/14/17 标准
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
