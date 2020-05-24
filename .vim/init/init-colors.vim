@@ -12,7 +12,8 @@ if exists('$TMUX') || has('gui')
     elseif strftime('%H') > 16 && strftime('%H') <= 24
         " 下午5点到晚上12点为dracula dark背景
         set background=dark
-        colorscheme dracula
+        " colorscheme dracula
+        colorscheme gruvbox
     elseif strftime('%H') > 0 || strftime('%H') <= 8
         " 晚上凌晨1点到早上8点为molokai dark背景
         set background=dark

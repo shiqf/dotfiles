@@ -1,5 +1,3 @@
-packadd! cfilter
-
 "----------------------------------------------------------------------
 " 在 ~/.vim/bundles 下安装插件
 "----------------------------------------------------------------------
@@ -51,27 +49,8 @@ Plug 'tpope/vim-abolish'
 " Git 支持
 Plug 'tpope/vim-fugitive'
 
-" 可视模式下用 * 号匹配字符串
-function! s:VSetSearch()
-    let temp = @@
-    norm! gvy
-    let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-    let @@ = temp
-endfunction
-
 " 配对括号和引号自动补全
-Plug 'jiangmiao/auto-pairs', {
-            \ 'for': [
-            \   '*.c',
-            \   '*.cpp',
-            \   'html',
-            \   'java',
-            \   'javascript',
-            \   'python',
-            \   'typescript',
-            \   'vim',
-            \   ]
-            \ }
+Plug 'jiangmiao/auto-pairs'
 
 let g:AutoPairsFlyMode            = 0
 let g:AutoPairsShortcutBackInsert = '<M-z>'
@@ -79,9 +58,6 @@ let g:AutoPairsShortcutToggle     = '<M-a>'
 let g:AutoPairsMapCh              = 0
 let g:AutoPairsMoveCharacter      = ''
 let g:AutoPairsShortcutJump       = ''
-
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
 Plug 'kana/vim-textobj-user'

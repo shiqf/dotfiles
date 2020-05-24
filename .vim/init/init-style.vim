@@ -2,8 +2,8 @@
 "
 " init-style.vim - 显示样式设置
 "
-"======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
+"======================================================================
 
 
 "----------------------------------------------------------------------
@@ -97,3 +97,16 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
 " 修正补全目录的色彩：默认太难看
 hi! Pmenu guibg=gray guifg=black ctermbg=gray ctermfg=black
 hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
+
+
+"----------------------------------------------------------------------
+" 终端设置，隐藏行号和侧边栏
+"----------------------------------------------------------------------
+if has('terminal') && exists(':terminal') == 2
+    if exists('##TerminalOpen')
+        augroup VimUnixTerminalGroup
+            au!
+            au TerminalOpen * setlocal nonumber signcolumn=no
+        augroup END
+    endif
+endif

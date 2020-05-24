@@ -2,15 +2,9 @@
 "
 " init-plugins.vim -
 "
-"======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
+"======================================================================
 
-packadd! termdebug
-packadd! matchit
-packadd! cfilter
-
-" 调用man程序在vim内部查看命令
-runtime ftplugin/man.vim
 
 "----------------------------------------------------------------------
 " 默认情况下的分组，可以再前面覆盖之
@@ -71,19 +65,10 @@ if index(g:bundle_group, 'basic') >= 0
     " Git 支持
     Plug 'tpope/vim-fugitive'
 
-    " 可视模式下用 * 号匹配字符串
-    function! s:VSetSearch()
-        let temp = @@
-        norm! gvy
-        let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-        let @@ = temp
-    endfunction
-
-    vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
-    vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
-
     " 一次性安装一大堆 colorscheme
     Plug 'flazz/vim-colorschemes'
+
+    Plug 'flazz/test'
 
     " 支持库，给其他插件用的函数库
     " Plug 'xolox/vim-misc'
@@ -182,18 +167,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:EasyMotion_smartcase = 1
 
     " 配对括号和引号自动补全
-    Plug 'jiangmiao/auto-pairs', {
-                \ 'for': [
-                \   '*.c',
-                \   '*.cpp',
-                \   'html',
-                \   'java',
-                \   'javascript',
-                \   'python',
-                \   'typescript',
-                \   'vim',
-                \   ]
-                \ }
+    Plug 'jiangmiao/auto-pairs'
 
     let g:AutoPairsFlyMode            = 0
     let g:AutoPairsShortcutBackInsert = '<M-z>'

@@ -26,17 +26,17 @@ command! -nargs=1 LoadScript exec 'so '.s:home.'/'.'<args>'
 " 加载基础配置
 LoadScript init/init-basic.vim
 
-" 设定 tabsize
-LoadScript init/init-tabsize.vim
-
 " 加载扩展配置
 LoadScript init/init-config.vim
 
-" 自定义按键
-LoadScript init/init-keymaps.vim
+" 设定 tabsize
+LoadScript init/init-tabsize.vim
+
+" 插件配置
+LoadScript init/init-min-plugins.vim
 
 " 界面样式
 LoadScript init/init-style.vim
 
-" 插件配置
-LoadScript init/init-min-plugins.vim
+" 自定义按键
+LoadScript init/init-keymaps.vim

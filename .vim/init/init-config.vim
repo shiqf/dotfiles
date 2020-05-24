@@ -2,8 +2,8 @@
 "
 " init-config.vim - 正常模式下的配置，在 init-basic.vim 后调用
 "
-"======================================================================
 " vim: set ts=4 sw=4 tw=78 noet :
+"======================================================================
 
 " 设置通用前缀空格键
 let mapleader="\<Space>"
@@ -16,10 +16,26 @@ elseif has('unix') && executable('xclip') && executable('xsel')
                 \ system('echo -n ' . getreg('@0') . ' \| xclip -sel c')<cr>
 endif
 
-" 设置鼠标功能
-if has('mouse')
-    set mouse=a
-endif
+"----------------------------------------------------------------------
+" 功能插件开启
+"----------------------------------------------------------------------
+packadd! termdebug
+packadd! matchit
+packadd! cfilter
+
+" 调用man程序在vim内部查看命令
+runtime ftplugin/man.vim
+
+" 可视模式下用 * 号匹配字符串
+function! s:VSetSearch()
+    let temp = @@
+    norm! gvy
+    let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+    let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
 "----------------------------------------------------------------------
 " 终端下允许 ALT，详见：http://www.skywind.me/blog/archives/2021
@@ -119,32 +135,19 @@ if &term =~# '256color'
     set t_ut=
 endif
 
-if has('mac')
-    if exists('$TMUX')
-        " 普通模式是方块，插入模式是竖线
-        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-        let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    else
-        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-        let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-    endif
-endif
+" if has('mac')
+"     if exists('$TMUX')
+"         " 普通模式是方块，插入模式是竖线
+"         let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"         let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+"         let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"     " else
+"     "     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"     "     let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+"     "     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"     endif
+" endif
 
-
-"----------------------------------------------------------------------
-" 备份设置
-"----------------------------------------------------------------------
-
-" 无需备份
-set nobackup
-
-" 禁用交换文件
-set noswapfile
-
-" 禁用 undo文件
-set noundofile
 
 "----------------------------------------------------------------------
 " 配置微调
@@ -213,28 +216,4 @@ augroup InitFileTypesGroup
                 \    exe "normal! g`\"" |
                 \ endif
 
-augroup END
-
-
-"----------------------------------------------------------------------
-" 终端设置，隐藏行号和侧边栏
-"----------------------------------------------------------------------
-if has('terminal') && exists(':terminal') == 2
-    if exists('##TerminalOpen')
-        augroup VimUnixTerminalGroup
-            au!
-            au TerminalOpen * setlocal nonumber signcolumn=no
-        augroup END
-    endif
-endif
-
-
-" 跳转到对应语言项目中
-augroup FileJump
-    autocmd!
-
-    autocmd BufLeave *.c    normal! mC
-    autocmd BufLeave *.html normal! mH
-    autocmd BufLeave *.js   normal! mJ
-    autocmd BufLeave *.ts   normal! mT
 augroup END
