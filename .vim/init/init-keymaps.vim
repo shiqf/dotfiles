@@ -28,6 +28,9 @@ nnoremap Q gq
 onoremap ]z V]z
 onoremap [z V[z
 
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+nnoremap <silent> <c-l> :<c-u>nohlsearch<cr><c-l>
+
 "----------------------------------------------------------------------
 " INSERT 模式下使用 EMACS 键位
 "----------------------------------------------------------------------
@@ -116,12 +119,13 @@ function! Tab_MoveRight()
     endif
 endfunc
 
-noremap <silent> <c-w>tn :tabnew<cr>
 noremap <silent> <c-w>tq :tabclose<cr>
 noremap <silent> <c-w>to :tabonly<cr>
 noremap <silent> <c-w>tt :tab terminal<cr>
 noremap <silent> <c-w>th :call Tab_MoveLeft()<cr>
 noremap <silent> <c-w>tl :call Tab_MoveRight()<cr>
+
+noremap <c-w>tn :tabnew 
 noremap <c-w>td :tabdo 
 
 

@@ -307,8 +307,8 @@ if index(g:bundle_group, 'tags') >= 0
     " <leader>ci - 查找哪些文件 include 了本文件
     " <leader>ct - 查看光标下字符串
     " <leader>ce - 查看光标下正则
-    " <leader>ca - 查看光标下符号的分配位置 assign
-    " <leader>cz - 查看光标下符号赋值的地方
+    " <leader>ca - 查看光标下符号赋值的地方
+    " <leader>cz - 查看光标下符号分配的位置
     Plug 'skywind3000/gutentags_plus'
 
     " 第一个 GTAGSLABEL 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用
