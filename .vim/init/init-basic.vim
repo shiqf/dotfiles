@@ -56,8 +56,8 @@ set noignorecase
 " 智能搜索大小写判断，默认忽略大小写，除非搜索内容包含大写字母
 set smartcase
 
-" 关闭高亮搜索内容
-set nohlsearch
+" 开启高亮搜索内容, 通 <c-l> 消除高亮 ( 做了映射 )
+set hlsearch
 
 " 查找输入时动态增量显示查找结果
 set incsearch
