@@ -193,8 +193,8 @@ xnoremap <silent> . :normal ;.<CR>
 xnoremap <silent> @ :normal @@<CR>
 
 " 用于替换字符的改变
-nnoremap 1y "ry
-xnoremap 1y "ry
+nnoremap gy "ry
+xnoremap gy "ry
 
 " 在普通和可视模式上重复上次替换
 nnoremap <silent> & :s//\=@r/&<CR>
