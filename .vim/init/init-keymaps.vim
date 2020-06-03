@@ -6,34 +6,16 @@
 "   - 标签切换
 "   - 窗口切换
 "   - 终端支持
-"   - 编译运行
-"   - 符号搜索
+"   - 映射增强
 "
 " vim: set ts=4 sw=4 tw=78 noet :
 "======================================================================
 
 
-" 在普通和可视模式上重复上次替换
-nnoremap <silent> & :~&<CR>
-xnoremap <silent> & :~&<CR>
-xnoremap <silent> . :normal ;.<CR>
-xnoremap <silent> @ :normal @@<CR>
-
-nnoremap 1p "1p
-nnoremap 1P "1P
-inoremap <m-y> <c-a>
-
-nnoremap Q gq
-
-onoremap ]z V]z
-onoremap [z V[z
-
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-nnoremap <silent> <c-l> :<c-u>nohlsearch<cr><c-l>
-
 "----------------------------------------------------------------------
 " INSERT 模式下使用 EMACS 键位
 "----------------------------------------------------------------------
+
 inoremap <c-f> <right>
 inoremap <c-b> <left>
 inoremap <c-a> <c-\><c-o>_
@@ -57,6 +39,7 @@ inoremap <c-_> <c-k>
 "----------------------------------------------------------------------
 " 命令模式下使用 Emacs 风格的编辑操作
 "----------------------------------------------------------------------
+
 cnoremap <c-f> <right>
 cnoremap <c-b> <left>
 cnoremap <c-a> <home>
@@ -134,6 +117,7 @@ noremap <c-w>td :tabdo
 " 传统的 CTRL+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL+hjkl 在
 " bash/zsh 及带文本界面的程序中都是重要键位需要保留
 "----------------------------------------------------------------------
+
 noremap <m-h> <c-w>h
 noremap <m-l> <c-w>l
 noremap <m-j> <c-w>j
@@ -191,3 +175,26 @@ elseif has('nvim')
     tnoremap <m-q> <c-\><c-n>
     tnoremap <m-p> <c-\><c-n>"0pa
 endif
+
+"----------------------------------------------------------------------
+" 各个模式中的映射增强
+"----------------------------------------------------------------------
+
+nnoremap Q gq
+
+" 在命令行中展开当前文件的目录
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" 恢复非高亮
+nnoremap <silent> <c-l> :<c-u>nohlsearch<cr><c-l>
+
+" 在普通和可视模式上重复上次替换
+nnoremap <silent> & :s//\=@r/&<CR>
+xnoremap <silent> & :~&<CR>
+xnoremap <silent> . :normal ;.<CR>
+xnoremap <silent> @ :normal @@<CR>
+
+" 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
+nnoremap 1p "1p
+nnoremap 1P "1P
+nnoremap 1y "ry
