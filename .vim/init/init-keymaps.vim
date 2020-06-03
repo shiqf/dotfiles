@@ -188,13 +188,19 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " 恢复非高亮
 nnoremap <silent> <c-l> :<c-u>nohlsearch<cr><c-l>
 
+" 在可视模式上的重复改变 和 宏的功能增强
+xnoremap <silent> . :normal ;.<CR>
+xnoremap <silent> @ :normal @@<CR>
+
+" 用于替换字符的改变
+nnoremap 1y "ry
+xnoremap 1y "ry
+
 " 在普通和可视模式上重复上次替换
 nnoremap <silent> & :s//\=@r/&<CR>
 xnoremap <silent> & :~&<CR>
-xnoremap <silent> . :normal ;.<CR>
-xnoremap <silent> @ :normal @@<CR>
+nnoremap <silent>g& :%~&g<cr>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
 nnoremap 1P "1P
-nnoremap 1y "ry
