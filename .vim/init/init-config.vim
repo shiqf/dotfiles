@@ -2,10 +2,19 @@
 "
 " init-config.vim - 正常模式下的配置，在 init-basic.vim 后调用
 "
+"   - 设置通用前缀空格键
+"   - 功能插件开启
+"   - 备份设置
+"   - 配置微调
+"   - 文件类型微调
+"
 " vim: set ts=4 sw=4 tw=78 noet :
 "======================================================================
 
+
+"----------------------------------------------------------------------
 " 设置通用前缀空格键
+"----------------------------------------------------------------------
 let mapleader="\<Space>"
 
 " Vim自动把默认剪贴板和系统剪贴板的内容同步
@@ -37,91 +46,18 @@ endfunction
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
+
 "----------------------------------------------------------------------
-" 终端下允许 ALT，详见：http://www.skywind.me/blog/archives/2021
-" 记得设置 ttimeout （见 init-basic.vim） 和 ttimeoutlen （上面）
+" 备份设置
 "----------------------------------------------------------------------
-function! Terminal_MetaMode(mode)
-    set ttimeout
-    if $TMUX !=# ''
-        set ttimeoutlen=35
-    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-        set ttimeoutlen=85
-    endif
-    if has('nvim') || has('gui_running')
-        return
-    endif
-    function! s:metacode(mode, key)
-        if a:mode == 0
-            exec 'set <M-'.a:key.">=\e".a:key
-        else
-            exec 'set <M-'.a:key.">=\e]{0}".a:key.'~'
-        endif
-    endfunc
-    for i in range(10)
-        call s:metacode(a:mode, nr2char(char2nr('0') + i))
-    endfor
-    for i in range(26)
-        call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        call s:metacode(a:mode, nr2char(char2nr('A') + i))
-    endfor
-    if a:mode != 0
-        for c in [',', '.', '/', ';', '[', ']', '{', '}']
-            call s:metacode(a:mode, c)
-        endfor
-        for c in ['?', ':', '-', '_', '+', '=']
-            call s:metacode(a:mode, c)
-        endfor
-    else
-        for c in [',', '.', '/', ';', '{', '}']
-            call s:metacode(a:mode, c)
-        endfor
-        for c in ['?', ':', '-', '_', '+', '=', "'"]
-            call s:metacode(a:mode, c)
-        endfor
-    endif
-endfunc
+" 无需备份
+set nobackup
 
+" 禁用交换文件
+set noswapfile
 
-function! Terminal_KeyEscape(name, code)
-    if has('nvim') || has('gui_running')
-        return
-    endif
-    exec 'set '.a:name."=\e".a:code
-endfunc
-
-
-command! -nargs=0 -bang VimMetaInit call Terminal_MetaMode(<bang>0)
-command! -nargs=+ VimKeyEscape call Terminal_KeyEscape(<f-args>)
-
-
-function! Terminal_FnInit(mode)
-    if has('nvim') || has('gui_running')
-        return
-    endif
-    if a:mode == 1
-        VimKeyEscape <F1> OP
-        VimKeyEscape <F2> OQ
-        VimKeyEscape <F3> OR
-        VimKeyEscape <F4> OS
-        VimKeyEscape <S-F1> [1;2P
-        VimKeyEscape <S-F2> [1;2Q
-        VimKeyEscape <S-F3> [1;2R
-        VimKeyEscape <S-F4> [1;2S
-        VimKeyEscape <S-F5> [15;2~
-        VimKeyEscape <S-F6> [17;2~
-        VimKeyEscape <S-F7> [18;2~
-        VimKeyEscape <S-F8> [19;2~
-        VimKeyEscape <S-F9> [20;2~
-        VimKeyEscape <S-F10> [21;2~
-        VimKeyEscape <S-F11> [23;2~
-        VimKeyEscape <S-F12> [24;2~
-    endif
-endfunc
-
-
-call Terminal_MetaMode(0)
-call Terminal_FnInit(1)
+" 禁用 undo文件
+set noundofile
 
 
 "----------------------------------------------------------------------
@@ -152,7 +88,6 @@ endif
 "----------------------------------------------------------------------
 " 配置微调
 "----------------------------------------------------------------------
-
 " 修正 ScureCRT/XShell 以及某些终端乱码问题，主要原因是不支持一些
 " 终端控制命令，比如 cursor shaping 这类更改光标形状的 xterm 终端命令
 " 会令一些支持 xterm 不完全的终端解析错误，显示为错误的字符，比如 q 字符
@@ -174,11 +109,16 @@ if !exists(':DiffOrig')
                 \ | wincmd p | diffthis
 endif
 
+" 打开文件时恢复上一次光标所在位置
+autocmd BufReadPost *
+            \ if line("'\"") > 1 && line("'\"") <= line("$") |
+            \    exe "normal! g`\"" |
+            \ endif
+
 
 "----------------------------------------------------------------------
 " 文件类型微调
 "----------------------------------------------------------------------
-
 augroup InitFileTypesGroup
 
     " 清除同组的历史 autocommand
@@ -209,11 +149,5 @@ augroup InitFileTypesGroup
     au BufNewFile,BufRead *.es  setlocal filetype=erlang
     au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
     au BufNewFile,BufRead *.vl  setlocal filetype=verilog
-
-    " 打开文件时恢复上一次光标所在位置
-    autocmd BufReadPost *
-                \ if line("'\"") > 1 && line("'\"") <= line("$") |
-                \    exe "normal! g`\"" |
-                \ endif
 
 augroup END

@@ -36,12 +36,12 @@ augroup FileTypeTab
     au FileType html        setlocal ts=2 sw=2 sts=2
     au FileType java        setlocal ts=4 sw=4 sts=4
     au FileType javascript  setlocal ts=2 sw=2 sts=2 suffixesadd=.js
-    au FileType typescript  setlocal ts=2 sw=2 sts=2 suffixesadd=.ts
     au FileType json        setlocal ts=2 sw=2 sts=2
     au FileType make        setlocal ts=4 sw=4 sts=4 noexpandtab
     au FileType python      setlocal ts=4 sw=4 sts=4
     au FileType sh          setlocal ts=4 sw=4 sts=4
     au FileType sql         setlocal ts=4 sw=4 sts=4
+    au FileType typescript  setlocal ts=2 sw=2 sts=2 suffixesadd=.ts
     au FileType vim         setlocal ts=4 sw=4 sts=4
     au FileType zsh         setlocal ts=4 sw=4 sts=4
 augroup END
