@@ -66,7 +66,7 @@ cnoremap <c-x><c-e> <c-f>
 function! Cd()
     if strlen(getcmdline()) == 0
         return "\<esc>"
-    elseif strlen(getcmdline()) != 0 && strlen(getcmdline()) > getcmdpos() - 1
+    elseif strlen(getcmdline()) > getcmdpos() - 1
         return "\<Del>"
     else
         return "\<c-d>"

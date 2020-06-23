@@ -221,10 +221,10 @@ if has('python3')
     " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
     let g:ycm_key_detailed_diagnostics = '<leader>d'
 
-    " set completeopt+=popup
+    set completeopt+=popup
     " 禁用预览功能：扰乱视听 默认 0 为禁用
-    let g:ycm_add_preview_to_completeopt = 1
-    let g:ycm_autoclose_preview_window_after_completion = 1
+    " let g:ycm_add_preview_to_completeopt = 1
+    " let g:ycm_autoclose_preview_window_after_completion = 1
 
     let g:ycm_server_log_level = 'info'
     " 禁用诊断功能：我们用前面更好用的 ALE 代替
