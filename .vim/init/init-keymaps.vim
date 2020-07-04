@@ -19,7 +19,7 @@
 inoremap <c-f> <right>
 inoremap <c-b> <left>
 inoremap <c-a> <c-\><c-o>_
-inoremap <c-e> <esc>g_a
+inoremap <c-e> <end>
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
 
@@ -177,6 +177,9 @@ endif
 "----------------------------------------------------------------------
 
 nnoremap Q gq
+
+" 强制退出
+noremap <leader>Q :<c-u>qall!<cr>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
