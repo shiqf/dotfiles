@@ -574,7 +574,11 @@ if index(g:bundle_group, 'ycm') >= 0
 
     if has('python3')
         Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer' }
+    elseif has('win64') && has('python')
+        Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer' }
+    endif
 
+    if has('python3') || (has('win64') && has('python'))
         let g:ycm_max_diagnostics_to_display = 0
 
         " 触发快捷键设置
@@ -729,8 +733,8 @@ if index(g:bundle_group, 'ycm') >= 0
             autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
                         \ nnoremap gcx :YcmCompleter FixIt<CR>
         augroup end
-
     endif
+
 endif
 
 if index(g:bundle_group, 'snippets') >= 0

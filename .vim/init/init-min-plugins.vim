@@ -357,17 +357,6 @@ if has('python3')
 
 endif
 
-" snippets 片段扩展
-" 通过 VimL 语言的支持 " 需要通过 Python 的支持
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-let g:UltiSnipsSnippetDirectories  = [ 'UltiSnips', 'mysnippets' ]
-let g:UltiSnipsExpandTrigger       = '<c-i>'
-let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-let g:UltiSnipsListSnippets        = '<c-l>'
-let g:UltiSnipsEditSplit           = 'vertical'
-
 "----------------------------------------------------------------------
 " 结束插件安装
 "----------------------------------------------------------------------
