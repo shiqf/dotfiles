@@ -180,6 +180,7 @@ nnoremap Q gq
 
 " 强制退出
 noremap <silent> <leader>Q :<c-u>qall!<cr>
+noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -213,6 +214,6 @@ augroup InitFileTypesMapGroup
     " 清除同组的历史 autocommand
     au!
 
-    au FileType vim nnoremap <leader>s :w \| source %<cr>
+    au FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
 
 augroup END

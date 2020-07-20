@@ -293,7 +293,7 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'nerdtree') >= 0
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-    " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     let g:NERDTreeMinimalUI = 1
     let g:NERDTreeDirArrows = 1
     let g:NERDTreeHijackNetrw = 0
