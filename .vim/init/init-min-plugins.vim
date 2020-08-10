@@ -79,11 +79,11 @@ Plug 'sgur/vim-textobj-parameter'
 "----------------------------------------------------------------------
 if has('python3')
     " 如果 vim 支持 python 则启用  Leaderf
-    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+    Plug 'Yggdroot/LeaderF', #{ do: './install.sh' }
 
-    let g:Lf_CtagsFuncOpts = {
-                \ 'javascript': '--kinds-javascript=fm',
-                \ 'typescript': '--kinds-typescript=fmc',
+    let g:Lf_CtagsFuncOpts = #{
+                \ javascript: '--kinds-javascript=fm',
+                \ typescript: '--kinds-typescript=fmc',
                 \ }
 
     " CTRL+p 打开文件模糊匹配
@@ -123,7 +123,7 @@ if has('python3')
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
     " ui 定制
-    let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
+    let g:Lf_StlSeparator = #{ left: '►', right: '◄', font: '' }
 
     " 使用 / 寄存器存储 rg -e 使用的正则表达式
     let g:Lf_RgStorePattern = '/'
@@ -138,15 +138,15 @@ if has('python3')
     " let g:Lf_RememberLastSearch = 1
 
     " 模糊匹配忽略扩展名
-    let g:Lf_WildIgnore = {
-                \ 'dir': ['.svn','.git','.hg'],
-                \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+    let g:Lf_WildIgnore = #{
+                \ dir: ['.svn','.git','.hg'],
+                \ file: ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
                 \ }
 
     " 忽略最近文件
-    let g:Lf_MruWildIgnore = {
-                \ 'dir': ['node_modules'],
-                \ 'file': []
+    let g:Lf_MruWildIgnore = #{
+                \ dir: ['node_modules'],
+                \ file: []
                 \}
 
     " MRU 文件忽略扩展名
@@ -154,7 +154,7 @@ if has('python3')
     let g:Lf_StlColorscheme = 'powerline'
 
     " 禁用 function/buftag 的预览功能，可以手动用 p 预览
-    let g:Lf_PreviewResult = { 'Function':0, 'BufTag':0 }
+    let g:Lf_PreviewResult = #{ Function: 0, BufTag: 0 }
 
     " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
     " {
@@ -176,15 +176,15 @@ if has('python3')
     "     tag: 当前项目所有标签,
     " }
     " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
-    let g:Lf_NormalMap = {
-                \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
-                \ 'Buffer': [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-                \ 'File':   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-                \ 'Function': [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
-                \ 'Mru': [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-                \ 'Rg': [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
-                \ 'Self': [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
-                \ 'Tag': [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
+    let g:Lf_NormalMap = #{
+                \ BufTag: [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
+                \ Buffer: [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
+                \ File:   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+                \ Function: [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
+                \ Mru: [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
+                \ Rg: [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
+                \ Self: [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
+                \ Tag: [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
                 \ }
 
     " 开启后不能在普通模式中使用搜索/
@@ -209,7 +209,7 @@ if has('python3')
     let g:lt_location_list_toggle_map = '<leader>l'
     let g:lt_quickfix_list_toggle_map = '<leader>q'
     let g:lt_height = 10
-    Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer' }
+    Plug 'ycm-core/YouCompleteMe', #{ do: 'python3 install.py --clangd-completer --ts-completer' }
 
     let g:ycm_max_diagnostics_to_display = 0
 
@@ -255,7 +255,7 @@ if has('python3')
     " let g:ycm_collect_identifiers_from_tags_files = 1
 
     " 两个字符自动触发语义补全
-    let g:ycm_semantic_triggers =  {
+    let g:ycm_semantic_triggers = {
                 \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
                 \ 'cs,lua': ['re!\w{2}'],
                 \ 'javascript,typescript': ['re!([A-Z]\w|\w[A-Z]|\w{2}[A-Z]|\w{4})'],
@@ -264,59 +264,59 @@ if has('python3')
     "----------------------------------------------------------------------
     " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
     "----------------------------------------------------------------------
-    let g:ycm_filetype_whitelist = {
-                \ 'asciidoc':1,
-                \ 'asm':1,
-                \ 'asm68k':1,
-                \ 'asmh8300':1,
-                \ 'bash':1,
-                \ 'basic':1,
-                \ 'c':1,
-                \ 'cmake':1,
-                \ 'coffee':1,
-                \ 'conf':1,
-                \ 'config':1,
-                \ 'cpp':1,
-                \ 'cs':1,
-                \ 'cson':1,
-                \ 'css':1,
-                \ 'dosini':1,
-                \ 'erlang':1,
-                \ 'go':1,
-                \ 'haskell':1,
-                \ 'html':1,
-                \ 'java':1,
-                \ 'javascript':1,
-                \ 'json':1,
-                \ 'less':1,
-                \ 'lhaskell':1,
-                \ 'lisp':1,
-                \ 'lua':1,
-                \ 'make':1,
-                \ 'man':1,
-                \ 'markdown':1,
-                \ 'masm':1,
-                \ 'matlab':1,
-                \ 'maxima':1,
-                \ 'nasm':1,
-                \ 'objc':1,
-                \ 'objcpp':1,
-                \ 'perl':1,
-                \ 'perl6':1,
-                \ 'php':1,
-                \ 'ps1':1,
-                \ 'python':1,
-                \ 'ruby':1,
-                \ 'rust':1,
-                \ 'scheme':1,
-                \ 'sdl':1,
-                \ 'sh':1,
-                \ 'tasm':1,
-                \ 'typescript':1,
-                \ 'vb':1,
-                \ 'vim':1,
-                \ 'zimbu':1,
-                \ 'zsh':1,
+    let g:ycm_filetype_whitelist = #{
+                \ asciidoc: 1,
+                \ asm: 1,
+                \ asm68k: 1,
+                \ asmh8300: 1,
+                \ bash: 1,
+                \ basic: 1,
+                \ c: 1,
+                \ cmake: 1,
+                \ coffee: 1,
+                \ conf: 1,
+                \ config: 1,
+                \ cpp: 1,
+                \ cs: 1,
+                \ cson: 1,
+                \ css: 1,
+                \ dosini: 1,
+                \ erlang: 1,
+                \ go: 1,
+                \ haskell: 1,
+                \ html: 1,
+                \ java: 1,
+                \ javascript: 1,
+                \ json: 1,
+                \ less: 1,
+                \ lhaskell: 1,
+                \ lisp: 1,
+                \ lua: 1,
+                \ make: 1,
+                \ man: 1,
+                \ markdown: 1,
+                \ masm: 1,
+                \ matlab: 1,
+                \ maxima: 1,
+                \ nasm: 1,
+                \ objc: 1,
+                \ objcpp: 1,
+                \ perl: 1,
+                \ perl6: 1,
+                \ php: 1,
+                \ ps1: 1,
+                \ python: 1,
+                \ ruby: 1,
+                \ rust: 1,
+                \ scheme: 1,
+                \ sdl: 1,
+                \ sh: 1,
+                \ tasm: 1,
+                \ typescript: 1,
+                \ vb: 1,
+                \ vim: 1,
+                \ zimbu: 1,
+                \ zsh: 1,
                 \ }
 
     let g:ycm_auto_hover = ''
