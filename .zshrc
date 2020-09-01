@@ -219,6 +219,7 @@ alias ll='ls -l'
 alias tmux='tmux -2'
 alias vi='vim -u ~/.vim/init-min.vim'
 alias v='vim -u ~/.vim/init-no-plugin.vim'
+alias vo='vim --clean' # vim origin
 
 # z 命令别名
 alias zc='z -c' # 严格匹配当前路径的子路径

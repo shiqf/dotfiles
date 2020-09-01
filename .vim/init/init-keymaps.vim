@@ -78,10 +78,13 @@ cnoremap <expr> <c-d> Cd()
 " TAB：创建，关闭，上一个，下一个，首个，末个，左移，右移，
 "----------------------------------------------------------------------
 " 快速切换tab 使用标签 参考unimparied
-nnoremap ]g gt
-nnoremap [g gT
-nnoremap [G :tabfirst<cr>
-nnoremap ]G :tablast<cr>
+nnoremap <silent> ]g gt
+nnoremap <silent> [g gT
+nnoremap <silent> [G :tabfirst<cr>
+nnoremap <silent> ]G :tablast<cr>
+
+nnoremap <silent> [w :labove<cr>
+nnoremap <silent> ]w :lbelow<cr>
 
 " 左移 tab
 function! Tab_MoveLeft()
@@ -179,8 +182,8 @@ endif
 nnoremap Q gq
 
 " 强制退出
-noremap <silent> <leader>Q :<c-u>qall!<cr>
-noremap <silent> <leader>S :<c-u>wa \| qall<cr>
+noremap <silent> <leader><c-q> :<c-u>qall!<cr>
+noremap <silent> <leader><c-s> :<c-u>wa \| qall<cr>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'

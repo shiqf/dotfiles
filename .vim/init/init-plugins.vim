@@ -145,16 +145,17 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:asynctasks_term_reuse = 1
     let g:asynctasks_term_focus = 0
 
-    nnoremap <silent> <leader>ar :AsyncRun.
+    nnoremap <leader>ar :AsyncRun 
     nnoremap <silent> <leader>as :AsyncStop<cr>
     nnoremap <silent> <leader>am :AsyncTaskMacro<cr>
     nnoremap <silent> <leader>ae :AsyncTaskEdit<cr>
     nnoremap <silent> <leader>al :AsyncTaskList<cr>
 
+    nnoremap <silent> <leader>4 :AsyncTask file-debug<cr>
     nnoremap <silent> <leader>5 :AsyncTask file-run<cr>
-    nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
     nnoremap <silent> <leader>6 :AsyncTask project-run<cr>
     nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
+    nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
     " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
     Plug 'chrisbra/vim-diff-enhanced'
