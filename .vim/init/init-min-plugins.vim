@@ -1,3 +1,6 @@
+" 禁用 vi 兼容模式
+set nocompatible
+
 "----------------------------------------------------------------------
 " 在 ~/.vim/bundles 下安装插件
 "----------------------------------------------------------------------
@@ -15,16 +18,17 @@ let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
 let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_focus = 0
 
-nnoremap <silent> <leader>ar :AsyncRun.
+nnoremap <leader>ar :AsyncRun 
 nnoremap <silent> <leader>as :AsyncStop<cr>
 nnoremap <silent> <leader>am :AsyncTaskMacro<cr>
 nnoremap <silent> <leader>ae :AsyncTaskEdit<cr>
 nnoremap <silent> <leader>al :AsyncTaskList<cr>
 
+nnoremap <silent> <leader>4 :AsyncTask file-debug<cr>
 nnoremap <silent> <leader>5 :AsyncTask file-run<cr>
-nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 nnoremap <silent> <leader>6 :AsyncTask project-run<cr>
 nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
+nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
 " 为其他插件提供重复操作'.'功能
 Plug 'tpope/vim-repeat'
@@ -82,9 +86,9 @@ if has('python3')
     Plug 'Yggdroot/LeaderF', #{ do: './install.sh' }
 
     let g:Lf_CtagsFuncOpts = #{
-                \ javascript: '--kinds-javascript=fm',
-                \ typescript: '--kinds-typescript=fmc',
-                \ }
+          \ javascript: '--kinds-javascript=fm',
+          \ typescript: '--kinds-typescript=fmc',
+          \ }
 
     " CTRL+p 打开文件模糊匹配
     let g:Lf_ShortcutF = '<c-p>'
@@ -147,7 +151,7 @@ if has('python3')
     let g:Lf_MruWildIgnore = #{
                 \ dir: ['node_modules'],
                 \ file: []
-                \}
+                \ }
 
     " MRU 文件忽略扩展名
     let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
@@ -357,6 +361,9 @@ if has('python3')
 
 endif
 
+Plug 'puremourning/vimspector'
+let g:vimspector_enable_mappings = 'HUMAN'
+
 "----------------------------------------------------------------------
 " 结束插件安装
 "----------------------------------------------------------------------
@@ -370,4 +377,4 @@ let g:netrw_banner=0        " disable annoying banner
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
 " let g:netrw_list_hide=netrw_gitignore#Hide()
-" let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+" let g:netrw_list_hide..=',\(^\|\s\s\)\zs\.\S\+'

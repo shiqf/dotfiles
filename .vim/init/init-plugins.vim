@@ -38,7 +38,7 @@ endif
 "----------------------------------------------------------------------
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 function! s:path(path)
-    let path = expand(s:home . '/' . a:path )
+    let path = expand(s:home .. '/' .. a:path )
     return substitute(path, '\\', '/', 'g')
 endfunc
 
@@ -224,8 +224,8 @@ if index(g:bundle_group, 'textobj') >= 0
     " 参数文本对象：i,/a, 包括参数或者列表元素
     Plug 'sgur/vim-textobj-parameter'
 
-    " " 函数文本对象：if/af 支持 c/c++/vim/java
-    " Plug 'kana/vim-textobj-function', #{ for:['c', 'cpp', 'vim', 'java'] }
+    " 函数文本对象：if/af 支持 c/c++/vim/java
+    Plug 'kana/vim-textobj-function', #{ for:['c', 'cpp', 'vim', 'java'] }
 
     " " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
     " Plug 'bps/vim-textobj-python', #{ for: 'python' }
@@ -245,7 +245,7 @@ endif
 if index(g:bundle_group, 'filetypes') >= 0
 
     " 额外语法文件
-    Plug 'justinmk/vim-syntax-extra', #{ for: ['bison', '*.c', '*.cpp', 'flex'] }
+    Plug 'justinmk/vim-syntax-extra', #{ for: ['bison', 'c', 'cpp', 'flex'] }
 
     " C++ 语法高亮增强，支持 11/14/17 标准
     Plug 'octol/vim-cpp-enhanced-highlight', #{ for: ['c', 'cpp'] }
@@ -253,8 +253,8 @@ if index(g:bundle_group, 'filetypes') >= 0
     " python 语法文件增强
     Plug 'vim-python/python-syntax', #{ for: ['python'] }
 
-    " typescript 语法文件增强
-    Plug 'leafgarland/typescript-vim', #{ for: ['typescript'] }
+    " " typescript 语法文件增强
+    " Plug 'leafgarland/typescript-vim', #{ for: ['typescript'] }
 
     " powershell 脚本文件的语法高亮
     " Plug 'pprovost/vim-ps1', #{ for: 'ps1' }
@@ -298,7 +298,7 @@ if index(g:bundle_group, 'nerdtree') >= 0
     let g:NERDTreeMinimalUI = 1
     let g:NERDTreeDirArrows = 1
     let g:NERDTreeHijackNetrw = 0
-    noremap <space>nt :NERDTreeToggle<cr>
+    noremap <leader>nt :NERDTreeToggle<cr>
 endif
 
 
@@ -805,8 +805,8 @@ if index(g:bundle_group, 'ale') >= 0
     " 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
     function s:lintcfg(name)
         let conf = s:path('tools/conf/')
-        let path1 = conf . a:name
-        let path2 = expand('~/.vim/linter/'. a:name)
+        let path1 = conf .. a:name
+        let path2 = expand('~/.vim/linter/'.. a:name)
         if filereadable(path2)
             return path2
         endif
@@ -814,9 +814,9 @@ if index(g:bundle_group, 'ale') >= 0
     endfunc
 
     " 设置 flake8/pylint 的参数
-    let g:ale_python_flake8_options  = '--conf='.s:lintcfg('flake8.conf')
-    let g:ale_python_pylint_options  = '--rcfile='.s:lintcfg('pylint.conf')
-    let g:ale_python_pylint_options .= ' --disable=W'
+    let g:ale_python_flake8_options  = '--conf=' .. s:lintcfg('flake8.conf')
+    let g:ale_python_pylint_options  = '--rcfile=' .. s:lintcfg('pylint.conf')
+    let g:ale_python_pylint_options ..= ' --disable=W'
     let g:ale_c_gcc_options          = '-Wall -O2 -std=c99'
     let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++14'
     let g:ale_c_cppcheck_options     = ''
