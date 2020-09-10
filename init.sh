@@ -113,6 +113,10 @@ elif [[ `uname -s` =~ Linux ]]; then
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     fi
+    # tmux 插件管理插件安装
+    if [[ ! -e ~/.tmux/plugins/tpm ]]; then
+        git clone https://github.com/tmux-plugins/tpm  ~/.tmux/plugins/tpm
+    fi
 else
     :
 fi
