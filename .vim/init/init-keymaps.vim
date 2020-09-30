@@ -182,8 +182,8 @@ endif
 nnoremap Q gq
 
 " 强制退出
-noremap <silent> <leader><c-q> :<c-u>qall!<cr>
-noremap <silent> <leader><c-s> :<c-u>wa \| qall<cr>
+noremap <silent> <leader>Q :<c-u>qall!<cr>
+noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
