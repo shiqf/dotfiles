@@ -50,6 +50,7 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 " vim 中文说明文档 ./vimcdoc.sh -i安装
 Plug 'yianwillis/vimcdoc', #{ do: './vimcdoc.sh -i' }
+Plug 'yianwillis/vimcfaq'
 
 "----------------------------------------------------------------------
 " 基础插件
@@ -151,10 +152,10 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <silent> <leader>ae :AsyncTaskEdit<cr>
     nnoremap <silent> <leader>al :AsyncTaskList<cr>
 
-    nnoremap <silent> <leader>4 :AsyncTask file-debug<cr>
     nnoremap <silent> <leader>5 :AsyncTask file-run<cr>
     nnoremap <silent> <leader>6 :AsyncTask project-run<cr>
     nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
+    nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
     nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
     " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
@@ -322,14 +323,14 @@ if index(g:bundle_group, 'tags') >= 0
     Plug 'ludovicchabant/vim-gutentags'
 
     " 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
-    " <leader>cg - 查看光标下符号的定义
     " <leader>cs - 查看光标下符号的引用
-    " <leader>cc - 查看有哪些函数调用了该函数
+    " <leader>cg - 查看光标下符号的定义
     " <leader>cd - 查看该函数调用了哪些函数
-    " <leader>cf - 查找光标下的文件
-    " <leader>ci - 查找哪些文件 include 了本文件
+    " <leader>cc - 查看有哪些函数调用了该函数
     " <leader>ct - 查看光标下字符串
     " <leader>ce - 查看光标下正则
+    " <leader>cf - 查找光标下的文件
+    " <leader>ci - 查找哪些文件 include 了本文件
     " <leader>ca - 查看光标下符号赋值的地方
     " <leader>cz - 查看光标下符号分配的位置
     Plug 'skywind3000/gutentags_plus'
@@ -351,37 +352,15 @@ if index(g:bundle_group, 'tags') >= 0
 
     let g:gutentags_exclude_filetypes = ['startify']
 
+    let g:gutentags_exclude_filetypes = ['markdown', 'json', 'css']
+    let g:gutentags_exclude_project_root = ['/usr/local', '.notags']
     " 去除生成标签的文件夹
-    let g:gutentags_ctags_exclude = []
+    let g:gutentags_ctags_exclude = ['node_modules', '.cache']
 
-    autocmd FileType * ++once
-                \ if index(['typescript', 'javascript', 'json'], &filetype) >= 0 |
-                \   let g:gutentags_ctags_exclude += [
-                \     '*.json',
-                \     '*.md',
-                \     '*rc*',
-                \     'node_modules',
-                \     'vendor',
-                \   ] |
-                \ elseif &filetype ==# 'vim' |
-                \   let g:gutentags_ctags_exclude += [
-                \     '*.md',
-                \     '.tmux',
-                \     'autoload',
-                \     'bundle',
-                \     'bundles',
-                \     'cache',
-                \     'doc',
-                \     'plugin',
-                \     'session',
-                \     'syntax',
-                \   ] |
-                \ elseif executable('rg') |
-                \     let g:gutentags_file_list_command = 'rg --files --color=never' |
-                \ endif
-
-    " " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
-    " let g:gutentags_file_list_command = 'rg --files --color=never'
+    " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
+    if executable('rg')
+      let g:gutentags_file_list_command = 'rg --files --color=never'
+    endif
 
     " 所生成的数据文件的名称
     let g:gutentags_ctags_tagfile = '.tags'
@@ -583,7 +562,7 @@ if index(g:bundle_group, 'ycm') >= 0
     let g:lt_height = 10
 
     if has('python3')
-        Plug 'ycm-core/YouCompleteMe', #{ do: 'python3 install.py --clangd-completer --ts-completer' }
+        Plug 'ycm-core/YouCompleteMe', #{ do: 'python3 install.py --clangd-completer --ts-completer --java-completer' }
     elseif has('win64') && has('python')
         Plug 'ycm-core/YouCompleteMe', #{ do: 'python install.py --clangd-completer --ts-completer' }
     endif
@@ -605,7 +584,7 @@ if index(g:bundle_group, 'ycm') >= 0
         " let g:ycm_autoclose_preview_window_after_completion = 0
 
         let g:ycm_server_log_level = 'info'
-        " 禁用诊断功能：我们用前面更好用的 ALE 代替
+        " 禁用诊断功能：我们用前面更好用的 ALE 代替, 默认 0
         let g:ycm_show_diagnostics_ui = 1
         let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
         " 不显示load python 提示
@@ -636,8 +615,8 @@ if index(g:bundle_group, 'ycm') >= 0
 
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers = {
-                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-                    \ 'cs,lua': ['re!\w{2}'],
+                    \ 'c,cpp': ['re!\w{3}'],
+                    \ 'python,java,go,erlang,perl,cs,lua': ['re!\w{2}'],
                     \ 'javascript,typescript': ['re!([A-Z]\w|\w[A-Z]|\w{2}[A-Z]|\w{4})'],
                     \ }
 
@@ -842,6 +821,7 @@ if index(g:bundle_group, 'ale') >= 0
     " 错误提示符及警告提示符
     let g:ale_sign_error='✗'
     let g:ale_sign_warning='⚠'
+
 endif
 
 

@@ -91,6 +91,5 @@ pips=(
 npms=(
     eslint     # javascript 语法检测
     ts-node    # typescript 运行环境
-    tslint     # typescript 语法检测
     typescript # typescript 编译器
 )

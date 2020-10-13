@@ -24,10 +24,10 @@ nnoremap <silent> <leader>am :AsyncTaskMacro<cr>
 nnoremap <silent> <leader>ae :AsyncTaskEdit<cr>
 nnoremap <silent> <leader>al :AsyncTaskList<cr>
 
-nnoremap <silent> <leader>4 :AsyncTask file-debug<cr>
 nnoremap <silent> <leader>5 :AsyncTask file-run<cr>
 nnoremap <silent> <leader>6 :AsyncTask project-run<cr>
 nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
+nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
 nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
 " 为其他插件提供重复操作'.'功能
@@ -62,6 +62,7 @@ Plug 'jiangmiao/auto-pairs', #{
       \     'javascript',
       \     'python',
       \     'typescript',
+      \     'vim',
       \   ]
       \ }
 
@@ -217,161 +218,99 @@ if has('python3')
     endif
     noremap <leader>cr :<C-U>Leaderf! --recall<CR>
 
-    " 显示 quickfix 列表和 location 列表
-    Plug 'Valloric/ListToggle'
-    let g:lt_location_list_toggle_map = '<leader>l'
-    let g:lt_quickfix_list_toggle_map = '<leader>q'
-    let g:lt_height = 10
-    Plug 'ycm-core/YouCompleteMe', #{ do: 'python3 install.py --clangd-completer --ts-completer' }
-
-    let g:ycm_max_diagnostics_to_display = 0
-
-    " 触发快捷键设置
-    let g:ycm_key_list_select_completion   = ['<c-n>']
-    let g:ycm_key_list_previous_completion = ['<c-p>']
-    let g:ycm_key_list_stop_completion = ['<c-s>']
-    let g:ycm_key_invoke_completion = '<c-z>'
-    " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
-    let g:ycm_key_detailed_diagnostics = '<leader>d'
-
-    set completeopt+=popup
-    " 禁用预览功能：扰乱视听 默认 0 为禁用
-    " let g:ycm_add_preview_to_completeopt = 1
-    " let g:ycm_autoclose_preview_window_after_completion = 1
-
-    let g:ycm_server_log_level = 'info'
-    " 禁用诊断功能：我们用前面更好用的 ALE 代替
-    let g:ycm_show_diagnostics_ui = 1
-    let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-    " 不显示load python 提示
-    let g:ycm_confirm_extra_conf=0
-    " 通过ycm语法检测显示错误符号和警告符号
-    let g:ycm_error_symbol   = '✗'
-    let g:ycm_warning_symbol = '⚠'
-    let g:ycm_always_populate_location_list = 1
-
-    " 输入最少字符开启字符补全功能 默认 2
-    " let g:ycm_min_num_of_chars_for_completion = 2
-    " 显示字符候选标识符最少的字符数 默认 0
-    let g:ycm_min_num_identifier_candidate_chars = 4
-    " 最大语义补全符数量 默认 50
-    " let g:ycm_max_num_candidates = 50
-    " 最大标识符数量 默认 10
-    let g:ycm_max_num_identifier_candidates = 3
-    " 设置为 0 时，不再触发语义补全
-    " let g:ycm_auto_trigger = 1
-    " c 语言中的 #include 会自动补全文件
-    let g:ycm_complete_in_strings=1
-    " 设置为 1 时，补全标识符信息会从注释中获取 默认为 0
-    " let g:ycm_collect_identifiers_from_comments_and_strings = 1
-    " 当此选项设置为1时，YCM的标识符完成器还将从标记文件中收集标识符
-    " let g:ycm_collect_identifiers_from_tags_files = 1
-
-    " 两个字符自动触发语义补全
-    let g:ycm_semantic_triggers = {
-                \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-                \ 'cs,lua': ['re!\w{2}'],
-                \ 'javascript,typescript': ['re!([A-Z]\w|\w[A-Z]|\w{2}[A-Z]|\w{4})'],
-                \ }
-
-    "----------------------------------------------------------------------
-    " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
-    "----------------------------------------------------------------------
-    let g:ycm_filetype_whitelist = #{
-                \ asciidoc: 1,
-                \ asm: 1,
-                \ asm68k: 1,
-                \ asmh8300: 1,
-                \ bash: 1,
-                \ basic: 1,
-                \ c: 1,
-                \ cmake: 1,
-                \ coffee: 1,
-                \ conf: 1,
-                \ config: 1,
-                \ cpp: 1,
-                \ cs: 1,
-                \ cson: 1,
-                \ css: 1,
-                \ dosini: 1,
-                \ erlang: 1,
-                \ go: 1,
-                \ haskell: 1,
-                \ html: 1,
-                \ java: 1,
-                \ javascript: 1,
-                \ json: 1,
-                \ less: 1,
-                \ lhaskell: 1,
-                \ lisp: 1,
-                \ lua: 1,
-                \ make: 1,
-                \ man: 1,
-                \ markdown: 1,
-                \ masm: 1,
-                \ matlab: 1,
-                \ maxima: 1,
-                \ nasm: 1,
-                \ objc: 1,
-                \ objcpp: 1,
-                \ perl: 1,
-                \ perl6: 1,
-                \ php: 1,
-                \ ps1: 1,
-                \ python: 1,
-                \ ruby: 1,
-                \ rust: 1,
-                \ scheme: 1,
-                \ sdl: 1,
-                \ sh: 1,
-                \ tasm: 1,
-                \ typescript: 1,
-                \ vb: 1,
-                \ vim: 1,
-                \ zimbu: 1,
-                \ zsh: 1,
-                \ }
-
-    let g:ycm_auto_hover = ''
-    let s:ycm_hover_popup = -1
-    function s:Hover()
-        let response = youcompleteme#GetCommandResponse( 'GetDoc' )
-        if response == ''
-            return
-        endif
-        call popup_hide( s:ycm_hover_popup )
-        let s:ycm_hover_popup = popup_atcursor( balloon_split( response ), {} )
-    endfunction
-
-    autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,rust,typescript
-                \ nnoremap gd :YcmCompleter GoTo<CR>
-
-    " 重构后的结果会加入到 quickfix 中，方便查看修改
-    autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
-                \ nnoremap gcr :YcmCompleter RefactorRename 
-
-    autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
-                \ nnoremap gcs :YcmCompleter RestartServer<CR>
-
-    autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
-                \ nnoremap gcf :YcmCompleter Format<CR>
-
-    autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
-                \ nnoremap gct :YcmCompleter GetType<CR>
-
-    autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
-                \ nnoremap <silent>gcd :call <SID>Hover()<CR>
-
-    autocmd FileType java,javascript,typescript
-                \ nnoremap gco :YcmCompleter OrganizeImports<CR>
-
-    autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
-                \ nnoremap gcx :YcmCompleter FixIt<CR>
-
 endif
 
-Plug 'puremourning/vimspector'
-let g:vimspector_enable_mappings = 'HUMAN'
+" 提供 ctags/gtags 后台数据库自动更新功能
+Plug 'ludovicchabant/vim-gutentags'
+
+" 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
+" <leader>cs - 查看光标下符号的引用
+" <leader>cg - 查看光标下符号的定义
+" <leader>cd - 查看该函数调用了哪些函数
+" <leader>cc - 查看有哪些函数调用了该函数
+" <leader>ct - 查看光标下字符串
+" <leader>ce - 查看光标下正则
+" <leader>cf - 查找光标下的文件
+" <leader>ci - 查找哪些文件 include 了本文件
+" <leader>ca - 查看光标下符号赋值的地方
+" <leader>cz - 查看光标下符号分配的位置
+Plug 'skywind3000/gutentags_plus'
+
+" 第一个 GTAGSLABEL 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用
+" gtags 本地分析器，而其他语言使用 pygments 模块。
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = expand('~/.gtags.conf')
+
+" 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
+let g:gutentags_project_root = [
+      \ '.git',
+      \ '.hg',
+      \ '.project',
+      \ '.root',
+      \ '.svn',
+      \ 'package.json',
+      \ ]
+
+let g:gutentags_exclude_filetypes = ['markdown', 'json', 'css']
+let g:gutentags_exclude_project_root = ['/usr/local', '.notags']
+" 去除生成标签的文件夹
+let g:gutentags_ctags_exclude = ['node_modules', '.cache']
+
+" 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
+if executable('rg')
+  let g:gutentags_file_list_command = 'rg --files --color=never'
+endif
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 默认生成的数据文件集中到 ~/.cache/tags 避免污染项目目录，好清理
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+" 默认禁用自动生成
+let g:gutentags_modules = []
+" 如果有 ctags 可执行就允许动态生成 ctags 文件
+if executable('ctags')
+  let g:gutentags_modules += ['ctags']
+endif
+" 如果有 gtags 可执行就允许动态生成 gtags 数据库
+if executable('gtags') && executable('gtags-cscope')
+  let g:gutentags_modules += ['gtags_cscope']
+endif
+let g:gutentags_plus_switch = 1
+
+" 设置 ctags 的参数
+" let g:gutentags_ctags_extra_args  = ['--fields=+niazSlm', '--extras=+q']
+let g:gutentags_ctags_extra_args  = ['--fields=+niazSlm']
+let g:gutentags_ctags_extra_args += ['--kinds-c++=+px']
+let g:gutentags_ctags_extra_args += ['--kinds-c=+px']
+
+" 使用 universal-ctags 的话需要下面这行，请反注释
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+" 禁止 gutentags 自动链接 gtags 数据库
+let g:gutentags_auto_add_gtags_cscope = 0
+
+" let g:gutentags_trace = 1
+" let g:gutentags_define_advanced_commands = 1
+
+" 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
+Plug 'skywind3000/vim-preview'
+
+noremap <m-;> :PreviewTag<cr>
+noremap <m-'> :PreviewClose<cr>
+noremap <m-,> :PreviewGoto edit<cr>
+noremap <m-.> :PreviewGoto tabe<cr>
+noremap <m-u> :PreviewScroll -1<cr>
+noremap <m-d> :PreviewScroll +1<cr>
+inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+augroup QuickFixPreview
+  autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+  autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+  autocmd FileType qf nnoremap <silent><buffer> q :q<cr>
+  autocmd FileType leaderf set nonu
+augroup end
 
 "----------------------------------------------------------------------
 " 结束插件安装
@@ -379,6 +318,8 @@ let g:vimspector_enable_mappings = 'HUMAN'
 call plug#end()
 
 set relativenumber
+
+set path=.,,
 
 " Tweaks for browsing
 let g:netrw_banner=0        " disable annoying banner

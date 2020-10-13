@@ -1,32 +1,24 @@
 module.exports = {
+  root: true,
   parser: '@typescript-eslint/parser',
   plugins: [
     '@typescript-eslint',
-    // 'typescript',
   ],
-  env: {
-    browser: true,
-    node: true,
-    es6: true,
-  },
-  // extends: 'eslint-config-alloy',
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+  extends: [
+    'eslint:recommanded',
+    'plugin:@typescript-eslint/eslint:recommanded',
+    'plugin:@typescript-eslint/recommanded',
+  ],
+  // 0: 'off', 1: 'warn', 2: 'error'
+  rules: {
+    semi: 2,
   },
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 11,
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
   },
-  rules: {
-    semi: 'error',
-    eqeqeq: [ 2, 'always', { null: 'ignore' } ],
-    'no-undef': 'error',
-    'no-unused-vars': 1,
-    'typescript/no-unused-vars': 1,
-    'typescript/class-name-casing': 2,
+  env: {
+    node: true,
+    es2020: true,
   },
 };
