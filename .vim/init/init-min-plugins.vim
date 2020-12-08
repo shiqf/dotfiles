@@ -60,6 +60,7 @@ Plug 'jiangmiao/auto-pairs', #{
       \     'cpp',
       \     'java',
       \     'javascript',
+      \     'json',
       \     'python',
       \     'typescript',
       \     'vim',
@@ -312,6 +313,8 @@ augroup QuickFixPreview
   autocmd FileType leaderf set nonu
 augroup end
 
+Plug 'neoclide/coc.nvim', #{ branch: 'release' }
+
 "----------------------------------------------------------------------
 " 结束插件安装
 "----------------------------------------------------------------------
@@ -319,7 +322,7 @@ call plug#end()
 
 set relativenumber
 
-set path=.,,
+nnoremap <silent> <leader>nt :e.<cr>
 
 " Tweaks for browsing
 let g:netrw_banner=0        " disable annoying banner

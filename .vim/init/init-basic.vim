@@ -126,8 +126,8 @@ set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
 set wildmenu
 
 " longest 最长匹配，list 匹配列表，full 匹配队列
-" set wildmode=longest,list,full
-set wildmode=full
+set wildmode=longest,list,full
+" set wildmode=list:longest
 
 " 设置 tags：当前文件所在目录往上向根目录搜索直到碰到 .tags 文件
 " 或者 Vim 当前目录包含 .tags 文件

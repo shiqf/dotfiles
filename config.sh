@@ -24,7 +24,7 @@ dotfiles=(
 ##############################################################################
 
 cmds=(
-    # "--HEAD universal-ctags/universal-ctags/universal-ctags" # 最新标签生成命令
+    "--HEAD universal-ctags/universal-ctags/universal-ctags" # 最新标签生成命令
     cmake                      # 跨平台编译工具
     fzf                        # 模糊查询
     git                        # 版本控制安装
@@ -33,10 +33,9 @@ cmds=(
     python                     # 默认 python3
     ranger                     # 终端文件管理软件
     reattach-to-user-namespace # 用户命名空间，防止因为 shell 的用户空间非当前用户
-    the_silver_searcher        # 命令缩写 ag 类似于 grep 命令
+    rg                         # 命令缩写 grep 命令
     tmux                       # 终端复用窗口拓展
     vim                        # 最新 vim 安装
-    z                          # 支持快速跳转到曾经打开过的目录下
     zsh                        # 最新 zsh 安装
 )
 
@@ -81,7 +80,6 @@ guis=(
 pips=(
     pygments # 支持其它语言 除[C/C++/Yacc/Java/PHP4/assembly] 之外javascript/typescript等
     cppman   # 高亮 cpp 文档
-    ranger   # 终端文件管理软件
 )
 
 ##############################################################################

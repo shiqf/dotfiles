@@ -82,19 +82,6 @@ if index(g:bundle_group, 'basic') >= 0
     " 一次性安装一大堆 colorscheme
     Plug 'flazz/vim-colorschemes'
 
-    " 支持库，给其他插件用的函数库
-    " Plug 'xolox/vim-misc'
-
-    " 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
-    Plug 'kshenoy/vim-signature'
-
-    " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
-    " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
-    " Plug 'mh21/errormarker.vim'
-
-    " " 使用 <space>ha 清除 errormarker 标注的错误
-    " noremap <silent><space>ha :RemoveErrorMarkers<cr>
-
     " 展示开始画面，显示最近编辑过的文件
     Plug 'mhinz/vim-startify'
 
@@ -127,6 +114,19 @@ if index(g:bundle_group, 'basic') >= 0
                 \ git: 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
                 \}
 
+    " 支持库，给其他插件用的函数库
+    " Plug 'xolox/vim-misc'
+
+    " 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
+    " Plug 'kshenoy/vim-signature'
+
+    " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
+    " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
+    " Plug 'mh21/errormarker.vim'
+
+    " " 使用 <space>ha 清除 errormarker 标注的错误
+    " noremap <silent><space>ha :RemoveErrorMarkers<cr>
+
 endif
 
 
@@ -140,9 +140,9 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
     let g:asynctasks_term_pos = 'tab'
-    let g:asyncrun_open = 6
-    let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
-    let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
+    let g:asyncrun_open = 10
+    " let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
+    " let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
     let g:asynctasks_term_reuse = 1
     let g:asynctasks_term_focus = 0
 
@@ -186,8 +186,10 @@ if index(g:bundle_group, 'enhanced') >= 0
           \     'cpp',
           \     'java',
           \     'javascript',
+          \     'json',
           \     'python',
           \     'typescript',
+          \     'vim',
           \   ]
           \ }
 
@@ -918,7 +920,7 @@ endif
 
 
 if index(g:bundle_group, 'debug') >= 0
-    Plug 'puremourning/vimspector'
+    Plug 'puremourning/vimspector', #{do: './install_gadget.py --all --force-enable-node --disable-tcl --update-gadget-config'}
     let g:vimspector_enable_mappings = 'HUMAN'
 endif
 

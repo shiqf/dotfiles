@@ -59,52 +59,76 @@ flags = [
 # For a C project, you would set this to 'c' instead of 'c++'.
 # '-x',
 # 'c++',
-'-isystem',
-'cpp/pybind11',
-'-isystem',
-'cpp/BoostParts',
+
+# python related c header
 '-isystem',
 get_python_inc(),
-'-isystem',
-'cpp/llvm/include',
-'-isystem',
-'cpp/llvm/tools/clang/include',
-'-I',
-'cpp/ycm',
-'-I',
-'cpp/ycm/ClangCompleter',
-'-isystem',
-'cpp/ycm/tests/gmock/gtest',
-'-isystem',
-'cpp/ycm/tests/gmock/gtest/include',
-'-isystem',
-'cpp/ycm/tests/gmock',
-'-isystem',
-'cpp/ycm/tests/gmock/include',
-'-isystem',
-'cpp/ycm/benchmarks/benchmark/include',
-'-isystem',
+
 # unix like system，file head is here almost
-'/usr/include',
-'-isystem',
-'/usr/local/include',
 # echo | clang -v -E -x c++ -
 # '-isystem',
+# '/usr/include',
+# '-isystem',
+# '/usr/local/include',
+
+# macOs c related
+# '-isystem',
+# '/Library/Developer/CommandLineTools/usr/include',
+# '-isystem',
+# '/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include',
+# '-isystem',
+# '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include'
+
+# macOs cpp 
+# '-isystem',
 # '/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1',
-'-isystem',
-'/Library/Developer/CommandLineTools/usr/include',
-'-isystem',
-'/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0/include',
-'-isystem',
-'/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include'
+
+# cpp related
+# '-isystem',
+# '/usr/include/c++/10.2.0/',
+# '-isystem',
+# '/usr/include/c++/10.2.0/x86_64-pc-linux-gnu/',
+# '-isystem',
+# '/usr/include/c++/10.2.0/backward/',
 ]
+
+def IsCFile( filename ):
+  extension = os.path.splitext( filename )[ 1 ]
+  return extension in [ '.c' ]
+
+
+def IsCppFile( filename ):
+  extension = os.path.splitext( filename )[ 1 ]
+  return extension in [ '.cpp', '.cxx', '.cc', '.mm' ]
+
 
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
 # which is required for compiling the standard library, and to 'c++11' for older
 # versions.
-if platform.system() != 'Windows':
-  flags.append( '-std=c11' )
+if platform.system() != 'Windows' and IsCFile( __file__ ):
+  flags.extend([
+    '-x', 'c',
+    '-isystem', '/usr/include',
+    '-isystem', '/usr/local/include',
+    '-std=c11',
+    ])
+elif platform.system() != 'Windows' and IsCppFile( __file__ ):
+  flags.extend([
+    '-x', 'c++',
+    '-isystem', '/usr/include/c++/10.2.0/',
+    '-std=c++11',
+    ])
 
+
+if platform.system() == 'Darwin' and IsCFile( __file__ ):
+  flags.extend([
+    '-isystem',
+    '/Library/Developer/CommandLineTools/usr/include',
+    '-isystem',
+    '/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include',
+    '-isystem',
+    '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include',
+    ])
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
 # compile_commands.json file to use that instead of 'flags'. See here for

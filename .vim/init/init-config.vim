@@ -14,16 +14,6 @@
 
 
 "----------------------------------------------------------------------
-" Vim自动把默认剪贴板和系统剪贴板的内容同步
-"----------------------------------------------------------------------
-if has('clipboard')
-    set clipboard^=unnamed,unnamedplus
-elseif has('unix') && executable('xclip') && executable('xsel')
-    vnoremap <silent><m-y> y:call
-                \ system('echo -n ' . getreg('@0') . ' \| xclip -sel c')<cr>
-endif
-
-"----------------------------------------------------------------------
 " 功能插件开启
 "----------------------------------------------------------------------
 packadd! termdebug
@@ -134,19 +124,6 @@ if &term =~# '256color'
     set t_ut=
 endif
 
-" if has('mac')
-"     if exists('$TMUX')
-"         " 普通模式是方块，插入模式是竖线
-"         let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"         let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-"         let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-"     " else
-"     "     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"     "     let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-"     "     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-"     endif
-" endif
-
 
 "----------------------------------------------------------------------
 " 配置微调
@@ -188,7 +165,7 @@ augroup InitFileTypesGroup
     au!
 
     " C/C++ 文件使用 // 作为注释
-    au FileType json,typescript,c,cpp setlocal commentstring=//\ %s
+    au FileType json,javascript,typescript,c,cpp setlocal commentstring=//\ %s
 
     " markdown 允许自动换行
     au FileType markdown setlocal wrap
@@ -202,6 +179,9 @@ augroup InitFileTypesGroup
 
     " haskell 进行微调
     au FileType haskell setlocal et
+
+    " vim9 
+    au FileType vim setlocal commentstring=#\ %s
 
     " quickfix 隐藏行号
     au FileType qf setlocal nonumber norelativenumber
