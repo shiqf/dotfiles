@@ -617,7 +617,7 @@ if index(g:bundle_group, 'ycm') >= 0
 
         " 两个字符自动触发语义补全
         let g:ycm_semantic_triggers = {
-                    \ 'c,cpp': ['re!\w{3}'],
+                    \ 'c,cpp': ['re!\w{2}'],
                     \ 'python,java,go,erlang,perl,cs,lua': ['re!\w{2}'],
                     \ 'javascript,typescript': ['re!([A-Z]\w|\w[A-Z]|\w{2}[A-Z]|\w{4})'],
                     \ }
@@ -947,7 +947,6 @@ if index(g:bundle_group, 'markdown') >= 0
                 \ flowchart_diagrams: {}
                 \ }
 endif
-
 
 "----------------------------------------------------------------------
 " 结束插件安装

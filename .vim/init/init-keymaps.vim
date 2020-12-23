@@ -191,19 +191,18 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " 恢复非高亮
 nnoremap <silent> <c-l> :<c-u>nohlsearch<cr><c-l>
 
-" 在可视模式上的重复改变 和 宏的功能增强
-xnoremap <silent> . :normal ;.<CR>
+" 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<CR>
 
-" 用于替换字符的改变
-nnoremap gy "ry
-xnoremap gy "ry
-nmap <silent>g. :let @r=@.<cr>&
+" 用于替换所在行所有的匹配字符
+nmap <silent>g. :let @r=@.<cr>:&g<cr>
+xmap <silent>g. :<c-u>let @r=@.<cr>gv:s//\=@r/g<cr>
 
-" 在普通和可视模式上重复上次替换
-nnoremap <silent> & :s//\=@r/&<CR>
+" 在普通和可视模式上重复上次替换, 可通过:& 把标志置位为首个
+nnoremap <silent> & :let @r=@.<cr>:s//\=@r/&<CR>
 xnoremap <silent> & :~&<CR>
-nnoremap <silent>g& :%~&g<cr>
+" 原 g& 不能执行上次替换命令 :s///
+nnoremap <silent>g& :%~&<cr>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p

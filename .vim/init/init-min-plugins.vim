@@ -13,8 +13,8 @@ Plug 'skywind3000/asynctasks.vim'
 let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
 let g:asynctasks_term_pos = 'tab'
 let g:asyncrun_open = 6
-let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
-let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
+" let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
+" let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
 let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_focus = 0
 
