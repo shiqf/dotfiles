@@ -195,8 +195,8 @@ nnoremap <silent> <c-l> :<c-u>nohlsearch<cr><c-l>
 xnoremap <silent> @ :normal @@<CR>
 
 " 用于替换所在行所有的匹配字符
-nmap <silent>g. :let @r=@.<cr>:&g<cr>
-xmap <silent>g. :<c-u>let @r=@.<cr>gv:s//\=@r/g<cr>
+nmap <silent>g. &:&g<cr>
+xmap <silent>g. <esc>`<&ugv&
 
 " 在普通和可视模式上重复上次替换, 可通过:& 把标志置位为首个
 nnoremap <silent> & :let @r=@.<cr>:s//\=@r/&<CR>
