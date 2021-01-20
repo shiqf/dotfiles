@@ -12,12 +12,19 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 "======================================================================
 
+"----------------------------------------------------------------------
+" Vim自动把默认剪贴板和系统剪贴板的内容同步
+"----------------------------------------------------------------------
+if has('clipboard')
+    set clipboard^=unnamed,unnamedplus
+endif
+
 
 "----------------------------------------------------------------------
 " 功能插件开启
 "----------------------------------------------------------------------
 packadd! termdebug
-packadd! matchit
+" packadd! matchit
 packadd! cfilter
 
 " 调用man程序在vim内部查看命令
@@ -27,13 +34,12 @@ runtime ftplugin/man.vim
 function! s:VSetSearch()
     let temp = @@
     norm! gvy
-    let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+    let @/ = '\V' .. substitute(escape(@@, '\'), '\n', '\\n', 'g')
     let @@ = temp
 endfunction
 
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
-
 
 "----------------------------------------------------------------------
 " 有 tmux 没有的功能键超时（毫秒）
@@ -51,7 +57,7 @@ endif
 "----------------------------------------------------------------------
 if has('nvim') == 0 && has('gui_running') == 0
     function! s:metacode(key)
-        exec 'set <M-' . a:key . ">=\e" . a:key
+        exec 'set <M-' .. a:key .. ">=\e" .. a:key
     endfunc
     for i in range(10)
         call s:metacode(nr2char(char2nr('0') + i))
@@ -74,7 +80,7 @@ endif
 "----------------------------------------------------------------------
 function! s:key_escape(name, code)
     if has('nvim') == 0 && has('gui_running') == 0
-        exec 'set '. a:name . "=\e" . a:code
+        exec 'set ' .. a:name .. "=\e" .. a:code
     endif
 endfunc
 
@@ -179,9 +185,6 @@ augroup InitFileTypesGroup
 
     " haskell 进行微调
     au FileType haskell setlocal et
-
-    " vim9 
-    au FileType vim setlocal commentstring=#\ %s
 
     " quickfix 隐藏行号
     au FileType qf setlocal nonumber norelativenumber
