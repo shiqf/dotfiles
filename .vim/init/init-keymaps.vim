@@ -22,6 +22,7 @@ inoremap <c-a> <c-\><c-o>_
 inoremap <c-e> <end>
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
+inoremap <m-d> <esc>:keepjumps normal `^<cr>cw
 
 " 类似终端下的 ctrl-y
 inoremap <c-y> <c-a>
