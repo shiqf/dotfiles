@@ -263,9 +263,12 @@ endif
 
 
 "----------------------------------------------------------------------
-" airline
+" themes
 "----------------------------------------------------------------------
-if index(g:bundle_group, 'airline') >= 0
+if index(g:bundle_group, 'themes') >= 0
+    " 一次性安装一大堆 colorscheme
+    Plug 'flazz/vim-colorschemes'
+
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     let g:airline_left_sep                        = ''
@@ -413,7 +416,9 @@ if index(g:bundle_group, 'leaderf') >= 0
         endif
 
         let g:Lf_CtagsFuncOpts = #{
+                    \ c: '--kinds-c=f',
                     \ javascript: '--kinds-javascript=fm',
+                    \ python: '--kinds-python=fmc',
                     \ typescript: '--kinds-typescript=fmc',
                     \ }
 
@@ -526,19 +531,21 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_PopupWidth = '0.6'
         let g:Lf_PopupHeight = '0.3'
 
-        let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
-        let g:Lf_PopupPreviewPosition = 'cursor' " 指定 popup window / floating window 的位置。
+        let g:Lf_PreviewPopupWidth = 100              " 指定 popup window / floating window 的宽度。
+        let g:Lf_PopupPreviewPosition = 'cursor'      " 指定 popup window / floating window 的位置。
         let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
 
         if executable('rg')
             xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", leaderf#Rg#visual())<CR><CR>
             nnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", expand("<cword>"))<CR>
         endif
-        noremap <leader>cr :<C-U>Leaderf! --recall<CR>
+        noremap <leader>gr :<C-U>Leaderf! --recall<CR>
     endif
 endif
 
-
+"----------------------------------------------------------------------
+"                          ycm 基于语义的自动补全
+"----------------------------------------------------------------------
 if index(g:bundle_group, 'ycm') >= 0
     " 显示 quickfix 列表和 location 列表
     Plug 'Valloric/ListToggle'
@@ -570,7 +577,7 @@ if index(g:bundle_group, 'ycm') >= 0
 
         let g:ycm_server_log_level = 'info'
         " 禁用诊断功能：我们用前面更好用的 ALE 代替, 默认 0
-        let g:ycm_show_diagnostics_ui = 1
+        let g:ycm_show_diagnostics_ui = 0
         let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
         " 不显示load python 提示
         let g:ycm_confirm_extra_conf=0
@@ -711,33 +718,9 @@ if index(g:bundle_group, 'ycm') >= 0
 
 endif
 
-if index(g:bundle_group, 'snippets') >= 0
-    " snippets 片段扩展
-    " 通过 VimL 语言的支持 " 需要通过 Python 的支持
-    if has('python3')
-        Plug 'SirVer/ultisnips'
-    endif
-    Plug 'honza/vim-snippets'
-    let g:UltiSnipsSnippetDirectories  = ['UltiSnips', 'mysnippets']
-    let g:UltiSnipsExpandTrigger       = '<tab>'
-    let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
-    let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-    let g:UltiSnipsListSnippets        = '<c-l>'
-    let g:UltiSnipsEditSplit           = 'vertical'
-    nnoremap <leader>ua :UltiSnipsAddFiletypes snippets
-
-    " emmet高速编写网页类代码
-    Plug 'mattn/emmet-vim', #{ for: ['html', 'css', 'jsx'] }
-    let g:emmet_html5 = 1
-
-    " 帮助emmet显示snippets提示
-    Plug 'jceb/emmet.snippets', #{ for: ['html'] }
-
-endif
-
 
 "----------------------------------------------------------------------
-" ale：动态语法检查
+"                        ale：动态语法检查
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'ale') >= 0
     Plug 'dense-analysis/ale'
@@ -764,8 +747,8 @@ if index(g:bundle_group, 'ale') >= 0
     " 编辑不同文件类型需要的语法检查器
     let g:ale_linters = #{
                 \ bash: ['shellcheck'],
-                \ c: ['clang'],
-                \ cpp: ['clang'],
+                \ c: ['gcc'],
+                \ cpp: ['gcc'],
                 \ go: ['go build', 'gofmt'],
                 \ java: ['javac'],
                 \ javascript: ['eslint'],
@@ -790,7 +773,7 @@ if index(g:bundle_group, 'ale') >= 0
     let g:ale_python_flake8_options  = '--conf=' .. s:lintcfg('flake8.conf')
     let g:ale_python_pylint_options  = '--rcfile=' .. s:lintcfg('pylint.conf')
     let g:ale_python_pylint_options ..= ' --disable=W'
-    let g:ale_c_gcc_options          = '-Wall -O2 -std=c99'
+    let g:ale_c_gcc_options          = '-Wall -O2 -std=c11'
     let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++14'
     let g:ale_c_cppcheck_options     = ''
     let g:ale_cpp_cppcheck_options   = ''
@@ -806,69 +789,37 @@ if index(g:bundle_group, 'ale') >= 0
     " 错误提示符及警告提示符
     let g:ale_sign_error='✗'
     let g:ale_sign_warning='⚠'
+endif
+
+
+"----------------------------------------------------------------------
+"                        代码片段拓展
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'snippets') >= 0
+    " snippets 片段扩展, 需要通过 Python 的支持
+    if has('python3')
+        Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+        let g:UltiSnipsSnippetDirectories  = ['UltiSnips', 'mysnippets']
+        let g:UltiSnipsEnableSnipMate = 0
+        let g:UltiSnipsExpandTrigger       = '<tab>'
+        let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
+        let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+        let g:UltiSnipsListSnippets        = '<c-l>'
+        let g:UltiSnipsEditSplit           = 'vertical'
+        nnoremap <leader>ua :UltiSnipsAddFiletypes snippets
+    endif
+
+    " emmet高速编写网页类代码
+    Plug 'mattn/emmet-vim', #{ for: ['html', 'css', 'jsx'] }
+    let g:emmet_html5 = 1
+
+    " 帮助emmet显示snippets提示
+    Plug 'jceb/emmet.snippets', #{ for: ['html'] }
 
 endif
 
 
 if index(g:bundle_group, 'tool') >= 0
-
-    " Plug 'junegunn/vim-easy-align'
-    " vmap <Enter> <Plug>(EasyAlign)
-    " xmap ga <Plug>(EasyAlign)
-    " let g:easy_align_delimiters = {
-    "             \ '>': { 'pattern': '>>\|=>\|>' },
-    "             \ '/': {
-    "             \     'pattern':         '//\+\|/\*\|\*/',
-    "             \     'delimiter_align': 'l',
-    "             \     'ignore_groups':   ['!Comment'] },
-    "             \ ']': {
-    "             \     'pattern':       '[[\]]',
-    "             \     'left_margin':   0,
-    "             \     'right_margin':  0,
-    "             \     'stick_to_left': 0
-    "             \   },
-    "             \ ')': {
-    "             \     'pattern':       '[()]',
-    "             \     'left_margin':   0,
-    "             \     'right_margin':  0,
-    "             \     'stick_to_left': 0
-    "             \   },
-    "             \ 'd': {
-    "             \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-    "             \     'left_margin':  0,
-    "             \     'right_margin': 0
-    "             \   }
-    "             \ }
-
-    " 对齐
-    Plug 'godlygeek/tabular'
-
-    " tmux 中使用vim 复制
-    Plug 'roxma/vim-tmux-clipboard'
-
-    " " 预览命令行命令效果
-    " Plug 'markonm/traces.vim'
-
-    " 彩虹括号 利用区分括号配对
-    Plug 'luochen1990/rainbow'
-    let g:rainbow_active = 1
-
-    Plug 'ianva/vim-youdao-translater'
-    vnoremap <silent> <C-k> :<C-u>Ydv<CR>
-    nnoremap <silent> <C-k> :<C-u>Ydc<CR>
-    noremap <leader>yd :<C-u>Yde<CR>
-
-
-    " Plug 'lervag/vimtex'
-    " let g:tex_flavor='latex'
-    " let g:vimtex_view_method='zathura'
-    " let g:vimtex_quickfix_mode=0
-    " set conceallevel=1
-    " let g:tex_conceal='abdmg'
-endif
-
-
-if index(g:bundle_group, 'repl') >= 0
     Plug 'sillybun/vim-repl'
     let g:repl_program = #{
                 \   python: 'python3',
@@ -899,6 +850,27 @@ if index(g:bundle_group, 'repl') >= 0
     nnoremap <leader>r :REPLToggle<Cr>
     let g:repl_position = 3
     let g:repl_stayatrepl_when_open = 0
+
+    Plug 'mbbill/undotree'
+    nnoremap <silent> <leader>uo :UndotreeToggle<CR>
+    if has("persistent_undo")
+        set undodir=$HOME."/.undodir"
+        set undofile
+    endif
+
+    " 对齐
+    Plug 'godlygeek/tabular'
+
+    " tmux 中使用vim 复制
+    Plug 'roxma/vim-tmux-clipboard'
+
+    " " 预览命令行命令效果
+    " Plug 'markonm/traces.vim'
+
+    " 彩虹括号 利用区分括号配对
+    Plug 'luochen1990/rainbow'
+    let g:rainbow_active = 1
+
 endif
 
 
