@@ -758,11 +758,11 @@ if index(g:bundle_group, 'ale') >= 0
                 \ }
 
 
-    " 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
+    " 获取 pylint, flake8 的配置文件，在 init/tools/conf 下面
     function s:lintcfg(name)
         let conf = s:path('tools/conf/')
         let path1 = conf .. a:name
-        let path2 = expand('~/.vim/linter/'.. a:name)
+        let path2 = expand('~/.vim/linter/' .. a:name)
         if filereadable(path2)
             return path2
         endif
