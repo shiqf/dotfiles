@@ -50,9 +50,9 @@ endfunc
 "----------------------------------------------------------------------
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
-" vim 中文说明文档 ./vimcdoc.sh -i安装
-Plug 'yianwillis/vimcdoc', #{ do: './vimcdoc.sh -i' }
-Plug 'yianwillis/vimcfaq'
+" " vim 中文说明文档 ./vimcdoc.sh -i安装
+" Plug 'yianwillis/vimcdoc', #{ do: './vimcdoc.sh -i' }
+" Plug 'yianwillis/vimcfaq'
 
 "----------------------------------------------------------------------
 " 基础插件
@@ -78,56 +78,10 @@ if index(g:bundle_group, 'basic') >= 0
     " 多单词[多文件]查询、代替、缩写
     Plug 'tpope/vim-abolish'
 
+    " 支持 fugitive 的Gbrowse 功能
+    " Plug 'tpope/vim-rhubarb'
     " Git 支持
     Plug 'tpope/vim-fugitive'
-
-    " 一次性安装一大堆 colorscheme
-    Plug 'flazz/vim-colorschemes'
-
-    " 展示开始画面，显示最近编辑过的文件
-    Plug 'mhinz/vim-startify'
-
-    " 默认不显示 startify
-    let g:startify_disable_at_vimenter    = 0
-    let g:startify_session_dir            = '~/.vim/session'
-    let g:startify_session_persistence    = 1
-    let g:startify_session_delete_buffers = 1
-    let g:startify_session_autoload       = 0
-    let g:startify_change_to_dir          = 1
-    let g:startify_bookmarks              = [
-                \   {'v': '~/.vimrc'},
-                \   {'z': '~/.zshrc'},
-                \ ]
-    noremap <leader>p :Startify<cr>
-
-    " 用于在侧边符号栏显示 git/svn 的 diff
-    Plug 'mhinz/vim-signify'
-
-    " signify 调优
-    let g:signify_vcs_list               = ['git', 'svn']
-    let g:signify_sign_add               = '+'
-    let g:signify_sign_delete            = '_'
-    let g:signify_sign_delete_first_line = '‾'
-    let g:signify_sign_change            = '~'
-    let g:signify_sign_changedelete      = g:signify_sign_change
-
-    " git 仓库使用 histogram 算法进行 diff
-    let g:signify_vcs_cmds = #{
-                \ git: 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
-                \}
-
-    " 支持库，给其他插件用的函数库
-    " Plug 'xolox/vim-misc'
-
-    " 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
-    " Plug 'kshenoy/vim-signature'
-
-    " 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
-    " 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
-    " Plug 'mh21/errormarker.vim'
-
-    " " 使用 <space>ha 清除 errormarker 标注的错误
-    " noremap <silent><space>ha :RemoveErrorMarkers<cr>
 
 endif
 
@@ -160,9 +114,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
     nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
-    " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
-    Plug 'chrisbra/vim-diff-enhanced'
-
     " 全文快速移动, <leader>f{char} 即可触发
     Plug 'easymotion/vim-easymotion', #{
                 \ on: [
@@ -183,16 +134,8 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     " 配对括号和引号自动补全
     Plug 'jiangmiao/auto-pairs', #{
-          \ for: [
-          \     'c',
-          \     'cpp',
-          \     'java',
-          \     'javascript',
-          \     'json',
-          \     'python',
-          \     'typescript',
-          \     'vim',
-          \   ]
+          \ for: [ 'c', 'cpp', 'java', 'javascript', 'json',
+          \     'make', 'python', 'snippets', 'typescript', 'vim', ]
           \ }
 
     let g:AutoPairsFlyMode            = 0
