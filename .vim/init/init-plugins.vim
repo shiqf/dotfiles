@@ -391,9 +391,9 @@ if index(g:bundle_group, 'tags') >= 0
     noremap <m-,> :PreviewGoto edit<cr>
     noremap <m-.> :PreviewGoto tabe<cr>
     noremap <m-u> :PreviewScroll -1<cr>
-    noremap <m-d> :PreviewScroll +1<cr>
+    noremap <m-i> :PreviewScroll +1<cr>
     inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
-    inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+    inoremap <m-i> <c-\><c-o>:PreviewScroll +1<cr>
     augroup QuickFixPreview
         autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
         autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
