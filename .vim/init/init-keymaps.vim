@@ -219,6 +219,19 @@ map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
+
+xnoremap <silent> ado :diffget<cr>
+xnoremap <silent> 2do :diffget //2<cr>
+xnoremap <silent> 3do :diffget //3<cr>
+nnoremap <silent> 2do :diffget //2<cr>
+nnoremap <silent> 3do :diffget //3<cr>
+
+xnoremap <silent> adp :diffput<cr>
+xnoremap <silent> 2dp :diffput //2<cr>
+xnoremap <silent> 3dp :diffput //3<cr>
+nnoremap <silent> 2dp :diffput //2<cr>
+nnoremap <silent> 3dp :diffput //3<cr>
+
 "----------------------------------------------------------------------
 " 文件类型映射
 "----------------------------------------------------------------------
