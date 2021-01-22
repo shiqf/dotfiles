@@ -209,6 +209,9 @@ nnoremap <silent>g& :%~&<cr>
 nnoremap 1p "1p
 nnoremap 1P "1P
 
+inoremap <m-m> <esc>a
+inoremap <silent> <c-x><c-s> <c-o>:w<cr>
+nnoremap <silent> <c-x><c-s> :<c-u>w<cr>
 "----------------------------------------------------------------------
 " 文件类型映射
 "----------------------------------------------------------------------
