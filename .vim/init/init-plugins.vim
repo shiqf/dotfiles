@@ -9,11 +9,13 @@
 "   - 增强插件
 "   - 文本对象：textobj 全家桶
 "   - 文件类型扩展
-"   - airline
+"   - themes
 "   - NERDTree
 "   - 自动生成 ctags/gtags，并提供自动索引功能
 "   - LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
+"   - ycm 基于语义的自动补全
 "   - ale：动态语法检查
+"   - 代码片段拓展
 "
 " vim: set ts=4 sw=4 tw=78 noet :
 "======================================================================
@@ -24,12 +26,12 @@
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
     let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'filetypes']
-    " tags 标签、文件快速导航、智能补全、代码片段、语法检测
-    let g:bundle_group += ['tags', 'leaderf', 'ycm', 'snippets', 'ale']
+    " tags 标签、文件快速导航、智能补全、语法检测、代码片段
+    let g:bundle_group += ['tags', 'leaderf', 'ycm', 'ale', 'snippets']
     " 状态栏、目录
-    let g:bundle_group += ['airline', 'nerdtree']
-    " 工具、调试，交互执行、markdown
-    let g:bundle_group += ['tool', 'debug', 'repl', 'markdown']
+    let g:bundle_group += ['themes', 'nerdtree']
+    " 工具、调试、markdown
+    let g:bundle_group += ['tool', 'debug', 'markdown']
 endif
 
 
