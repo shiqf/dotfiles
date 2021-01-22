@@ -145,13 +145,51 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:AutoPairsMoveCharacter      = ''
     let g:AutoPairsShortcutJump       = ''
 
-    " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-    " Plug 'asins/vim-dict'
-    " let g:vim_dict_config = #{
-    "             \ html: ['css', 'javascript'],
-    "             \ javascript: [ 'javascript','jsx'],
-    "             \ typescript: ['javascript'],
-    "             \}
+    " 交换选定范围
+    Plug 'tommcdo/vim-exchange'
+    let g:exchange_no_mappings=1
+    nmap co <Plug>(Exchange)
+    vmap X <Plug>(Exchange)
+    nmap coc <Plug>(ExchangeClear)
+    nmap coo <Plug>(ExchangeLine)
+
+    " 展示开始画面，显示最近编辑过的文件
+    Plug 'mhinz/vim-startify'
+
+    " 默认不显示 startify
+    let g:startify_disable_at_vimenter    = 0
+    let g:startify_session_dir            = '~/.vim/session'
+    let g:startify_session_persistence    = 1
+    let g:startify_session_delete_buffers = 1
+    let g:startify_session_autoload       = 0
+    let g:startify_change_to_dir          = 1
+    let g:startify_bookmarks              = [
+                \   {'v': '~/.vimrc'},
+                \   {'z': '~/.zshrc'},
+                \ ]
+    noremap <leader>p :Startify<cr>
+
+    " 用于在侧边符号栏显示 git/svn 的 diff
+    Plug 'mhinz/vim-signify'
+
+    " signify 调优
+    let g:signify_vcs_list               = ['git', 'svn']
+    let g:signify_sign_add               = '+'
+    let g:signify_sign_delete            = '_'
+    let g:signify_sign_delete_first_line = '‾'
+    let g:signify_sign_change            = '~'
+    let g:signify_sign_changedelete      = g:signify_sign_change
+
+    " git 仓库使用 histogram 算法进行 diff
+    let g:signify_vcs_cmds = #{
+                \ git: 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
+                \}
+
+    " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
+    Plug 'asins/vim-dict'
+    let g:vim_dict_config = #{
+                \ html: ['css', 'javascript'],
+                \}
 
     " " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
     " Plug 'dyng/ctrlsf.vim'
