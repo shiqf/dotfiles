@@ -51,6 +51,7 @@ fi
 
 dires=(
     ~/backup/.                  # 创建备份配置文件夹
+    ~/.config/.
 )
 
 for dir in ${dires[@]}; do
@@ -88,6 +89,9 @@ for dotfile in ${dotfiles[@]}; do
     ## 把配置文件软链接到用户主目录中
     ln -s ${dotfileDir}/${dotfile} ~/${dotfile##*/}
 done
+
+# neovim 连接安装
+ln -s ~/dotfiles/.vim ~/.config/nvim
 
 #######################################################################
 #                          安装 vim 插件目录                          #

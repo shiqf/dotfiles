@@ -28,7 +28,11 @@ set nocompatible
 set visualbell t_vb=
 
 " 设置 Backspace 键模式
-set backspace=3
+if has('nvim')
+    set backspace=2
+else
+    set backspace=3
+endif
 
 " 自动缩进
 set autoindent
@@ -137,7 +141,6 @@ set fileformats=unix,dos,mac
 
 " 使文件在修改后（不保存），能够使用命令在缓存文件之间跳转
 set hidden
-
 
 "----------------------------------------------------------------------
 " 设置代码折叠

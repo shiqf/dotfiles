@@ -51,7 +51,7 @@ endfunc
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 " " vim 中文说明文档 ./vimcdoc.sh -i安装
-" Plug 'yianwillis/vimcdoc', #{ do: './vimcdoc.sh -i' }
+" Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 " Plug 'yianwillis/vimcfaq'
 
 "----------------------------------------------------------------------
@@ -115,8 +115,8 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
     " 全文快速移动, <leader>f{char} 即可触发
-    Plug 'easymotion/vim-easymotion', #{
-                \ on: [
+    Plug 'easymotion/vim-easymotion', {
+                \ 'on': [
                 \    '<plug>(easymotion-overwin-f)',
                 \    '<plug>(easymotion-f)',
                 \    '<plug>(easymotion-F)',
@@ -133,8 +133,8 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:EasyMotion_smartcase = 1
 
     " 配对括号和引号自动补全
-    Plug 'jiangmiao/auto-pairs', #{
-          \ for: [ 'c', 'cpp', 'java', 'javascript', 'json',
+    Plug 'jiangmiao/auto-pairs', {
+          \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
           \     'make', 'python', 'snippets', 'typescript', 'vim', ]
           \ }
 
@@ -181,21 +181,21 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:signify_sign_changedelete      = g:signify_sign_change
 
     " git 仓库使用 histogram 算法进行 diff
-    let g:signify_vcs_cmds = #{
-                \ git: 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
+    let g:signify_vcs_cmds = {
+                \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
                 \}
 
     " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
     Plug 'asins/vim-dict'
-    let g:vim_dict_config = #{
-                \ html: ['css', 'javascript'],
+    let g:vim_dict_config = {
+                \ 'html': ['css', 'javascript'],
                 \}
 
     " " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
     " Plug 'dyng/ctrlsf.vim'
 
     " " 提供 gist 接口
-    " Plug 'lambdalisue/vim-gista', #{ on: 'Gista' }
+    " Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 endif
 
 
@@ -220,10 +220,10 @@ if index(g:bundle_group, 'textobj') >= 0
     Plug 'sgur/vim-textobj-parameter'
 
     " 函数文本对象：if/af 支持 c/c++/vim/java
-    Plug 'kana/vim-textobj-function', #{ for:['c', 'cpp', 'vim', 'java'] }
+    Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 
     " " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
-    " Plug 'bps/vim-textobj-python', #{ for: 'python' }
+    " Plug 'bps/vim-textobj-python', { 'for': 'python' }
     " let g:textobj_python_no_default_key_mappings = 1
 
     " " 语法文本对象：iy/ay 基于语法的文本对象
@@ -240,25 +240,25 @@ endif
 if index(g:bundle_group, 'filetypes') >= 0
 
     " 额外语法文件
-    Plug 'justinmk/vim-syntax-extra', #{ for: ['bison', 'c', 'cpp', 'flex'] }
+    Plug 'justinmk/vim-syntax-extra', { 'for': ['bison', 'c', 'cpp', 'flex'] }
 
     " C++ 语法高亮增强，支持 11/14/17 标准
-    Plug 'octol/vim-cpp-enhanced-highlight', #{ for: ['c', 'cpp'] }
+    Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
     " python 语法文件增强
-    Plug 'vim-python/python-syntax', #{ for: ['python'] }
+    Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
     " " typescript 语法文件增强
-    " Plug 'leafgarland/typescript-vim', #{ for: ['typescript'] }
+    " Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 
     " powershell 脚本文件的语法高亮
-    " Plug 'pprovost/vim-ps1', #{ for: 'ps1' }
+    " Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
 
     " lua 语法高亮增强
-    " Plug 'tbastos/vim-lua', #{ for: 'lua' }
+    " Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
     " rust 语法增强
-    " Plug 'rust-lang/rust.vim', #{ for: 'rust' }
+    " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 endif
 
 
@@ -291,7 +291,7 @@ endif
 " NERDTree
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'nerdtree') >= 0
-    Plug 'scrooloose/nerdtree', #{ on: 'NERDTreeToggle' }
+    Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     let g:NERDTreeMinimalUI = 1
     let g:NERDTreeDirArrows = 1
@@ -386,18 +386,22 @@ if index(g:bundle_group, 'tags') >= 0
     " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
     Plug 'skywind3000/vim-preview'
 
-    noremap <m-;> :PreviewTag<cr>
-    noremap <m-'> :PreviewClose<cr>
-    noremap <m-,> :PreviewGoto edit<cr>
-    noremap <m-.> :PreviewGoto tabe<cr>
     noremap <m-u> :PreviewScroll -1<cr>
     noremap <m-i> :PreviewScroll +1<cr>
     inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
     inoremap <m-i> <c-\><c-o>:PreviewScroll +1<cr>
+
+    noremap <m-;> :PreviewTag<cr>
+    noremap <m-p> :PreviewClose<cr>
+    noremap <m-,> :PreviewGoto edit<cr>
+    noremap <m-.> :PreviewGoto tabe<cr>
+
     augroup QuickFixPreview
         autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+        autocmd FileType qf nnoremap <silent><buffer> <m-p> :PreviewClose<cr>
         autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-        autocmd FileType qf nnoremap <silent><buffer> q :q<cr>
+        autocmd FileType qf nnoremap <silent><buffer> q <c-w>q
+        autocmd FileType qf nnoremap <silent><buffer> o <cr>:cclose<cr>
         autocmd FileType leaderf set nonu
     augroup end
 endif
@@ -410,16 +414,16 @@ if index(g:bundle_group, 'leaderf') >= 0
     " 如果 vim 支持 python 则启用  Leaderf
     if has('python3')
         if has('win32') || has('win64')
-            Plug 'Yggdroot/LeaderF', #{ do: '.\install.bat' }
+            Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
         else
-            Plug 'Yggdroot/LeaderF', #{ do: './install.sh' }
+            Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
         endif
 
-        let g:Lf_CtagsFuncOpts = #{
-                    \ c: '--kinds-c=f',
-                    \ javascript: '--kinds-javascript=fm',
-                    \ python: '--kinds-python=fmc',
-                    \ typescript: '--kinds-typescript=fmc',
+        let g:Lf_CtagsFuncOpts = {
+                    \ 'c': '--kinds-c=f',
+                    \ 'javascript': '--kinds-javascript=fm',
+                    \ 'python': '--kinds-python=fmc',
+                    \ 'typescript': '--kinds-typescript=fmc',
                     \ }
 
         " CTRL+p 打开文件模糊匹配
@@ -459,7 +463,7 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
         " ui 定制
-        let g:Lf_StlSeparator = #{ left: '►', right: '◄', font: '' }
+        let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
 
         " 使用 / 寄存器存储 rg -e 使用的正则表达式
         let g:Lf_RgStorePattern = '/'
@@ -475,15 +479,15 @@ if index(g:bundle_group, 'leaderf') >= 0
 
         " let g:Lf_UseVersionControlTool = 0
         " 模糊匹配忽略扩展名
-        let g:Lf_WildIgnore = #{
-                    \ dir: ['.svn','.git','.hg'],
-                    \ file: ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico']
+        let g:Lf_WildIgnore = {
+                    \ 'dir': ['.svn','.git','.hg'],
+                    \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico']
                     \ }
 
         " 忽略最近文件
-        let g:Lf_MruWildIgnore = #{
-                    \ dir: ['node_modules'],
-                    \ file: []
+        let g:Lf_MruWildIgnore = {
+                    \ 'dir': ['node_modules'],
+                    \ 'file': []
                     \}
 
         " MRU 文件忽略扩展名
@@ -491,7 +495,7 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_StlColorscheme = 'powerline'
 
         " 禁用 function/buftag 的预览功能，可以手动用 p 预览
-        let g:Lf_PreviewResult = #{ Function: 0, BufTag: 0 }
+        let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0 }
 
         " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
         " {
@@ -513,15 +517,15 @@ if index(g:bundle_group, 'leaderf') >= 0
         "     tag: 当前项目所有标签,
         " }
         " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
-        let g:Lf_NormalMap = #{
-                    \ BufTag: [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
-                    \ Buffer: [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-                    \ File:   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-                    \ Function: [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
-                    \ Mru: [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-                    \ Rg: [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
-                    \ Self: [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
-                    \ Tag: [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
+        let g:Lf_NormalMap = {
+                    \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
+                    \ 'Buffer': [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
+                    \ 'File':   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+                    \ 'Function': [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
+                    \ 'Mru': [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
+                    \ 'Rg': [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
+                    \ 'Self': [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
+                    \ 'Tag': [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
                     \ }
 
         " 开启后不能在普通模式中使用搜索/
@@ -554,9 +558,9 @@ if index(g:bundle_group, 'ycm') >= 0
     let g:lt_height = 10
 
     if has('python3')
-        Plug 'ycm-core/YouCompleteMe', #{ do: 'python3 install.py --clangd-completer --ts-completer --java-completer' }
+        Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer' }
     elseif has('win64') && has('python')
-        Plug 'ycm-core/YouCompleteMe', #{ do: 'python install.py --clangd-completer --ts-completer' }
+        Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer' }
     endif
 
     if has('python3') || (has('win64') && has('python'))
@@ -570,10 +574,14 @@ if index(g:bundle_group, 'ycm') >= 0
         " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
         let g:ycm_key_detailed_diagnostics = '<leader>d'
 
-        set completeopt+=popup
-        " 禁用预览功能：扰乱视听 默认 0 为禁用
-        " let g:ycm_add_preview_to_completeopt = 0
-        " let g:ycm_autoclose_preview_window_after_completion = 0
+        if has('nvim')
+            set completeopt+=preview
+            " 禁用预览功能：扰乱视听 默认 0 为禁用
+            let g:ycm_add_preview_to_completeopt = 0
+            let g:ycm_autoclose_preview_window_after_completion = 1
+        else
+            set completeopt+=popup
+        endif
 
         let g:ycm_server_log_level = 'info'
         " 禁用诊断功能：我们用前面更好用的 ALE 代替, 默认 0
@@ -620,59 +628,59 @@ if index(g:bundle_group, 'ycm') >= 0
         "----------------------------------------------------------------------
         " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
         "----------------------------------------------------------------------
-        let g:ycm_filetype_whitelist = #{
-                    \ asciidoc: 1,
-                    \ asm: 1,
-                    \ asm68k: 1,
-                    \ asmh8300: 1,
-                    \ bash: 1,
-                    \ basic: 1,
-                    \ c: 1,
-                    \ cmake: 1,
-                    \ coffee: 1,
-                    \ conf: 1,
-                    \ config: 1,
-                    \ cpp: 1,
-                    \ cs: 1,
-                    \ cson: 1,
-                    \ css: 1,
-                    \ dosini: 1,
-                    \ erlang: 1,
-                    \ go: 1,
-                    \ haskell: 1,
-                    \ html: 1,
-                    \ java: 1,
-                    \ javascript: 1,
-                    \ json: 1,
-                    \ less: 1,
-                    \ lhaskell: 1,
-                    \ lisp: 1,
-                    \ lua: 1,
-                    \ make: 1,
-                    \ man: 1,
-                    \ markdown: 1,
-                    \ masm: 1,
-                    \ matlab: 1,
-                    \ maxima: 1,
-                    \ nasm: 1,
-                    \ objc: 1,
-                    \ objcpp: 1,
-                    \ perl: 1,
-                    \ perl6: 1,
-                    \ php: 1,
-                    \ ps1: 1,
-                    \ python: 1,
-                    \ ruby: 1,
-                    \ rust: 1,
-                    \ scheme: 1,
-                    \ sdl: 1,
-                    \ sh: 1,
-                    \ tasm: 1,
-                    \ typescript: 1,
-                    \ vb: 1,
-                    \ vim: 1,
-                    \ zimbu: 1,
-                    \ zsh: 1,
+        let g:ycm_filetype_whitelist = {
+                    \ 'asciidoc': 1,
+                    \ 'asm': 1,
+                    \ 'asm68k': 1,
+                    \ 'asmh8300': 1,
+                    \ 'bash': 1,
+                    \ 'basic': 1,
+                    \ 'c': 1,
+                    \ 'cmake': 1,
+                    \ 'coffee': 1,
+                    \ 'conf': 1,
+                    \ 'config': 1,
+                    \ 'cpp': 1,
+                    \ 'cs': 1,
+                    \ 'cson': 1,
+                    \ 'css': 1,
+                    \ 'dosini': 1,
+                    \ 'erlang': 1,
+                    \ 'go': 1,
+                    \ 'haskell': 1,
+                    \ 'html': 1,
+                    \ 'java': 1,
+                    \ 'javascript': 1,
+                    \ 'json': 1,
+                    \ 'less': 1,
+                    \ 'lhaskell': 1,
+                    \ 'lisp': 1,
+                    \ 'lua': 1,
+                    \ 'make': 1,
+                    \ 'man': 1,
+                    \ 'markdown': 1,
+                    \ 'masm': 1,
+                    \ 'matlab': 1,
+                    \ 'maxima': 1,
+                    \ 'nasm': 1,
+                    \ 'objc': 1,
+                    \ 'objcpp': 1,
+                    \ 'perl': 1,
+                    \ 'perl6': 1,
+                    \ 'php': 1,
+                    \ 'ps1': 1,
+                    \ 'python': 1,
+                    \ 'ruby': 1,
+                    \ 'rust': 1,
+                    \ 'scheme': 1,
+                    \ 'sdl': 1,
+                    \ 'sh': 1,
+                    \ 'tasm': 1,
+                    \ 'typescript': 1,
+                    \ 'vb': 1,
+                    \ 'vim': 1,
+                    \ 'zimbu': 1,
+                    \ 'zsh': 1,
                     \ }
 
         let g:ycm_auto_hover = ''
@@ -745,16 +753,16 @@ if index(g:bundle_group, 'ale') >= 0
     let g:airline#extensions#ale#enabled = 1
 
     " 编辑不同文件类型需要的语法检查器
-    let g:ale_linters = #{
-                \ bash: ['shellcheck'],
-                \ c: ['gcc'],
-                \ cpp: ['gcc'],
-                \ go: ['go build', 'gofmt'],
-                \ java: ['javac'],
-                \ javascript: ['eslint'],
-                \ lua: ['luac'],
-                \ python: ['flake8', 'pylint'],
-                \ typescript: ['eslint', 'tslint'],
+    let g:ale_linters = {
+                \ 'bash': ['shellcheck'],
+                \ 'c': ['gcc'],
+                \ 'cpp': ['gcc'],
+                \ 'go': ['go build', 'gofmt'],
+                \ 'java': ['javac'],
+                \ 'javascript': ['eslint'],
+                \ 'lua': ['luac'],
+                \ 'python': ['flake8', 'pylint'],
+                \ 'typescript': ['eslint', 'tslint'],
                 \ }
 
 
@@ -810,39 +818,39 @@ if index(g:bundle_group, 'snippets') >= 0
     endif
 
     " emmet高速编写网页类代码
-    Plug 'mattn/emmet-vim', #{ for: ['html', 'css', 'jsx'] }
+    Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
     let g:emmet_html5 = 1
 
     " 帮助emmet显示snippets提示
-    Plug 'jceb/emmet.snippets', #{ for: ['html'] }
+    Plug 'jceb/emmet.snippets', { 'for': ['html'] }
 
 endif
 
 
 if index(g:bundle_group, 'tool') >= 0
     Plug 'sillybun/vim-repl'
-    let g:repl_program = #{
-                \   python: 'python3',
-                \   javascript: 'node',
-                \   typescript: 'ts-node',
-                \   r: 'R',
-                \   lua: 'lua',
-                \   default: 'zsh',
+    let g:repl_program = {
+                \   'python': 'python3',
+                \   'javascript': 'node',
+                \   'typescript': 'ts-node',
+                \   'r': 'R',
+                \   'lua': 'lua',
+                \   'default': 'zsh',
                 \   }
 
-    let g:repl_exit_commands = #{
-                \   python: 'quit()',
-                \   bash: 'exit',
-                \   zsh: 'exit',
-                \   node: '.exit',
-                \   ts-node: '.exit',
-                \   jshell: '/exit',
-                \   default: 'exit',
+    let g:repl_exit_commands = {
+                \   'python': 'quit()',
+                \   'bash': 'exit',
+                \   'zsh': 'exit',
+                \   'node': '.exit',
+                \   'ts-node': '.exit',
+                \   'jshell': '/exit',
+                \   'default': 'exit',
                 \   }
 
-    let g:repl_predefine_python = #{
-                \   numpy: 'import numpy as np',
-                \   matplotlib: 'from matplotlib import pyplot as plt'
+    let g:repl_predefine_python = {
+                \   'numpy': 'import numpy as np',
+                \   'matplotlib': 'from matplotlib import pyplot as plt'
                 \   }
     let g:repl_cursor_down = 1
     let g:repl_python_automerge = 1
@@ -875,31 +883,31 @@ endif
 
 
 if index(g:bundle_group, 'debug') >= 0
-    Plug 'puremourning/vimspector', #{do: './install_gadget.py --all --force-enable-node --disable-tcl --update-gadget-config'}
+    Plug 'puremourning/vimspector', {'do': './install_gadget.py --all --force-enable-node --disable-tcl --update-gadget-config'}
     let g:vimspector_enable_mappings = 'HUMAN'
 endif
 
 
 if index(g:bundle_group, 'markdown') >= 0
-    Plug 'mzlogin/vim-markdown-toc', #{ for: [ 'markdown' ] }
+    Plug 'mzlogin/vim-markdown-toc', { 'for': [ 'markdown' ] }
     let g:vmt_auto_update_on_save = 1
     let g:vmt_cycle_list_item_markers = 1
-    Plug 'plasticboy/vim-markdown', #{ for: [ 'markdown' ] }
-    Plug 'iamcco/markdown-preview.nvim', #{
-                \ do: 'cd app & yarn install --registry=https://registry.npm.taobao.org',
-                \ for: [ 'markdown' ]
+    Plug 'plasticboy/vim-markdown', { 'for': [ 'markdown' ] }
+    Plug 'iamcco/markdown-preview.nvim', {
+                \ 'do': 'cd app & yarn install --registry=https://registry.npm.taobao.org',
+                \ 'for': [ 'markdown' ]
                 \ }
     let g:vim_markdown_math = 1
-    let g:mkdp_preview_options = #{
-                \ mkit: {},
-                \ katex: {},
-                \ uml: {},
-                \ maid: {},
-                \ disable_sync_scroll: 0,
-                \ sync_scroll_type: 'middle',
-                \ hide_yaml_meta: 1,
-                \ sequence_diagrams: {},
-                \ flowchart_diagrams: {}
+    let g:mkdp_preview_options = {
+                \ 'mkit': {},
+                \ 'katex': {},
+                \ 'uml': {},
+                \ 'maid': {},
+                \ 'disable_sync_scroll': 0,
+                \ 'sync_scroll_type': 'middle',
+                \ 'hide_yaml_meta': 1,
+                \ 'sequence_diagrams': {},
+                \ 'flowchart_diagrams': {}
                 \ }
 endif
 

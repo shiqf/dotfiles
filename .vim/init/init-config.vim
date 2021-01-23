@@ -130,17 +130,19 @@ if &term =~# '256color'
     set t_ut=
 endif
 
-
-if exists('$TMUX')
-    " 普通模式是方块，插入模式是竖线
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+if has('nvim') == 0
+    if exists('$TMUX')
+        " 普通模式是方块，插入模式是竖线
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+        let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    else
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+        let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    endif
 endif
+
 
 "----------------------------------------------------------------------
 " 配置微调
@@ -149,9 +151,7 @@ endif
 " 终端控制命令，比如 cursor shaping 这类更改光标形状的 xterm 终端命令
 " 会令一些支持 xterm 不完全的终端解析错误，显示为错误的字符，比如 q 字符
 " 如果你确认你的终端支持，不会在一些不兼容的终端上运行该配置，可以注释
-if has('nvim')
-    set guicursor=
-elseif (!has('gui_running')) && has('terminal') && has('patch-8.0.1200')
+if (!has('gui_running')) && has('terminal') && has('patch-8.0.1200') && has('nvim') == 0
     let g:termcap_guicursor = &guicursor
     let g:termcap_t_RS = &t_RS
     let g:termcap_t_SH = &t_SH
