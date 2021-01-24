@@ -131,16 +131,9 @@ if &term =~# '256color'
 endif
 
 if has('nvim') == 0
-    if exists('$TMUX')
-        " 普通模式是方块，插入模式是竖线
-        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-        let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    else
-        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-        let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-    endif
+    let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
+    let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
+    let &t_EI = "\<Esc>[2 q" "EI = NORMAL mode
 endif
 
 
