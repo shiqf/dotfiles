@@ -32,6 +32,7 @@ augroup FileTypeTab
     au FileType css         setlocal ts=2 sw=2 sts=2
     au FileType dockerfile  setlocal ts=4 sw=4 sts=4
     au FileType graphql     setlocal ts=2 sw=2 sts=2
+    au FileType gitconfig   setlocal ts=4 sw=4 sts=4 noet
     au FileType html        setlocal ts=2 sw=2 sts=2
     au FileType java        setlocal ts=4 sw=4 sts=4
     au FileType javascript  setlocal ts=2 sw=2 sts=2 suffixesadd=.js
