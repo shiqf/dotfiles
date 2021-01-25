@@ -91,7 +91,7 @@ nnoremap <silent> ]w :lbelow<cr>
 function! Tab_MoveLeft()
     let l:tabnr = tabpagenr() - 2
     if l:tabnr >= 0
-        exec 'tabmove '.l:tabnr
+        exec 'tabmove ' .. l:tabnr
     endif
 endfunc
 
@@ -99,7 +99,7 @@ endfunc
 function! Tab_MoveRight()
     let l:tabnr = tabpagenr() + 1
     if l:tabnr <= tabpagenr('$')
-        exec 'tabmove '.l:tabnr
+        exec 'tabmove ' .. l:tabnr
     endif
 endfunc
 
@@ -109,7 +109,6 @@ noremap <silent> <c-w>tt :tab terminal<cr>
 noremap <silent> <c-w>th :call Tab_MoveLeft()<cr>
 noremap <silent> <c-w>tl :call Tab_MoveRight()<cr>
 
-noremap <c-w>tn :tabnew 
 noremap <c-w>td :tabdo 
 
 
@@ -186,9 +185,6 @@ nnoremap Q gq
 noremap <silent> <leader>Q :<c-u>qall!<cr>
 noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 
-" 在命令行中展开当前文件的目录
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-
 " 恢复非高亮
 nnoremap <silent> <c-l> :<c-u>nohlsearch<cr><c-l>
 
@@ -221,7 +217,7 @@ map <leader>ed :e %:h<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
-map <leader>et :tabe %%
+map <leader>et :tabedit %%
 
 xnoremap <silent> ado :diffget<cr>
 xnoremap <silent> 2do :diffget //2<cr>
