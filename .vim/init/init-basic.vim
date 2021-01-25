@@ -169,7 +169,7 @@ endif
 " 设置鼠标功能
 "----------------------------------------------------------------------
 if has("patch-8.1.0360")
-    set diffopt+=internal,filler,closeoff,algorithm:patience
+    set diffopt=internal,filler,closeoff,algorithm:patience
   endif
 
 "----------------------------------------------------------------------
