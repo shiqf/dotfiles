@@ -114,6 +114,8 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
     nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
+    command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+
     " 全文快速移动, <leader>f{char} 即可触发
     Plug 'easymotion/vim-easymotion', {
                 \ 'on': [
