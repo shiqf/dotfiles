@@ -101,6 +101,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     " let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
     let g:asynctasks_term_reuse = 1
     let g:asynctasks_term_focus = 0
+    let g:asyncrun_bell =  1
 
     nnoremap <leader>ar :AsyncRun 
     nnoremap <silent> <leader>as :AsyncStop<cr>

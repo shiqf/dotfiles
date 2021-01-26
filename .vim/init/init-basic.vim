@@ -25,7 +25,7 @@
 set nocompatible
 
 " 禁用声音
-set visualbell t_vb=
+" set visualbell t_vb=
 
 " 设置 Backspace 键模式
 if has('nvim')
