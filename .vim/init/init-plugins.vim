@@ -96,9 +96,9 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
     let g:asynctasks_term_pos = 'tab'
-    let g:asyncrun_open = 10
-    " let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
-    " let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
+    " let g:asyncrun_open = 10
+    let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
+    let g:asynctasks_term_cols = 80    " 设置横向切割时，宽度为 80
     let g:asynctasks_term_reuse = 1
     let g:asynctasks_term_focus = 0
     let g:asyncrun_bell =  1
