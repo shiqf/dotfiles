@@ -96,14 +96,15 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
     let g:asynctasks_term_pos = 'tab'
-    " let g:asyncrun_open = 10
+    let g:asyncrun_open = 10
     let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
     let g:asynctasks_term_cols = 80    " 设置横向切割时，宽度为 80
     let g:asynctasks_term_reuse = 1
     let g:asynctasks_term_focus = 0
     let g:asyncrun_bell =  1
+    " let g:asyncrun_trim = 1
 
-    nnoremap <leader>ar :AsyncRun 
+    noremap <leader>ar :AsyncRun 
     nnoremap <silent> <leader>as :AsyncStop<cr>
     nnoremap <silent> <leader>am :AsyncTaskMacro<cr>
     nnoremap <silent> <leader>ae :AsyncTaskEdit<cr>
@@ -116,6 +117,33 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
     command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+
+    if exists('$TMUX')
+        Plug 'benmills/vimux'
+        function! s:run_tmux(opts)
+            " echo a:opts
+            " asyncrun has temporarily changed dir for you
+            " getcwd() in the runner function is the target directory defined in `-cwd=xxx`
+            let cwd = getcwd()
+            call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
+        endfunction
+
+        let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
+        let g:asyncrun_runner.tmux = function('s:run_tmux')
+
+        nnoremap <leader>vp :VimuxPromptCommand<cr>
+        nnoremap <leader>vl :VimuxRunLastCommand<cr>
+        nnoremap <leader>vi :VimuxInspectRunner<cr><
+        nnoremap <leader>vz :VimuxZoomRunner<cr>
+
+        " Plug 'christoomey/vim-tmux-navigator'
+        " let g:tmux_navigator_no_mappings = 1
+        " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
+        " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
+        " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
+        " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
+        " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
+    endif
 
     " 全文快速移动, <leader>f{char} 即可触发
     Plug 'easymotion/vim-easymotion', {
