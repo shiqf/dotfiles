@@ -1,0 +1,381 @@
+# ==============
+# Snippets 
+# ==============
+priority -40
+
+snippet inc "include <>"
+#include <${1:stdio}.h>
+endsnippet
+
+snippet Inc "include ..."
+#include "${1:`!v vim_snippets#Filename("$1.h")`}"
+endsnippet
+
+snippet def "#define" bw
+#define ${1} $0`!p t[1] = t[1].upper()`
+endsnippet
+
+## Types
+snippet td "typedef"
+typedef ${1:int} ${2:MyCustomType};
+endsnippet
+
+snippet st "struct"
+struct ${1:`!v vim_snippets#Filename('$1_t', 'name')`} {
+	${2:Data}
+};
+endsnippet
+
+snippet tds "typedef struct"
+typedef struct ${2:${1/\w+/\l$0/} }{
+	${3:Data}
+} ${1:`!v vim_snippets#Filename('$1', 'name')`};
+endsnippet
+
+snippet en
+enum ${1:name} { ${0} };
+endsnippet
+
+snippet tde "typedef enum"
+typedef enum {
+	${1:Data}
+} ${2:foo};
+endsnippet
+
+snippet ifd "ifdef...endif" bw
+#ifdef ${1:FOO}`!p t[1] = t[1].upper()`
+${2:#define }
+#endif
+endsnippet
+
+snippet #if "#if"
+#if ${1:FOO}
+${0:${VISUAL}}
+#endif
+endsnippet
+
+snippet nd "ifndef...define...endif" b
+#ifndef $1
+#define ${1:SYMBOL} ${2:value}
+#endif
+endsnippet
+
+snippet main "main(int argc, char *argv[])" bw
+int main(int argc, char *argv[])
+{
+	${0}
+
+	return 0;
+}
+endsnippet
+
+snippet mainn "main(void)" bs
+int main(void)
+{
+	${0}
+
+	return 0;
+}
+endsnippet
+
+snippet sc "scanf " iw
+scanf("${1:%${2:d}}", ${3})$0
+endsnippet
+
+snippet pr "printf " iwm
+printf("${1:%s}${2:\n}"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet fpr "fprintf" iwm
+fprintf(${1:stderr}, "${2:%s}${3:\n}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$4${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet pc "putchar " iw
+putchar(${1:'\n'});
+endsnippet
+
+snippet pu "puts " iw
+puts("${1}");
+endsnippet
+
+snippet fpu "fputs " iw
+fputs("${1}", ${2:stderr});
+endsnippet
+
+# ternary
+snippet t "condition" iw
+${1:/* condition */} ? ${2:a} : ${3:b}
+endsnippet
+
+## Control Statements
+snippet ifi "if" m
+if (${1:true}) ${0:${VISUAL}};
+endsnippet
+
+snippet if
+if (${1:true}) {
+	${2:${VISUAL}}
+}$0
+endsnippet
+
+snippet ife
+if (${1:true}) {
+	${2:${VISUAL}}
+} else {
+	${0}
+}
+endsnippet
+
+snippet el "else"
+else {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet elif "else if"
+else if (${1:true}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet fo "for no {}" m
+for (${4:int }${2:i} = 0; $2 < ${1:count}; $2${3:++})$0
+endsnippet
+
+snippet for "for (custom)"
+for (${6:int} ${2:i} = ${3:0}; $2 ${4:<} ${1:count}; $2${5:++}) {$0
+}
+endsnippet
+
+snippet wh "while"
+while (${1:/* condition */}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet do "do... while"
+do {
+	${0:${VISUAL}}
+} while (${1:/* condition */});
+endsnippet
+
+# switch
+snippet sw "switch"
+switch (${1:/* variable */}) {
+	case ${2:/* variable case */}:
+		${3}
+		${4:break;}${5}
+	default:
+		${6}
+}
+endsnippet
+
+# switch without default
+snippet swn "switchndef"
+switch (${1:/* variable */}) {
+	case ${2:/* variable case */}:
+		${3}
+		${4:break;}${5}
+}
+endsnippet
+
+# case
+snippet case "case"
+case ${1:/* variable case */}:
+	${2}
+	${3:break;}
+endsnippet
+
+snippet ret
+return ${0:0};
+endsnippet
+
+snippet once
+#ifndef ${1:`!v toupper(vim_snippets#Filename('$1_H', 'UNTITLED_H'))`}
+
+#define $1
+
+${0}
+
+#endif
+endsnippet
+
+snippet dou "double"
+double ${1:var} = ${2:0.0};${0}
+endsnippet
+
+# Disable C++ name mangling in C headers
+#snippet nocxx
+#	#ifdef __cplusplus
+#	extern "C" {
+#	#endif
+
+#	${0}
+
+#	#ifdef __cplusplus
+#	} /* extern "C" */
+#	#endif
+###
+
+### Functions
+## function definition
+#snippet fun
+#	${1:void} ${2:function_name}(${3})
+#	{
+#		${4}
+#	}
+## function definition with zero parameters
+#snippet fun0
+#	${1:void} ${2:function_name}()
+#	{
+#		${3}
+#	}
+## function definition with Doxygen documentation
+#snippet dfun0
+#	/*! \brief ${1:Brief function description here}
+#	 *
+#	 *  ${2:Detailed description of the function}
+#	 *
+#	 * \return ${3:Return parameter description}
+#	 */
+#	${4:void} ${5:function_name}()
+#	{
+#		${6}
+#	}
+## function definition with one parameter
+#snippet fun1
+#	${1:void} ${2:function_name}(${3:Type} ${4:Parameter})
+#	{
+#		${5}
+#	}
+## function definition with one parameter with  Doxygen documentation
+#snippet dfun1
+#	/*! \brief ${1:Brief function description here}
+#	 *
+#	 *  ${2:Detailed description of the function}
+#	 *
+#	 * \param $3 ${4:Parameter description}
+#	 * \return ${5:Return parameter description}
+#	 */
+#	${6:void} ${7:function_name}(${8:Type} ${3:Parameter})
+#	{
+#		${9}
+#	}
+## function definition with two parameters
+#snippet fun2
+#	${1:void} ${2:function_name}(${3:Type} ${4:Parameter}, ${5:Type} ${6:Parameter})
+#	{
+#		${7}
+#	}
+## function definition with two parameters with  Doxygen documentation
+#snippet dfun2
+#	/*! \brief ${1:Brief function description here}
+#	 *
+#	 *  ${2:Detailed description of the function}
+#	 *
+#	 * \param $3 ${4:Parameter description}
+#	 * \param $5 ${6:Parameter description}
+#	 * \return ${7:Return parameter description}
+#	 */
+#	${8:void} ${9:function_name}(${10:Type} ${3:Parameter}, ${11:Type} ${5:Parameter})
+#	{
+#		${12}
+#	}
+## function definition with three parameters
+#snippet fun3
+#	${1:void} ${2:function_name}(${3:Type} ${4:Parameter}, ${5:Type} ${6:Parameter}, ${7:Type} ${8:Parameter})
+#	{
+#		${9}
+#	}
+## function definition with three parameters with  Doxygen documentation
+#snippet dfun3
+#	/*! \brief ${1:Brief function description here}
+#	 *
+#	 *  ${2:Detailed description of the function}
+#	 *
+#	 * \param $3 ${4:Parameter description}
+#	 * \param $5 ${6:Parameter description}
+#	 * \param $7 ${8:Parameter description}
+#	 * \return ${9:Return parameter description}
+#	 */
+#	${10:void} ${11:function_name}(${12:Type} ${3:Parameter}, ${13:Type} ${5:Parameter}, ${14:Type} ${7:Parameter})
+#	{
+#		${15}
+#	}
+## function declaration
+#snippet fund
+#	${1:void} ${2:function_name}(${3});
+###
+
+## getopt
+#snippet getopt
+#	int choice;
+#	while (1)
+#	{
+#		static struct option long_options[] =
+#		{
+#			/* Use flags like so:
+#			{"verbose",	no_argument,	&verbose_flag, 'V'}*/
+#			/* Argument styles: no_argument, required_argument, optional_argument */
+#			{"version", no_argument,	0,	'v'},
+#			{"help",	no_argument,	0,	'h'},
+#			${1}
+#			{0,0,0,0}
+#		};
+
+#		int option_index = 0;
+
+#		/* Argument parameters:
+#			no_argument: " "
+#			required_argument: ":"
+#			optional_argument: "::" */
+
+#		choice = getopt_long( argc, argv, "vh",
+#					long_options, &option_index);
+
+#		if (choice == -1)
+#			break;
+
+#		switch( choice )
+#		{
+#			case 'v':
+#				${2}
+#				break;
+
+#			case 'h':
+#				${3}
+#				break;
+
+#			case '?':
+#				/* getopt_long will have already printed an error */
+#				break;
+
+#			default:
+#				/* Not sure how to get here... */
+#				return EXIT_FAILURE;
+#		}
+#	}
+
+#	/* Deal with non-option arguments here */
+#	if ( optind < argc )
+#	{
+#		while ( optind < argc )
+#		{
+#			${0}
+#		}
+#	}
+###
+
+# snippet asm
+# __asm__ __volatile__(
+# "${0}\n\t"
+# :
+# :
+# );
+# endsnippet
+
+snippet todo "TODO section"
+/*! TODO: ${1:Todo description here}
+ *  \todo $1
+ */
+endsnippet

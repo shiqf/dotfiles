@@ -82,6 +82,7 @@ if index(g:bundle_group, 'basic') >= 0
     " Plug 'tpope/vim-rhubarb'
     " Git 支持
     Plug 'tpope/vim-fugitive'
+    nnoremap <silent> <leader>gp :G log --oneline --decorate --graph --all<cr>
 
 endif
 
@@ -198,7 +199,6 @@ if index(g:bundle_group, 'enhanced') >= 0
                 \   {'v': '~/.vimrc'},
                 \   {'z': '~/.zshrc'},
                 \ ]
-    noremap <leader>p :Startify<cr>
 
     " 用于在侧边符号栏显示 git/svn 的 diff
     Plug 'mhinz/vim-signify'
