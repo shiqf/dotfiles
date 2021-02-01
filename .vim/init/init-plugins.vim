@@ -99,11 +99,9 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:asynctasks_term_pos = 'tab'
     let g:asyncrun_open = 10
     let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
-    let g:asynctasks_term_cols = 80    " 设置横向切割时，宽度为 80
     let g:asynctasks_term_reuse = 1
     let g:asynctasks_term_focus = 0
     let g:asyncrun_bell =  1
-    " let g:asyncrun_trim = 1
 
     noremap <leader>ar :AsyncRun 
     nnoremap <silent> <leader>as :AsyncStop<cr>
@@ -207,7 +205,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:signify_vcs_list               = ['git', 'svn']
     let g:signify_sign_add               = '+'
     let g:signify_sign_delete            = '_'
-    let g:signify_sign_delete_first_line = '‾'
+    let g:signify_sign_delete_first_line = '-'
     let g:signify_sign_change            = '~'
     let g:signify_sign_changedelete      = g:signify_sign_change
 
@@ -494,7 +492,7 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
         " ui 定制
-        let g:Lf_StlSeparator = { 'left': '►', 'right': '◄', 'font': '' }
+        let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': '' }
 
         " 使用 / 寄存器存储 rg -e 使用的正则表达式
         let g:Lf_RgStorePattern = '/'
@@ -826,8 +824,8 @@ if index(g:bundle_group, 'ale') >= 0
     endif
 
     " 错误提示符及警告提示符
-    let g:ale_sign_error='✗'
-    let g:ale_sign_warning='⚠'
+    let g:ale_sign_error='x'
+    let g:ale_sign_warning='^'
 endif
 
 
