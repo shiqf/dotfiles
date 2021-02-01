@@ -156,9 +156,6 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
     set notimeout ttimeout timeoutlen=100
 
     if has('win32') || has('win64')
-        tnoremap <c-u> <esc>
-        tnoremap <c-d> exit<cr>
-        tnoremap <c-l> cls<cr>
         tnoremap <c-p> <up>
         tnoremap <c-n> <down>
         tnoremap <c-a> <home>

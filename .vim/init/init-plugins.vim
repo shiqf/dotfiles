@@ -102,6 +102,11 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:asynctasks_term_reuse = 1
     let g:asynctasks_term_focus = 0
     let g:asyncrun_bell =  1
+    if has('win64') || has('win32')
+        let g:asynctasks_term_pos = 'external'
+    else
+        let g:asynctasks_term_pos = 'right'
+    endif
 
     noremap <leader>ar :AsyncRun 
     nnoremap <silent> <leader>as :AsyncStop<cr>

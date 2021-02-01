@@ -54,7 +54,7 @@ def create_table(snip):
 endglobal
 
 snippet "([1-9])p" "Paragraph" br
-`!p snip.rv = int(match.group(1)) * '#'` $1
+`!p snip.rv = int(match.group(1)) * '#'` ${1:${VISUAL}}
 $0
 endsnippet
 
