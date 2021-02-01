@@ -169,9 +169,9 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     " 配对括号和引号自动补全
     Plug 'jiangmiao/auto-pairs', {
-          \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
-          \     'make', 'python', 'snippets', 'typescript', 'vim' ]
-          \ }
+                \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
+                \     'make', 'python', 'snippets', 'typescript', 'vim' ]
+                \ }
 
     let g:AutoPairsFlyMode            = 0
     let g:AutoPairsShortcutBackInsert = '<M-z>'

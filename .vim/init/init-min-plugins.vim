@@ -12,11 +12,16 @@ Plug 'skywind3000/asynctasks.vim'
 
 let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
 let g:asynctasks_term_pos = 'tab'
-let g:asyncrun_open = 6
-" let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
-" let g:asynctasks_term_cols = 60    " 设置横向切割时，宽度为 60
+let g:asyncrun_open = 10
+let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
 let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_focus = 0
+let g:asyncrun_bell =  1
+if has('win64') || has('win32')
+    let g:asynctasks_term_pos = 'external'
+else
+    let g:asynctasks_term_pos = 'right'
+endif
 
 nnoremap <leader>ar :AsyncRun 
 nnoremap <silent> <leader>as :AsyncStop<cr>
@@ -29,6 +34,8 @@ nnoremap <silent> <leader>6 :AsyncTask project-run<cr>
 nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
 nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
 nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
+
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 " 为其他插件提供重复操作'.'功能
 Plug 'tpope/vim-repeat'
@@ -54,18 +61,10 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
 
 " 配对括号和引号自动补全
-Plug 'jiangmiao/auto-pairs', #{
-      \ for: [
-      \     'c',
-      \     'cpp',
-      \     'java',
-      \     'javascript',
-      \     'json',
-      \     'python',
-      \     'typescript',
-      \     'vim',
-      \   ]
-      \ }
+Plug 'jiangmiao/auto-pairs', {
+            \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
+            \     'make', 'python', 'snippets', 'typescript', 'vim' ]
+            \ }
 
 let g:AutoPairsFlyMode            = 0
 let g:AutoPairsShortcutBackInsert = '<M-z>'
@@ -94,12 +93,18 @@ Plug 'sgur/vim-textobj-parameter'
 "----------------------------------------------------------------------
 if has('python3')
     " 如果 vim 支持 python 则启用  Leaderf
-    Plug 'Yggdroot/LeaderF', #{ do: './install.sh' }
+    if has('win32') || has('win64')
+        Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+    else
+        Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+    endif
 
-    let g:Lf_CtagsFuncOpts = #{
-          \ javascript: '--kinds-javascript=fm',
-          \ typescript: '--kinds-typescript=fmc',
-          \ }
+    let g:Lf_CtagsFuncOpts = {
+                \ 'c': '--kinds-c=f',
+                \ 'javascript': '--kinds-javascript=fm',
+                \ 'python': '--kinds-python=fmc',
+                \ 'typescript': '--kinds-typescript=fmc',
+                \ }
 
     " CTRL+p 打开文件模糊匹配
     let g:Lf_ShortcutF = '<c-p>'
@@ -138,7 +143,7 @@ if has('python3')
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
     " ui 定制
-    let g:Lf_StlSeparator = #{ left: '►', right: '◄', font: '' }
+    let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': '' }
 
     " 使用 / 寄存器存储 rg -e 使用的正则表达式
     let g:Lf_RgStorePattern = '/'
@@ -153,15 +158,15 @@ if has('python3')
     " let g:Lf_RememberLastSearch = 1
 
     " 模糊匹配忽略扩展名
-    let g:Lf_WildIgnore = #{
-                \ dir: ['.svn','.git','.hg'],
-                \ file: ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+    let g:Lf_WildIgnore = {
+                \ 'dir': ['.svn','.git','.hg'],
+                \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
                 \ }
 
     " 忽略最近文件
-    let g:Lf_MruWildIgnore = #{
-                \ dir: ['node_modules'],
-                \ file: []
+    let g:Lf_MruWildIgnore = {
+                \ 'dir': ['node_modules'],
+                \ 'file': []
                 \ }
 
     " MRU 文件忽略扩展名
@@ -169,7 +174,7 @@ if has('python3')
     let g:Lf_StlColorscheme = 'powerline'
 
     " 禁用 function/buftag 的预览功能，可以手动用 p 预览
-    let g:Lf_PreviewResult = #{ Function: 0, BufTag: 0 }
+    let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0 }
 
     " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
     " {
@@ -191,15 +196,15 @@ if has('python3')
     "     tag: 当前项目所有标签,
     " }
     " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
-    let g:Lf_NormalMap = #{
-                \ BufTag: [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
-                \ Buffer: [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-                \ File:   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-                \ Function: [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
-                \ Mru: [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-                \ Rg: [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
-                \ Self: [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
-                \ Tag: [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
+    let g:Lf_NormalMap = {
+                \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
+                \ 'Buffer': [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
+                \ 'File':   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+                \ 'Function': [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
+                \ 'Mru': [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
+                \ 'Rg': [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
+                \ 'Self': [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
+                \ 'Tag': [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
                 \ }
 
     " 开启后不能在普通模式中使用搜索/
@@ -217,7 +222,7 @@ if has('python3')
         xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", leaderf#Rg#visual())<CR><CR>
         nnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", expand("<cword>"))<CR>
     endif
-    noremap <leader>cr :<C-U>Leaderf! --recall<CR>
+    noremap <leader>gr :<C-U>Leaderf! --recall<CR>
 
 endif
 
@@ -298,22 +303,26 @@ let g:gutentags_auto_add_gtags_cscope = 0
 " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
 Plug 'skywind3000/vim-preview'
 
+noremap <m-u> :PreviewScroll -1<cr>
+noremap <m-i> :PreviewScroll +1<cr>
+inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <m-i> <c-\><c-o>:PreviewScroll +1<cr>
+
 noremap <m-;> :PreviewTag<cr>
-noremap <m-'> :PreviewClose<cr>
+noremap <m-p> :PreviewClose<cr>
 noremap <m-,> :PreviewGoto edit<cr>
 noremap <m-.> :PreviewGoto tabe<cr>
-noremap <m-u> :PreviewScroll -1<cr>
-noremap <m-d> :PreviewScroll +1<cr>
-inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
-inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+
 augroup QuickFixPreview
-  autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-  autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-  autocmd FileType qf nnoremap <silent><buffer> q :q<cr>
-  autocmd FileType leaderf set nonu
+    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+    autocmd FileType qf nnoremap <silent><buffer> <m-p> :PreviewClose<cr>
+    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+    autocmd FileType qf nnoremap <silent><buffer> q <c-w>q
+    autocmd FileType qf nnoremap <silent><buffer> o <cr>:cclose<cr>
+    autocmd FileType leaderf set nonu
 augroup end
 
-Plug 'neoclide/coc.nvim', #{ branch: 'release' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 "----------------------------------------------------------------------
 " 结束插件安装
@@ -321,8 +330,6 @@ Plug 'neoclide/coc.nvim', #{ branch: 'release' }
 call plug#end()
 
 set relativenumber
-
-nnoremap <silent> <leader>nt :e.<cr>
 
 " Tweaks for browsing
 let g:netrw_banner=0        " disable annoying banner
