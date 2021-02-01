@@ -48,7 +48,11 @@ endfunc
 "----------------------------------------------------------------------
 " 在 ~/.vim/bundles 下安装插件
 "----------------------------------------------------------------------
-call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
+let s:home = '~/.vim/bundles'
+if has('win32') || has('win64')
+    let s:home = '~/dotfiles/.vim/bundles'
+endif
+call plug#begin(get(g:, 'bundle_home', s:home))
 
 " " vim 中文说明文档 ./vimcdoc.sh -i安装
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
