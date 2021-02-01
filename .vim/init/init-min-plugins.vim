@@ -5,10 +5,7 @@ set nocompatible
 " 在 ~/.vim/bundles 下安装插件
 "----------------------------------------------------------------------
 let s:home = '~/.vim/bundles'
-if has('win32') || has('win64')
-    let s:home = '~/dotfiles/.vim/bundles'
-endif
-call plug#begin(get(g:, 'bundle_home', s:home))
+call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 " 异步运行并把结果放入quickfix中
 Plug 'skywind3000/asyncrun.vim'
@@ -40,6 +37,7 @@ nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
 nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+nnoremap <silent> <leader>gp :G log --oneline --decorate --graph --all<cr>
 
 " 为其他插件提供重复操作'.'功能
 Plug 'tpope/vim-repeat'
