@@ -1,10 +1,9 @@
 " 禁用 vi 兼容模式
 set nocompatible
 
-"----------------------------------------------------------------------
-" 在 ~/.vim/bundles 下安装插件
-"----------------------------------------------------------------------
-let s:home = '~/.vim/bundles'
+"-----------------------------------------------------------------------------
+"                         在 ~/.vim/bundles 下安装插件
+"-----------------------------------------------------------------------------
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 " 异步运行并把结果放入quickfix中
@@ -90,9 +89,9 @@ Plug 'kana/vim-textobj-indent'
 " 参数文本对象：i,/a, 包括参数或者列表元素
 Plug 'sgur/vim-textobj-parameter'
 
-"----------------------------------------------------------------------
-" LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"      LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
+"-----------------------------------------------------------------------------
 if has('python3')
     " 如果 vim 支持 python 则启用  Leaderf
     if has('win32') || has('win64')
@@ -179,7 +178,6 @@ if has('python3')
     let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0 }
 
     " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
-    " {
     "     bufTag: 当前缓冲区标签,
     "     buffer: 项目缓冲文件名,
     "     cmdHistory: 命令行历史,
@@ -196,7 +194,7 @@ if has('python3')
     "     searchHistory: 搜索命令行历史,
     "     self: Leaderf自己的命令,
     "     tag: 当前项目所有标签,
-    " }
+
     " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
     let g:Lf_NormalMap = {
                 \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
@@ -251,13 +249,13 @@ let $GTAGSCONF = expand('~/.gtags.conf')
 
 " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
 let g:gutentags_project_root = [
-      \ '.git',
-      \ '.hg',
-      \ '.project',
-      \ '.root',
-      \ '.svn',
-      \ 'package.json',
-      \ ]
+            \ '.git',
+            \ '.hg',
+            \ '.project',
+            \ '.root',
+            \ '.svn',
+            \ 'package.json',
+            \ ]
 
 let g:gutentags_exclude_filetypes = ['markdown', 'json', 'css']
 let g:gutentags_exclude_project_root = ['/usr/local', '.notags']
@@ -266,7 +264,7 @@ let g:gutentags_ctags_exclude = ['node_modules', '.cache']
 
 " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
 if executable('rg')
-  let g:gutentags_file_list_command = 'rg --files --color=never'
+    let g:gutentags_file_list_command = 'rg --files --color=never'
 endif
 
 " 所生成的数据文件的名称
@@ -279,11 +277,11 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_modules = []
 " 如果有 ctags 可执行就允许动态生成 ctags 文件
 if executable('ctags')
-  let g:gutentags_modules += ['ctags']
+    let g:gutentags_modules += ['ctags']
 endif
 " 如果有 gtags 可执行就允许动态生成 gtags 数据库
 if executable('gtags') && executable('gtags-cscope')
-  let g:gutentags_modules += ['gtags_cscope']
+    let g:gutentags_modules += ['gtags_cscope']
 endif
 let g:gutentags_plus_switch = 1
 
@@ -326,9 +324,11 @@ augroup end
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
-"----------------------------------------------------------------------
-" 结束插件安装
-"----------------------------------------------------------------------
+nnoremap <silent> <leader>q :call asyncrun#quickfix_toggle(g:asyncrun_open)<cr>
+
+"-----------------------------------------------------------------------------
+"                                 结束插件安装
+"-----------------------------------------------------------------------------
 call plug#end()
 
 set relativenumber

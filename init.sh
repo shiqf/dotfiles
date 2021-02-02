@@ -99,8 +99,14 @@ ln -s ~/dotfiles/.vim ~/.config/nvim
 
 # vim 插件管理插件安装
 if [[ `uname -s` =~ ^MSYS_NT || `uname -s` =~ ^MINGW64_NT ]]; then
+    # gvim 使用
     if [[ ! -e ~/vimfiles/autoload/plug.vim ]]; then
         curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    fi
+    # 终端中使用
+    if [[ ! -e ~/.vim/autoload/plug.vim ]]; then
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     fi
 elif [[ `uname -s` =~ Darwin ]]; then

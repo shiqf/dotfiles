@@ -1,10 +1,11 @@
-"======================================================================
+"=============================================================================
 "
-" init-plugins.vim -
+"                              init-plugins.vim
 "
-"   - 默认情况下的分组，可以再前面覆盖之
-"   - 计算当前 vim-init 的子路径
-"   - 在 ~/.vim/bundles 下安装插件
+"                     默认情况下的分组，可以再前面覆盖之
+"                         计算当前 vim-init 的子路径
+"                        在 ~/.vim/bundles 下安装插件
+"
 "   - 基础插件
 "   - 增强插件
 "   - 文本对象：textobj 全家桶
@@ -12,18 +13,18 @@
 "   - themes
 "   - NERDTree
 "   - 自动生成 ctags/gtags，并提供自动索引功能
+"   - ale：动态语法检查
 "   - LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
 "   - ycm 基于语义的自动补全
-"   - ale：动态语法检查
 "   - 代码片段拓展
 "
 " vim: set ts=4 sw=4 tw=78 noet :
-"======================================================================
+"=============================================================================
 
 
-"----------------------------------------------------------------------
-" 默认情况下的分组，可以再前面覆盖之
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                     默认情况下的分组，可以再前面覆盖之
+"-----------------------------------------------------------------------------
 if !exists('g:bundle_group')
     let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'filetypes']
     " tags 标签、文件快速导航、智能补全、语法检测、代码片段
@@ -35,9 +36,9 @@ if !exists('g:bundle_group')
 endif
 
 
-"----------------------------------------------------------------------
-" 计算当前 vim-init 的子路径
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                          计算当前 vim-init 的子路径
+"-----------------------------------------------------------------------------
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 function! s:path(path)
     let path = expand(s:home .. '/' .. a:path )
@@ -45,9 +46,9 @@ function! s:path(path)
 endfunc
 
 
-"----------------------------------------------------------------------
-" 在 ~/.vim/bundles 下安装插件
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                         在 ~/.vim/bundles 下安装插件
+"-----------------------------------------------------------------------------
 let s:home = '~/.vim/bundles'
 call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
@@ -55,9 +56,9 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
 " Plug 'yianwillis/vimcfaq'
 
-"----------------------------------------------------------------------
-" 基础插件
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                                   基础插件
+"-----------------------------------------------------------------------------
 if index(g:bundle_group, 'basic') >= 0
     " 为其他插件提供重复操作'.'功能
     Plug 'tpope/vim-repeat'
@@ -88,9 +89,9 @@ if index(g:bundle_group, 'basic') >= 0
 endif
 
 
-"----------------------------------------------------------------------
-" 增强插件
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                                   增强插件
+"-----------------------------------------------------------------------------
 if index(g:bundle_group, 'enhanced') >= 0
     " 异步运行并把结果放入quickfix中
     Plug 'skywind3000/asyncrun.vim'
@@ -151,8 +152,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     endif
 
     " 全文快速移动, <leader>f{char} 即可触发
-    Plug 'easymotion/vim-easymotion', {
-                \ 'on': [
+    Plug 'easymotion/vim-easymotion', { 'on': [
                 \    '<plug>(easymotion-overwin-f)',
                 \    '<plug>(easymotion-f)',
                 \    '<plug>(easymotion-F)',
@@ -234,9 +234,9 @@ if index(g:bundle_group, 'enhanced') >= 0
 endif
 
 
-"----------------------------------------------------------------------
-" 文本对象：textobj 全家桶
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                           文本对象：textobj 全家桶
+"-----------------------------------------------------------------------------
 if index(g:bundle_group, 'textobj') >= 0
 
     " 基础插件：提供让用户方便的自定义文本对象的接口
@@ -269,9 +269,9 @@ if index(g:bundle_group, 'textobj') >= 0
 endif
 
 
-"----------------------------------------------------------------------
-" 文件类型扩展
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                                 文件类型扩展
+"-----------------------------------------------------------------------------
 if index(g:bundle_group, 'filetypes') >= 0
 
     " 额外语法文件
@@ -297,9 +297,9 @@ if index(g:bundle_group, 'filetypes') >= 0
 endif
 
 
-"----------------------------------------------------------------------
-" themes
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                                    themes
+"-----------------------------------------------------------------------------
 if index(g:bundle_group, 'themes') >= 0
     " 一次性安装一大堆 colorscheme
     Plug 'flazz/vim-colorschemes'
@@ -322,9 +322,9 @@ if index(g:bundle_group, 'themes') >= 0
 endif
 
 
-"----------------------------------------------------------------------
-" NERDTree
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                                   NERDTree
+"-----------------------------------------------------------------------------
 if index(g:bundle_group, 'nerdtree') >= 0
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -335,9 +335,9 @@ if index(g:bundle_group, 'nerdtree') >= 0
 endif
 
 
-"----------------------------------------------------------------------
-" 自动生成 ctags/gtags，并提供自动索引功能
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                   自动生成 ctags/gtags，并提供自动索引功能
+"-----------------------------------------------------------------------------
 " 不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root 文件
 " 详细用法见：https://zhuanlan.zhihu.com/p/36279445
 if index(g:bundle_group, 'tags') >= 0
@@ -382,7 +382,7 @@ if index(g:bundle_group, 'tags') >= 0
 
     " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
     if executable('rg')
-      let g:gutentags_file_list_command = 'rg --files --color=never'
+        let g:gutentags_file_list_command = 'rg --files --color=never'
     endif
 
     " 所生成的数据文件的名称
@@ -442,12 +442,85 @@ if index(g:bundle_group, 'tags') >= 0
 endif
 
 
-"----------------------------------------------------------------------
-" LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'leaderf') >= 0
-    " 如果 vim 支持 python 则启用  Leaderf
-    if has('python3')
+"-----------------------------------------------------------------------------
+"                        ale：动态语法检查
+"-----------------------------------------------------------------------------
+if index(g:bundle_group, 'ale') >= 0
+    Plug 'dense-analysis/ale'
+
+    " 设定延迟和提示信息
+    let g:ale_completion_delay = 500
+    let g:ale_echo_delay = 20
+    let g:ale_lint_delay = 500
+    let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+
+    " 设定检测的时机：normal 模式文字改变，或者离开 insert模式
+    " 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
+    let g:ale_lint_on_text_changed = 'normal'
+    let g:ale_lint_on_insert_leave = 1
+
+    " 在 linux/mac 下降低语法检查程序的进程优先级（不要卡到前台进程）
+    if has('win32') == 0 && has('win64') == 0 && has('win32unix') == 0
+        let g:ale_command_wrapper = 'nice -n5'
+    endif
+
+    " 允许 airline 集成
+    let g:airline#extensions#ale#enabled = 1
+
+    " 编辑不同文件类型需要的语法检查器
+    let g:ale_linters = {
+                \ 'bash': ['shellcheck'],
+                \ 'c': ['gcc'],
+                \ 'cpp': ['gcc'],
+                \ 'go': ['go build', 'gofmt'],
+                \ 'java': ['javac'],
+                \ 'javascript': ['eslint'],
+                \ 'lua': ['luac'],
+                \ 'python': ['flake8', 'pylint'],
+                \ 'typescript': ['eslint', 'tslint'],
+                \ }
+
+
+    " 获取 pylint, flake8 的配置文件，在 init/tools/conf 下面
+    function s:lintcfg(name)
+        let conf = s:path('tools/conf/')
+        let path1 = conf .. a:name
+        let path2 = expand('~/.vim/linter/' .. a:name)
+        if filereadable(path2)
+            return path2
+        endif
+        return shellescape(filereadable(path2)? path2 : path1)
+    endfunc
+
+    " 设置 flake8/pylint 的参数
+    let g:ale_python_flake8_options  = '--conf=' .. s:lintcfg('flake8.conf')
+    let g:ale_python_pylint_options  = '--rcfile=' .. s:lintcfg('pylint.conf')
+    let g:ale_python_pylint_options ..= ' --disable=W'
+    let g:ale_c_gcc_options          = '-Wall -O2 -std=c11'
+    let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++14'
+    let g:ale_c_cppcheck_options     = ''
+    let g:ale_cpp_cppcheck_options   = ''
+
+    let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
+
+    " 如果没有 gcc 只有 clang 时（FreeBSD）
+    if executable('clang') && executable('gcc') == 0
+        let g:ale_linters.c   += ['clang', 'cppcheck']
+        let g:ale_linters.cpp += ['clang', 'cppcheck']
+    endif
+
+    " 错误提示符及警告提示符
+    let g:ale_sign_error='x'
+    let g:ale_sign_warning='^'
+endif
+
+
+if has('python3')
+    "-------------------------------------------------------------------------
+    " LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
+    "-------------------------------------------------------------------------
+    if index(g:bundle_group, 'leaderf') >= 0
+        " 如果 vim 支持 python 则启用  Leaderf
         if has('win32') || has('win64')
             Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
         else
@@ -533,7 +606,6 @@ if index(g:bundle_group, 'leaderf') >= 0
         let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0 }
 
         " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
-        " {
         "     bufTag: 当前缓冲区标签,
         "     buffer: 项目缓冲文件名,
         "     cmdHistory: 命令行历史,
@@ -550,7 +622,7 @@ if index(g:bundle_group, 'leaderf') >= 0
         "     searchHistory: 搜索命令行历史,
         "     self: Leaderf自己的命令,
         "     tag: 当前项目所有标签,
-        " }
+
         " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
         let g:Lf_NormalMap = {
                     \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
@@ -580,25 +652,24 @@ if index(g:bundle_group, 'leaderf') >= 0
         endif
         noremap <leader>gr :<C-U>Leaderf! --recall<CR>
     endif
-endif
 
-"----------------------------------------------------------------------
-"                          ycm 基于语义的自动补全
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'ycm') >= 0
-    " 显示 quickfix 列表和 location 列表
-    Plug 'Valloric/ListToggle'
-    let g:lt_location_list_toggle_map = '<leader>l'
-    let g:lt_quickfix_list_toggle_map = '<leader>q'
-    let g:lt_height = 10
 
-    if has('python3')
-        Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer' }
-    elseif has('win64') && has('python')
-        Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer' }
-    endif
+    "-------------------------------------------------------------------------
+    "                          ycm 基于语义的自动补全
+    "-------------------------------------------------------------------------
+    if index(g:bundle_group, 'ycm') >= 0
+        " 显示 quickfix 列表和 location 列表
+        Plug 'Valloric/ListToggle'
+        let g:lt_location_list_toggle_map = '<leader>l'
+        let g:lt_quickfix_list_toggle_map = '<leader>q'
+        let g:lt_height = 10
 
-    if has('python3') || (has('win64') && has('python'))
+        if has('win64') || has('win32')
+            Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer' }
+        else
+            Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer' }
+        endif
+
         let g:ycm_max_diagnostics_to_display = 0
 
         " 触发快捷键设置
@@ -660,9 +731,9 @@ if index(g:bundle_group, 'ycm') >= 0
                     \ 'gitcommit': 1
                     \}
 
-        "----------------------------------------------------------------------
+        "---------------------------------------------------------------------
         " Ycm 白名单（非名单内文件不启用 YCM），避免打开个 1MB 的 txt 分析半天
-        "----------------------------------------------------------------------
+        "---------------------------------------------------------------------
         let g:ycm_filetype_whitelist = {
                     \ 'asciidoc': 1,
                     \ 'asm': 1,
@@ -759,88 +830,12 @@ if index(g:bundle_group, 'ycm') >= 0
         augroup end
     endif
 
-endif
 
-
-"----------------------------------------------------------------------
-"                        ale：动态语法检查
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'ale') >= 0
-    Plug 'dense-analysis/ale'
-
-    " 设定延迟和提示信息
-    let g:ale_completion_delay = 500
-    let g:ale_echo_delay = 20
-    let g:ale_lint_delay = 500
-    let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-
-    " 设定检测的时机：normal 模式文字改变，或者离开 insert模式
-    " 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
-    let g:ale_lint_on_text_changed = 'normal'
-    let g:ale_lint_on_insert_leave = 1
-
-    " 在 linux/mac 下降低语法检查程序的进程优先级（不要卡到前台进程）
-    if has('win32') == 0 && has('win64') == 0 && has('win32unix') == 0
-        let g:ale_command_wrapper = 'nice -n5'
-    endif
-
-    " 允许 airline 集成
-    let g:airline#extensions#ale#enabled = 1
-
-    " 编辑不同文件类型需要的语法检查器
-    let g:ale_linters = {
-                \ 'bash': ['shellcheck'],
-                \ 'c': ['gcc'],
-                \ 'cpp': ['gcc'],
-                \ 'go': ['go build', 'gofmt'],
-                \ 'java': ['javac'],
-                \ 'javascript': ['eslint'],
-                \ 'lua': ['luac'],
-                \ 'python': ['flake8', 'pylint'],
-                \ 'typescript': ['eslint', 'tslint'],
-                \ }
-
-
-    " 获取 pylint, flake8 的配置文件，在 init/tools/conf 下面
-    function s:lintcfg(name)
-        let conf = s:path('tools/conf/')
-        let path1 = conf .. a:name
-        let path2 = expand('~/.vim/linter/' .. a:name)
-        if filereadable(path2)
-            return path2
-        endif
-        return shellescape(filereadable(path2)? path2 : path1)
-    endfunc
-
-    " 设置 flake8/pylint 的参数
-    let g:ale_python_flake8_options  = '--conf=' .. s:lintcfg('flake8.conf')
-    let g:ale_python_pylint_options  = '--rcfile=' .. s:lintcfg('pylint.conf')
-    let g:ale_python_pylint_options ..= ' --disable=W'
-    let g:ale_c_gcc_options          = '-Wall -O2 -std=c11'
-    let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++14'
-    let g:ale_c_cppcheck_options     = ''
-    let g:ale_cpp_cppcheck_options   = ''
-
-    let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
-
-    " 如果没有 gcc 只有 clang 时（FreeBSD）
-    if executable('clang') && executable('gcc') == 0
-        let g:ale_linters.c   += ['clang', 'cppcheck']
-        let g:ale_linters.cpp += ['clang', 'cppcheck']
-    endif
-
-    " 错误提示符及警告提示符
-    let g:ale_sign_error='x'
-    let g:ale_sign_warning='^'
-endif
-
-
-"----------------------------------------------------------------------
-"                        代码片段拓展
-"----------------------------------------------------------------------
-if index(g:bundle_group, 'snippets') >= 0
-    " snippets 片段扩展, 需要通过 Python 的支持
-    if has('python3')
+    "-------------------------------------------------------------------------
+    "                        代码片段拓展
+    "-------------------------------------------------------------------------
+    if index(g:bundle_group, 'snippets') >= 0
+        " snippets 片段扩展, 需要通过 Python 的支持
         Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
         let g:UltiSnipsSnippetDirectories  = ['UltiSnips', 'mysnippets']
         let g:UltiSnipsEnableSnipMate = 0
@@ -850,8 +845,22 @@ if index(g:bundle_group, 'snippets') >= 0
         let g:UltiSnipsListSnippets        = '<c-l>'
         let g:UltiSnipsEditSplit           = 'vertical'
         nnoremap <leader>ua :UltiSnipsAddFiletypes snippets
+
     endif
 
+
+    if index(g:bundle_group, 'debug') >= 0
+        if has('win64') || has('win32')
+            Plug 'puremourning/vimspector', {'do': 'python install_gadget.py --all --force-enable-node --disable-tcl --update-gadget-config'}
+        else
+            Plug 'puremourning/vimspector', {'do': 'python3 install_gadget.py --all --force-enable-node --disable-tcl --update-gadget-config'}
+        endif
+        let g:vimspector_enable_mappings = 'HUMAN'
+    endif
+endif
+
+
+if index(g:bundle_group, 'tool') >= 0
     " emmet高速编写网页类代码
     Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
     let g:emmet_html5 = 1
@@ -859,10 +868,6 @@ if index(g:bundle_group, 'snippets') >= 0
     " 帮助emmet显示snippets提示
     Plug 'jceb/emmet.snippets', { 'for': ['html'] }
 
-endif
-
-
-if index(g:bundle_group, 'tool') >= 0
     Plug 'sillybun/vim-repl'
     let g:repl_program = {
                 \   'python': 'python3',
@@ -917,12 +922,6 @@ if index(g:bundle_group, 'tool') >= 0
 endif
 
 
-if index(g:bundle_group, 'debug') >= 0
-    Plug 'puremourning/vimspector', {'do': './install_gadget.py --all --force-enable-node --disable-tcl --update-gadget-config'}
-    let g:vimspector_enable_mappings = 'HUMAN'
-endif
-
-
 if index(g:bundle_group, 'markdown') >= 0
     Plug 'mzlogin/vim-markdown-toc', { 'for': [ 'markdown' ] }
     let g:vmt_auto_update_on_save = 1
@@ -946,7 +945,7 @@ if index(g:bundle_group, 'markdown') >= 0
                 \ }
 endif
 
-"----------------------------------------------------------------------
-" 结束插件安装
-"----------------------------------------------------------------------
+"-----------------------------------------------------------------------------
+"                                 结束插件安装
+"-----------------------------------------------------------------------------
 call plug#end()
