@@ -35,9 +35,6 @@ nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
 nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
 nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
-command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-nnoremap <silent> <leader>gp :G log --oneline --decorate --graph --all<cr>
-
 " 为其他插件提供重复操作'.'功能
 Plug 'tpope/vim-repeat'
 
@@ -60,6 +57,9 @@ Plug 'tpope/vim-abolish'
 
 " Git 支持
 Plug 'tpope/vim-fugitive'
+
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+nnoremap <silent> <leader>gp :G log --oneline --decorate --graph --all<cr>
 
 " 配对括号和引号自动补全
 Plug 'jiangmiao/auto-pairs', {
