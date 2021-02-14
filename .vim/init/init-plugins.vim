@@ -84,6 +84,7 @@ if index(g:bundle_group, 'basic') >= 0
     " Plug 'tpope/vim-rhubarb'
     " Git 支持
     Plug 'tpope/vim-fugitive'
+    command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
     nnoremap <silent> <leader>gp :G log --oneline --decorate --graph --all<cr>
 
 endif
@@ -121,32 +122,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
     nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
     nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
-
-    command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-
-    if exists('$TMUX')
-        Plug 'benmills/vimux'
-        function! s:run_tmux(opts)
-            let cwd = getcwd()
-            call VimuxRunCommand('cd ' .. shellescape(cwd) .. '; ' .. a:opts.cmd)
-        endfunction
-
-        let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
-        let g:asyncrun_runner.tmux = function('s:run_tmux')
-
-        nnoremap <leader>vp :VimuxPromptCommand<cr>
-        nnoremap <leader>vl :VimuxRunLastCommand<cr>
-        nnoremap <leader>vi :VimuxInspectRunner<cr><
-        nnoremap <leader>vz :VimuxZoomRunner<cr>
-
-        " Plug 'christoomey/vim-tmux-navigator'
-        " let g:tmux_navigator_no_mappings = 1
-        " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
-        " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
-        " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
-        " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
-        " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
-    endif
 
     " 全文快速移动, <leader>f{char} 即可触发
     Plug 'easymotion/vim-easymotion', { 'on': [
@@ -648,6 +623,13 @@ if has('python3')
             nnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", expand("<cword>"))<CR>
         endif
         noremap <leader>gr :<C-U>Leaderf! --recall<CR>
+
+        Plug 'skywind3000/leaderf-snippet'
+        inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<cr>
+
+        " optional: preview
+        let g:Lf_PreviewResult = get(g:, 'Lf_PreviewResult', {})
+        let g:Lf_PreviewResult.snippet = 1
     endif
 
 
@@ -906,8 +888,33 @@ if index(g:bundle_group, 'tool') >= 0
     " 对齐
     Plug 'godlygeek/tabular'
 
-    " tmux 中使用vim 复制
-    Plug 'roxma/vim-tmux-clipboard'
+    " tmux 相关
+    if exists('$TMUX')
+        " tmux 中使用vim 复制
+        Plug 'roxma/vim-tmux-clipboard'
+
+        Plug 'benmills/vimux'
+        function! s:run_tmux(opts)
+            let cwd = getcwd()
+            call VimuxRunCommand('cd ' .. shellescape(cwd) .. '; ' .. a:opts.cmd)
+        endfunction
+
+        let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
+        let g:asyncrun_runner.tmux = function('s:run_tmux')
+
+        nnoremap <leader>vp :VimuxPromptCommand<cr>
+        nnoremap <leader>vl :VimuxRunLastCommand<cr>
+        nnoremap <leader>vi :VimuxInspectRunner<cr><
+        nnoremap <leader>vz :VimuxZoomRunner<cr>
+
+        " Plug 'christoomey/vim-tmux-navigator'
+        " let g:tmux_navigator_no_mappings = 1
+        " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
+        " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
+        " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
+        " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
+        " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
+    endif
 
     " " 预览命令行命令效果
     " Plug 'markonm/traces.vim'
@@ -916,6 +923,9 @@ if index(g:bundle_group, 'tool') >= 0
     Plug 'luochen1990/rainbow'
     let g:rainbow_active = 1
 
+    Plug 'voldikss/vim-translator', { 'on': ['TranslateW', 'TranslateWV'] }
+    nmap <c-k> <Plug>TranslateW
+    vmap <c-k> <Plug>TranslateWV
 endif
 
 
