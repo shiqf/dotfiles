@@ -926,6 +926,8 @@ if index(g:bundle_group, 'tool') >= 0
     Plug 'voldikss/vim-translator', { 'on': ['TranslateW', 'TranslateWV'] }
     nmap <c-k> <Plug>TranslateW
     vmap <c-k> <Plug>TranslateWV
+
+    Plug 'liuchengxu/vista.vim'
 endif
 
 

@@ -136,8 +136,8 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
     tnoremap <m-j> <c-_>j
     tnoremap <m-k> <c-_>k
 
-    tnoremap <m-f> <c-right>
-    tnoremap <m-b> <c-left>
+    tnoremap <m-f> <esc>f
+    tnoremap <m-b> <esc>b
     tnoremap <m-d> <esc>d
     tnoremap <m-u> <esc>u
     tnoremap <m-c> <esc>c
