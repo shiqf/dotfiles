@@ -203,8 +203,7 @@ nnoremap 1p "1p
 nnoremap 1P "1P
 
 inoremap <m-m> <esc>gi
-inoremap <silent> <c-x><c-s> <c-o>:w<cr>
-nnoremap <silent> <c-x><c-s> :<c-u>w<cr>
+noremap <silent> <c-s> :<c-u>w<cr>
 
 noremap \ :
 
