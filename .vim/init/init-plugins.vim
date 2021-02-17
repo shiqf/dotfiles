@@ -49,8 +49,7 @@ endfunc
 "-----------------------------------------------------------------------------
 "                         在 ~/.vim/bundles 下安装插件
 "-----------------------------------------------------------------------------
-let s:home = '~/.vim/bundles'
-call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
+call plug#begin(get(g:, 'bundle_home', s:home .. '/bundles'))
 
 " " vim 中文说明文档 ./vimcdoc.sh -i安装
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
@@ -157,7 +156,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'tommcdo/vim-exchange'
     let g:exchange_no_mappings=1
     nmap co <Plug>(Exchange)
-    vmap X <Plug>(Exchange)
+    vmap x <Plug>(Exchange)
     nmap coc <Plug>(ExchangeClear)
     nmap coo <Plug>(ExchangeLine)
 
@@ -461,7 +460,7 @@ if index(g:bundle_group, 'ale') >= 0
         if filereadable(path2)
             return path2
         endif
-        return shellescape(filereadable(path2)? path2 : path1)
+        return shellescape(filereadable(path2) ? path2 : path1)
     endfunc
 
     " 设置 flake8/pylint 的参数
@@ -614,22 +613,22 @@ if has('python3')
         let g:Lf_PopupWidth = '0.6'
         let g:Lf_PopupHeight = '0.3'
 
-        let g:Lf_PreviewPopupWidth = 100              " 指定 popup window / floating window 的宽度。
-        let g:Lf_PopupPreviewPosition = 'cursor'      " 指定 popup window / floating window 的位置。
-        let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
+        let g:Lf_PreviewPopupWidth = 60            " 指定 popup window / floating window 的宽度。
+        let g:Lf_PopupPreviewPosition = 'top'      " 指定 popup window / floating window 的位置。
+        let g:Lf_PreviewHorizontalPosition = 'top' " 指定 popup window / floating window 的位置。
 
+        " gs: global search(全局查找)
+        " --hidden 查找以 '.' 开始的文件或目录
         if executable('rg')
-            xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", leaderf#Rg#visual())<CR><CR>
-            nnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", expand("<cword>"))<CR>
+            xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR><CR>
+            nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
         endif
-        noremap <leader>gr :<C-U>Leaderf! --recall<CR>
+        noremap <leader>nr :<C-U>Leaderf! --recall<CR>
 
         Plug 'skywind3000/leaderf-snippet'
         inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<cr>
-
-        " optional: preview
-        let g:Lf_PreviewResult = get(g:, 'Lf_PreviewResult', {})
         let g:Lf_PreviewResult.snippet = 1
+
     endif
 
 
@@ -823,7 +822,7 @@ if has('python3')
         let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
         let g:UltiSnipsListSnippets        = '<c-l>'
         let g:UltiSnipsEditSplit           = 'vertical'
-        nnoremap <leader>ua :UltiSnipsAddFiletypes snippets
+        nnoremap <leader>ns :snippets<home>UltiSnipsAddFiletypes 
 
     endif
 
@@ -874,12 +873,12 @@ if index(g:bundle_group, 'tool') >= 0
     let g:repl_cursor_down = 1
     let g:repl_python_automerge = 1
     let g:repl_ipython_version = '7'
-    nnoremap <leader>r :REPLToggle<Cr>
+    nnoremap <leader>nl :REPLToggle<Cr>
     let g:repl_position = 3
     let g:repl_stayatrepl_when_open = 0
 
     Plug 'mbbill/undotree'
-    nnoremap <silent> <leader>uo :UndotreeToggle<CR>
+    nnoremap <silent> <leader>nu :UndotreeToggle<CR>
     if has("persistent_undo")
         set undodir=$HOME."/.undodir"
         set undofile
@@ -923,11 +922,17 @@ if index(g:bundle_group, 'tool') >= 0
     Plug 'luochen1990/rainbow'
     let g:rainbow_active = 1
 
-    Plug 'voldikss/vim-translator', { 'on': ['TranslateW', 'TranslateWV'] }
+    Plug 'voldikss/vim-translator', { 'on': ['<Plug>TranslateW', '<Plug>TranslateWV'] }
     nmap <c-k> <Plug>TranslateW
     vmap <c-k> <Plug>TranslateWV
 
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    nnoremap <leader>, :<c-u>'<home>WhichKey '
+
     Plug 'liuchengxu/vista.vim'
+    nnoremap <leader>nv :Vista!!<cr>
+
+    " Plug 'jceb/vim-orgmode'
 endif
 
 

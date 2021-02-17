@@ -210,7 +210,8 @@ noremap \ :
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') .. '/' : '%%'
-map <leader>ed :e %:h<cr>
+nnoremap <silent><leader>ed :e %:h<cr>
+nnoremap <silent><leader>ef :e!<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
