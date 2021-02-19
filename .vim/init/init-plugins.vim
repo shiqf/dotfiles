@@ -155,7 +155,7 @@ if index(g:bundle_group, 'enhanced') >= 0
     Plug 'tommcdo/vim-exchange'
     let g:exchange_no_mappings=1
     nmap co <Plug>(Exchange)
-    vmap x <Plug>(Exchange)
+    vmap X <Plug>(Exchange)
     nmap coc <Plug>(ExchangeClear)
     nmap coo <Plug>(ExchangeLine)
 

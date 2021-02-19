@@ -230,7 +230,9 @@ nnoremap <silent> 3dp :diffput //3<cr>
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :Git<cr>
+nnoremap g<space> :G 
 nnoremap <silent> <leader>gp :0G -p log --oneline --decorate --graph --all<cr>
+
 
 "-----------------------------------------------------------------------------
 "                                 文件类型映射
@@ -242,12 +244,7 @@ augroup InitFileTypesMapGroup
 
     au FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
 
-    au BufEnter * if &ft !~# '\(fugitive\|git\)'
-                \| nnoremap <buffer> g<space> :Gedit 
+    au BufEnter * if &ft !~# '\(netrw\|markdown\)'
+                \| nnoremap <buffer> gx :Gedit 
                 \| endif
-
-    au BufEnter * if &ft =~# '\(fugitive\|git\)'
-                \| nnoremap <buffer> g<space> :Git 
-                \| endif
-
 augroup END
