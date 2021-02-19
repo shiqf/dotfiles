@@ -84,7 +84,6 @@ if index(g:bundle_group, 'basic') >= 0
     " Git 支持
     Plug 'tpope/vim-fugitive'
     command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-    nnoremap <silent> <leader>gp :G log --oneline --decorate --graph --all<cr>
 
 endif
 
@@ -620,7 +619,7 @@ if has('python3')
         " gs: global search(全局查找)
         " --hidden 查找以 '.' 开始的文件或目录
         if executable('rg')
-            xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR><CR>
+            xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F %s --hidden", leaderf#Rg#visual())<CR><CR>
             nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
         endif
         noremap <leader>nr :<C-U>Leaderf! --recall<CR>
