@@ -18,9 +18,9 @@ let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_focus = 0
 let g:asyncrun_bell =  1
 if has('win64') || has('win32')
-    let g:asynctasks_term_pos = 'external'
+  let g:asynctasks_term_pos = 'external'
 else
-    let g:asynctasks_term_pos = 'right'
+  let g:asynctasks_term_pos = 'right'
 endif
 
 nnoremap <leader>ar :AsyncRun 
@@ -61,9 +61,9 @@ command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 " 配对括号和引号自动补全
 Plug 'jiangmiao/auto-pairs', {
-            \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
-            \     'make', 'python', 'snippets', 'typescript', 'vim' ]
-            \ }
+      \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
+      \     'make', 'python', 'snippets', 'typescript', 'vim' ]
+      \ }
 
 let g:AutoPairsFlyMode            = 0
 let g:AutoPairsShortcutBackInsert = '<M-z>'
@@ -91,136 +91,136 @@ Plug 'sgur/vim-textobj-parameter'
 "      LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
 "-----------------------------------------------------------------------------
 if has('python3')
-    " 如果 vim 支持 python 则启用  Leaderf
-    if has('win32') || has('win64')
-        Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
-    else
-        Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-    endif
+  " 如果 vim 支持 python 则启用  Leaderf
+  if has('win32') || has('win64')
+    Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+  else
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+  endif
 
-    let g:Lf_CtagsFuncOpts = {
-                \ 'c': '--kinds-c=f',
-                \ 'javascript': '--kinds-javascript=fm',
-                \ 'python': '--kinds-python=fmc',
-                \ 'typescript': '--kinds-typescript=fmc',
-                \ }
+  let g:Lf_CtagsFuncOpts = {
+        \ 'c': '--kinds-c=f',
+        \ 'javascript': '--kinds-javascript=fm',
+        \ 'python': '--kinds-python=fmc',
+        \ 'typescript': '--kinds-typescript=fmc',
+        \ }
 
-    " CTRL+p 打开文件模糊匹配
-    let g:Lf_ShortcutF = '<c-p>'
+  " CTRL+p 打开文件模糊匹配
+  let g:Lf_ShortcutF = '<c-p>'
 
-    " ALT+b 打开 buffer 模糊匹配
-    let g:Lf_ShortcutB = '<m-b>'
+  " ALT+b 打开 buffer 模糊匹配
+  let g:Lf_ShortcutB = '<m-b>'
 
-    " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
-    nnoremap <c-n> :LeaderfMruCwd<cr>
+  " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
+  nnoremap <c-n> :LeaderfMruCwd<cr>
 
-    " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
-    nnoremap <m-n> :LeaderfMru<cr>
+  " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
+  nnoremap <m-n> :LeaderfMru<cr>
 
-    " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-    nnoremap <m-f> :LeaderfFunction!<cr>
+  " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
+  nnoremap <m-f> :LeaderfFunction!<cr>
 
-    " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-    nnoremap <m-F> :LeaderfFunctionAll!<cr>
+  " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
+  nnoremap <m-F> :LeaderfFunctionAll!<cr>
 
-    " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
-    nnoremap <m-t> :LeaderfBufTag!<cr>
+  " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
+  nnoremap <m-t> :LeaderfBufTag!<cr>
 
-    " 全局 tags 模糊匹配
-    nnoremap <m-T> :LeaderfBufTagAll<cr>
+  " 全局 tags 模糊匹配
+  nnoremap <m-T> :LeaderfBufTagAll<cr>
 
-    " Leaderf 自己的命令模糊匹配
-    nnoremap <m-s> :LeaderfSelf<cr>
+  " Leaderf 自己的命令模糊匹配
+  nnoremap <m-s> :LeaderfSelf<cr>
 
-    " 最大历史文件保存 2048 个
-    let g:Lf_MruMaxFiles = 2048
+  " 最大历史文件保存 2048 个
+  let g:Lf_MruMaxFiles = 2048
 
-    " 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
-    let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-    let g:Lf_WorkingDirectoryMode = 'Ac'
-    let g:Lf_WindowHeight = 0.30
-    let g:Lf_CacheDirectory = expand('~/.vim/cache')
+  " 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
+  let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+  let g:Lf_WorkingDirectoryMode = 'Ac'
+  let g:Lf_WindowHeight = 0.30
+  let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
-    " ui 定制
-    let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': '' }
+  " ui 定制
+  let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': '' }
 
-    " 使用 / 寄存器存储 rg -e 使用的正则表达式
-    let g:Lf_RgStorePattern = '/'
+  " 使用 / 寄存器存储 rg -e 使用的正则表达式
+  let g:Lf_RgStorePattern = '/'
 
-    " 显示绝对路径
-    let g:Lf_ShowRelativePath = 1
+  " 显示绝对路径
+  let g:Lf_ShowRelativePath = 1
 
-    " 隐藏帮助
-    let g:Lf_HideHelp = 1
+  " 隐藏帮助
+  let g:Lf_HideHelp = 1
 
-    let g:Lf_DiscardEmptyBuffer = 1
-    " let g:Lf_RememberLastSearch = 1
+  let g:Lf_DiscardEmptyBuffer = 1
+  " let g:Lf_RememberLastSearch = 1
 
-    " 模糊匹配忽略扩展名
-    let g:Lf_WildIgnore = {
-                \ 'dir': ['.svn','.git','.hg'],
-                \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-                \ }
+  " 模糊匹配忽略扩展名
+  let g:Lf_WildIgnore = {
+        \ 'dir': ['.svn','.git','.hg'],
+        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+        \ }
 
-    " 忽略最近文件
-    let g:Lf_MruWildIgnore = {
-                \ 'dir': ['node_modules'],
-                \ 'file': []
-                \ }
+  " 忽略最近文件
+  let g:Lf_MruWildIgnore = {
+        \ 'dir': ['node_modules'],
+        \ 'file': []
+        \ }
 
-    " MRU 文件忽略扩展名
-    let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
-    let g:Lf_StlColorscheme = 'powerline'
+  " MRU 文件忽略扩展名
+  let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
+  let g:Lf_StlColorscheme = 'powerline'
 
-    " 禁用 function/buftag 的预览功能，可以手动用 p 预览
-    let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0 }
+  " 禁用 function/buftag 的预览功能，可以手动用 p 预览
+  let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0 }
 
-    " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
-    "     bufTag: 当前缓冲区标签,
-    "     buffer: 项目缓冲文件名,
-    "     cmdHistory: 命令行历史,
-    "     colorscheme: 色彩方案,
-    "     command: 可用命令,
-    "     file: 项目文件名,
-    "     filetype: 项目文件类型指定,
-    "     function: 当前缓冲区函数,
-    "     gtags: gnu global符号索引,
-    "     help: 帮助标签,
-    "     line: 搜索行在缓冲区中,
-    "     mru: 最近使用的文件,
-    "     rg: ripgrep 文本搜索,
-    "     searchHistory: 搜索命令行历史,
-    "     self: Leaderf自己的命令,
-    "     tag: 当前项目所有标签,
+  " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
+  "     bufTag: 当前缓冲区标签,
+  "     buffer: 项目缓冲文件名,
+  "     cmdHistory: 命令行历史,
+  "     colorscheme: 色彩方案,
+  "     command: 可用命令,
+  "     file: 项目文件名,
+  "     filetype: 项目文件类型指定,
+  "     function: 当前缓冲区函数,
+  "     gtags: gnu global符号索引,
+  "     help: 帮助标签,
+  "     line: 搜索行在缓冲区中,
+  "     mru: 最近使用的文件,
+  "     rg: ripgrep 文本搜索,
+  "     searchHistory: 搜索命令行历史,
+  "     self: Leaderf自己的命令,
+  "     tag: 当前项目所有标签,
 
-    " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
-    let g:Lf_NormalMap = {
-                \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
-                \ 'Buffer': [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
-                \ 'File':   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-                \ 'Function': [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
-                \ 'Mru': [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
-                \ 'Rg': [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
-                \ 'Self': [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
-                \ 'Tag': [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
-                \ }
+  " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
+  let g:Lf_NormalMap = {
+        \ 'BufTag': [['<ESC>', ':exec g:Lf_py "bufTagExplManager.quit()"<cr>']],
+        \ 'Buffer': [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<cr>']],
+        \ 'File':   [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+        \ 'Function': [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<cr>']],
+        \ 'Mru': [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<cr>']],
+        \ 'Rg': [['<ESC>', ':exec g:Lf_py "rgExplManager.quit()"<cr>']],
+        \ 'Self': [['<ESC>', ':exec g:Lf_py "selfExplManager.quit()"<cr>']],
+        \ 'Tag': [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<cr>']],
+        \ }
 
-    " 开启后不能在普通模式中使用搜索/
-    let g:Lf_WindowPosition = 'popup'
-    let g:Lf_PopupPosition = [0, 0]
-    let g:Lf_PreviewInPopup = 1 " 就可以启用这个功能，缺省未启用。
-    let g:Lf_PopupWidth = '0.6'
-    let g:Lf_PopupHeight = '0.3'
+  " 开启后不能在普通模式中使用搜索/
+  let g:Lf_WindowPosition = 'popup'
+  let g:Lf_PopupPosition = [0, 0]
+  let g:Lf_PreviewInPopup = 1 " 就可以启用这个功能，缺省未启用。
+  let g:Lf_PopupWidth = '0.6'
+  let g:Lf_PopupHeight = '0.3'
 
-    let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
-    let g:Lf_PopupPreviewPosition = 'cursor' " 指定 popup window / floating window 的位置。
-    let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
+  let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
+  let g:Lf_PopupPreviewPosition = 'cursor' " 指定 popup window / floating window 的位置。
+  let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
 
-    if executable('rg')
-        xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", leaderf#Rg#visual())<CR><CR>
-        nnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F -e %s", expand("<cword>"))<CR>
-    endif
-    noremap <leader>gr :<C-U>Leaderf! --recall<CR>
+  if executable('rg')
+    xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F %s --hidden", leaderf#Rg#visual())<CR><CR>
+    nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
+  endif
+  noremap <leader>gr :<C-U>Leaderf! --recall<CR>
 
 endif
 
@@ -247,13 +247,13 @@ let $GTAGSCONF = expand('~/.gtags.conf')
 
 " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
 let g:gutentags_project_root = [
-            \ '.git',
-            \ '.hg',
-            \ '.project',
-            \ '.root',
-            \ '.svn',
-            \ 'package.json',
-            \ ]
+      \ '.git',
+      \ '.hg',
+      \ '.project',
+      \ '.root',
+      \ '.svn',
+      \ 'package.json',
+      \ ]
 
 let g:gutentags_exclude_filetypes = ['markdown', 'json', 'css']
 let g:gutentags_exclude_project_root = ['/usr/local', '.notags']
@@ -262,7 +262,7 @@ let g:gutentags_ctags_exclude = ['node_modules', '.cache']
 
 " 指定生成 ctags 的文件, 通过 .gitignore 中的文件，忽略 exclude 配置
 if executable('rg')
-    let g:gutentags_file_list_command = 'rg --files --color=never'
+  let g:gutentags_file_list_command = 'rg --files --color=never'
 endif
 
 " 所生成的数据文件的名称
@@ -275,11 +275,11 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_modules = []
 " 如果有 ctags 可执行就允许动态生成 ctags 文件
 if executable('ctags')
-    let g:gutentags_modules += ['ctags']
+  let g:gutentags_modules += ['ctags']
 endif
 " 如果有 gtags 可执行就允许动态生成 gtags 数据库
 if executable('gtags') && executable('gtags-cscope')
-    let g:gutentags_modules += ['gtags_cscope']
+  let g:gutentags_modules += ['gtags_cscope']
 endif
 let g:gutentags_plus_switch = 1
 
@@ -312,12 +312,12 @@ noremap <m-,> :PreviewGoto edit<cr>
 noremap <m-.> :PreviewGoto tabe<cr>
 
 augroup QuickFixPreview
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-    autocmd FileType qf nnoremap <silent><buffer> <m-p> :PreviewClose<cr>
-    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-    autocmd FileType qf nnoremap <silent><buffer> q <c-w>q
-    autocmd FileType qf nnoremap <silent><buffer> o <cr>:cclose<cr>
-    autocmd FileType leaderf set nonu
+  autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+  autocmd FileType qf nnoremap <silent><buffer> <m-p> :PreviewClose<cr>
+  autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+  autocmd FileType qf nnoremap <silent><buffer> q <c-w>q
+  autocmd FileType qf nnoremap <silent><buffer> o <cr>:cclose<cr>
+  autocmd FileType leaderf set nonu
 augroup end
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }

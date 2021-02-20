@@ -65,13 +65,13 @@ cnoremap <c-x><c-e> <c-f>
 
 " 和在终端下的 ctrl-d 一样的效果
 function! Cd()
-    if strlen(getcmdline()) == 0
-        return "\<esc>"
-    elseif strlen(getcmdline()) > getcmdpos() - 1
-        return "\<Del>"
-    else
-        return "\<c-d>"
-    endif
+  if strlen(getcmdline()) == 0
+    return "\<esc>"
+  elseif strlen(getcmdline()) > getcmdpos() - 1
+    return "\<Del>"
+  else
+    return "\<c-d>"
+  endif
 endfunc
 cnoremap <expr> <c-d> Cd()
 
@@ -89,18 +89,18 @@ nnoremap <silent> ]w :lbelow<cr>
 
 " 左移 tab
 function! Tab_MoveLeft()
-    let l:tabnr = tabpagenr() - 2
-    if l:tabnr >= 0
-        exec 'tabmove ' .. l:tabnr
-    endif
+  let l:tabnr = tabpagenr() - 2
+  if l:tabnr >= 0
+    exec 'tabmove ' .. l:tabnr
+  endif
 endfunc
 
 " 右移 tab
 function! Tab_MoveRight()
-    let l:tabnr = tabpagenr() + 1
-    if l:tabnr <= tabpagenr('$')
-        exec 'tabmove ' .. l:tabnr
-    endif
+  let l:tabnr = tabpagenr() + 1
+  if l:tabnr <= tabpagenr('$')
+    exec 'tabmove ' .. l:tabnr
+  endif
 endfunc
 
 noremap <silent> <c-w>tq :tabclose<cr>
@@ -127,49 +127,49 @@ inoremap <m-j> <esc><c-w>j
 inoremap <m-k> <esc><c-w>k
 
 if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
-    " vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
-    " 设置 termwinkey 为 CTRL 加减号（GVIM），有些终端下是 CTRL+?
-    " 后面四个键位是搭配 termwinkey 的，如果 termwinkey 更改，也要改
-    set termwinkey=<c-_>
-    tnoremap <m-h> <c-_>h
-    tnoremap <m-l> <c-_>l
-    tnoremap <m-j> <c-_>j
-    tnoremap <m-k> <c-_>k
+  " vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
+  " 设置 termwinkey 为 CTRL 加减号（GVIM），有些终端下是 CTRL+?
+  " 后面四个键位是搭配 termwinkey 的，如果 termwinkey 更改，也要改
+  set termwinkey=<c-_>
+  tnoremap <m-h> <c-_>h
+  tnoremap <m-l> <c-_>l
+  tnoremap <m-j> <c-_>j
+  tnoremap <m-k> <c-_>k
 
-    tnoremap <m-f> <esc>f
-    tnoremap <m-b> <esc>b
-    tnoremap <m-d> <esc>d
-    tnoremap <m-u> <esc>u
-    tnoremap <m-c> <esc>c
+  tnoremap <m-f> <esc>f
+  tnoremap <m-b> <esc>b
+  tnoremap <m-d> <esc>d
+  tnoremap <m-u> <esc>u
+  tnoremap <m-c> <esc>c
 
-    " 终端模式切换普通终端模式
-    tnoremap <m-q> <c-\><c-n>
-    tnoremap <m-p> <c-_>"0
+  " 终端模式切换普通终端模式
+  tnoremap <m-q> <c-\><c-n>
+  tnoremap <m-p> <c-_>"0
 
-    " tab 切换
-    tnoremap ]g <c-_>gt
-    tnoremap [g <c-_>gT
-    tnoremap ]G <c-_>:tablast<cr>
-    tnoremap [G <c-_>:tabfirst<cr>
+  " tab 切换
+  tnoremap ]g <c-_>gt
+  tnoremap [g <c-_>gT
+  tnoremap ]G <c-_>:tablast<cr>
+  tnoremap [G <c-_>:tabfirst<cr>
 
-    " tnoremap <Esc> <c-_>N
-    set notimeout ttimeout timeoutlen=100
+  " tnoremap <Esc> <c-_>N
+  set notimeout ttimeout timeoutlen=100
 
-    if has('win32') || has('win64')
-        tnoremap <c-p> <up>
-        tnoremap <c-n> <down>
-        tnoremap <c-a> <home>
-        tnoremap <c-e> <end>
-    endif
+  if has('win32') || has('win64')
+    tnoremap <c-p> <up>
+    tnoremap <c-n> <down>
+    tnoremap <c-a> <home>
+    tnoremap <c-e> <end>
+  endif
 
 elseif has('nvim')
-    " neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
-    tnoremap <m-h> <c-\><c-n><c-w>h
-    tnoremap <m-l> <c-\><c-n><c-w>l
-    tnoremap <m-j> <c-\><c-n><c-w>j
-    tnoremap <m-k> <c-\><c-n><c-w>k
-    tnoremap <m-q> <c-\><c-n>
-    tnoremap <m-p> <c-\><c-n>"0pa
+  " neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
+  tnoremap <m-h> <c-\><c-n><c-w>h
+  tnoremap <m-l> <c-\><c-n><c-w>l
+  tnoremap <m-j> <c-\><c-n><c-w>j
+  tnoremap <m-k> <c-\><c-n><c-w>k
+  tnoremap <m-q> <c-\><c-n>
+  tnoremap <m-p> <c-\><c-n>"0pa
 endif
 
 "-----------------------------------------------------------------------------
@@ -239,12 +239,12 @@ nnoremap <silent> <leader>gp :0G -p log --oneline --decorate --graph --all<cr>
 "-----------------------------------------------------------------------------
 augroup InitFileTypesMapGroup
 
-    " 清除同组的历史 autocommand
-    au!
+  " 清除同组的历史 autocommand
+  au!
 
-    au FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
+  au FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
 
-    au BufEnter * if &ft !~# '\(netrw\|markdown\)'
-                \| nnoremap <buffer> gx :Gedit 
-                \| endif
+  au BufEnter * if &ft !~# '\(netrw\|markdown\)'
+        \| nnoremap <buffer> gx :Gedit 
+        \| endif
 augroup END

@@ -16,7 +16,7 @@
 "                  Vim自动把默认剪贴板和系统剪贴板的内容同步
 "-----------------------------------------------------------------------------
 if has('clipboard')
-    set clipboard^=unnamed,unnamedplus
+  set clipboard^=unnamed,unnamedplus
 endif
 
 
@@ -32,10 +32,10 @@ runtime ftplugin/man.vim
 
 " 可视模式下用 * 号匹配字符串
 function! s:VSetSearch()
-    let temp = @@
-    norm! gvy
-    let @/ = '\V' .. substitute(escape(@@, '\'), '\n', '\\n', 'g')
-    let @@ = temp
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' .. substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
 endfunction
 
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
@@ -45,9 +45,9 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 "                       有 tmux 没有的功能键超时（毫秒）
 "-----------------------------------------------------------------------------
 if $TMUX != ''
-    set ttimeoutlen=35
+  set ttimeoutlen=35
 elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-    set ttimeoutlen=85
+  set ttimeoutlen=85
 endif
 
 
@@ -56,22 +56,22 @@ endif
 "        记得设置 ttimeout （见 init-basic.vim） 和 ttimeoutlen （上面）
 "-----------------------------------------------------------------------------
 if has('nvim') == 0 && has('gui_running') == 0
-    function! s:metacode(key)
-        exec 'set <M-' .. a:key .. ">=\e" .. a:key
-    endfunc
-    for i in range(10)
-        call s:metacode(nr2char(char2nr('0') + i))
-    endfor
-    for i in range(26)
-        call s:metacode(nr2char(char2nr('a') + i))
-        call s:metacode(nr2char(char2nr('A') + i))
-    endfor
-    for c in [',', '.', '/', ';', '{', '}']
-        call s:metacode(c)
-    endfor
-    for c in ['?', ':', '-', '_', '+', '=', "'"]
-        call s:metacode(c)
-    endfor
+  function! s:metacode(key)
+    exec 'set <M-' .. a:key .. ">=\e" .. a:key
+  endfunc
+  for i in range(10)
+    call s:metacode(nr2char(char2nr('0') + i))
+  endfor
+  for i in range(26)
+    call s:metacode(nr2char(char2nr('a') + i))
+    call s:metacode(nr2char(char2nr('A') + i))
+  endfor
+  for c in [',', '.', '/', ';', '{', '}']
+    call s:metacode(c)
+  endfor
+  for c in ['?', ':', '-', '_', '+', '=', "'"]
+    call s:metacode(c)
+  endfor
 endif
 
 
@@ -79,9 +79,9 @@ endif
 "                               终端下功能键设置
 "-----------------------------------------------------------------------------
 function! s:key_escape(name, code)
-    if has('nvim') == 0 && has('gui_running') == 0
-        exec 'set ' .. a:name .. "=\e" .. a:code
-    endif
+  if has('nvim') == 0 && has('gui_running') == 0
+    exec 'set ' .. a:name .. "=\e" .. a:code
+  endif
 endfunc
 
 
@@ -124,16 +124,16 @@ set noundofile
 "             Refer: http://sunaku.github.io/vim-256color-bce.html
 "-----------------------------------------------------------------------------
 if &term =~# '256color'
-    " disable Background Color Erase (BCE) so that color schemes
-    " render properly when inside 256-color tmux and GNU screen.
-    " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-    set t_ut=
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
 endif
 
 if has('nvim') == 0
-    let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
-    let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
-    let &t_EI = "\<Esc>[2 q" "EI = NORMAL mode
+  let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
+  let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
+  let &t_EI = "\<Esc>[2 q" "EI = NORMAL mode
 endif
 
 
@@ -145,25 +145,25 @@ endif
 " 会令一些支持 xterm 不完全的终端解析错误，显示为错误的字符，比如 q 字符
 " 如果你确认你的终端支持，不会在一些不兼容的终端上运行该配置，可以注释
 if (!has('gui_running')) && has('terminal') && has('patch-8.0.1200') && has('nvim') == 0
-    let g:termcap_guicursor = &guicursor
-    let g:termcap_t_RS = &t_RS
-    let g:termcap_t_SH = &t_SH
-    set guicursor=
-    set t_RS=
-    set t_SH=
+  let g:termcap_guicursor = &guicursor
+  let g:termcap_t_RS = &t_RS
+  let g:termcap_t_SH = &t_SH
+  set guicursor=
+  set t_RS=
+  set t_SH=
 endif
 
 " 定义一个 DiffOrig 命令用于查看文件改动
 if !exists(':DiffOrig')
-    command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-                \ | wincmd p | diffthis
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+        \ | wincmd p | diffthis
 endif
 
 " 打开文件时恢复上一次光标所在位置
 autocmd BufReadPost *
-            \ if line("'\"") > 1 && line("'\"") <= line("$") |
-            \    exe "normal! g`\"" |
-            \ endif
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \    exe "normal! g`\"" |
+      \ endif
 
 
 "-----------------------------------------------------------------------------
@@ -171,33 +171,33 @@ autocmd BufReadPost *
 "-----------------------------------------------------------------------------
 augroup InitFileTypesGroup
 
-    " 清除同组的历史 autocommand
-    au!
+  " 清除同组的历史 autocommand
+  au!
 
-    " C/C++ 文件使用 // 作为注释
-    au FileType json,javascript,typescript,c,cpp setlocal commentstring=//\ %s
+  " C/C++ 文件使用 // 作为注释
+  au FileType json,javascript,typescript,c,cpp setlocal commentstring=//\ %s
 
-    " markdown 允许自动换行
-    au FileType markdown setlocal wrap
+  " markdown 允许自动换行
+  au FileType markdown setlocal wrap
 
-    " expandtab 使用 tab 自动转化成空格展开
-    " lisp 进行微调
-    au FileType lisp setlocal ts=8 sts=2 sw=2 et
+  " expandtab 使用 tab 自动转化成空格展开
+  " lisp 进行微调
+  au FileType lisp setlocal ts=8 sts=2 sw=2 et
 
-    " scala 微调
-    au FileType scala setlocal sts=4 sw=4 noet
+  " scala 微调
+  au FileType scala setlocal sts=4 sw=4 noet
 
-    " haskell 进行微调
-    au FileType haskell setlocal et
+  " haskell 进行微调
+  au FileType haskell setlocal et
 
-    " quickfix 隐藏行号
-    au FileType qf setlocal nonumber norelativenumber
+  " quickfix 隐藏行号
+  au FileType qf setlocal nonumber norelativenumber
 
-    " 强制对某些扩展名的 filetype 进行纠正
-    au BufNewFile,BufRead *.as  setlocal filetype=actionscript
-    au BufNewFile,BufRead *.pro setlocal filetype=prolog
-    au BufNewFile,BufRead *.es  setlocal filetype=erlang
-    au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
-    au BufNewFile,BufRead *.vl  setlocal filetype=verilog
+  " 强制对某些扩展名的 filetype 进行纠正
+  au BufNewFile,BufRead *.as  setlocal filetype=actionscript
+  au BufNewFile,BufRead *.pro setlocal filetype=prolog
+  au BufNewFile,BufRead *.es  setlocal filetype=erlang
+  au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
+  au BufNewFile,BufRead *.vl  setlocal filetype=verilog
 
 augroup END

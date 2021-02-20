@@ -8,9 +8,9 @@
 
 " 防止重复加载
 if get(s:, 'loaded', 0) != 0
-    finish
+  finish
 else
-    let s:loaded = 1
+  let s:loaded = 1
 endif
 
 " 取得本文件所在的目录
@@ -47,5 +47,5 @@ LoadScript init/init-keymaps.vim
 LoadScript init/init-tabsize.vim
 
 if has('win64') || has('win32')
-    colorscheme slate
+  colorscheme slate
 endif

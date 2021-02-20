@@ -29,9 +29,9 @@ set nocompatible
 
 " 设置 Backspace 键模式
 if has('nvim')
-    set backspace=2
+  set backspace=2
 else
-    set backspace=3
+  set backspace=3
 endif
 
 " 自动缩进
@@ -78,14 +78,14 @@ set incsearch
 "                                   编码设置
 "-----------------------------------------------------------------------------
 if has('multi_byte')
-    " 内部工作编码
-    set encoding=utf-8
+  " 内部工作编码
+  set encoding=utf-8
 
-    " 文件默认编码
-    set fileencoding=utf-8
+  " 文件默认编码
+  set fileencoding=utf-8
 
-    " 打开文件时自动尝试下面顺序的编码
-    set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,euc-kr,latin1
+  " 打开文件时自动尝试下面顺序的编码
+  set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,euc-kr,latin1
 endif
 
 
@@ -93,7 +93,7 @@ endif
 "                 允许 Vim 自带脚本根据文件类型自动设置缩进等
 "-----------------------------------------------------------------------------
 if has('autocmd')
-    filetype plugin indent on
+  filetype plugin indent on
 endif
 
 
@@ -101,7 +101,7 @@ endif
 "                                 语法高亮设置
 "-----------------------------------------------------------------------------
 if has('syntax')
-    syntax enable on
+  syntax enable on
 endif
 
 
@@ -146,14 +146,14 @@ set hidden
 "                                 设置代码折叠
 "-----------------------------------------------------------------------------
 if has('folding')
-    " 允许代码折叠
-    set foldenable
+  " 允许代码折叠
+  set foldenable
 
-    " 代码折叠默认使用缩进
-    set foldmethod=indent
+  " 代码折叠默认使用缩进
+  set foldmethod=indent
 
-    " 默认打开所有缩进
-    set foldlevel=99
+  " 默认打开所有缩进
+  set foldlevel=99
 endif
 
 
@@ -161,7 +161,7 @@ endif
 "                                 设置鼠标功能
 "-----------------------------------------------------------------------------
 if has('mouse')
-    set mouse=nv
+  set mouse=nv
 endif
 
 
