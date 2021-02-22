@@ -1,0 +1,107 @@
+priority -50
+clearsnippets
+
+priority -40
+
+# 声明========================================================================
+snippet le "let = ;" w
+let ${1} = ${0};
+endsnippet
+
+snippet cs "const = ;" w
+const ${1} = ${0};
+endsnippet
+
+snippet cl "console.log()" w
+console.log(${1:${VISUAL:/;$//}});
+endsnippet
+
+# 条件========================================================================
+snippet if "if ..." w
+if (${1:true}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet el "else {}" w
+else {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet elif "else if {}" w
+else if (${1:true}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet ife "if (condition) { ... } else { ... }" w
+if (${1:true}) {
+	${0:${VISUAL}}
+} else {
+	${2}
+}
+endsnippet
+
+# 三目运算
+snippet ter "? :" w
+${1:/* condition */} ? ${2:/* if true */} : ${0:/* if false */}
+endsnippet
+
+# 函数========================================================================
+snippet fun "function" w
+function ${1:function_name}(${2}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet vaf "Anonymous Function" w
+${1:let} ${2:function_name} = function (${3}) {
+	${0:${VISUAL}}
+};
+endsnippet
+
+# Asynchronous Function
+snippet af "箭头函数" ws
+() => {
+	${1:${VISUAL}}
+}${0}
+endsnippet
+
+snippet ret "return 0;" w
+return ${0:${VISUAL:0}};
+endsnippet
+
+# 函数========================================================================
+snippet cla "class" w
+class ${1} {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet cle "class extends" w
+class ${1} extends ${2} {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet clc "class with constructor" w
+class ${1} {
+	constructor(${2}) {
+		${0:${VISUAL}}
+	}
+}
+endsnippet
+
+snippet cls "abstract class with constructor" w
+abstract class ${1} {
+	constructor(${2}) {
+		${0:${VISUAL}}
+	}
+}
+endsnippet
+
+# 错误========================================================================
+snippet terr "throw new Error" w
+throw new Error('${1:error message}')
+endsnippet

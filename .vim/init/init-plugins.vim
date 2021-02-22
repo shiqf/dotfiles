@@ -814,8 +814,8 @@ if has('python3')
   if index(g:bundle_group, 'snippets') >= 0
     " snippets 片段扩展, 需要通过 Python 的支持
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-    let g:UltiSnipsSnippetDirectories  = ['UltiSnips', 'mysnippets']
-    let g:UltiSnipsEnableSnipMate = 1
+    let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
+    let g:UltiSnipsEnableSnipMate = 0
     let g:UltiSnipsExpandTrigger       = '<tab>'
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
@@ -833,6 +833,9 @@ if has('python3')
       Plug 'puremourning/vimspector', {'do': 'python3 install_gadget.py --all --force-enable-node --disable-tcl --update-gadget-config'}
     endif
     let g:vimspector_enable_mappings = 'HUMAN'
+    let g:vimspector_sidebar_width = 80
+    let g:vimspector_code_minwidth = 85
+    let g:vimspector_terminal_minwidth = 75
   endif
 endif
 

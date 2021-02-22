@@ -247,4 +247,9 @@ augroup InitFileTypesMapGroup
   au BufEnter * if &ft !~# '\(netrw\|markdown\)'
         \| nnoremap <buffer> gx :Gedit 
         \| endif
+
+  au BufEnter * if &ft =~# 'fugitive'
+        \| nnoremap <nowait> <buffer> gc : -x -n<home>Git clean -d -f
+        \| endif
+
 augroup END
