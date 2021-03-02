@@ -41,7 +41,7 @@ augroup FileTypeTab
   au FileType python      setlocal ts=8 sw=2 sts=2
   au FileType sh          setlocal ts=4 sw=4 sts=4
   au FileType sql         setlocal ts=4 sw=4 sts=4
-  au FileType typescript  setlocal ts=2 sw=2 sts=2 suffixesadd=.ts
+  au FileType typescript  setlocal ts=2 sw=2 sts=2 suffixesadd=.ts,.d.ts
   au FileType vim         setlocal ts=2 sw=2 sts=2
   au FileType zsh         setlocal ts=4 sw=4 sts=4
 augroup END

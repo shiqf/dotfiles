@@ -686,7 +686,7 @@ if has('python3')
     " 最大语义补全符数量 默认 50
     " let g:ycm_max_num_candidates = 50
     " 最大标识符数量 默认 10
-    let g:ycm_max_num_identifier_candidates = 5
+    let g:ycm_max_num_identifier_candidates = 10
     " 设置为 0 时，不再触发语义补全
     " let g:ycm_auto_trigger = 1
     " c 语言中的 #include 会自动补全文件
@@ -700,7 +700,7 @@ if has('python3')
     let g:ycm_semantic_triggers = {
           \ 'c,cpp': ['re!\w{2}'],
           \ 'python,java,go,erlang,perl,cs,lua': ['re!\w{2}'],
-          \ 'javascript,typescript': ['re!([A-Z]\w|\w[A-Z]|\w{2}[A-Z]|\w{4})'],
+          \ 'javascript,typescript': ['re!^[A-Z]\w', 're!^[a-z]{2}[A-Z]', 're!\w{4}'],
           \ }
 
     " 关闭相关文件类型的语义补全

@@ -244,12 +244,16 @@ augroup InitFileTypesMapGroup
 
   au FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
 
-  au BufEnter * if &ft !~# '\(netrw\|markdown\)'
-        \| nnoremap <buffer> gx :Gedit 
+  au BufEnter * if &ft =~# '\(fugitive\|git\)'
+        \| nnoremap <nowait> <buffer> gx :Gedit 
+        \| elseif &ft !~# 'netrw'
+        \| nnoremap <nowait> <buffer> gx :Gedit %
+        \| elseif &ft !~# '\(netrw\|markdown\)'
         \| endif
 
+  " git delete
   au BufEnter * if &ft =~# 'fugitive'
-        \| nnoremap <nowait> <buffer> gc : -x -n<home>Git clean -d -f
+        \| nnoremap <nowait> <buffer> gd : -x -n<home>Git clean -d -f
         \| endif
 
 augroup END

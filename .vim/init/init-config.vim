@@ -30,16 +30,23 @@ packadd! cfilter
 " 调用man程序在vim内部查看命令
 runtime ftplugin/man.vim
 
-" 可视模式下用 * 号匹配字符串
-function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' .. substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
+" 可视模式下的面向字符用 * 号匹配字符串
+function! s:vSetSearch(mode)
+  if mode() ==# 'v'
+    let temp = @@
+    normal! y
+    let @/ = '\V' .. substitute(escape(@@, '\'), '\n', '\\n', 'g')
+    let @@ = temp
+  else
+    exec 'keepjumps normal! ' .. a:mode .. 'N'
+    " TODO 为什么要这样才行?
+    let temp = @/
+    let @/ = temp
+  endif
 endfunction
 
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
+xnoremap * <cmd>call <SID>vSetSearch('*')<CR>//<cr>
+xnoremap # <cmd>call <SID>vSetSearch('#')<CR>??<cr>
 
 "-----------------------------------------------------------------------------
 "                       有 tmux 没有的功能键超时（毫秒）
