@@ -29,11 +29,15 @@ snippet cl "console.log()" w
 console.log(${1:${VISUAL:/;$//}});
 endsnippet
 
+snippet cc "console.count()" w
+console.count(${1:${VISUAL:/;$//}});
+endsnippet
+
 # 条件========================================================================
 snippet if "if ..." w
 if (${1:true}) {
 	${2:${VISUAL}}
-}
+}${0}
 endsnippet
 
 snippet el "else {}" w
@@ -44,16 +48,16 @@ endsnippet
 
 snippet elif "else if {}" w
 else if (${1:true}) {
-	${1:${VISUAL}}
-}
+	${2:${VISUAL}}
+}${0}
 endsnippet
 
 snippet ife "if (condition) { ... } else { ... }" w
 if (${1:true}) {
-	${0:${VISUAL}}
+	${2:${VISUAL}}
 } else {
-	${2}
-}
+	${3}
+}${0}
 endsnippet
 
 # 三目运算
@@ -64,86 +68,90 @@ endsnippet
 # 循环========================================================================
 snippet fo "for ... of" w
 for (${1:const} ${2:value} of ${3:object}) {
-	${0:${VISUAL}}
-}
+	${4:${VISUAL}}
+}${0}
 endsnippet
 
 snippet fi "for ... in" w
 for (${1:const} ${2:key} in ${3:object}) {
-	${0:${VISUAL}}
-}
+	${4:${VISUAL}}
+}${0}
 endsnippet
 
 snippet sw "switch" w
 switch (${1:expression}) {
-	case '${3:case}':
-		${4}
+	case '${2:case}':
+		${3}
 		break;
 	${0}
 	default:
-		${2}
+		${4}
 }
 endsnippet
 
 snippet case "case 'xyz': ... break"
 case '${1:case}':
-	${0:${VISUAL}}
+	${2:${VISUAL}}
 	break;
+	${0}
 endsnippet
 
 # 函数========================================================================
-snippet fun "function" w
+snippet f "function" w
 function ${1:function_name}(${2}) {
-	${0:${VISUAL}}
-}
+	${3:${VISUAL}}
+}${0}
 endsnippet
 
-snippet vaf "Anonymous Function" w
-${1:let} ${2:function_name} = function (${3}) {
+snippet nf "Anonymous Function" bw
+${1:const} ${2:function_name} = function (${3}) {
 	${0:${VISUAL}}
 };
 endsnippet
 
-# Asynchronous Function
-snippet af "箭头函数" ws
-(${1}) => {${0:${VISUAL}}}
+snippet af "箭头函数" w
+(${1}) => {${2:${VISUAL}}}
 endsnippet
 
-snippet re "return 0;" w
+snippet a= "箭头函数" ws
+(${1}) => ${2:${VISUAL}}
+endsnippet
+
+snippet rt "return 0;" w
 return ${0:${VISUAL:0}};
 endsnippet
 
 # 函数========================================================================
 snippet cla "class" w
 class ${1} {
-	${0:${VISUAL}}
+	${2:${VISUAL}}
 }
 endsnippet
 
 snippet cle "class extends" w
 class ${1} extends ${2} {
-	${0:${VISUAL}}
+	${3:${VISUAL}}
 }
 endsnippet
 
 snippet clc "class with constructor" w
 class ${1} {
 	constructor(${2}) {
-		${0:${VISUAL}}
+		${3:${VISUAL}}
 	}
 }
 endsnippet
 
 snippet cli "class implements" w
 class ${1} implements ${2} {
-	${0:${VISUAL}}
+	${3:${VISUAL}}
 }
 endsnippet
 
 snippet cls "abstract class with constructor" w
 abstract class ${1} {
 	constructor(${2}) {
-		${0:${VISUAL}}
+		${3:${VISUAL}}
 	}
 }
 endsnippet
