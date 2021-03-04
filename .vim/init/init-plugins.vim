@@ -141,7 +141,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   " 配对括号和引号自动补全
   Plug 'jiangmiao/auto-pairs', {
         \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
-        \     'make', 'python', 'snippets', 'typescript', 'vim' ]
+        \     'make', 'python', 'snippets', 'typescript', 'vim', 'html', 'css' ]
         \ }
 
   let g:AutoPairsFlyMode            = 0
@@ -680,7 +680,7 @@ if has('python3')
     " 打开 ultisnipes, 默认 1
     " let g:ycm_use_ultisnips_completer = 0
     " 输入最少字符开启字符补全功能 默认 2
-    " let g:ycm_min_num_of_chars_for_completion = 2
+    let g:ycm_min_num_of_chars_for_completion = 2
     " 显示字符候选标识符最少的字符数 默认 0
     let g:ycm_min_num_identifier_candidate_chars = 4
     " 最大语义补全符数量 默认 50
@@ -700,7 +700,7 @@ if has('python3')
     let g:ycm_semantic_triggers = {
           \ 'c,cpp': ['re!\w{2}'],
           \ 'python,java,go,erlang,perl,cs,lua': ['re!\w{2}'],
-          \ 'javascript,typescript': ['re!^[A-Z]\w', 're!^[a-z]{2}[A-Z]', 're!\w{4}'],
+          \ 'javascript,typescript': ['re![A-Z]\w', 're![a-z]{2}[A-Z]', 're!\w{4}'],
           \ }
 
     " 关闭相关文件类型的语义补全
@@ -844,6 +844,8 @@ if index(g:bundle_group, 'tool') >= 0
   " emmet高速编写网页类代码
   Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
   let g:emmet_html5 = 1
+  let g:user_emmet_install_global = 0
+  autocmd FileType html,css,javascriptreact EmmetInstall
 
   " 帮助emmet显示snippets提示
   Plug 'jceb/emmet.snippets', { 'for': ['html'] }

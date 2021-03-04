@@ -1,7 +1,20 @@
 priority -50
-clearsnippets
+
+snippet re "require" bw
+const ${2:http} = require('${1:http}');
+${0}
+endsnippet
 
 priority -40
+
+# 关键字
+snippet as "async" w
+async 
+endsnippet
+
+snippet aw "await" w
+await 
+endsnippet
 
 # 声明========================================================================
 snippet le "let = ;" w
@@ -19,19 +32,19 @@ endsnippet
 # 条件========================================================================
 snippet if "if ..." w
 if (${1:true}) {
-	${0:${VISUAL}}
+	${2:${VISUAL}}
 }
 endsnippet
 
 snippet el "else {}" w
 else {
-	${0:${VISUAL}}
-}
+	${1:${VISUAL}}
+}${0}
 endsnippet
 
 snippet elif "else if {}" w
 else if (${1:true}) {
-	${0:${VISUAL}}
+	${1:${VISUAL}}
 }
 endsnippet
 
@@ -46,6 +59,36 @@ endsnippet
 # 三目运算
 snippet ter "? :" w
 ${1:/* condition */} ? ${2:/* if true */} : ${0:/* if false */}
+endsnippet
+
+# 循环========================================================================
+snippet fo "for ... of" w
+for (${1:const} ${2:value} of ${3:object}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet fi "for ... in" w
+for (${1:const} ${2:key} in ${3:object}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet sw "switch" w
+switch (${1:expression}) {
+	case '${3:case}':
+		${4}
+		break;
+	${0}
+	default:
+		${2}
+}
+endsnippet
+
+snippet case "case 'xyz': ... break"
+case '${1:case}':
+	${0:${VISUAL}}
+	break;
 endsnippet
 
 # 函数========================================================================
@@ -63,12 +106,10 @@ endsnippet
 
 # Asynchronous Function
 snippet af "箭头函数" ws
-() => {
-	${1:${VISUAL}}
-}${0}
+(${1}) => {${0:${VISUAL}}}
 endsnippet
 
-snippet ret "return 0;" w
+snippet re "return 0;" w
 return ${0:${VISUAL:0}};
 endsnippet
 
@@ -93,6 +134,12 @@ class ${1} {
 }
 endsnippet
 
+snippet cli "class implements" w
+class ${1} implements ${2} {
+	${0:${VISUAL}}
+}
+endsnippet
+
 snippet cls "abstract class with constructor" w
 abstract class ${1} {
 	constructor(${2}) {
@@ -102,6 +149,11 @@ abstract class ${1} {
 endsnippet
 
 # 错误========================================================================
-snippet terr "throw new Error" w
-throw new Error('${1:error message}')
+snippet tne "throw new Error" w
+throw new Error('${1:error message}');
+endsnippet
+
+# object 原型方法=============================================================
+snippet oop "Object hasOwnProperty" w
+Object.prototype.hasOwnProperty.call(${1:${VISUAL:object}}, ${2:key})
 endsnippet
