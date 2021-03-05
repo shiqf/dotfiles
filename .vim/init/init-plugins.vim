@@ -83,7 +83,6 @@ if index(g:bundle_group, 'basic') >= 0
   " Plug 'tpope/vim-rhubarb'
   " Git 支持
   Plug 'tpope/vim-fugitive'
-  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 endif
 
@@ -95,6 +94,8 @@ if index(g:bundle_group, 'enhanced') >= 0
   " 异步运行并把结果放入quickfix中
   Plug 'skywind3000/asyncrun.vim'
   Plug 'skywind3000/asynctasks.vim'
+
+  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
   let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
   let g:asynctasks_term_pos = 'tab'
@@ -907,8 +908,11 @@ if index(g:bundle_group, 'tool') >= 0
 
     nnoremap <leader>vp :VimuxPromptCommand<cr>
     nnoremap <leader>vl :VimuxRunLastCommand<cr>
-    nnoremap <leader>vi :VimuxInspectRunner<cr><
+    nnoremap <Leader>vx :VimuxInterruptRunner<CR>
+    nnoremap <leader>vi :VimuxInspectRunner<cr>
     nnoremap <leader>vz :VimuxZoomRunner<cr>
+    nnoremap <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
+    nnoremap <Leader>vq :VimuxCloseRunner<CR>
 
     " Plug 'christoomey/vim-tmux-navigator'
     " let g:tmux_navigator_no_mappings = 1
