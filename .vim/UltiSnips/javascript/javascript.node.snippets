@@ -161,6 +161,14 @@ snippet tne "throw new Error" w
 throw new Error('${1:error message}');
 endsnippet
 
+snippet try "try ... catch" w
+try {
+	${1:${VISUAL}}
+} catch (err) {
+	${2}
+}${0}
+endsnippet
+
 # object 原型方法=============================================================
 snippet oop "Object hasOwnProperty" w
 Object.prototype.hasOwnProperty.call(${1:${VISUAL:object}}, ${2:key})

@@ -60,10 +60,7 @@ Plug 'tpope/vim-fugitive'
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 " 配对括号和引号自动补全
-Plug 'jiangmiao/auto-pairs', {
-      \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
-      \     'make', 'python', 'snippets', 'typescript', 'vim' ]
-      \ }
+Plug 'jiangmiao/auto-pairs'
 
 let g:AutoPairsFlyMode            = 0
 let g:AutoPairsShortcutBackInsert = '<M-z>'

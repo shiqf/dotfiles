@@ -83,6 +83,7 @@ if index(g:bundle_group, 'basic') >= 0
   " Plug 'tpope/vim-rhubarb'
   " Git 支持
   Plug 'tpope/vim-fugitive'
+  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 endif
 
@@ -94,8 +95,6 @@ if index(g:bundle_group, 'enhanced') >= 0
   " 异步运行并把结果放入quickfix中
   Plug 'skywind3000/asyncrun.vim'
   Plug 'skywind3000/asynctasks.vim'
-
-  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
   let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
   let g:asynctasks_term_pos = 'tab'
@@ -140,10 +139,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:EasyMotion_smartcase = 1
 
   " 配对括号和引号自动补全
-  Plug 'jiangmiao/auto-pairs', {
-        \ 'for': [ 'c', 'cpp', 'java', 'javascript', 'json',
-        \     'make', 'python', 'snippets', 'typescript', 'vim', 'html', 'css' ]
-        \ }
+  Plug 'jiangmiao/auto-pairs'
 
   let g:AutoPairsFlyMode            = 0
   let g:AutoPairsShortcutBackInsert = '<M-z>'
