@@ -17,3 +17,9 @@ set guioptions=
 
 " 设置字体及大小
 set guifont=Source_Code_Pro_for_Powerline:h14
+
+" windows gvim 右键菜单乱码解决
+if has('win32') || has('win64')
+  source $VIMRUNTIME/delmenu.vim
+  source $VIMRUNTIME/menu.vim
+endif
