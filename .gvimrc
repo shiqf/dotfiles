@@ -2,7 +2,9 @@
 set nocompatible
 
 " macvim 支持 alt 键作为 meta
-set macmeta
+if has('mac')
+  set macmeta
+endif
 
 " 取消游标闪烁
 set gcr=a:block-blinkon0

@@ -90,8 +90,10 @@ for dotfile in ${dotfiles[@]}; do
     ln -s ${dotfileDir}/${dotfile} ~/${dotfile##*/}
 done
 
-# neovim 连接安装
-ln -s ~/dotfiles/.vim ~/.config/nvim
+# neovim 链接
+if [[ ! `uname -s` =~ ^MSYS_NT || `uname -s` =~ ^MINGW64_NT ]]; then
+    ln -s ~/dotfiles/.vim ~/.config/nvim
+fi
 
 #######################################################################
 #                          安装 vim 插件目录                          #
