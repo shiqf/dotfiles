@@ -105,7 +105,13 @@ endfunc
 
 noremap <silent> <c-w>tq :tabclose<cr>
 noremap <silent> <c-w>to :tabonly<cr>
-noremap <silent> <c-w>tt :tab terminal<cr>
+
+" windows 上使用 powershell 来作为默认终端
+if executable('powershell')
+  noremap <silent> <c-w>tt :tab terminal powershell<cr>
+else
+  noremap <silent> <c-w>tt :tab terminal<cr>
+endif
 noremap <silent> <c-w>th :call Tab_MoveLeft()<cr>
 noremap <silent> <c-w>tl :call Tab_MoveRight()<cr>
 
@@ -154,13 +160,6 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
 
   " tnoremap <Esc> <c-_>N
   set notimeout ttimeout timeoutlen=100
-
-  if has('win32') || has('win64')
-    tnoremap <c-p> <up>
-    tnoremap <c-n> <down>
-    tnoremap <c-a> <home>
-    tnoremap <c-e> <end>
-  endif
 
 elseif has('nvim')
   " neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
