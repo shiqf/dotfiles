@@ -1,4 +1,4 @@
-install:
+init:
 	bash init.sh
 
 cmd:

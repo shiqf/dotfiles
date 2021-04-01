@@ -7,7 +7,7 @@
 #                   数组保存需要删除的软链接文件名                           #
 ##############################################################################
 
-dotfiles=(
+export dotfiles=(
     .eslintrc.js       # eslint（关于javascript 语法规则错误提示）配置文件
     .gtags.conf        # ctags 生成方式
     .gvimrc            # gui 版本 vim 编辑器配置文件
@@ -23,7 +23,7 @@ dotfiles=(
 #                               终端命令                                     #
 ##############################################################################
 
-cmds=(
+export cmds=(
     "--HEAD universal-ctags/universal-ctags/universal-ctags" # 最新标签生成命令
     cmake                      # 跨平台编译工具
     fzf                        # 模糊查询
@@ -44,7 +44,7 @@ cmds=(
 ##############################################################################
 
 # 系统工具
-guis=(
+export guis=(
     cheatsheet         # 长按 command ，将能查看当前程序的快捷键
     devdocs            # 文档
     google-chrome      # 谷歌浏览器
@@ -77,7 +77,7 @@ guis=(
 #                               python 工具包                                #
 ##############################################################################
 
-pips=(
+export pips=(
     pygments # 支持其它语言 除[C/C++/Yacc/Java/PHP4/assembly] 之外javascript/typescript等
     cppman   # 高亮 cpp 文档
 )
@@ -86,7 +86,7 @@ pips=(
 #                                node 工具包                                 #
 ##############################################################################
 
-npms=(
+export npms=(
     eslint     # javascript 语法检测
     ts-node    # typescript 运行环境
     typescript # typescript 编译器
