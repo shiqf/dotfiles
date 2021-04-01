@@ -204,8 +204,6 @@ nnoremap 1P "1P
 inoremap <m-m> <esc>gi
 noremap <silent> <c-s> :<c-u>w<cr>
 
-noremap \ :
-
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') .. '/' : '%%'
 nnoremap <silent><leader>ed :e %:h<cr>

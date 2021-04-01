@@ -841,8 +841,7 @@ if index(g:bundle_group, 'tool') >= 0
   " emmet高速编写网页类代码
   Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
   let g:emmet_html5 = 1
-  let g:user_emmet_install_global = 0
-  autocmd FileType html,css,javascriptreact EmmetInstall
+  let g:user_emmet_leader_key='<C-y>'
 
   " 帮助emmet显示snippets提示
   Plug 'jceb/emmet.snippets', { 'for': ['html'] }
