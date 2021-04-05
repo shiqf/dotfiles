@@ -16,7 +16,11 @@ set lines=30 columns=120
 set guioptions=
 
 " 设置字体及大小
-set guifont=Source_Code_Pro_for_Powerline:h14
+if has('mac')
+  set guifont=Monaco:h14
+elseif has('win32') || has('win64')
+  set guifont=Consolas:h14
+endif
 
 " windows gvim 右键菜单乱码解决
 if has('win32') || has('win64')
