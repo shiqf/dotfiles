@@ -97,12 +97,12 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'skywind3000/asynctasks.vim'
 
   let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
-  let g:asynctasks_term_pos = 'tab'
   let g:asyncrun_open = 10
   let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
   let g:asynctasks_term_reuse = 1
   let g:asynctasks_term_focus = 0
   let g:asyncrun_bell =  1
+  let g:asyncrun_trim = 1
   if has('win64') || has('win32')
     let g:asynctasks_term_pos = 'external'
   else
@@ -437,8 +437,8 @@ if index(g:bundle_group, 'ale') >= 0
   " 编辑不同文件类型需要的语法检查器
   let g:ale_linters = {
         \ 'bash': ['shellcheck'],
-        \ 'c': ['gcc'],
-        \ 'cpp': ['gcc'],
+        \ 'c': ['gcc', 'cppcheck'],
+        \ 'cpp': ['gcc', 'cppcheck'],
         \ 'go': ['go build', 'gofmt'],
         \ 'java': ['javac'],
         \ 'javascript': ['eslint'],
@@ -472,9 +472,11 @@ if index(g:bundle_group, 'ale') >= 0
 
   " 如果没有 gcc 只有 clang 时（FreeBSD）
   if executable('clang') && executable('gcc') == 0
-    let g:ale_linters.c   += ['clang', 'cppcheck']
-    let g:ale_linters.cpp += ['clang', 'cppcheck']
+    let g:ale_linters.c   += ['clang', 'clangtidy']
+    let g:ale_linters.cpp += ['clang', 'clangtidy']
   endif
+
+  let g:ale_sign_column_always = 1
 
   " 错误提示符及警告提示符
   let g:ale_sign_error='x'
@@ -538,7 +540,7 @@ if has('python3')
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
     " ui 定制
-    let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': '' }
+    let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': ' ' }
 
     " 使用 / 寄存器存储 rg -e 使用的正则表达式
     let g:Lf_RgStorePattern = '/'
@@ -639,10 +641,16 @@ if has('python3')
     let g:lt_height = 10
 
     if has('win64') || has('win32')
-      Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer' }
+      Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer', 'on': [] }
     else
-      Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer' }
+      Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer', 'on': [] }
     endif
+
+    augroup load_ycm
+      autocmd!
+      "延迟加载，在 insert 模式手动加载插件
+      autocmd InsertEnter * call plug#load('YouCompleteMe') | autocmd! load_ycm
+    augroup END
 
     let g:ycm_max_diagnostics_to_display = 0
 
