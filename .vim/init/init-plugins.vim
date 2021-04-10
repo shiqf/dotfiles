@@ -540,7 +540,7 @@ if has('python3')
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
     " ui 定制
-    let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': ' ' }
+    let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': '' }
 
     " 使用 / 寄存器存储 rg -e 使用的正则表达式
     let g:Lf_RgStorePattern = '/'
