@@ -470,8 +470,8 @@ if index(g:bundle_group, 'ale') >= 0
 
   let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
-  " 如果没有 gcc 只有 clang 时（FreeBSD）
-  if executable('clang') && executable('gcc') == 0
+  " 如果有 clang 时
+  if executable('clang')
     let g:ale_linters.c   += ['clang', 'clangtidy']
     let g:ale_linters.cpp += ['clang', 'clangtidy']
   endif
