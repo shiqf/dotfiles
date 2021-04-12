@@ -854,36 +854,6 @@ if index(g:bundle_group, 'tool') >= 0
   " 帮助emmet显示snippets提示
   Plug 'jceb/emmet.snippets', { 'for': ['html'] }
 
-  Plug 'sillybun/vim-repl'
-  let g:repl_program = {
-        \   'python': 'python3',
-        \   'javascript': 'node',
-        \   'typescript': 'ts-node',
-        \   'r': 'R',
-        \   'lua': 'lua',
-        \   'default': 'zsh',
-        \   }
-
-  let g:repl_exit_commands = {
-        \   'python': 'quit()',
-        \   'bash': 'exit',
-        \   'zsh': 'exit',
-        \   'node': '.exit',
-        \   'ts-node': '.exit',
-        \   'jshell': '/exit',
-        \   'default': 'exit',
-        \   }
-
-  let g:repl_predefine_python = {
-        \   'numpy': 'import numpy as np',
-        \   'matplotlib': 'from matplotlib import pyplot as plt'
-        \   }
-  let g:repl_cursor_down = 1
-  let g:repl_python_automerge = 1
-  let g:repl_ipython_version = '7'
-  nnoremap <leader>nl :REPLToggle<Cr>
-  let g:repl_position = 3
-  let g:repl_stayatrepl_when_open = 0
 
   Plug 'mbbill/undotree'
   nnoremap <silent> <leader>nu :UndotreeToggle<CR>
