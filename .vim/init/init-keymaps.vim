@@ -32,7 +32,6 @@ inoremap <c-j> <c-o>m`<c-o>2$
 
 " ctrl+k 删除到行末
 inoremap <c-k> <c-\><c-o>"_d$
-inoremap <c-w> <c-g>u<c-w>
 inoremap <c-u> <c-g>u<c-u>
 
 " 使用 <c-_> 代替 <c-k>

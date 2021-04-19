@@ -16,7 +16,7 @@
 "                  Vim自动把默认剪贴板和系统剪贴板的内容同步
 "-----------------------------------------------------------------------------
 if has('clipboard')
-  set clipboard^=unnamed,unnamedplus
+  set clipboard=unnamed
 endif
 
 
@@ -166,12 +166,16 @@ if !exists(':DiffOrig')
         \ | wincmd p | diffthis
 endif
 
-" 打开文件时恢复上一次光标所在位置
-autocmd BufReadPost *
-      \ if line("'\"") > 1 && line("'\"") <= line("$") |
-      \    exe "normal! g`\"" |
-      \ endif
+augroup vimStartup
+  au!
 
+  " 打开文件时恢复上一次光标所在位置
+  autocmd BufReadPost *
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
+
+augroup END
 
 "-----------------------------------------------------------------------------
 "                                 文件类型微调
