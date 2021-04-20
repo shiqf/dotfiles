@@ -641,16 +641,10 @@ if has('python3')
     let g:lt_height = 10
 
     if has('win64') || has('win32')
-      Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer', 'on': [] }
+      Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer' }
     else
-      Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer', 'on': [] }
+      Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer' }
     endif
-
-    augroup load_ycm
-      autocmd!
-      "延迟加载，在 insert 模式手动加载插件
-      autocmd InsertEnter * call plug#load('YouCompleteMe') | autocmd! load_ycm
-    augroup END
 
     let g:ycm_max_diagnostics_to_display = 0
 
