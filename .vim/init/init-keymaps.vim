@@ -32,6 +32,7 @@ inoremap <c-j> <c-o>m`<c-o>2$
 
 " ctrl+k 删除到行末
 inoremap <c-k> <c-\><c-o>"_d$
+inoremap <c-w> <c-g>u<c-w>
 inoremap <c-u> <c-g>u<c-u>
 
 " 使用 <c-_> 代替 <c-k>
@@ -110,8 +111,12 @@ noremap <silent> <c-w>to :tabonly<cr>
 " windows 上使用 powershell 来作为默认终端
 if executable('powershell')
   noremap <silent> <c-w>tt :tab terminal powershell<cr>
+  noremap <silent> <c-w>ts :terminal powershell<cr>
+  noremap <silent> <c-w>tv :vertical terminal powershell<cr>
 else
   noremap <silent> <c-w>tt :tab terminal<cr>
+  noremap <silent> <c-w>ts :terminal<cr>
+  noremap <silent> <c-w>tv :vertical terminal<cr>
 endif
 noremap <silent> <c-w>th :call Tab_MoveLeft()<cr>
 noremap <silent> <c-w>tl :call Tab_MoveRight()<cr>

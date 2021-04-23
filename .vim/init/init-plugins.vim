@@ -122,14 +122,8 @@ if index(g:bundle_group, 'enhanced') >= 0
   nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
 
   " 全文快速移动, <leader>f{char} 即可触发
-  Plug 'easymotion/vim-easymotion', { 'on': [
-        \    '<plug>(easymotion-overwin-f)',
-        \    '<plug>(easymotion-f)',
-        \    '<plug>(easymotion-F)',
-        \    '<plug>(easymotion-j)',
-        \    '<plug>(easymotion-k)',
-        \   ]
-        \ }
+  Plug 'easymotion/vim-easymotion'
+
   map <leader>s <plug>(easymotion-overwin-f)
   map <leader>f <plug>(easymotion-f)
   map <leader>F <plug>(easymotion-F)
@@ -641,7 +635,7 @@ if has('python3')
     let g:lt_height = 10
 
     if has('win64') || has('win32')
-      Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer' }
+      Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer --java-completer' }
     else
       Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer' }
     endif
@@ -890,24 +884,20 @@ if index(g:bundle_group, 'tool') >= 0
     " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
   endif
 
-  " " 预览命令行命令效果
-  " Plug 'markonm/traces.vim'
+  " 预览命令行命令效果
+  Plug 'markonm/traces.vim'
 
   " 彩虹括号 利用区分括号配对
   Plug 'luochen1990/rainbow'
   let g:rainbow_active = 1
 
-  Plug 'voldikss/vim-translator', { 'on': ['<Plug>TranslateW', '<Plug>TranslateWV'] }
+  Plug 'voldikss/vim-translator'
   nmap <c-k> <Plug>TranslateW
   vmap <c-k> <Plug>TranslateWV
-
-  Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-  nnoremap <leader>, :<c-u>'<home>WhichKey '
 
   Plug 'liuchengxu/vista.vim'
   nnoremap <leader>nv :Vista!!<cr>
 
-  " Plug 'jceb/vim-orgmode'
 endif
 
 
