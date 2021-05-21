@@ -11,6 +11,7 @@ export dotfiles=(
     .eslintrc.js       # eslint（关于javascript 语法规则错误提示）配置文件
     .gtags.conf        # ctags 生成方式
     .gvimrc            # gui 版本 vim 编辑器配置文件
+    .ideavimrc
     .tmux              # tmux 插件安装目录
     .tmux/.tmux.conf   # tmux 终端窗口复用器配置文件
     .vim               # vim 插件目录
