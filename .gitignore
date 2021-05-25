@@ -43,9 +43,8 @@ syntax
 .vim/autoload/plug.vim
 
 # the not need of dir
-# the bundles of vim
+# the bundle of vim
 bundle
-bundles
 .tmux/plugins
 .tmux/resurrect
 cache

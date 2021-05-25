@@ -4,7 +4,7 @@
 "
 "                     默认情况下的分组，可以再前面覆盖之
 "                         计算当前 vim-init 的子路径
-"                        在 ~/.vim/bundles 下安装插件
+"                        在 ~/.vim/bundle 下安装插件
 "
 "   - 基础插件
 "   - 增强插件
@@ -47,9 +47,9 @@ endfunc
 
 
 "-----------------------------------------------------------------------------
-"                         在 ~/.vim/bundles 下安装插件
+"                         在 ~/.vim/bundle 下安装插件
 "-----------------------------------------------------------------------------
-call plug#begin(get(g:, 'bundle_home', s:home .. '/bundles'))
+call plug#begin(get(g:, 'bundle_home', s:home .. '/bundle'))
 
 " " vim 中文说明文档 ./vimcdoc.sh -i安装
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
