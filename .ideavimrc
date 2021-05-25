@@ -65,30 +65,28 @@ set foldmethod=syntax
 set nofoldenable
 
 " 暂时取消搜索高亮快捷键
-nnoremap <silent> <c-l> :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <c-l> :<c-u>nohlsearch<CR>
+set backspace=indent,eol,start
 
 inoremap <c-f> <right>
 inoremap <c-b> <left>
 inoremap <c-a> <c-o>I
 inoremap <c-e> <end>
 
-if has('mac')
-  inoremap ƒ <c-right>
-  inoremap ∫ <c-left>
-  inoremap ∂ <esc>g`^cw
-endif
-
-" inoremap <m-f> <c-right>
-" inoremap <m-b> <c-left>
-" inoremap <m-d> <esc>g`^cw
+inoremap ƒ <c-right>
+inoremap ∫ <c-left>
+inoremap ∂ <esc>g`^cw
 
 " 标签页后退 ---标签页前进是gt
-nmap ]g gt
-nmap [g gT
+nmap <silent> ]g gt
+nmap <silent> [g gT
+
+let mapleader=" "
 
 " 文件操作相关
 " 定义快捷键关闭当前分割窗口
-nmap <Leader>q :q<CR>
+nmap <c-w>q :q<CR>
+
 " 定义快捷键保存当前窗口内容
 nmap <c-s> :w<CR>
 
@@ -102,6 +100,12 @@ map <a-l> <C-W>l
 set keep-english-in-normal-and-restore-in-insert
 
 " vim plugins
+set easymotion
+nmap <space>f <Plug>(easymotion-f)
+nmap <space>F <Plug>(easymotion-F)
+nmap <space>j <Plug>(easymotion-j)
+nmap <space>k <Plug>(easymotion-k)
+
 set commentary
 
 set surround
