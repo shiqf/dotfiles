@@ -144,11 +144,6 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   " 交换选定范围
   Plug 'tommcdo/vim-exchange'
-  let g:exchange_no_mappings=1
-  nmap co <Plug>(Exchange)
-  vmap X <Plug>(Exchange)
-  nmap coc <Plug>(ExchangeClear)
-  nmap coo <Plug>(ExchangeLine)
 
   " 展示开始画面，显示最近编辑过的文件
   Plug 'mhinz/vim-startify'
