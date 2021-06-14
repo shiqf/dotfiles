@@ -28,7 +28,7 @@ set nocompatible
 " set visualbell t_vb=
 
 " 设置 Backspace 键模式
-if has('nvim')
+if has('nvim') || !has("patch-8.2.0590")
   set backspace=2
 else
   set backspace=3
@@ -170,9 +170,9 @@ if has('mouse')
 endif
 
 "-----------------------------------------------------------------------------
-"                                 设置鼠标功能
+"                                 比较模式配置
 "-----------------------------------------------------------------------------
-if has("patch-8.1.0360")
+if has("patch-8.1.2289")
     set diffopt=internal,filler,closeoff,algorithm:patience
 endif
 

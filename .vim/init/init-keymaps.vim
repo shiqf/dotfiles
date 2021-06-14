@@ -188,11 +188,12 @@ noremap <silent> <leader>Q :<c-u>qall!<cr>
 noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 
 " 恢复非高亮
-nnoremap <silent> <c-l> :<c-u>nohlsearch<cr><c-l>
+nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<CR>
 
+" TODO -----------------------------------------------------------------------
 " 用于替换所在行所有的匹配字符
 nmap <silent>g. &:&g<cr>
 xmap <silent>g. <esc>`<&ugv&
@@ -202,13 +203,14 @@ nnoremap <silent> & :let @r=@.<cr>:s//\=@r/&<CR>
 xnoremap <silent> & :~&<CR>
 " 原 g& 不能执行上次替换命令 :s///
 nnoremap <silent>g& :%~&<cr>
+" ----------------------------------------------------------------------------
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
 nnoremap 1P "1P
 
 inoremap <m-m> <esc>gi
-noremap <silent> <c-s> :<c-u>w<cr>
+nnoremap <silent> <c-s> :w<cr>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') .. '/' : '%%'

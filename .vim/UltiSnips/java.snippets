@@ -3,6 +3,15 @@
 # ==============
 priority -40
 
-snippet sout "System.out.println()"
+snippet sot "System.out.print()"
+System.out.print(${1:"${2}"});
+endsnippet
+
+snippet son "System.out.println()"
 System.out.println(${1:"${2}"});
 endsnippet
+
+snippet sof "System.out.printf()"
+System.out.printf(${1:"${2}"});
+endsnippet
+
