@@ -43,6 +43,7 @@ set splitright
 " 垂直切割窗口时，默认在下边显示新窗口
 set splitbelow
 
+" 不显示计数
 set shortmess-=S
 
 

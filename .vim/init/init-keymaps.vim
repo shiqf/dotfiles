@@ -66,16 +66,15 @@ cnoremap <c-_> <c-k>
 cnoremap <c-x><c-e> <c-f>
 
 " 和在终端下的 ctrl-d 一样的效果
-function! Cd()
+function! s:ctrl_d()
   if strlen(getcmdline()) == 0
     return "\<esc>"
   elseif strlen(getcmdline()) > getcmdpos() - 1
     return "\<Del>"
-  else
-    return "\<c-d>"
   endif
+  return "\<c-d>"
 endfunc
-cnoremap <expr> <c-d> Cd()
+cnoremap <expr> <c-d> s:ctrl_d()
 
 "-----------------------------------------------------------------------------
 "          TAB：创建，关闭，上一个，下一个，首个，末个，左移，右移，

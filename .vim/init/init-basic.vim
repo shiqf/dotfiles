@@ -43,12 +43,6 @@ set autoindent
 " 关闭自动换行
 set nowrap
 
-" 打开功能键超时检测（终端下功能键为一串 ESC 开头的字符串）
-set ttimeout
-
-" 功能键超时检测 50 毫秒
-set ttimeoutlen=50
-
 " 显示光标位置
 set ruler
 
@@ -132,10 +126,8 @@ set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
 set tags=./.tags;,.tags,tags
 
 " 如遇Unicode值大于255的文本，不必等到空格再折行
-set formatoptions+=m
-
 " 合并两行中文时，不在中间加空格
-set formatoptions+=B
+set formatoptions+=mB
 
 " fileformats 文件换行符，默认使用 unix 换行符
 set fileformats=unix,dos,mac

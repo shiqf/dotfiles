@@ -217,7 +217,7 @@ if has('python3')
     xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F %s --hidden", leaderf#Rg#visual())<CR><CR>
     nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
   endif
-  noremap <leader>gr :<C-U>Leaderf! --recall<CR>
+  noremap <leader>nr :<C-U>Leaderf! --recall<CR>
 endif
 
 

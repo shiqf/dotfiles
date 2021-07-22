@@ -23,8 +23,6 @@ endif
 "-----------------------------------------------------------------------------
 "                                 功能插件开启
 "-----------------------------------------------------------------------------
-" packadd! termdebug
-" packadd! matchit
 packadd! cfilter
 
 " 调用man程序在vim内部查看命令
@@ -48,9 +46,16 @@ endfunction
 xnoremap * <cmd>call <SID>vSetSearch('*')<CR>//<cr>
 xnoremap # <cmd>call <SID>vSetSearch('#')<CR>??<cr>
 
+
 "-----------------------------------------------------------------------------
 "                       有 tmux 没有的功能键超时（毫秒）
 "-----------------------------------------------------------------------------
+" 打开功能键超时检测（终端下功能键为一串 ESC 开头的字符串）
+set ttimeout
+
+" 功能键超时检测 50 毫秒
+set ttimeoutlen=50
+
 if $TMUX != ''
   set ttimeoutlen=35
 elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
@@ -83,7 +88,7 @@ endif
 
 
 "-----------------------------------------------------------------------------
-"                               终端下功能键设置
+"                    终端下功能键设置, 功能键终端码矫正
 "-----------------------------------------------------------------------------
 function! s:key_escape(name, code)
   if has('nvim') == 0 && has('gui_running') == 0
@@ -91,26 +96,15 @@ function! s:key_escape(name, code)
   endif
 endfunc
 
+let key_maps = {
+      \'<F1>': 'OP', '<F2>': 'OQ', '<F3>': 'OR', '<F4>': 'OS',
+      \'<S-F1>': '[1;2P', '<S-F2>': '[1;2Q', '<S-F3>': '[1;2R', '<S-F4>': '[1;2S',
+      \'<S-F5>': '[15;2~', '<S-F6>': '[17;2~', '<S-F7>': '[18;2~', '<S-F8>': '[19;2~',
+      \'<S-F9>': '[20;2~', '<S-F10>': '[21;2~', '<S-F11>': '[23;2~', '<S-F12>': '[24;2~' }
 
-"-----------------------------------------------------------------------------
-"                               功能键终端码矫正
-"-----------------------------------------------------------------------------
-call s:key_escape('<F1>', 'OP')
-call s:key_escape('<F2>', 'OQ')
-call s:key_escape('<F3>', 'OR')
-call s:key_escape('<F4>', 'OS')
-call s:key_escape('<S-F1>', '[1;2P')
-call s:key_escape('<S-F2>', '[1;2Q')
-call s:key_escape('<S-F3>', '[1;2R')
-call s:key_escape('<S-F4>', '[1;2S')
-call s:key_escape('<S-F5>', '[15;2~')
-call s:key_escape('<S-F6>', '[17;2~')
-call s:key_escape('<S-F7>', '[18;2~')
-call s:key_escape('<S-F8>', '[19;2~')
-call s:key_escape('<S-F9>', '[20;2~')
-call s:key_escape('<S-F10>', '[21;2~')
-call s:key_escape('<S-F11>', '[23;2~')
-call s:key_escape('<S-F12>', '[24;2~')
+for key in keys(key_maps)
+  call s:key_escape(key, key_maps[key])
+endfor
 
 
 "-----------------------------------------------------------------------------
@@ -138,9 +132,9 @@ if &term =~# '256color'
 endif
 
 if has('nvim') == 0
-  let &t_SI = "\<Esc>[6 q" "SI = INSERT mode
-  let &t_SR = "\<Esc>[4 q" "SR = REPLACE mode
-  let &t_EI = "\<Esc>[2 q" "EI = NORMAL mode
+  let &t_SI = "\<Esc>[6 q" " SI = 插入模式
+  let &t_SR = "\<Esc>[4 q" " SR = 替换模式
+  let &t_EI = "\<Esc>[2 q" " EI = 普通模式
 endif
 
 
@@ -176,6 +170,7 @@ augroup vimStartup
         \ | endif
 
 augroup END
+
 
 "-----------------------------------------------------------------------------
 "                                 文件类型微调
