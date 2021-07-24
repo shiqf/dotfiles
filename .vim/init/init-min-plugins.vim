@@ -173,22 +173,22 @@ if has('python3')
   let g:Lf_PreviewResult = { 'Function': 0, 'BufTag': 0 }
 
   " 子命令 Leaderf[!] subCommand 下面中的一个参数, !直接进入普通模式
-  "     bufTag: 当前缓冲区标签,
-  "     buffer: 项目缓冲文件名,
-  "     cmdHistory: 命令行历史,
-  "     colorscheme: 色彩方案,
-  "     command: 可用命令,
-  "     file: 项目文件名,
-  "     filetype: 项目文件类型指定,
-  "     function: 当前缓冲区函数,
-  "     gtags: gnu global符号索引,
-  "     help: 帮助标签,
-  "     line: 搜索行在缓冲区中,
-  "     mru: 最近使用的文件,
-  "     rg: ripgrep 文本搜索,
-  "     searchHistory: 搜索命令行历史,
-  "     self: Leaderf自己的命令,
-  "     tag: 当前项目所有标签,
+  " bufTag: 当前缓冲区标签,
+  " buffer: 项目缓冲文件名,
+  " cmdHistory: 命令行历史,
+  " colorscheme: 色彩方案,
+  " command: 可用命令,
+  " file: 项目文件名,
+  " filetype: 项目文件类型指定,
+  " function: 当前缓冲区函数,
+  " gtags: gnu global符号索引,
+  " help: 帮助标签,
+  " line: 搜索行在缓冲区中,
+  " mru: 最近使用的文件,
+  " rg: ripgrep 文本搜索,
+  " searchHistory: 搜索命令行历史,
+  " self: Leaderf自己的命令,
+  " tag: 当前项目所有标签,
 
   " 使用 ESC 键可以直接退出 leaderf 的 normal 模式
   let g:Lf_NormalMap = {
@@ -214,7 +214,7 @@ if has('python3')
   let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
 
   if executable('rg')
-    xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F %s --hidden", leaderf#Rg#visual())<CR><CR>
+    xnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
     nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
   endif
   noremap <leader>nr :<C-U>Leaderf! --recall<CR>

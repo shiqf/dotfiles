@@ -607,7 +607,7 @@ if has('python3')
     " gs: global search(全局查找)
     " --hidden 查找以 '.' 开始的文件或目录
     if executable('rg')
-      xnoremap gs :<C-U><C-R>=printf("Leaderf! rg -F %s --hidden", leaderf#Rg#visual())<CR><CR>
+      xnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
       nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
     endif
     noremap <leader>nr :<C-U>Leaderf! --recall<CR>

@@ -28,9 +28,7 @@ set nocompatible
 " set visualbell t_vb=
 
 " 设置 Backspace 键模式
-if has('nvim') || !has("patch-8.2.0590")
-  set backspace=2
-else
+if !has('nvim') && has("patch-8.2.0590")
   set backspace=3
 endif
 
