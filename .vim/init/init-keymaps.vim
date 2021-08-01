@@ -74,7 +74,7 @@ function! s:ctrl_d()
   endif
   return "\<c-d>"
 endfunc
-cnoremap <expr> <c-d> s:ctrl_d()
+cnoremap <expr> <c-d> <SID>ctrl_d()
 
 "-----------------------------------------------------------------------------
 "          TAB：创建，关闭，上一个，下一个，首个，末个，左移，右移，
