@@ -192,17 +192,11 @@ nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<CR>
 
-" TODO -----------------------------------------------------------------------
-" 用于替换所在行所有的匹配字符
-nmap <silent>g. &:&g<cr>
-xmap <silent>g. <esc>`<&ugv&
+nnoremap g. :s/<c-r>-/<c-r>./&<CR>
+xnoremap g. :s/<c-r>-/<c-r>./&<CR>
 
-" 在普通和可视模式上重复上次替换, 可通过:& 把标志置位为首个
-nnoremap <silent> & :let @r=@.<cr>:s//\=@r/&<CR>
-xnoremap <silent> & :~&<CR>
-" 原 g& 不能执行上次替换命令 :s///
-nnoremap <silent>g& :%~&<cr>
-" ----------------------------------------------------------------------------
+nnoremap & :~&<CR>
+xnoremap & :~&<CR>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
