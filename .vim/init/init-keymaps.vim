@@ -208,11 +208,13 @@ nnoremap <silent> <c-s> :w<cr>
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') .. '/' : '%%'
 nnoremap <silent><leader>ed :e %:h<cr>
-nnoremap <silent><leader>ef :e!<cr>
-map <leader>ew :e %%
-map <leader>es :sp %%
-map <leader>ev :vsp %%
-map <leader>et :tabedit %%
+nnoremap <silent><leader>e. :e!<cr>
+nnoremap <leader>ee :Gedit 
+
+nmap <leader>ew :e %%
+nmap <leader>es :sp %%
+nmap <leader>ev :vsp %%
+nmap <leader>et :tabedit %%
 
 xnoremap <silent> ado :diffget<cr>
 xnoremap <silent> 2do :diffget //2<cr>
@@ -229,7 +231,9 @@ nnoremap <silent> 3dp :diffput //3<cr>
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :Git<cr>
 nnoremap g<space> :G 
-nnoremap <silent> <leader>gp :0G -p log --oneline --decorate --graph --all<cr>
+
+nnoremap <silent> <leader>gp :G! -p log --oneline --decorate --graph --all<cr>
+nnoremap <leader>gc : -x -n<home>Git clean -d -f
 
 
 "-----------------------------------------------------------------------------
@@ -241,17 +245,5 @@ augroup InitFileTypesMapGroup
   au!
 
   au FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
-
-  au BufEnter * if &ft =~# '\(fugitive\|git\)'
-        \| nnoremap <nowait> <buffer> gx :Gedit 
-        \| elseif &ft !~# 'netrw'
-        \| nnoremap <nowait> <buffer> gx :Gedit %
-        \| elseif &ft !~# '\(netrw\|markdown\)'
-        \| endif
-
-  " git delete
-  au BufEnter * if &ft =~# 'fugitive'
-        \| nnoremap <nowait> <buffer> gd : -x -n<home>Git clean -d -f
-        \| endif
 
 augroup END

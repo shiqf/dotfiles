@@ -57,7 +57,6 @@ Plug 'tpope/vim-abolish'
 
 " Git 支持
 Plug 'tpope/vim-fugitive'
-command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 " 配对括号和引号自动补全
 Plug 'jiangmiao/auto-pairs'

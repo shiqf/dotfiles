@@ -192,5 +192,4 @@ set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/* " 版本控制文件
 set wildignore+=*.sln,*.Master,*.csproj,*.csproj.user,*.cache
 
 " javascritp/typescript 忽略
-" set wildignore+=*.lock,*-lock.json,*.css,*.doc,*/tests/*,*build*.js,*bundle*.js
 set wildignore+=*sites/*/files/*,*.flac,*.less,*.map,*.scss,*.swo

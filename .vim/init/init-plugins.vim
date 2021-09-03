@@ -83,7 +83,6 @@ if index(g:bundle_group, 'basic') >= 0
   " Plug 'tpope/vim-rhubarb'
   " Git 支持
   Plug 'tpope/vim-fugitive'
-  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 endif
 
@@ -453,7 +452,7 @@ if index(g:bundle_group, 'ale') >= 0
   let g:ale_python_pylint_options  = '--rcfile=' .. s:lintcfg('pylint.conf')
   let g:ale_python_pylint_options ..= ' --disable=W'
   let g:ale_c_gcc_options          = '-Wall -O2 -std=c11'
-  let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++14'
+  let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++17'
   let g:ale_c_cppcheck_options     = ''
   let g:ale_cpp_cppcheck_options   = ''
 
@@ -902,7 +901,7 @@ if index(g:bundle_group, 'markdown') >= 0
   let g:vmt_cycle_list_item_markers = 1
   Plug 'plasticboy/vim-markdown', { 'for': [ 'markdown' ] }
   Plug 'iamcco/markdown-preview.nvim', {
-        \ 'do': 'cd app & yarn install --registry=https://registry.npm.taobao.org',
+        \ 'do': 'cd app & npm install --registry=https://registry.npm.taobao.org',
         \ 'for': [ 'markdown' ]
         \ }
   let g:vim_markdown_math = 1
