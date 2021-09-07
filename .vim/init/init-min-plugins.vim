@@ -213,6 +213,8 @@ if has('python3')
   let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
 
   if executable('rg')
+    let g:Lf_UseCache = 0
+    let g:Lf_UseMemoryCache = 0
     xnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
     nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
   endif
