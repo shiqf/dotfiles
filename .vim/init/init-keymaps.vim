@@ -85,14 +85,14 @@ nnoremap <silent> [g gT
 nnoremap <silent> [G :tabfirst<cr>
 nnoremap <silent> ]G :tablast<cr>
 
-nnoremap <silent> [w :labove<cr>
-nnoremap <silent> ]w :lbelow<cr>
+nnoremap <silent> [l :labove<cr>
+nnoremap <silent> ]l :lbelow<cr>
 
 " 左移 tab
 function! Tab_MoveLeft()
   let l:tabnr = tabpagenr() - 2
   if l:tabnr >= 0
-    exec 'tabmove ' .. l:tabnr
+    exec 'tabmove ' . l:tabnr
   endif
 endfunc
 
@@ -230,10 +230,11 @@ nnoremap <silent> 3dp :diffput //3<cr>
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :Git<cr>
-nnoremap g<space> :G 
+nnoremap g<space> :Git 
+nnoremap !<space> :Git! 
 
-nnoremap <silent> <leader>gp :G! -p log --oneline --decorate --graph --all<cr>
-nnoremap <leader>gc : -x -n<home>Git clean -d -f
+nnoremap <leader>gp :--all<home>G! -p log --oneline --decorate --graph 
+nnoremap <leader>gc :-n<home>Git clean -xdf 
 
 
 "-----------------------------------------------------------------------------

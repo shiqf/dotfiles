@@ -41,7 +41,7 @@ endif
 "-----------------------------------------------------------------------------
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 function! s:path(path)
-  let path = expand(s:home .. '/' .. a:path )
+  let path = expand(s:home . '/' . a:path )
   return substitute(path, '\\', '/', 'g')
 endfunc
 
@@ -49,7 +49,7 @@ endfunc
 "-----------------------------------------------------------------------------
 "                         在 ~/.vim/bundle 下安装插件
 "-----------------------------------------------------------------------------
-call plug#begin(get(g:, 'bundle_home', s:home .. '/bundle'))
+call plug#begin(get(g:, 'bundle_home', s:home . '/bundle'))
 
 " " vim 中文说明文档 ./vimcdoc.sh -i安装
 Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
@@ -439,8 +439,8 @@ if index(g:bundle_group, 'ale') >= 0
   " 获取 pylint, flake8 的配置文件，在 init/tools/conf 下面
   function s:lintcfg(name)
     let conf = s:path('tools/conf/')
-    let path1 = conf .. a:name
-    let path2 = expand('~/.vim/linter/' .. a:name)
+    let path1 = conf . a:name
+    let path2 = expand('~/.vim/linter/' . a:name)
     if filereadable(path2)
       return path2
     endif
@@ -448,8 +448,8 @@ if index(g:bundle_group, 'ale') >= 0
   endfunc
 
   " 设置 flake8/pylint 的参数
-  let g:ale_python_flake8_options  = '--conf=' .. s:lintcfg('flake8.conf')
-  let g:ale_python_pylint_options  = '--rcfile=' .. s:lintcfg('pylint.conf')
+  let g:ale_python_flake8_options  = '--conf=' . s:lintcfg('flake8.conf')
+  let g:ale_python_pylint_options  = '--rcfile=' . s:lintcfg('pylint.conf')
   let g:ale_python_pylint_options ..= ' --disable=W'
   let g:ale_c_gcc_options          = '-Wall -O2 -std=c11'
   let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++17'
@@ -606,6 +606,8 @@ if has('python3')
     " gs: global search(全局查找)
     " --hidden 查找以 '.' 开始的文件或目录
     if executable('rg')
+      let g:Lf_UseCache = 0
+      let g:Lf_UseMemoryCache = 0
       xnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
       nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
     endif
@@ -855,7 +857,7 @@ if index(g:bundle_group, 'tool') >= 0
     Plug 'benmills/vimux'
     function! s:run_tmux(opts)
       let cwd = getcwd()
-      call VimuxRunCommand('cd ' .. shellescape(cwd) .. '; ' .. a:opts.cmd)
+      call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
     endfunction
 
     let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
