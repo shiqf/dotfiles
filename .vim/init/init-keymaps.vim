@@ -48,6 +48,7 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 cnoremap <m-f> <c-right>
 cnoremap <m-b> <c-left>
+" TODO 向前删除一个单词
 cnoremap <m-d> <c-right><c-w>
 
 cnoremap <c-p> <up>
@@ -63,6 +64,7 @@ cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
 cnoremap <c-_> <c-k>
 
 " 使用 ctrl-x ctrl-e 打开命令、查询等历史窗口, 类似终端
+" TODO
 cnoremap <c-x><c-e> <c-f>
 
 " 和在终端下的 ctrl-d 一样的效果

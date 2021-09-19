@@ -17,6 +17,7 @@
 "   - LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
 "   - ycm 基于语义的自动补全
 "   - 代码片段拓展
+"   - 工具拓展
 "
 " vim: set ts=4 sw=4 tw=78 noet :
 "=============================================================================
@@ -27,12 +28,12 @@
 "-----------------------------------------------------------------------------
 if !exists('g:bundle_group')
   let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'filetypes']
-  " tags 标签、文件快速导航、智能补全、语法检测、代码片段
-  let g:bundle_group += ['tags', 'leaderf', 'ycm', 'ale', 'snippets']
   " 状态栏、目录
   let g:bundle_group += ['themes', 'nerdtree']
+  " tags 标签、文件快速导航、智能补全、语法检测、代码片段
+  let g:bundle_group += ['tags', 'ale', 'leaderf', 'ycm', 'snippets', 'debug']
   " 工具、调试、markdown
-  let g:bundle_group += ['tool', 'debug', 'markdown']
+  let g:bundle_group += ['tool', 'tmux', 'markdown']
 endif
 
 
@@ -81,6 +82,7 @@ if index(g:bundle_group, 'basic') >= 0
 
   " 支持 fugitive 的Gbrowse 功能
   " Plug 'tpope/vim-rhubarb'
+
   " Git 支持
   Plug 'tpope/vim-fugitive'
 
@@ -105,7 +107,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   if has('win64') || has('win32')
     let g:asynctasks_term_pos = 'external'
   else
-    let g:asynctasks_term_pos = 'right'
+    let g:asynctasks_term_pos = 'curwin'
   endif
 
   noremap <leader>ar :AsyncRun 
@@ -154,10 +156,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:startify_session_delete_buffers = 1
   let g:startify_session_autoload       = 0
   let g:startify_change_to_dir          = 1
-  let g:startify_bookmarks              = [
-        \   {'v': '~/.vimrc'},
-        \   {'z': '~/.zshrc'},
-        \ ]
+  let g:startify_bookmarks              = [{'z': '~/.zshrc'}]
 
   " 用于在侧边符号栏显示 git/svn 的 diff
   Plug 'mhinz/vim-signify'
@@ -175,11 +174,11 @@ if index(g:bundle_group, 'enhanced') >= 0
         \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
         \}
 
-  " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-  Plug 'asins/vim-dict'
-  let g:vim_dict_config = {
-        \ 'html': ['css', 'javascript'],
-        \}
+  " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
+  " Plug 'asins/vim-dict'
+  " let g:vim_dict_config = {
+  "       \ 'html': ['css', 'javascript'],
+  "       \}
 
   " " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
   " Plug 'dyng/ctrlsf.vim'
@@ -235,8 +234,8 @@ if index(g:bundle_group, 'filetypes') >= 0
   " C++ 语法高亮增强，支持 11/14/17 标准
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
-  " python 语法文件增强
-  Plug 'vim-python/python-syntax', { 'for': ['python'] }
+  " " python 语法文件增强
+  " Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
   " " typescript 语法文件增强
   " Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
@@ -296,7 +295,6 @@ endif
 " 不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root 文件
 " 详细用法见：https://zhuanlan.zhihu.com/p/36279445
 if index(g:bundle_group, 'tags') >= 0
-
   " 提供 ctags/gtags 后台数据库自动更新功能
   Plug 'ludovicchabant/vim-gutentags'
 
@@ -329,7 +327,6 @@ if index(g:bundle_group, 'tags') >= 0
         \ ]
 
   let g:gutentags_exclude_filetypes = ['startify']
-
   let g:gutentags_exclude_filetypes = ['markdown', 'json', 'css']
   let g:gutentags_exclude_project_root = ['/usr/local', '.notags']
   " 去除生成标签的文件夹
@@ -382,17 +379,12 @@ if index(g:bundle_group, 'tags') >= 0
   inoremap <m-i> <c-\><c-o>:PreviewScroll +1<cr>
 
   noremap <m-;> :PreviewTag<cr>
-  noremap <m-p> :PreviewClose<cr>
   noremap <m-,> :PreviewGoto edit<cr>
   noremap <m-.> :PreviewGoto tabe<cr>
 
   augroup QuickFixPreview
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+    autocmd FileType qf nnoremap <silent><buffer> p     :PreviewQuickfix<cr>
     autocmd FileType qf nnoremap <silent><buffer> <m-p> :PreviewClose<cr>
-    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-    autocmd FileType qf nnoremap <silent><buffer> q <c-w>q
-    autocmd FileType qf nnoremap <silent><buffer> o <cr>:cclose<cr>
-    autocmd FileType leaderf set nonu
   augroup end
 endif
 
@@ -450,7 +442,7 @@ if index(g:bundle_group, 'ale') >= 0
   " 设置 flake8/pylint 的参数
   let g:ale_python_flake8_options  = '--conf=' . s:lintcfg('flake8.conf')
   let g:ale_python_pylint_options  = '--rcfile=' . s:lintcfg('pylint.conf')
-  let g:ale_python_pylint_options ..= ' --disable=W'
+  let g:ale_python_pylint_options .= ' --disable=W'
   let g:ale_c_gcc_options          = '-Wall -O2 -std=c11'
   let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++17'
   let g:ale_c_cppcheck_options     = ''
@@ -755,17 +747,6 @@ if has('python3')
           \ 'zsh': 1,
           \ }
 
-    let g:ycm_auto_hover = ''
-    let s:ycm_hover_popup = -1
-    function s:Hover()
-      let response = youcompleteme#GetCommandResponse( 'GetDoc' )
-      if response == ''
-        return
-      endif
-      call popup_hide( s:ycm_hover_popup )
-      let s:ycm_hover_popup = popup_atcursor( balloon_split( response ), {} )
-    endfunction
-
     augroup ycmFileTypeMap
       autocmd!
 
@@ -784,9 +765,6 @@ if has('python3')
 
       autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
             \ nnoremap gct :YcmCompleter GetType<CR>
-
-      autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,typescript,rust
-            \ nnoremap <silent>gcd :call <SID>Hover()<CR>
 
       autocmd FileType java,javascript,typescript
             \ nnoremap gco :YcmCompleter OrganizeImports<CR>
@@ -830,15 +808,6 @@ endif
 
 
 if index(g:bundle_group, 'tool') >= 0
-  " emmet高速编写网页类代码
-  Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
-  let g:emmet_html5 = 1
-  let g:user_emmet_leader_key='<C-y>'
-
-  " 帮助emmet显示snippets提示
-  Plug 'jceb/emmet.snippets', { 'for': ['html'] }
-
-
   Plug 'mbbill/undotree'
   nnoremap <silent> <leader>nu :UndotreeToggle<CR>
   if has("persistent_undo")
@@ -849,37 +818,6 @@ if index(g:bundle_group, 'tool') >= 0
   " 对齐
   Plug 'godlygeek/tabular'
 
-  " tmux 相关
-  if exists('$TMUX')
-    " tmux 中使用vim 复制
-    Plug 'roxma/vim-tmux-clipboard'
-
-    Plug 'benmills/vimux'
-    function! s:run_tmux(opts)
-      let cwd = getcwd()
-      call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
-    endfunction
-
-    let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
-    let g:asyncrun_runner.tmux = function('s:run_tmux')
-
-    nnoremap <leader>vp :VimuxPromptCommand<cr>
-    nnoremap <leader>vl :VimuxRunLastCommand<cr>
-    nnoremap <Leader>vx :VimuxInterruptRunner<CR>
-    nnoremap <leader>vi :VimuxInspectRunner<cr>
-    nnoremap <leader>vz :VimuxZoomRunner<cr>
-    nnoremap <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
-    nnoremap <Leader>vq :VimuxCloseRunner<CR>
-
-    " Plug 'christoomey/vim-tmux-navigator'
-    " let g:tmux_navigator_no_mappings = 1
-    " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
-    " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
-    " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
-    " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
-    " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
-  endif
-
   " 预览命令行命令效果
   Plug 'markonm/traces.vim'
 
@@ -887,13 +825,40 @@ if index(g:bundle_group, 'tool') >= 0
   Plug 'luochen1990/rainbow'
   let g:rainbow_active = 1
 
-  Plug 'voldikss/vim-translator'
-  nmap <c-k> <Plug>TranslateW
-  vmap <c-k> <Plug>TranslateWV
-
   Plug 'liuchengxu/vista.vim'
   nnoremap <leader>nv :Vista!!<cr>
 
+endif
+
+" tmux 相关
+if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
+  " tmux 中使用vim 复制
+  Plug 'roxma/vim-tmux-clipboard'
+
+  Plug 'benmills/vimux'
+  function! s:run_tmux(opts)
+    let cwd = getcwd()
+    call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
+  endfunction
+
+  let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
+  let g:asyncrun_runner.tmux = function('s:run_tmux')
+
+  nnoremap <leader>vp :VimuxPromptCommand<cr>
+  nnoremap <leader>vl :VimuxRunLastCommand<cr>
+  nnoremap <Leader>vx :VimuxInterruptRunner<CR>
+  nnoremap <leader>vi :VimuxInspectRunner<cr>
+  nnoremap <leader>vz :VimuxZoomRunner<cr>
+  nnoremap <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
+  nnoremap <Leader>vq :VimuxCloseRunner<CR>
+
+  " Plug 'christoomey/vim-tmux-navigator'
+  " let g:tmux_navigator_no_mappings = 1
+  " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
+  " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
+  " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
+  " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
+  " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
 endif
 
 
@@ -919,6 +884,18 @@ if index(g:bundle_group, 'markdown') >= 0
         \ 'flowchart_diagrams': {}
         \ }
 endif
+
+" emmet高速编写网页类代码
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
+let g:emmet_html5 = 1
+let g:user_emmet_leader_key='<C-y>'
+
+" 帮助emmet显示snippets提示
+Plug 'jceb/emmet.snippets', { 'for': ['html'] }
+
+Plug 'voldikss/vim-translator'
+nmap <c-k> <Plug>TranslateW
+vmap <c-k> <Plug>TranslateWV
 
 "-----------------------------------------------------------------------------
 "                                 结束插件安装

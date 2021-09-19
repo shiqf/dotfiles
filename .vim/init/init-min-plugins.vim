@@ -20,7 +20,7 @@ let g:asyncrun_bell =  1
 if has('win64') || has('win32')
   let g:asynctasks_term_pos = 'external'
 else
-  let g:asynctasks_term_pos = 'right'
+  let g:asynctasks_term_pos = 'curwin'
 endif
 
 nnoremap <leader>ar :AsyncRun 

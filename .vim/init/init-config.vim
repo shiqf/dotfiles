@@ -33,10 +33,10 @@ function! s:vSetSearch(mode)
   if mode() ==# 'v'
     let temp = @@
     normal! y
-    let @/ = '\V' .. substitute(escape(@@, '\'), '\n', '\\n', 'g')
+    let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
     let @@ = temp
   else
-    exec 'keepjumps normal! ' .. a:mode .. 'N'
+    exec 'keepjumps normal! ' . a:mode . 'N'
     " TODO 为什么要这样才行?
     let temp = @/
     let @/ = temp
@@ -69,7 +69,7 @@ endif
 "-----------------------------------------------------------------------------
 if has('nvim') == 0 && has('gui_running') == 0
   function! s:metacode(key)
-    exec 'set <M-' .. a:key .. ">=\e" .. a:key
+    exec 'set <M-' . a:key . ">=\e" . a:key
   endfunc
   for i in range(10)
     call s:metacode(nr2char(char2nr('0') + i))
@@ -92,7 +92,7 @@ endif
 "-----------------------------------------------------------------------------
 function! s:key_escape(name, code)
   if has('nvim') == 0 && has('gui_running') == 0
-    exec 'set ' .. a:name .. "=\e" .. a:code
+    exec 'set ' . a:name . "=\e" . a:code
   endif
 endfunc
 
