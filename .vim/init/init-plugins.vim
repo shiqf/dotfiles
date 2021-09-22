@@ -885,17 +885,17 @@ if index(g:bundle_group, 'markdown') >= 0
         \ }
 endif
 
-" emmet高速编写网页类代码
-Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
-let g:emmet_html5 = 1
-let g:user_emmet_leader_key='<C-y>'
+" " emmet高速编写网页类代码
+" Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'jsx'] }
+" let g:emmet_html5 = 1
+" let g:user_emmet_leader_key='<C-y>'
 
-" 帮助emmet显示snippets提示
-Plug 'jceb/emmet.snippets', { 'for': ['html'] }
+" " 帮助emmet显示snippets提示
+" Plug 'jceb/emmet.snippets', { 'for': ['html'] }
 
-Plug 'voldikss/vim-translator'
-nmap <c-k> <Plug>TranslateW
-vmap <c-k> <Plug>TranslateWV
+" Plug 'voldikss/vim-translator'
+" nmap <c-k> <Plug>TranslateW
+" vmap <c-k> <Plug>TranslateWV
 
 "-----------------------------------------------------------------------------
 "                                 结束插件安装
