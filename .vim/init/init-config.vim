@@ -23,7 +23,9 @@ endif
 "-----------------------------------------------------------------------------
 "                                 功能插件开启
 "-----------------------------------------------------------------------------
-packadd! cfilter
+if has("patch-8.1.0311")
+  packadd! cfilter
+endif
 
 " 调用man程序在vim内部查看命令
 runtime ftplugin/man.vim
@@ -132,9 +134,11 @@ if &term =~# '256color'
 endif
 
 if has('nvim') == 0
-  let &t_SI = "\<Esc>[6 q" " SI = 插入模式
-  let &t_SR = "\<Esc>[4 q" " SR = 替换模式
-  let &t_EI = "\<Esc>[2 q" " EI = 普通模式
+  let &t_SI = "\<Esc>[6 q"   " SI = 插入模式
+  if has("patch-7.4.687")
+    let &t_SR = "\<Esc>[4 q" " SR = 替换模式
+  endif
+  let &t_EI = "\<Esc>[2 q"   " EI = 普通模式
 endif
 
 
@@ -176,14 +180,23 @@ augroup END
 "                                 文件类型微调
 "-----------------------------------------------------------------------------
 augroup InitFileTypesGroup
-
   " 清除同组的历史 autocommand
   au!
+
+  " 强制对某些扩展名的 filetype 进行纠正
+  au BufNewFile,BufRead *.as  setlocal filetype=actionscript
+  au BufNewFile,BufRead *.pro setlocal filetype=prolog
+  au BufNewFile,BufRead *.es  setlocal filetype=erlang
+  au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
+  au BufNewFile,BufRead *.vl  setlocal filetype=verilog
+  au BufNewFile,BufRead *.mt  setlocal filetype=multi
+  au BufNewFile,BufRead *.pt  setlocal filetype=ProtocolFile
+  au BufNewFile,BufRead *.pg  setlocal filetype=ProtocolGeneration
 
   " C/C++ 文件使用 // 作为注释
   au FileType json,javascript,typescript,c,cpp setlocal commentstring=//\ %s
   au FileType autohotkey setlocal commentstring=;;\ %s
-  au FileType gitconfig setlocal commentstring=#\ %s
+  au FileType gitconfig,multi,ProtocolFile setlocal commentstring=#\ %s
 
   " markdown 允许自动换行
   au FileType markdown setlocal wrap
@@ -202,12 +215,5 @@ augroup InitFileTypesGroup
   au FileType qf setlocal nonumber norelativenumber
 
   au FileType man setlocal nolist
-
-  " 强制对某些扩展名的 filetype 进行纠正
-  au BufNewFile,BufRead *.as  setlocal filetype=actionscript
-  au BufNewFile,BufRead *.pro setlocal filetype=prolog
-  au BufNewFile,BufRead *.es  setlocal filetype=erlang
-  au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
-  au BufNewFile,BufRead *.vl  setlocal filetype=verilog
 
 augroup END

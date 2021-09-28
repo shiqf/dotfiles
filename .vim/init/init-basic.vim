@@ -30,6 +30,8 @@ set nocompatible
 " 设置 Backspace 键模式
 if !has('nvim') && has("patch-8.2.0590")
   set backspace=3
+else
+  set backspace=2
 endif
 
 " 自动缩进

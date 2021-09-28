@@ -97,7 +97,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'skywind3000/asyncrun.vim'
   Plug 'skywind3000/asynctasks.vim'
 
-  let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
+  let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.hg']
   let g:asyncrun_open = 10
   let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
   let g:asynctasks_term_reuse = 1
@@ -320,7 +320,6 @@ if index(g:bundle_group, 'tags') >= 0
   let g:gutentags_project_root = [
         \ '.git',
         \ '.hg',
-        \ '.project',
         \ '.root',
         \ '.svn',
         \ 'package.json',
@@ -514,7 +513,7 @@ if has('python3')
     let g:Lf_MruMaxFiles = 2048
 
     " 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
-    let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+    let g:Lf_RootMarkers = ['.root', '.svn', '.git']
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_WindowHeight = 0.30
     let g:Lf_CacheDirectory = expand('~/.vim/cache')

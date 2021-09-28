@@ -6,7 +6,7 @@
 "   - 命令模式下使用 Emacs 风格的编辑操作
 "   - 窗口切换：ALT+hjkl
 "   - 命令模式下使用 Emacs 风格的编辑操作
-"   - TAB：创建，关闭...
+"   - TAB：创建，关闭.
 "   - 各个模式中的映射增强
 "
 " vim: set ts=4 sw=4 tw=78 noet :
@@ -33,7 +33,6 @@ inoremap <c-j> <c-o>m`<c-o>2$
 " ctrl+k 删除到行末
 inoremap <c-k> <c-\><c-o>"_d$
 inoremap <c-w> <c-g>u<c-w>
-inoremap <c-u> <c-g>u<c-u>
 
 " 使用 <c-_> 代替 <c-k>
 inoremap <c-_> <c-k>
@@ -102,7 +101,7 @@ endfunc
 function! Tab_MoveRight()
   let l:tabnr = tabpagenr() + 1
   if l:tabnr <= tabpagenr('$')
-    exec 'tabmove ' .. l:tabnr
+    exec 'tabmove ' . l:tabnr
   endif
 endfunc
 
@@ -194,8 +193,9 @@ nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<CR>
 
-nnoremap g. :s/<c-r>-/<c-r>./&<CR>
-xnoremap g. :s/<c-r>-/<c-r>./&<CR>
+" go to changed place and chang world
+nnoremap g. /<c-r>-<cr>cgn<esc>
+xnoremap gr :s/<c-r>-/<c-r>./&<CR>
 
 nnoremap & :~&<CR>
 xnoremap & :~&<CR>
@@ -208,7 +208,7 @@ inoremap <m-m> <esc>gi
 nnoremap <silent> <c-s> :w<cr>
 
 " 在命令行中展开当前文件的目录
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') .. '/' : '%%'
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') . '/' : '%%'
 nnoremap <silent><leader>ed :e %:h<cr>
 nnoremap <silent><leader>e. :e!<cr>
 nnoremap <leader>ee :Gedit 
@@ -235,8 +235,8 @@ nnoremap <silent> g<cr> :Git<cr>
 nnoremap g<space> :Git 
 nnoremap !<space> :Git! 
 
-nnoremap <leader>gp :--all<home>G! -p log --oneline --decorate --graph 
-nnoremap <leader>gc :-n<home>Git clean -xdf 
+nnoremap <leader>gp : --all<home>G! -p log --oneline --decorate --graph
+nnoremap <leader>gc : -n<home>Git clean -xdf
 
 
 "-----------------------------------------------------------------------------
