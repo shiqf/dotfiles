@@ -22,7 +22,7 @@ inoremap <c-a> <c-\><c-o>_
 inoremap <c-e> <end>
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
-inoremap <m-d> <esc>g`^cw
+inoremap <m-d> <esc>g`^ce
 
 " 类似终端下的 ctrl-y
 inoremap <c-y> <c-a>
@@ -47,8 +47,7 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 cnoremap <m-f> <c-right>
 cnoremap <m-b> <c-left>
-" TODO 向前删除一个单词
-cnoremap <m-d> <c-right><c-w>
+cnoremap <m-d> <c-f>de<c-c>
 
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
