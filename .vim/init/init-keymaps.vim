@@ -22,12 +22,12 @@ inoremap <c-a> <c-\><c-o>_
 inoremap <c-e> <end>
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
-inoremap <m-d> <esc>g`^ce
+inoremap <m-d> <esc>g`^cw
 
 " 类似终端下的 ctrl-y
 inoremap <c-y> <c-a>
 
-" 跳转到下一行末尾
+" 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
 inoremap <c-j> <c-o>m`<c-o>2$
 
 " ctrl+k 删除到行末
@@ -47,7 +47,7 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 cnoremap <m-f> <c-right>
 cnoremap <m-b> <c-left>
-cnoremap <m-d> <c-f>de<c-c>
+cnoremap <m-d> <c-f>dw<c-c>
 
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
@@ -61,9 +61,8 @@ cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
 " 使用 <c-_> 代替 <c-k>
 cnoremap <c-_> <c-k>
 
-" 使用 ctrl-x ctrl-e 打开命令、查询等历史窗口, 类似终端
-" TODO
-cnoremap <c-x><c-e> <c-f>
+" 打开命令窗口、查询历史窗口
+cnoremap <c-j> <c-f>
 
 " 和在终端下的 ctrl-d 一样的效果
 function! s:ctrl_d()
@@ -109,6 +108,8 @@ noremap <silent> <c-w>to :tabonly<cr>
 
 " windows 上使用 powershell 来作为默认终端
 if executable('powershell')
+  " powershell 中使用 emacs 键位
+  " Set-PSReadLineOption -EditMode Emacs
   noremap <silent> <c-w>tt :tab terminal powershell<cr>
   noremap <silent> <c-w>ts :terminal powershell<cr>
   noremap <silent> <c-w>tv :vertical terminal powershell<cr>
@@ -182,6 +183,9 @@ endif
 " 排版
 nnoremap Q gq
 
+" 保存
+nnoremap <silent> <c-s> :w<cr>
+
 " 强制退出
 noremap <silent> <leader>Q :<c-u>qall!<cr>
 noremap <silent> <leader>S :<c-u>wa \| qall<cr>
@@ -190,10 +194,10 @@ noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 
 " 在可视模式上的重复宏的功能增强
-xnoremap <silent> @ :normal @@<CR>
+xnoremap @ :@<left>normal @
 
 " go to changed place and chang world
-nnoremap g. /<c-r>-<cr>cgn<esc>
+nnoremap g. /<c-r>-<cr>cgn<c-r>.<esc>
 xnoremap gr :s/<c-r>-/<c-r>./&<CR>
 
 nnoremap & :~&<CR>
@@ -203,19 +207,27 @@ xnoremap & :~&<CR>
 nnoremap 1p "1p
 nnoremap 1P "1P
 
-inoremap <m-m> <esc>gi
-nnoremap <silent> <c-s> :w<cr>
+inoremap <c-o><c-m> <esc>gi
 
 " 在命令行中展开当前文件的目录
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h') . '/' : '%%'
-nnoremap <silent><leader>ed :e %:h<cr>
-nnoremap <silent><leader>e. :e!<cr>
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+nmap <leader>ew :edit %%
+nmap <leader>es :split %%
+nmap <leader>ev :vsplit %%
+nmap <leader>et :tabedit %%
+
+nnoremap <silent><leader>ed :edit %:h<cr>
+nnoremap <silent><leader>e. :edit!<cr>
 nnoremap <leader>ee :Gedit 
 
-nmap <leader>ew :e %%
-nmap <leader>es :sp %%
-nmap <leader>ev :vsp %%
-nmap <leader>et :tabedit %%
+" 打开 fugitive 插件中的状态窗口
+nnoremap <silent> g<cr> :Git<cr>
+nnoremap g<space> :Git 
+nnoremap !<space> :Git! 
+
+nnoremap <leader>gp : --all<home>G! -p log --oneline --decorate --graph
+nnoremap <leader>gc : -n<home>Git clean -xdf
 
 xnoremap <silent> ado :diffget<cr>
 xnoremap <silent> 2do :diffget //2<cr>
@@ -228,14 +240,6 @@ xnoremap <silent> 2dp :diffput //2<cr>
 xnoremap <silent> 3dp :diffput //3<cr>
 nnoremap <silent> 2dp :diffput //2<cr>
 nnoremap <silent> 3dp :diffput //3<cr>
-
-" 打开 fugitive 插件中的状态窗口
-nnoremap <silent> g<cr> :Git<cr>
-nnoremap g<space> :Git 
-nnoremap !<space> :Git! 
-
-nnoremap <leader>gp : --all<home>G! -p log --oneline --decorate --graph
-nnoremap <leader>gc : -n<home>Git clean -xdf
 
 
 "-----------------------------------------------------------------------------
