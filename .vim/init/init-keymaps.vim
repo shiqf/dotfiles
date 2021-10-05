@@ -65,7 +65,7 @@ cnoremap <c-_> <c-k>
 cnoremap <c-j> <c-f>
 
 " 和在终端下的 ctrl-d 一样的效果
-function! s:ctrl_d()
+function! s:CtrlD()
   if strlen(getcmdline()) == 0
     return "\<esc>"
   elseif strlen(getcmdline()) > getcmdpos() - 1
@@ -73,7 +73,8 @@ function! s:ctrl_d()
   endif
   return "\<c-d>"
 endfunc
-cnoremap <expr> <c-d> <SID>ctrl_d()
+cnoremap <expr> <c-d> <SID>CtrlD()
+
 
 "-----------------------------------------------------------------------------
 "          TAB：创建，关闭，上一个，下一个，首个，末个，左移，右移，
@@ -177,6 +178,7 @@ elseif has('nvim')
   tnoremap <m-p> <c-\><c-n>"0pa
 endif
 
+
 "-----------------------------------------------------------------------------
 "                             各个模式中的映射增强
 "-----------------------------------------------------------------------------
@@ -200,7 +202,7 @@ xnoremap @ :@<left>normal @
 nnoremap g. /<c-r>-<cr>cgn<c-r>.<esc>
 xnoremap gr :s/<c-r>-/<c-r>./&<CR>
 
-nnoremap & :~&<CR>
+nnoremap & :<c-r>0/&<home>s//
 xnoremap & :~&<CR>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
