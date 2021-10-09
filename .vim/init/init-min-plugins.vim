@@ -86,7 +86,7 @@ Plug 'sgur/vim-textobj-parameter'
 "-----------------------------------------------------------------------------
 "     LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
 "-----------------------------------------------------------------------------
-if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
+if has('python3')
   " 如果 vim 支持 python 则启用  Leaderf
   if has('win32') || has('win64')
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
