@@ -84,9 +84,9 @@ Plug 'kana/vim-textobj-indent'
 Plug 'sgur/vim-textobj-parameter'
 
 "-----------------------------------------------------------------------------
-"      LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
+"     LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
 "-----------------------------------------------------------------------------
-if has('python3')
+if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   " 如果 vim 支持 python 则启用  Leaderf
   if has('win32') || has('win64')
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
@@ -117,7 +117,7 @@ if has('python3')
   nnoremap <m-f> :LeaderfFunction!<cr>
 
   " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-F> :LeaderfFunctionAll!<cr>
+  nnoremap <m-F> :LeaderfFunctionAll<cr>
 
   " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
   nnoremap <m-t> :LeaderfBufTag!<cr>
@@ -151,18 +151,19 @@ if has('python3')
 
   let g:Lf_DiscardEmptyBuffer = 1
   " let g:Lf_RememberLastSearch = 1
+  let g:Lf_UseVersionControlTool = 0
 
   " 模糊匹配忽略扩展名
   let g:Lf_WildIgnore = {
         \ 'dir': ['.svn','.git','.hg'],
-        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico']
         \ }
 
   " 忽略最近文件
   let g:Lf_MruWildIgnore = {
         \ 'dir': ['node_modules'],
         \ 'file': []
-        \ }
+        \}
 
   " MRU 文件忽略扩展名
   let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
@@ -208,15 +209,18 @@ if has('python3')
   let g:Lf_PopupWidth = '0.6'
   let g:Lf_PopupHeight = '0.3'
 
-  let g:Lf_PreviewPopupWidth = 100 " 指定 popup window / floating window 的宽度。
-  let g:Lf_PopupPreviewPosition = 'cursor' " 指定 popup window / floating window 的位置。
-  let g:Lf_PreviewHorizontalPosition = 'cursor' " 指定 popup window / floating window 的位置。
+  let g:Lf_PreviewPopupWidth = 60            " 指定 popup window / floating window 的宽度。
+  let g:Lf_PopupPreviewPosition = 'top'      " 指定 popup window / floating window 的位置。
+  let g:Lf_PreviewHorizontalPosition = 'top' " 指定 popup window / floating window 的位置。
 
+  " gs: global search(全局查找)
+  " --hidden 查找以 '.' 开始的文件或目录
   if executable('rg')
+    let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
-    nnoremap gs :<C-U> --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
+    xnoremap gs : --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
+    nnoremap gs : --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
   endif
   noremap <leader>nr :<C-U>Leaderf! --recall<CR>
 endif

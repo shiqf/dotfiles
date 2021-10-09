@@ -30,23 +30,35 @@ endif
 " 调用man程序在vim内部查看命令
 runtime ftplugin/man.vim
 
-" 可视模式下的面向字符用 * 号匹配字符串
-function! s:vSetSearch(mode)
-  if mode() ==# 'v'
-    let temp = @@
-    normal! y
-    let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-    let @@ = temp
-  else
-    exec 'keepjumps normal! ' . a:mode . 'N'
-    " TODO 为什么要这样才行?
-    let temp = @/
-    let @/ = temp
-  endif
-endfunction
+if (v:version >= 802)
+  " 可视模式下的面向字符用 * 号匹配字符串
+  function! s:vSetSearch(mode)
+    if mode() ==# 'v'
+      let temp = @@
+      normal! y
+      let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+      let @@ = temp
+    else
+      exec 'keepjumps normal! ' . a:mode . 'N'
+      " TODO 为什么要这样才行?
+      let temp = @/
+      let @/ = temp
+    endif
+  endfunction
 
-xnoremap * <cmd>call <SID>vSetSearch('*')<CR>//<cr>
-xnoremap # <cmd>call <SID>vSetSearch('#')<CR>??<cr>
+  xnoremap * <cmd>call <sid>vSetSearch('*')<cr>//<cr>
+  xnoremap # <cmd>call <sid>vSetSearch('#')<cr>??<cr>
+else
+  function! s:vSetSearch(cmdtype)
+    let temp = @@
+    normal! gvy
+    let @/ = '\V' . substitute(escape(@@, a:cmdtype.'\'), '\n', '\\n', 'g')
+    let @@ = temp
+  endfunction
+
+  xnoremap * :call <sid>vSetSearch('/')<cr>/<c-r>=@/<cr><cr>
+  xnoremap # :call <sid>vSetSearch('?')<cr>?<c-r>=@/<cr><cr>
+endif
 
 
 "-----------------------------------------------------------------------------
