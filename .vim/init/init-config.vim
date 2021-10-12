@@ -207,7 +207,7 @@ augroup InitFileTypesGroup
 
   " C/C++ 文件使用 // 作为注释
   au FileType json,javascript,typescript,c,cpp setlocal commentstring=//\ %s
-  au FileType autohotkey setlocal commentstring=;;\ %s
+  au FileType autohotkey setlocal commentstring=;\ %s
   au FileType gitconfig,multi,ProtocolFile setlocal commentstring=#\ %s
 
   " markdown 允许自动换行

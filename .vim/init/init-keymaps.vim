@@ -47,7 +47,7 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 cnoremap <m-f> <c-right>
 cnoremap <m-b> <c-left>
-cnoremap <m-d> <c-f>dw<c-c>
+cnoremap <m-d> <c-f>de<c-c>
 
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
@@ -202,7 +202,7 @@ xnoremap @ :@<left>normal @
 nnoremap g. /<c-r>-<cr>cgn<c-r>.<esc>
 xnoremap gr :s/<c-r>-/<c-r>./&<CR>
 
-nnoremap & :<c-r>0/&<home>s//
+nnoremap & :/&<home>s//
 xnoremap & :~&<CR>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
@@ -219,7 +219,7 @@ nmap <leader>es :split %%
 nmap <leader>ev :vsplit %%
 nmap <leader>et :tabedit %%
 
-nnoremap <silent><leader>ed :edit %:h<cr>
+nnoremap <silent><leader>ed :edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :edit!<cr>
 nnoremap <leader>ee :Gedit 
 
@@ -228,7 +228,7 @@ nnoremap <silent> g<cr> :Git<cr>
 nnoremap g<space> :Git 
 nnoremap !<space> :Git! 
 
-nnoremap <leader>gp : --all<home>G! -p log --oneline --decorate --graph
+nnoremap <leader>gp : --all<home>Git! log --oneline --decorate --graph
 nnoremap <leader>gc : -n<home>Git clean -xdf
 
 xnoremap <silent> ado :diffget<cr>

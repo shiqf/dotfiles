@@ -76,8 +76,8 @@ if index(g:bundle_group, 'basic') >= 0
   " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
   Plug 'tpope/vim-surround'
 
-  " 多单词[多文件]查询、代替、缩写
-  Plug 'tpope/vim-abolish'
+  " " 多单词[多文件]查询、代替、缩写
+  " Plug 'tpope/vim-abolish'
 
   " 支持 fugitive 的Gbrowse 功能
   " Plug 'tpope/vim-rhubarb'
@@ -144,6 +144,9 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   " 交换选定范围
   Plug 'tommcdo/vim-exchange'
+
+  " quickfix 增强
+  Plug 'yssl/QFEnter'
 
   " 展示开始画面，显示最近编辑过的文件
   Plug 'mhinz/vim-startify'
@@ -323,7 +326,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   " 模糊匹配忽略扩展名
   let g:Lf_WildIgnore = {
         \ 'dir': ['.svn','.git','.hg'],
-        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico']
+        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico', '*.css']
         \ }
 
   " 忽略最近文件
@@ -386,7 +389,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs : --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
+    xnoremap gs :<c-u> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
     nnoremap gs : --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
   endif
   noremap <leader>nr :<C-U>Leaderf! --recall<CR>

@@ -53,7 +53,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 
 " 多单词查询、代替、缩写
-Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-abolish'
 
 " Git 支持
 Plug 'tpope/vim-fugitive'
@@ -67,6 +67,12 @@ let g:AutoPairsShortcutToggle     = '<M-a>'
 let g:AutoPairsMapCh              = 0
 let g:AutoPairsMoveCharacter      = ''
 let g:AutoPairsShortcutJump       = ''
+
+" 交换选定范围
+Plug 'tommcdo/vim-exchange'
+
+" quickfix 增强
+Plug 'yssl/QFEnter'
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
 Plug 'kana/vim-textobj-user'
@@ -219,7 +225,7 @@ if has('python3')
     let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs : --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
+    xnoremap gs :<c-u> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
     nnoremap gs : --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
   endif
   noremap <leader>nr :<C-U>Leaderf! --recall<CR>
