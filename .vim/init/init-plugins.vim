@@ -477,8 +477,8 @@ if index(g:bundle_group, 'tags') >= 0
   " 禁止 gutentags 自动链接 gtags 数据库
   let g:gutentags_auto_add_gtags_cscope = 0
 
-  let g:gutentags_trace = 1
-  let g:gutentags_define_advanced_commands = 1
+  " let g:gutentags_trace = 1
+  " let g:gutentags_define_advanced_commands = 1
 
   " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
   Plug 'skywind3000/vim-preview'
