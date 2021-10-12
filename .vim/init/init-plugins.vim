@@ -847,9 +847,9 @@ if index(g:bundle_group, 'tool') >= 0
   " " 帮助emmet显示snippets提示
   " Plug 'jceb/emmet.snippets', { 'for': ['html'] }
 
-  Plug 'voldikss/vim-translator'
-  nmap <c-k> <Plug>TranslateW
-  vmap <c-k> <Plug>TranslateWV
+  " Plug 'voldikss/vim-translator'
+  " nmap <c-k> <Plug>TranslateW
+  " vmap <c-k> <Plug>TranslateWV
 endif
 
 
