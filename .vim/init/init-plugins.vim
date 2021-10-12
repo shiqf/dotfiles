@@ -477,8 +477,8 @@ if index(g:bundle_group, 'tags') >= 0
   " 禁止 gutentags 自动链接 gtags 数据库
   let g:gutentags_auto_add_gtags_cscope = 0
 
-  " let g:gutentags_trace = 1
-  " let g:gutentags_define_advanced_commands = 1
+  let g:gutentags_trace = 1
+  let g:gutentags_define_advanced_commands = 1
 
   " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
   Plug 'skywind3000/vim-preview'
@@ -669,6 +669,7 @@ if index(g:bundle_group, 'ale') >= 0
   " 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_insert_leave = 1
+  let g:ale_lint_on_save = 1
 
   " 在 linux/mac 下降低语法检查程序的进程优先级（不要卡到前台进程）
   if has('win32') == 0 && has('win64') == 0 && has('win32unix') == 0
@@ -734,7 +735,6 @@ endif
 if index(g:bundle_group, 'themes') >= 0
   " 一次性安装一大堆 colorscheme
   Plug 'flazz/vim-colorschemes'
-
   Plug 'vim-airline/vim-airline'
   " Plug 'vim-airline/vim-airline-themes'
   let g:airline_left_sep                        = ''
@@ -762,60 +762,60 @@ if index(g:bundle_group, 'nerdtree') >= 0
 endif
 
 
-" tmux 相关
-if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
-  " tmux 中使用vim 复制
-  Plug 'roxma/vim-tmux-clipboard'
+" " tmux 相关
+" if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
+"   " tmux 中使用vim 复制
+"   Plug 'roxma/vim-tmux-clipboard'
 
-  Plug 'benmills/vimux'
-  function! s:run_tmux(opts)
-    let cwd = getcwd()
-    call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
-  endfunction
+"   Plug 'benmills/vimux'
+"   function! s:run_tmux(opts)
+"     let cwd = getcwd()
+"     call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
+"   endfunction
 
-  let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
-  let g:asyncrun_runner.tmux = function('s:run_tmux')
+"   let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
+"   let g:asyncrun_runner.tmux = function('s:run_tmux')
 
-  nnoremap <leader>vp :VimuxPromptCommand<cr>
-  nnoremap <leader>vl :VimuxRunLastCommand<cr>
-  nnoremap <Leader>vx :VimuxInterruptRunner<CR>
-  nnoremap <leader>vi :VimuxInspectRunner<cr>
-  nnoremap <leader>vz :VimuxZoomRunner<cr>
-  nnoremap <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
-  nnoremap <Leader>vq :VimuxCloseRunner<CR>
+"   nnoremap <leader>vp :VimuxPromptCommand<cr>
+"   nnoremap <leader>vl :VimuxRunLastCommand<cr>
+"   nnoremap <Leader>vx :VimuxInterruptRunner<CR>
+"   nnoremap <leader>vi :VimuxInspectRunner<cr>
+"   nnoremap <leader>vz :VimuxZoomRunner<cr>
+"   nnoremap <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
+"   nnoremap <Leader>vq :VimuxCloseRunner<CR>
 
-  " Plug 'christoomey/vim-tmux-navigator'
-  " let g:tmux_navigator_no_mappings = 1
-  " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
-  " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
-  " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
-  " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
-  " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
-endif
+"   " Plug 'christoomey/vim-tmux-navigator'
+"   " let g:tmux_navigator_no_mappings = 1
+"   " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
+"   " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
+"   " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
+"   " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
+"   " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
+" endif
 
 
-if index(g:bundle_group, 'markdown') >= 0
-  Plug 'mzlogin/vim-markdown-toc', { 'for': [ 'markdown' ] }
-  let g:vmt_auto_update_on_save = 1
-  let g:vmt_cycle_list_item_markers = 1
-  Plug 'plasticboy/vim-markdown', { 'for': [ 'markdown' ] }
-  Plug 'iamcco/markdown-preview.nvim', {
-        \ 'do': 'cd app & npm install --registry=https://registry.npm.taobao.org',
-        \ 'for': [ 'markdown' ]
-        \ }
-  let g:vim_markdown_math = 1
-  let g:mkdp_preview_options = {
-        \ 'mkit': {},
-        \ 'katex': {},
-        \ 'uml': {},
-        \ 'maid': {},
-        \ 'disable_sync_scroll': 0,
-        \ 'sync_scroll_type': 'middle',
-        \ 'hide_yaml_meta': 1,
-        \ 'sequence_diagrams': {},
-        \ 'flowchart_diagrams': {}
-        \ }
-endif
+" if index(g:bundle_group, 'markdown') >= 0
+"   Plug 'mzlogin/vim-markdown-toc', { 'for': [ 'markdown' ] }
+"   let g:vmt_auto_update_on_save = 1
+"   let g:vmt_cycle_list_item_markers = 1
+"   Plug 'plasticboy/vim-markdown', { 'for': [ 'markdown' ] }
+"   Plug 'iamcco/markdown-preview.nvim', {
+"         \ 'do': 'cd app & npm install --registry=https://registry.npm.taobao.org',
+"         \ 'for': [ 'markdown' ]
+"         \ }
+"   let g:vim_markdown_math = 1
+"   let g:mkdp_preview_options = {
+"         \ 'mkit': {},
+"         \ 'katex': {},
+"         \ 'uml': {},
+"         \ 'maid': {},
+"         \ 'disable_sync_scroll': 0,
+"         \ 'sync_scroll_type': 'middle',
+"         \ 'hide_yaml_meta': 1,
+"         \ 'sequence_diagrams': {},
+"         \ 'flowchart_diagrams': {}
+"         \ }
+" endif
 
 
 if index(g:bundle_group, 'tool') >= 0
@@ -847,9 +847,9 @@ if index(g:bundle_group, 'tool') >= 0
   " " 帮助emmet显示snippets提示
   " Plug 'jceb/emmet.snippets', { 'for': ['html'] }
 
-  " Plug 'voldikss/vim-translator'
-  " nmap <c-k> <Plug>TranslateW
-  " vmap <c-k> <Plug>TranslateWV
+  Plug 'voldikss/vim-translator'
+  nmap <c-k> <Plug>TranslateW
+  vmap <c-k> <Plug>TranslateWV
 endif
 
 
