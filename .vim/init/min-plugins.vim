@@ -76,8 +76,8 @@ Plug 'yssl/QFEnter'
 let g:qfenter_exclude_filetypes = ['nerdtree']
 let g:qfenter_keymap = {}
 let g:qfenter_keymap.open = ['<CR>', '<2-LeftMouse>']
-let g:qfenter_keymap.vopen = ['<c-]>' ,'gO', 'i']
-let g:qfenter_keymap.hopen = ['<c-x>' ,'o', 's']
+let g:qfenter_keymap.vopen = ['<c-]>' ,'gO', 's']
+let g:qfenter_keymap.hopen = ['<c-x>' ,'o', 'i']
 let g:qfenter_keymap.topen = ['<c-t>' ,'O', 'T']
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
