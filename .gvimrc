@@ -21,9 +21,9 @@ set guioptions=
 
 " 设置字体及大小
 if has('mac')
-  set guifont=Monaco:h14
+  set guifont=Monaco:h12
 elseif has('win32') || has('win64')
-  set guifont=Consolas:h14
+  set guifont=Consolas:h12
 endif
 
 " windows gvim 右键菜单乱码解决

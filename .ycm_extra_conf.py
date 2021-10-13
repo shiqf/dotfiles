@@ -116,7 +116,7 @@ elif platform.system() != 'Windows' and IsCppFile( __file__ ):
   flags.extend([
     '-x', 'c++',
     '-isystem', '/usr/include/c++/10.2.0/',
-    '-std=c++11',
+    '-std=c++17',
     ])
 
 

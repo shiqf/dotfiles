@@ -196,7 +196,10 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 if [[ -e $ZPLUG/robbyrussell/oh-my-zsh/oh-my-zsh.sh ]]; then
     source $ZPLUG/robbyrussell/oh-my-zsh/oh-my-zsh.sh
 fi
-eval "$(lua $ZPLUG/skywind3000/z.lua/z.lua  --init zsh once enhanced)"
+
+if [ ! -z $(which lua) ]; then
+    eval "$(lua $ZPLUG/skywind3000/z.lua/z.lua  --init zsh once enhanced)"
+fi
 
 #######################################################################
 #                            环境变量配置                             #

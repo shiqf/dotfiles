@@ -76,8 +76,8 @@ if index(g:bundle_group, 'basic') >= 0
   " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
   Plug 'tpope/vim-surround'
 
-  " " 多单词[多文件]查询、代替、缩写
-  " Plug 'tpope/vim-abolish'
+  " 多单词[多文件]查询、代替、缩写
+  Plug 'tpope/vim-abolish'
 
   " 支持 fugitive 的Gbrowse 功能
   " Plug 'tpope/vim-rhubarb'

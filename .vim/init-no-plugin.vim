@@ -29,22 +29,22 @@ let mapleader="\<Space>"
 "-----------------------------------------------------------------------------
 
 " 加载基础配置
-LoadScript init/init-basic.vim
+LoadScript init/basic.vim
 
 " 界面样式
-LoadScript init/init-style.vim
+LoadScript init/style.vim
 
 " 加载扩展配置
-LoadScript init/init-config.vim
+LoadScript init/config.vim
 
 " 自定义按键
-LoadScript init/init-keymaps.vim
+LoadScript init/keymaps.vim
 
 " 设定 tabsize
-LoadScript init/init-tabsize.vim
+LoadScript init/tabsize.vim
 
 " 加载错误修正
-LoadScript init/init-abbr.vim
+LoadScript init/abbr.vim
 
 set relativenumber
 

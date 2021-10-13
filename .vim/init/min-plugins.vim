@@ -53,7 +53,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 
 " 多单词查询、代替、缩写
-" Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 
 " Git 支持
 Plug 'tpope/vim-fugitive'

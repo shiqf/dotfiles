@@ -29,22 +29,22 @@ let mapleader="\<Space>"
 "-----------------------------------------------------------------------------
 
 " 插件配置
-LoadScript init/init-min-plugins.vim
+LoadScript init/min-plugins.vim
 
 " 加载基础配置
-LoadScript init/init-basic.vim
+LoadScript init/basic.vim
 
 " 界面样式
-LoadScript init/init-style.vim
+LoadScript init/style.vim
 
 " 加载扩展配置
-LoadScript init/init-config.vim
+LoadScript init/config.vim
 
 " 自定义按键
-LoadScript init/init-keymaps.vim
+LoadScript init/keymaps.vim
 
 " 设定 tabsize
-LoadScript init/init-tabsize.vim
+LoadScript init/tabsize.vim
 
 if has('win64') || has('win32')
   colorscheme slate
