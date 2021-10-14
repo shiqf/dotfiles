@@ -1,7 +1,7 @@
 # ==============
 # Snippets 
 # ==============
-priority -40
+priority -30
 
 snippet inc "include <>"
 #include <${1:stdio}.h>
@@ -21,13 +21,15 @@ typedef ${1:int} ${2:MyCustomType};
 endsnippet
 
 snippet st "struct"
-struct ${1:`!v vim_snippets#Filename('$1_t', 'name')`} {
+struct ${1:`!v vim_snippets#Filename('$1_t', 'name')`}
+{
 	${2:Data}
 };
 endsnippet
 
 snippet tds "typedef struct"
-typedef struct ${2:${1/\w+/\l$0/} }{
+typedef struct ${2:${1/\w+/\l$0/} }
+{
 	${3:Data}
 } ${1:`!v vim_snippets#Filename('$1', 'name')`};
 endsnippet
@@ -37,7 +39,8 @@ enum ${1:name} { ${0} };
 endsnippet
 
 snippet tde "typedef enum"
-typedef enum {
+typedef enum
+{
 	${1:Data}
 } ${2:foo};
 endsnippet
@@ -63,7 +66,7 @@ endsnippet
 snippet main "main(int argc, char *argv[])" bw
 int main(int argc, char *argv[])
 {
-	${0}
+	${1:${VISUAL}}
 
 	return 0;
 }
@@ -72,7 +75,7 @@ endsnippet
 snippet mainn "main(void)" bs
 int main(void)
 {
-	${0}
+	${1:${VISUAL}}
 
 	return 0;
 }
@@ -109,62 +112,69 @@ endsnippet
 
 ## Control Statements
 snippet ifi "if" m
-if (${1:true}) ${0:${VISUAL}};
+if (${1:true}) ${2:${VISUAL}};
 endsnippet
 
 snippet if
-if (${1:true}) {
+if (${1:true})
+{
 	${2:${VISUAL}}
-}$0
+}
 endsnippet
 
 snippet ife
-if (${1:true}) {
+if (${1:true})
+{
 	${2:${VISUAL}}
-} else {
-	${0}
+}
+else
+{
+	${1:${VISUAL}}
 }
 endsnippet
 
 snippet el "else"
-else {
-	${0:${VISUAL}}
+else
+{
+	${1:${VISUAL}}
 }
 endsnippet
 
 snippet elif "else if"
-else if (${1:true}) {
+else if (${1:true})
+{
 	${0:${VISUAL}}
 }
 endsnippet
 
-snippet fo "for no {}" m
-for (${4:int }${2:i} = 0; $2 < ${1:count}; $2${3:++})$0
-endsnippet
-
-snippet for "for (custom)"
-for (${6:int} ${2:i} = ${3:0}; $2 ${4:<} ${1:count}; $2${5:++}) {$0
+snippet fo "for {}" m
+for (${4:int }${2:i} = 0; $2 < ${1:count}; $2${3:++})
+{
+	${5:${VISUAL}}
 }
 endsnippet
 
 snippet wh "while"
-while (${1:/* condition */}) {
-	${0:${VISUAL}}
+while (${1:/* condition */})
+{
+	${2:${VISUAL}}
 }
 endsnippet
 
 snippet do "do... while"
-do {
-	${0:${VISUAL}}
+do
+{
+	${2:${VISUAL}}
 } while (${1:/* condition */});
 endsnippet
 
 # switch
 snippet sw "switch"
-switch (${1:/* variable */}) {
+switch (${1:/* variable */})
+{
 	case ${2:/* variable case */}:
 		${3}
-		${4:break;}${5}
+	${4:break;}${5}
 	default:
 		${6}
 }
@@ -175,7 +185,7 @@ snippet swn "switchndef"
 switch (${1:/* variable */}) {
 	case ${2:/* variable case */}:
 		${3}
-		${4:break;}${5}
+	${4:break;}${5}
 }
 endsnippet
 

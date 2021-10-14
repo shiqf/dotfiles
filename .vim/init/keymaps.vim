@@ -1,6 +1,6 @@
 "=============================================================================
 "
-"                  init-keymaps.vim - 按键设置，按你喜欢更改
+"                    keymaps.vim - 按键设置，按你喜欢更改
 "
 "   - 插入模式下使用 EMACS 键位
 "   - 命令模式下使用 Emacs 风格的编辑操作
@@ -218,10 +218,10 @@ nmap <leader>ew :edit %%
 nmap <leader>es :split %%
 nmap <leader>ev :vsplit %%
 nmap <leader>et :tabedit %%
+xnoremap <leader>e y:<c-u>edit <c-r>0
 
 nnoremap <silent><leader>ed :edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :edit!<cr>
-nnoremap <leader>ee :Gedit 
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :Git<cr>

@@ -1,6 +1,6 @@
 "=============================================================================
 "
-"                              init-plugins.vim
+"                                plugins.vim
 "
 "                     默认情况下的分组，可以再前面覆盖之
 "                         计算当前 vim-init 的子路径
@@ -75,6 +75,7 @@ if index(g:bundle_group, 'basic') >= 0
 
   " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
   Plug 'tpope/vim-surround'
+  let g:surround_46 = "<\r>"
 
   " 多单词[多文件]查询、代替、缩写
   Plug 'tpope/vim-abolish'
@@ -152,7 +153,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_keymap.open = ['<CR>', '<2-LeftMouse>']
   let g:qfenter_keymap.vopen = ['<c-]>' ,'gO', 's']
   let g:qfenter_keymap.hopen = ['<c-x>' ,'o', 'i']
-  let g:qfenter_keymap.topen = ['<c-t>' ,'O', 'T']
+  let g:qfenter_keymap.topen = ['<c-t>' ,'O', 't']
 
   " 展示开始画面，显示最近编辑过的文件
   Plug 'mhinz/vim-startify'
@@ -404,6 +405,11 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<cr>
   let g:Lf_PreviewResult.snippet = 1
 
+  " 显示 quickfix 列表和 location 列表
+  Plug 'Valloric/ListToggle'
+  let g:lt_location_list_toggle_map = '<leader>l'
+  let g:lt_quickfix_list_toggle_map = '<leader>q'
+  let g:lt_height = 10
 endif
 
 
@@ -527,12 +533,6 @@ if has('python3')
   "                          ycm 基于语义的自动补全
   "---------------------------------------------------------------------------
   if index(g:bundle_group, 'ycm') >= 0
-    " 显示 quickfix 列表和 location 列表
-    Plug 'Valloric/ListToggle'
-    let g:lt_location_list_toggle_map = '<leader>l'
-    let g:lt_quickfix_list_toggle_map = '<leader>q'
-    let g:lt_height = 10
-
     if has('win64') || has('win32')
       Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py --clangd-completer --ts-completer --java-completer' }
     else

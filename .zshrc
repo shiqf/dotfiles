@@ -220,8 +220,8 @@ alias javac='javac -J-Dfile.encoding=utf8'
 alias la='ls -a'
 alias ll='ls -l'
 alias tmux='tmux -2'
-alias vi='vim -u ~/.vim/init-min.vim'
-alias v='vim -u ~/.vim/init-no-plugin.vim'
+alias vi='vim -u ~/.vim/min.vim'
+alias v='vim -u ~/.vim/no-plugin.vim'
 alias vo='vim --clean' # vim origin
 
 # z 命令别名
