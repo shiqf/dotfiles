@@ -218,7 +218,7 @@ nmap <leader>ew :edit %%
 nmap <leader>es :split %%
 nmap <leader>ev :vsplit %%
 nmap <leader>et :tabedit %%
-xnoremap <leader>e y:<c-u>edit <c-r>0
+xnoremap <leader>e y:edit <c-r>0
 
 nnoremap <silent><leader>ed :edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :edit!<cr>
