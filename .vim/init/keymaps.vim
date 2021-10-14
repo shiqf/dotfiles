@@ -198,11 +198,16 @@ nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 " 在可视模式上的重复宏的功能增强
 xnoremap @ :@<left>normal @
 
-" go to changed place and chang world
-nnoremap g. /<c-r>-<cr>cgn<c-r>.<esc>
-xnoremap gr :s/<c-r>-/<c-r>./&<CR>
+" 替换内容
+function! s:Replace()
+  return '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
+endfunction
 
-nnoremap & :/&<home>s//
+" go to changed place and chang world
+nnoremap <silent>g. /<c-r>-<cr>cgn<c-r>='.'->getreg()<cr><esc>
+xnoremap gr :s/<c-r>=<SID>Replace()<cr>/<c-r>='.'->getreg()<cr>/&
+
+nnoremap & :/&<home>s//<c-r>=<SID>Replace()<cr>
 xnoremap & :~&<CR>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
@@ -214,11 +219,12 @@ inoremap <c-o><c-m> <esc>gi
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-nmap <leader>ew :edit %%
-nmap <leader>es :split %%
-nmap <leader>ev :vsplit %%
-nmap <leader>et :tabedit %%
-xnoremap <leader>e y:edit <c-r>0
+nmap <leader>ee :edit %%<home>
+xmap <leader>e y:edit <c-r>=<SID>Replace()<cr>
+nmap <leader>es :split %%<home>
+nmap <leader>ev :vsplit %%<home>
+nmap <leader>et :tabedit %%<home>
+nmap <leader>ew :cd %%<home>
 
 nnoremap <silent><leader>ed :edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :edit!<cr>
