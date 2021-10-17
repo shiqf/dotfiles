@@ -153,7 +153,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_keymap.open = ['<CR>', '<2-LeftMouse>']
   let g:qfenter_keymap.vopen = ['<c-]>' ,'gO', 's']
   let g:qfenter_keymap.hopen = ['<c-x>' ,'o', 'i']
-  let g:qfenter_keymap.topen = ['<c-t>' ,'O', 't']
+  let g:qfenter_keymap.topen = ['<c-t>' ,'O', 'T']
 
   " 展示开始画面，显示最近编辑过的文件
   Plug 'mhinz/vim-startify'
@@ -768,36 +768,36 @@ if index(g:bundle_group, 'nerdtree') >= 0
 endif
 
 
-" " tmux 相关
-" if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
-"   " tmux 中使用vim 复制
-"   Plug 'roxma/vim-tmux-clipboard'
+" tmux 相关
+if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
+  " tmux 中使用vim 复制
+  Plug 'roxma/vim-tmux-clipboard'
 
-"   Plug 'benmills/vimux'
-"   function! s:run_tmux(opts)
-"     let cwd = getcwd()
-"     call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
-"   endfunction
+  Plug 'benmills/vimux'
+  function! s:run_tmux(opts)
+    let cwd = getcwd()
+    call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
+  endfunction
 
-"   let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
-"   let g:asyncrun_runner.tmux = function('s:run_tmux')
+  let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
+  let g:asyncrun_runner.tmux = function('s:run_tmux')
 
-"   nnoremap <leader>vp :VimuxPromptCommand<cr>
-"   nnoremap <leader>vl :VimuxRunLastCommand<cr>
-"   nnoremap <Leader>vx :VimuxInterruptRunner<CR>
-"   nnoremap <leader>vi :VimuxInspectRunner<cr>
-"   nnoremap <leader>vz :VimuxZoomRunner<cr>
-"   nnoremap <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
-"   nnoremap <Leader>vq :VimuxCloseRunner<CR>
+  nnoremap <leader>vp :VimuxPromptCommand<cr>
+  nnoremap <leader>vl :VimuxRunLastCommand<cr>
+  nnoremap <Leader>vk :VimuxInterruptRunner<CR>
+  nnoremap <leader>vi :VimuxInspectRunner<cr>
+  nnoremap <leader>vz :VimuxZoomRunner<cr>
+  nnoremap <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
+  nnoremap <Leader>vq :VimuxCloseRunner<CR>
 
-"   " Plug 'christoomey/vim-tmux-navigator'
-"   " let g:tmux_navigator_no_mappings = 1
-"   " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
-"   " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
-"   " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
-"   " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
-"   " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
-" endif
+  " Plug 'christoomey/vim-tmux-navigator'
+  " let g:tmux_navigator_no_mappings = 1
+  " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
+  " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
+  " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
+  " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
+  " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
+endif
 
 
 " if index(g:bundle_group, 'markdown') >= 0
