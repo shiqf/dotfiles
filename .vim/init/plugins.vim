@@ -111,16 +111,16 @@ if index(g:bundle_group, 'enhanced') >= 0
   endif
 
   noremap <leader>ar :AsyncRun 
-  nnoremap <silent> <leader>as :AsyncStop<cr>
-  nnoremap <silent> <leader>am :AsyncTaskMacro<cr>
-  nnoremap <silent> <leader>ae :AsyncTaskEdit<cr>
-  nnoremap <silent> <leader>al :AsyncTaskList<cr>
+  nnoremap <silent> <leader>as :<c-u>AsyncStop<cr>
+  nnoremap <silent> <leader>am :<c-u>AsyncTaskMacro<cr>
+  nnoremap <silent> <leader>ae :<c-u>AsyncTaskEdit<cr>
+  nnoremap <silent> <leader>al :<c-u>AsyncTaskList<cr>
 
-  nnoremap <silent> <leader>5 :AsyncTask file-run<cr>
-  nnoremap <silent> <leader>6 :AsyncTask project-run<cr>
-  nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
-  nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
-  nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
+  nnoremap <silent> <leader>5 :<c-u>AsyncTask file-run<cr>
+  nnoremap <silent> <leader>6 :<c-u>AsyncTask project-run<cr>
+  nnoremap <silent> <leader>7 :<c-u>AsyncTask project-build<cr>
+  nnoremap <silent> <leader>8 :<c-u>AsyncTask file-debug<cr>
+  nnoremap <silent> <leader>9 :<c-u>AsyncTask file-build<cr>
 
   " 全文快速移动, <leader>f{char} 即可触发
   Plug 'easymotion/vim-easymotion'
@@ -149,11 +149,11 @@ if index(g:bundle_group, 'enhanced') >= 0
   " quickfix 增强
   Plug 'yssl/QFEnter'
   let g:qfenter_exclude_filetypes = ['nerdtree']
-  let g:qfenter_keymap = {}
-  let g:qfenter_keymap.open = ['<CR>', '<2-LeftMouse>']
-  let g:qfenter_keymap.vopen = ['<c-]>' ,'gO', 's']
-  let g:qfenter_keymap.hopen = ['<c-x>' ,'o', 'i']
-  let g:qfenter_keymap.topen = ['<c-t>' ,'O', 'T']
+  let g:qfenter_keymap            = {}
+  let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
+  let g:qfenter_keymap.vopen      = ['<c-]>' ,'gO', 's']
+  let g:qfenter_keymap.hopen      = ['<c-x>' ,'o', 'i']
+  let g:qfenter_keymap.topen      = ['<c-t>' ,'O', 'T']
 
   " 展示开始画面，显示最近编辑过的文件
   Plug 'mhinz/vim-startify'
@@ -285,25 +285,25 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   let g:Lf_ShortcutB = '<m-b>'
 
   " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
-  nnoremap <c-n> :LeaderfMruCwd<cr>
+  nnoremap <c-n> :<c-u>LeaderfMruCwd<cr>
 
   " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
-  nnoremap <m-n> :LeaderfMru<cr>
+  nnoremap <m-n> :<c-u>LeaderfMru<cr>
 
   " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-f> :LeaderfFunction!<cr>
+  nnoremap <m-f> :<c-u>LeaderfFunction!<cr>
 
   " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-F> :LeaderfFunctionAll<cr>
+  nnoremap <m-F> :<c-u>LeaderfFunctionAll<cr>
 
   " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
-  nnoremap <m-t> :LeaderfBufTag!<cr>
+  nnoremap <m-t> :<c-u>LeaderfBufTag!<cr>
 
   " 全局 tags 模糊匹配
-  nnoremap <m-T> :LeaderfBufTagAll<cr>
+  nnoremap <m-T> :<c-u>LeaderfBufTagAll<cr>
 
   " Leaderf 自己的命令模糊匹配
-  nnoremap <m-s> :LeaderfSelf<cr>
+  nnoremap <m-s> :<c-u>LeaderfSelf<cr>
 
   " 最大历史文件保存 2048 个
   let g:Lf_MruMaxFiles = 2048
@@ -396,10 +396,10 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
-    nnoremap gs : --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
+    xnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<cr>
+    nnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", expand("<cword>"))<cr>
   endif
-  noremap <leader>nr :<C-U>Leaderf! --recall<CR>
+  noremap <leader>nr :<c-u>Leaderf! --recall<CR>
 
   Plug 'skywind3000/leaderf-snippet'
   inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<cr>
@@ -444,13 +444,11 @@ if index(g:bundle_group, 'tags') >= 0
   let g:gutentags_project_root = [
         \ '.git',
         \ '.hg',
-        \ '.root',
         \ '.svn',
-        \ 'package.json',
+        \ '.root',
         \ ]
 
-  let g:gutentags_exclude_filetypes = ['startify']
-  let g:gutentags_exclude_filetypes = ['markdown', 'json', 'css']
+  let g:gutentags_exclude_filetypes = ['markdown', 'startify', 'css']
   let g:gutentags_exclude_project_root = ['/usr/local', '.notags']
   " 去除生成标签的文件夹
   let g:gutentags_ctags_exclude = ['node_modules', '.cache']
@@ -495,8 +493,8 @@ if index(g:bundle_group, 'tags') >= 0
   " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
   Plug 'skywind3000/vim-preview'
 
-  noremap <m-u> :PreviewScroll -1<cr>
-  noremap <m-i> :PreviewScroll +1<cr>
+  noremap <m-u> :<c-u>PreviewScroll -1<cr>
+  noremap <m-i> :<c-u>PreviewScroll +1<cr>
   inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
   inoremap <m-i> <c-\><c-o>:PreviewScroll +1<cr>
 
@@ -506,7 +504,7 @@ if index(g:bundle_group, 'tags') >= 0
   noremap <silent><m-p> :PreviewClose<cr>
 
   augroup QuickFixPreview
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+    autocmd FileType qf nnoremap <silent><buffer> p :<c-u>PreviewQuickfix<cr>
   augroup end
 endif
 
@@ -519,13 +517,13 @@ if has('python3')
     " snippets 片段扩展, 需要通过 Python 的支持
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
     let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
-    let g:UltiSnipsEnableSnipMate = 1
+    let g:UltiSnipsEnableSnipMate      = 1
     let g:UltiSnipsExpandTrigger       = '<tab>'
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
     let g:UltiSnipsListSnippets        = '<c-l>'
     let g:UltiSnipsEditSplit           = 'vertical'
-    nnoremap <leader>ns :snippets<home>UltiSnipsAddFiletypes 
+    nnoremap <leader>ns :<c-u>snippets<home>UltiSnipsAddFiletypes 
   endif
 
 
@@ -711,13 +709,14 @@ if index(g:bundle_group, 'ale') >= 0
   endfunc
 
   " 设置 flake8/pylint 的参数
-  let g:ale_python_flake8_options  = '--conf=' . s:lintcfg('flake8.conf')
-  let g:ale_python_pylint_options  = '--rcfile=' . s:lintcfg('pylint.conf')
-  let g:ale_python_pylint_options .= ' --disable=W'
-  let g:ale_c_gcc_options          = '-Wall -O2 -std=c11'
-  let g:ale_cpp_gcc_options        = '-Wall -O2 -std=c++17'
-  let g:ale_c_cppcheck_options     = ''
-  let g:ale_cpp_cppcheck_options   = ''
+  let g:ale_python_flake8_options  ='--conf=' . s:lintcfg('flake8.conf')
+  let g:ale_python_pylint_options  ='--rcfile=' . s:lintcfg('pylint.conf')
+  let g:ale_python_pylint_options .=' --disable=W'
+  let g:ale_c_gcc_options          ='-Wall -O2 -std=c11'
+  let g:ale_c_cppcheck_options     =''
+  let g:ale_cpp_cc_options         ='-Wall -O2 -std=c++17'
+  let g:ale_cpp_gcc_options        ='-Wall -O2 -std=c++17'
+  let g:ale_cpp_cppcheck_options   =''
 
   let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
@@ -764,7 +763,7 @@ if index(g:bundle_group, 'nerdtree') >= 0
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0
-  noremap <leader>nt :NERDTreeToggle<cr>
+  noremap <leader>nt :<c-u>NERDTreeToggle<cr>
 endif
 
 
@@ -782,21 +781,21 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
   let g:asyncrun_runner.tmux = function('s:run_tmux')
 
-  nnoremap <leader>vp :VimuxPromptCommand<cr>
-  nnoremap <leader>vl :VimuxRunLastCommand<cr>
-  nnoremap <Leader>vk :VimuxInterruptRunner<CR>
-  nnoremap <leader>vi :VimuxInspectRunner<cr>
-  nnoremap <leader>vz :VimuxZoomRunner<cr>
-  nnoremap <Leader>v<C-l> :VimuxClearTerminalScreen<CR>
-  nnoremap <Leader>vq :VimuxCloseRunner<CR>
+  nnoremap <leader>vp :<c-u>VimuxPromptCommand<cr>
+  nnoremap <leader>vl :<c-u>VimuxRunLastCommand<cr>
+  nnoremap <Leader>vk :<c-u>VimuxInterruptRunner<CR>
+  nnoremap <leader>vi :<c-u>VimuxInspectRunner<cr>
+  nnoremap <leader>vz :<c-u>VimuxZoomRunner<cr>
+  nnoremap <Leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
+  nnoremap <Leader>vq :<c-u>VimuxCloseRunner<CR>
 
   " Plug 'christoomey/vim-tmux-navigator'
   " let g:tmux_navigator_no_mappings = 1
-  " nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
-  " nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
-  " nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
-  " nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
-  " nnoremap <silent> <m-\> :TmuxNavigatePrevious<cr>
+  " nnoremap <silent> <m-h> :<c-u>TmuxNavigateLeft<cr>
+  " nnoremap <silent> <m-j> :<c-u>TmuxNavigateDown<cr>
+  " nnoremap <silent> <m-k> :<c-u>TmuxNavigateUp<cr>
+  " nnoremap <silent> <m-l> :<c-u>TmuxNavigateRight<cr>
+  " nnoremap <silent> <m-\> :<c-u>TmuxNavigatePrevious<cr>
 endif
 
 
@@ -836,7 +835,7 @@ if index(g:bundle_group, 'tool') >= 0
   let g:rainbow_active = 1
 
   Plug 'liuchengxu/vista.vim'
-  nnoremap <leader>nv :Vista!!<cr>
+  nnoremap <leader>nv :<c-u>Vista!!<cr>
 
   " Plug 'mbbill/undotree'
   " nnoremap <silent> <leader>nu :UndotreeToggle<CR>

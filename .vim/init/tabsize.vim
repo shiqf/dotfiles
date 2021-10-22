@@ -29,7 +29,7 @@ augroup FileTypeTab
   "au FileType python setlocal shiftwidth=4 tabstop=4 noexpandtab
 
   au FileType autohotkey  setlocal ts=2 sw=2 sts=2
-  au FileType c,cpp       setlocal ts=8 sw=4 sts=4 cinoptions=>s,e0,n0,f0,{0,}0,^0,L-1,:s,=s,l0,b0,gs,hs,N-s,E0,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,k0,m0,j0,J0,)20,*70,#0,P0,g0
+  au FileType c,cpp       setlocal ts=8 sw=4 sts=4 cinoptions=>s,e0,n0,f0,{0,}0,^0,L-1,:s,=s,l0,b0,gs,hs,N-s,E0,ps,ts,is,+s,c3,C0,/0,(s,us,U0,w0,W0,k0,m0,j0,J0,)20,*70,#0,P0,g0
   au FileType css         setlocal ts=2 sw=2 sts=2
   au FileType dockerfile  setlocal ts=4 sw=4 sts=4
   au FileType graphql     setlocal ts=2 sw=2 sts=2

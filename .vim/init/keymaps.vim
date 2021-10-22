@@ -12,6 +12,9 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 "=============================================================================
 
+" 至上/下行末尾
+nnoremap <silent><c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
+nnoremap <silent><c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
 
 "-----------------------------------------------------------------------------
 "                          插入模式下使用 EMACS 键位
@@ -33,6 +36,7 @@ inoremap <c-j> <c-o>m`<c-o>2$
 " ctrl+k 删除到行末
 inoremap <c-k> <c-\><c-o>"_d$
 inoremap <c-w> <c-g>u<c-w>
+inoremap <c-u> <c-g>u<c-u>
 
 " 使用 <c-_> 代替 <c-k>
 inoremap <c-_> <c-k>
@@ -82,11 +86,11 @@ cnoremap <expr> <c-d> <SID>CtrlD()
 " 快速切换tab 使用标签 参考unimparied
 nnoremap <silent> ]g gt
 nnoremap <silent> [g gT
-nnoremap <silent> [G :tabfirst<cr>
-nnoremap <silent> ]G :tablast<cr>
+nnoremap <silent> [G :<c-u>tabfirst<cr>
+nnoremap <silent> ]G :<c-u>tablast<cr>
 
-nnoremap <silent> [l :labove<cr>
-nnoremap <silent> ]l :lbelow<cr>
+nnoremap <silent> [l :<c-u>labove<cr>
+nnoremap <silent> ]l :<c-u>lbelow<cr>
 
 " 左移 tab
 function! Tab_MoveLeft()
@@ -104,25 +108,25 @@ function! Tab_MoveRight()
   endif
 endfunc
 
-noremap <silent> <c-w>tq :tabclose<cr>
-noremap <silent> <c-w>to :tabonly<cr>
+noremap <silent> <c-w>tq :<c-u>tabclose<cr>
+noremap <silent> <c-w>to :<c-u>tabonly<cr>
 
 " windows 上使用 powershell 来作为默认终端
 if executable('powershell')
   " powershell 中使用 emacs 键位
   " Set-PSReadLineOption -EditMode Emacs
-  noremap <silent> <c-w>tt :tab terminal powershell<cr>
-  noremap <silent> <c-w>ts :terminal powershell<cr>
-  noremap <silent> <c-w>tv :vertical terminal powershell<cr>
+  noremap <silent> <c-w>tt :<c-u>tab terminal powershell<cr>
+  noremap <silent> <c-w>ts :<c-u>terminal powershell<cr>
+  noremap <silent> <c-w>tv :<c-u>vertical terminal powershell<cr>
 else
-  noremap <silent> <c-w>tt :tab terminal<cr>
-  noremap <silent> <c-w>ts :terminal<cr>
-  noremap <silent> <c-w>tv :vertical terminal<cr>
+  noremap <silent> <c-w>tt :<c-u>tab terminal<cr>
+  noremap <silent> <c-w>ts :<c-u>terminal<cr>
+  noremap <silent> <c-w>tv :<c-u>vertical terminal<cr>
 endif
-noremap <silent> <c-w>th :call Tab_MoveLeft()<cr>
-noremap <silent> <c-w>tl :call Tab_MoveRight()<cr>
+noremap <silent> <c-w>th :<c-u>call Tab_MoveLeft()<cr>
+noremap <silent> <c-w>tl :<c-u>call Tab_MoveRight()<cr>
 
-noremap <c-w>td :tabdo 
+noremap <c-w>td :<c-u>tabdo 
 
 
 "-----------------------------------------------------------------------------
@@ -162,8 +166,8 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   " tab 切换
   tnoremap ]g <c-_>gt
   tnoremap [g <c-_>gT
-  tnoremap ]G <c-_>:tablast<cr>
-  tnoremap [G <c-_>:tabfirst<cr>
+  tnoremap ]G <c-_>:<c-u>tablast<cr>
+  tnoremap [G <c-_>:<c-u>tabfirst<cr>
 
   " tnoremap <Esc> <c-_>N
   set notimeout ttimeout timeoutlen=100
@@ -207,7 +211,7 @@ endfunction
 nnoremap <silent>g. /<c-r>-<cr>cgn<c-r>='.'->getreg()<cr><esc>
 xnoremap gr :s/<c-r>=<SID>Replace()<cr>/<c-r>='.'->getreg()<cr>/&
 
-nnoremap & :/&<home>s//<c-r>=<SID>Replace()<cr>
+nnoremap & :<c-u>/&<home>s//<c-r>=<SID>Replace()<cr>
 xnoremap & :~&<CR>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
@@ -219,23 +223,23 @@ inoremap <c-o><c-m> <esc>gi
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-nmap <leader>ee :edit %%<home>
-xmap <leader>e y:edit <c-r>=<SID>Replace()<cr>
-nmap <leader>es :split %%<home>
-nmap <leader>ev :vsplit %%<home>
-nmap <leader>et :tabedit %%<home>
-nmap <leader>ew :cd %%<home>
+nmap <leader>ee :<c-u>edit %%<home>
+xmap <leader>e y:<c-u>edit <c-r>=<SID>Replace()<cr>
+nmap <leader>es :<c-u>split %%<home>
+nmap <leader>ev :<c-u>vsplit %%<home>
+nmap <leader>et :<c-u>tabedit %%<home>
+nmap <leader>ew :<c-u>cd %%<home>
 
-nnoremap <silent><leader>ed :edit <c-r>=expand('%:h')<cr><cr>
-nnoremap <silent><leader>e. :edit!<cr>
+nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<cr><cr>
+nnoremap <silent><leader>e. :<c-u>edit!<cr>
 
 " 打开 fugitive 插件中的状态窗口
-nnoremap <silent> g<cr> :Git<cr>
-nnoremap g<space> :Git 
-nnoremap !<space> :Git! 
+nnoremap <silent> g<cr> :<c-u>Git<cr>
+nnoremap g<space> :<c-u>Git 
+nnoremap !<space> :<c-u>Git! 
 
-nnoremap <leader>gp : --all<home>Git! log --oneline --decorate --graph
-nnoremap <leader>gc : -n<home>Git clean -xdf
+nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph
+nnoremap <leader>gc :<c-u> -n<home>Git clean -xdf
 
 xnoremap <silent> ado :diffget<cr>
 xnoremap <silent> 2do :diffget //2<cr>

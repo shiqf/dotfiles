@@ -24,16 +24,16 @@ else
 endif
 
 nnoremap <leader>ar :AsyncRun 
-nnoremap <silent> <leader>as :AsyncStop<cr>
-nnoremap <silent> <leader>am :AsyncTaskMacro<cr>
-nnoremap <silent> <leader>ae :AsyncTaskEdit<cr>
-nnoremap <silent> <leader>al :AsyncTaskList<cr>
+nnoremap <silent> <leader>as :<c-u>AsyncStop<cr>
+nnoremap <silent> <leader>am :<c-u>AsyncTaskMacro<cr>
+nnoremap <silent> <leader>ae :<c-u>AsyncTaskEdit<cr>
+nnoremap <silent> <leader>al :<c-u>AsyncTaskList<cr>
 
-nnoremap <silent> <leader>5 :AsyncTask file-run<cr>
-nnoremap <silent> <leader>6 :AsyncTask project-run<cr>
-nnoremap <silent> <leader>7 :AsyncTask project-build<cr>
-nnoremap <silent> <leader>8 :AsyncTask file-debug<cr>
-nnoremap <silent> <leader>9 :AsyncTask file-build<cr>
+nnoremap <silent> <leader>5 :<c-u>AsyncTask file-run<cr>
+nnoremap <silent> <leader>6 :<c-u>AsyncTask project-run<cr>
+nnoremap <silent> <leader>7 :<c-u>AsyncTask project-build<cr>
+nnoremap <silent> <leader>8 :<c-u>AsyncTask file-debug<cr>
+nnoremap <silent> <leader>9 :<c-u>AsyncTask file-build<cr>
 
 " 为其他插件提供重复操作'.'功能
 Plug 'tpope/vim-repeat'
@@ -74,11 +74,11 @@ Plug 'tommcdo/vim-exchange'
 " quickfix 增强
 Plug 'yssl/QFEnter'
 let g:qfenter_exclude_filetypes = ['nerdtree']
-let g:qfenter_keymap = {}
-let g:qfenter_keymap.open = ['<CR>', '<2-LeftMouse>']
-let g:qfenter_keymap.vopen = ['<c-]>' ,'gO', 's']
-let g:qfenter_keymap.hopen = ['<c-x>' ,'o', 'i']
-let g:qfenter_keymap.topen = ['<c-t>' ,'O', 'T']
+let g:qfenter_keymap            = {}
+let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
+let g:qfenter_keymap.vopen      = ['<c-]>' ,'gO', 's']
+let g:qfenter_keymap.hopen      = ['<c-x>' ,'o', 'i']
+let g:qfenter_keymap.topen      = ['<c-t>' ,'O', 'T']
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
 Plug 'kana/vim-textobj-user'
@@ -120,25 +120,25 @@ if has('python3')
   let g:Lf_ShortcutB = '<m-b>'
 
   " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
-  nnoremap <c-n> :LeaderfMruCwd<cr>
+  nnoremap <c-n> :<c-u>LeaderfMruCwd<cr>
 
   " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
-  nnoremap <m-n> :LeaderfMru<cr>
+  nnoremap <m-n> :<c-u>LeaderfMru<cr>
 
   " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-f> :LeaderfFunction!<cr>
+  nnoremap <m-f> :<c-u>LeaderfFunction!<cr>
 
   " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-F> :LeaderfFunctionAll<cr>
+  nnoremap <m-F> :<c-u>LeaderfFunctionAll<cr>
 
   " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
-  nnoremap <m-t> :LeaderfBufTag!<cr>
+  nnoremap <m-t> :<c-u>LeaderfBufTag!<cr>
 
   " 全局 tags 模糊匹配
-  nnoremap <m-T> :LeaderfBufTagAll<cr>
+  nnoremap <m-T> :<c-u>LeaderfBufTagAll<cr>
 
   " Leaderf 自己的命令模糊匹配
-  nnoremap <m-s> :LeaderfSelf<cr>
+  nnoremap <m-s> :<c-u>LeaderfSelf<cr>
 
   " 最大历史文件保存 2048 个
   let g:Lf_MruMaxFiles = 2048
@@ -168,7 +168,7 @@ if has('python3')
   " 模糊匹配忽略扩展名
   let g:Lf_WildIgnore = {
         \ 'dir': ['.svn','.git','.hg'],
-        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico']
+        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico', '*.css']
         \ }
 
   " 忽略最近文件
@@ -231,8 +231,8 @@ if has('python3')
     let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u> --hidden<home><C-R>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<CR>
-    nnoremap gs : --hidden<home><C-R>=printf("Leaderf! rg -F %s", expand("<cword>"))<CR>
+    xnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<cr>
+    nnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", expand("<cword>"))<cr>
   endif
   noremap <leader>nr :<C-U>Leaderf! --recall<CR>
 endif
