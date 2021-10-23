@@ -332,15 +332,15 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
 
   " 模糊匹配忽略扩展名
   let g:Lf_WildIgnore = {
-        \ 'dir': ['.svn','.git','.hg'],
-        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico', '*.css']
+        \  'dir': ['.svn','.git','.hg'],
+        \  'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico', '*.css']
         \ }
 
   " 忽略最近文件
   let g:Lf_MruWildIgnore = {
-        \ 'dir': ['node_modules'],
-        \ 'file': []
-        \}
+        \  'dir': ['node_modules'],
+        \  'file': []
+        \ }
 
   " MRU 文件忽略扩展名
   let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
