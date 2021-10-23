@@ -197,14 +197,15 @@ augroup InitFileTypesGroup
   au!
 
   " 强制对某些扩展名的 filetype 进行纠正
-  au BufNewFile,BufRead *.as  setlocal filetype=actionscript
-  au BufNewFile,BufRead *.pro setlocal filetype=prolog
-  au BufNewFile,BufRead *.es  setlocal filetype=erlang
-  au BufNewFile,BufRead *.asc setlocal filetype=asciidoc
-  au BufNewFile,BufRead *.vl  setlocal filetype=verilog
-  au BufNewFile,BufRead *.mt  setlocal filetype=multi
-  au BufNewFile,BufRead *.pt  setlocal filetype=ProtocolFile
-  au BufNewFile,BufRead *.pg  setlocal filetype=ProtocolGeneration
+  au BufNewFile,BufRead *.as    setlocal filetype=actionscript
+  au BufNewFile,BufRead *.pro   setlocal filetype=prolog
+  au BufNewFile,BufRead *.es    setlocal filetype=erlang
+  au BufNewFile,BufRead *.asc   setlocal filetype=asciidoc
+  au BufNewFile,BufRead *.vl    setlocal filetype=verilog
+  au BufNewFile,BufRead *.mt    setlocal filetype=multi
+  au BufNewFile,BufRead *.pt    setlocal filetype=ProtocolFile
+  au BufNewFile,BufRead *.pg    setlocal filetype=ProtocolGeneration
+  au BufNewFile,BufRead .tasks  setlocal filetype=dosini
   au BufNewFile,BufRead .gitignore,.rgignore,.ignore  setlocal filetype=ignore
 
   " C/C++ 文件使用 // 作为注释
