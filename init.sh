@@ -17,14 +17,14 @@ elif [[ $(uname -s) =~ Darwin ]]; then
         git clone https://github.com/zplug/zplug ~/.zplug
     fi
 
-    if [[ $(which brew) =~ brew$ ]]; then
+    if [[ ! $(which brew) =~ brew$ ]]; then
         #  home brew 软件管理软件
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         brew doctor # 检测程序是否正常权限是否足够
     fi
 
     # 判断 /etc/shells 中是否包含最新 zsh，添加最新 zsh 命令地址到 shell 配置文件中
-    if grep -q "$(which zsh)" /etc/shells; then
+    if grep -q "$(which zsh)" /etc/shells && echo "$SHELL" | grep -vq "$(which zsh)"; then
         sudo bash -c "echo $(which zsh) >> /etc/shells" 
     fi
 
@@ -75,7 +75,7 @@ source "${dotfileDir}/config.sh"
 # 如果配置文件在安装之前存在放入备份文件夹
 # shellcheck disable=SC2154
 for dotfile in "${dotfiles[@]}"; do
-    if [[ -L ~/${dotfile##*/} && -L ~/backup/${dotfile##*/} && ! -d ~/backup/${dotfile##*/} ]]; then
+    if [[ -L ~/${dotfile##*/} && -L ~/backup/${dotfile##*/} ]]; then
         echo "删除 ~/backup/${dotfile##*/} 文件"
         rm "$HOME/backup/${dotfile##*/}"
         echo "移动 ~/${dotfile##*/} 文件到 backup 文件夹"
@@ -90,8 +90,8 @@ for dotfile in "${dotfiles[@]}"; do
 done
 
 # neovim 链接
-if [[ ! $(uname -s) =~ ^MSYS_NT || $(uname -s) =~ ^MINGW64_NT ]]; then
-    ln -s ~/dotfiles/.vim ~/.config/nvim
+if [[ (! $(uname -s) =~ ^MSYS_NT || ! $(uname -s) =~ ^MINGW64_NT) && ! -L "$HOME/.config/nvim" ]]; then
+    ln -s "${dotfileDir}/.vim" "$HOME/.config/nvim"
 fi
 
 #######################################################################
