@@ -75,7 +75,7 @@ source "${dotfileDir}/config.sh"
 # 如果配置文件在安装之前存在放入备份文件夹
 # shellcheck disable=SC2154
 for dotfile in "${dotfiles[@]}"; do
-    if [[ -L ~/${dotfile##*/} && -L ~/backup/${dotfile##*/} ]]; then
+    if [[ -L ~/${dotfile##*/} && -L ~/backup/${dotfile##*/} && ! -d ~/backup/${dotfile##*/} ]]; then
         echo "删除 ~/backup/${dotfile##*/} 文件"
         rm "$HOME/backup/${dotfile##*/}"
         echo "移动 ~/${dotfile##*/} 文件到 backup 文件夹"

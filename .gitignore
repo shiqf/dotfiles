@@ -24,7 +24,7 @@
 *.exe
 *.out
 *.app
-*.i*86
+*.i86
 *.x86_64
 *.hex
 
@@ -32,25 +32,19 @@
 *.dSYM/
 
 # commtary file
-doc
-syntax
 
 # OS X 
 .DS_Store
 
 # generate file
-.vim/.netrwhist
-.vim/autoload/plug.vim
-
-# the not need of dir
-# the bundle of vim
-bundle
-.tmux/plugins
-.tmux/resurrect
-cache
-session
-autoload
-
-
-# tags file
+.netrwhist
 tags
+
+# dir
+doc/
+syntax/
+bundle/
+.tmux/
+cache/
+session/
+autoload/

@@ -10,7 +10,7 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundle'))
 Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
 
-let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.hg']
+let g:asyncrun_rootmarks = ['.git', '.hg', '.svn', '.root']
 let g:asynctasks_term_pos = 'tab'
 let g:asyncrun_open = 10
 let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
@@ -51,6 +51,7 @@ Plug 'tpope/vim-unimpaired'
 
 " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
 Plug 'tpope/vim-surround'
+let g:surround_46 = "<\r>"
 
 " 多单词查询、代替、缩写
 Plug 'tpope/vim-abolish'

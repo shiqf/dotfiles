@@ -46,8 +46,6 @@ LoadScript init/tabsize.vim
 " 加载错误修正
 LoadScript init/abbr.vim
 
-set relativenumber
-
 " Tweaks for browsing
 let g:netrw_banner=0        " disable annoying banner
 " let g:netrw_browse_split=4  " open in prior window

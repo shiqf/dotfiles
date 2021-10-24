@@ -22,7 +22,7 @@ do
             "guis")
                 # gui 软件下载
                 for gui in "${guis[@]}"; do
-                    if brew cask list | grep -q "^${gui}$"; then
+                    if brew list --cask | grep -q "^${gui}$"; then
                         echo "${gui%% *} ...准备卸载"
                         brew cask zap "${gui}"
                     fi

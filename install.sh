@@ -30,7 +30,7 @@ do
             "guis")
                 # gui 软件下载
                 for gui in "${guis[@]}"; do
-                    if brew cask list | grep -q "^${gui}$"; then
+                    if brew list --cask | grep -q "^${gui}$"; then
                         echo "${gui%% *} 未安装---  ... 准备安装"
                         brew cask install "${gui}"
                     fi

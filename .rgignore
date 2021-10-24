@@ -1,1 +1,12 @@
+!.config
+!.eslintrc.js
+!.gitignore
+!.gtags.conf
+!.gvimrc
+!.ideavimrc
+!.rgignore
+!.tmux.conf
 !.vim
+!.vimrc
+!.ycm_extra_conf.py
+!.zshrc

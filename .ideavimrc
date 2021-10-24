@@ -34,6 +34,8 @@ set ignorecase
 " 模式查找时智能忽略大小写
 set smartcase
 
+set infercase
+
 " vim自身命令行模式智能补全
 " set wildmenu
 

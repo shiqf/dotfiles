@@ -170,15 +170,15 @@ $ brew cleanup              # 清除多余的下载文件
 `json` 预览等等。
 
 ```bash
-$ brew cask install qlcolorcode        #  预览提供语法高亮
-$ brew cask install qlstephen
-$ brew cask install qlmarkdown         #  为 markdown 提供渲染
-$ brew cask install quicklook-json
-$ brew cask install qlprettypatch
-$ brew cask install quicklook-csv
-$ brew cask install betterzipql
-$ brew cask install webpquicklook      #  为预览 webp 图片格式提供支持
-$ brew cask install suspicious-package
+$ brew install qlcolorcode --cask        # 预览提供语法高亮
+$ brew install qlstephen --cask
+$ brew install qlmarkdown --cask         # 为 markdown 提供渲染
+$ brew install quicklook-json --cask
+$ brew install qlprettypatch --cask
+$ brew install quicklook-csv --cask
+$ brew install betterzipql --cask
+$ brew install webpquicklook --cask      # 为预览 webp 图片格式提供支持
+$ brew install suspicious-package --cask
 # 在终端中运行，这将重启预览并重新加载所有插件
 $ Run qlmanage -r
 ```
@@ -186,13 +186,13 @@ $ Run qlmanage -r
 ### OS X 图形界面程序
 
 ```bash
-$ brew cask install alfred
-$ brew cask install appcleaner
-$ brew cask install cheatsheet
-$ brew cask install dropbox
-$ brew cask install google-chrome
-$ brew cask install onepassword
-$ brew cask install totalfinder
+$ brew install alfred --cask
+$ brew install appcleaner --cask
+$ brew install cheatsheet --cask
+$ brew install dropbox --cask
+$ brew install google-chrome --cask
+$ brew install onepassword --cask
+$ brew install totalfinder --cask
 ```
 
 ## iTerm2

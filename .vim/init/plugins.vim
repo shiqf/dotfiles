@@ -97,7 +97,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'skywind3000/asyncrun.vim'
   Plug 'skywind3000/asynctasks.vim'
 
-  let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.hg']
+  let g:asyncrun_rootmarks = ['.git', '.hg', '.svn', '.root']
   let g:asyncrun_open = 10
   let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
   let g:asynctasks_term_reuse = 1
@@ -418,7 +418,7 @@ endif
 "-----------------------------------------------------------------------------
 " 不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root 文件
 " 详细用法见：https://zhuanlan.zhihu.com/p/36279445
-if index(g:bundle_group, 'tags') >= 0
+if index(g:bundle_group, 'tags') >= 0 && v:version >= 800
   " 提供 ctags/gtags 后台数据库自动更新功能
   Plug 'ludovicchabant/vim-gutentags'
 
