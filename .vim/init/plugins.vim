@@ -521,7 +521,6 @@ if has('python3')
     let g:UltiSnipsExpandTrigger       = '<tab>'
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-    let g:UltiSnipsListSnippets        = '<c-l>'
     let g:UltiSnipsEditSplit           = 'vertical'
     nnoremap <leader>ns :<c-u>snippets<home>UltiSnipsAddFiletypes 
   endif
@@ -619,7 +618,7 @@ if has('python3')
       autocmd!
 
       autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,rust,typescript
-            \ nnoremap gd :YcmCompleter GoTo<CR>
+            \ nnoremap gcd :YcmCompleter GoTo<CR>
 
       " 重构后的结果会加入到 quickfix 中，方便查看修改
       autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs

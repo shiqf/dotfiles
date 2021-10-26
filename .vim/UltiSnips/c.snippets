@@ -86,11 +86,11 @@ scanf("${1:%${2:d}}", ${3})$0
 endsnippet
 
 snippet pr "printf " iwm
-printf("${1:%s}${2:\n}"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+printf("${1:%s}${2:\n}"${1/([^%]|%%)*(%.)?.*/(?2:, :)/}$3${1/([^%]|%%)*(%.)?.*/(?2:)/});
 endsnippet
 
 snippet fpr "fprintf" iwm
-fprintf(${1:stderr}, "${2:%s}${3:\n}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$4${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+fprintf(${1:stderr}, "${2:%s}${3:\n}"${2/([^%]|%%)*(%.)?.*/(?2:, :)/}$4${2/([^%]|%%)*(%.)?.*/(?2:)/});
 endsnippet
 
 snippet pc "putchar " iw
@@ -148,7 +148,7 @@ else if (${1:true})
 endsnippet
 
 snippet fo "for {}" m
-for (${4:int }${2:i} = 0; $2 < ${1:count}; $2${3:++})
+for (${4:int }${2:i} = 0; $2 < ${1:count}; ${3:++}$2)
 {
 	${5:${VISUAL}}
 }
@@ -182,7 +182,8 @@ endsnippet
 
 # switch without default
 snippet swn "switchndef"
-switch (${1:/* variable */}) {
+switch (${1:/* variable */})
+{
 	case ${2:/* variable case */}:
 		${3}
 	${4:break;}${5}

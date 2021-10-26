@@ -74,12 +74,11 @@ Plug 'tommcdo/vim-exchange'
 
 " quickfix 增强
 Plug 'yssl/QFEnter'
-let g:qfenter_exclude_filetypes = ['nerdtree']
-let g:qfenter_keymap            = {}
-let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
-let g:qfenter_keymap.vopen      = ['<c-]>' ,'gO', 's']
-let g:qfenter_keymap.hopen      = ['<c-x>' ,'o', 'i']
-let g:qfenter_keymap.topen      = ['<c-t>' ,'O', 'T']
+let g:qfenter_keymap       = {}
+let g:qfenter_keymap.open  = ['<CR>', '<2-LeftMouse>']
+let g:qfenter_keymap.vopen = ['<c-]>' ,'gO', 's']
+let g:qfenter_keymap.hopen = ['<c-x>' ,'o', 'i']
+let g:qfenter_keymap.topen = ['<c-t>' ,'O', 'T']
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
 Plug 'kana/vim-textobj-user'
@@ -242,11 +241,3 @@ endif
 "                                 结束插件安装
 "-----------------------------------------------------------------------------
 call plug#end()
-
-" Tweaks for browsing
-let g:netrw_banner=0        " disable annoying banner
-" let g:netrw_browse_split=4  " open in prior window
-let g:netrw_altv=1          " open splits to the right
-let g:netrw_liststyle=3     " tree view
-" let g:netrw_list_hide=netrw_gitignore#Hide()
-" let g:netrw_list_hide..=',\(^\|\s\s\)\zs\.\S\+'
