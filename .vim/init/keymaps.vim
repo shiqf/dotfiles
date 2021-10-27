@@ -68,6 +68,8 @@ cnoremap <c-_> <c-k>
 " 打开命令窗口、查询历史窗口
 cnoremap <c-j> <c-f>
 
+cnoremap <c-l> <c-right>
+
 " 和在终端下的 ctrl-d 一样的效果
 function! s:CtrlD()
   if strlen(getcmdline()) == 0
@@ -224,14 +226,14 @@ nnoremap 1P "1P
 inoremap <c-o><c-m> <esc>gi
 
 " 在命令行中展开当前文件的目录
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
 
 nmap <leader>ee :<c-u>edit %%<home>
 xmap <leader>e y:<c-u>edit <c-r>=<SID>Replace()<cr>
 nmap <leader>es :<c-u>split %%<home>
 nmap <leader>ev :<c-u>vsplit %%<home>
 nmap <leader>et :<c-u>tabedit %%<home>
-nmap <leader>ew :<c-u>cd %%<home>
+nmap <leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<cr><home>
 
 nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :<c-u>edit!<cr>
