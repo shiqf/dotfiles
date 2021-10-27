@@ -788,13 +788,13 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   nnoremap <Leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
   nnoremap <Leader>vq :<c-u>VimuxCloseRunner<CR>
 
-  " Plug 'christoomey/vim-tmux-navigator'
-  " let g:tmux_navigator_no_mappings = 1
-  " nnoremap <silent> <m-h> :<c-u>TmuxNavigateLeft<cr>
-  " nnoremap <silent> <m-j> :<c-u>TmuxNavigateDown<cr>
-  " nnoremap <silent> <m-k> :<c-u>TmuxNavigateUp<cr>
-  " nnoremap <silent> <m-l> :<c-u>TmuxNavigateRight<cr>
-  " nnoremap <silent> <m-\> :<c-u>TmuxNavigatePrevious<cr>
+  Plug 'christoomey/vim-tmux-navigator'
+  let g:tmux_navigator_no_mappings = 1
+  nnoremap <silent> <m-h> :<c-u>TmuxNavigateLeft<cr>
+  nnoremap <silent> <m-j> :<c-u>TmuxNavigateDown<cr>
+  nnoremap <silent> <m-k> :<c-u>TmuxNavigateUp<cr>
+  nnoremap <silent> <m-l> :<c-u>TmuxNavigateRight<cr>
+  nnoremap <silent> <m-\> :<c-u>TmuxNavigatePrevious<cr>
 endif
 
 

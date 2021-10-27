@@ -13,8 +13,8 @@
 "=============================================================================
 
 " 至上/下行末尾
-nnoremap <silent><c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
-nnoremap <silent><c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
+nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
+nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
 
 "-----------------------------------------------------------------------------
 "                          插入模式下使用 EMACS 键位
@@ -134,10 +134,13 @@ noremap <c-w>td :<c-u>tabdo
 "-----------------------------------------------------------------------------
 " 传统的 CTRL+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL+hjkl 在
 " bash/zsh 及带文本界面的程序中都是重要键位需要保留
-noremap <m-h> <c-w>h
-noremap <m-l> <c-w>l
-noremap <m-j> <c-w>j
-noremap <m-k> <c-w>k
+if !exists('$TMUX')
+  noremap <silent> <m-h> <c-w>h
+  noremap <silent> <m-l> <c-w>l
+  noremap <silent> <m-j> <c-w>j
+  noremap <silent> <m-k> <c-w>k
+endif
+
 inoremap <m-h> <esc><c-w>h
 inoremap <m-l> <esc><c-w>l
 inoremap <m-j> <esc><c-w>j
@@ -148,20 +151,20 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   " 设置 termwinkey 为 CTRL 加减号（GVIM），有些终端下是 CTRL+?
   " 后面四个键位是搭配 termwinkey 的，如果 termwinkey 更改，也要改
   set termwinkey=<c-_>
-  tnoremap <m-h> <c-_>h
-  tnoremap <m-l> <c-_>l
-  tnoremap <m-j> <c-_>j
-  tnoremap <m-k> <c-_>k
+  tnoremap <silent> <m-h> <c-_>h
+  tnoremap <silent> <m-l> <c-_>l
+  tnoremap <silent> <m-j> <c-_>j
+  tnoremap <silent> <m-k> <c-_>k
 
-  tnoremap <m-f> <esc>f
-  tnoremap <m-b> <esc>b
-  tnoremap <m-d> <esc>d
-  tnoremap <m-u> <esc>u
-  tnoremap <m-c> <esc>c
+  tnoremap <silent> <m-f> <esc>f
+  tnoremap <silent> <m-b> <esc>b
+  tnoremap <silent> <m-d> <esc>d
+  tnoremap <silent> <m-u> <esc>u
+  tnoremap <silent> <m-c> <esc>c
 
   " 终端模式切换普通终端模式
-  tnoremap <m-q> <c-\><c-n>
-  tnoremap <m-p> <c-_>"0
+  tnoremap <silent> <m-q> <c-\><c-n>
+  tnoremap <silent> <m-p> <c-_>"0
 
   " tab 切换
   tnoremap ]g <c-_>gt
@@ -174,12 +177,12 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
 
 elseif has('nvim')
   " neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
-  tnoremap <m-h> <c-\><c-n><c-w>h
-  tnoremap <m-l> <c-\><c-n><c-w>l
-  tnoremap <m-j> <c-\><c-n><c-w>j
-  tnoremap <m-k> <c-\><c-n><c-w>k
-  tnoremap <m-q> <c-\><c-n>
-  tnoremap <m-p> <c-\><c-n>"0pa
+  tnoremap <silent> <m-h> <c-\><c-n><c-w>h
+  tnoremap <silent> <m-l> <c-\><c-n><c-w>l
+  tnoremap <silent> <m-j> <c-\><c-n><c-w>j
+  tnoremap <silent> <m-k> <c-\><c-n><c-w>k
+  tnoremap <silent> <m-q> <c-\><c-n>
+  tnoremap <silent> <m-p> <c-\><c-n>"0pa
 endif
 
 
