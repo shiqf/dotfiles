@@ -98,13 +98,15 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'skywind3000/asynctasks.vim'
 
   let g:asyncrun_rootmarks = ['.git', '.hg', '.svn', '.root']
-  let g:asyncrun_open = 10
+  " let g:asyncrun_open = 10 " 不自动打开 quickfix
   let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
   let g:asynctasks_term_reuse = 1
   let g:asynctasks_term_focus = 0
   let g:asyncrun_bell =  1
   let g:asyncrun_trim = 1
-  if has('win64') || has('win32')
+  if exists('$TMUX')
+    let g:asynctasks_term_pos = 'tmux'
+  elseif has('win64') || has('win32')
     let g:asynctasks_term_pos = 'external'
   else
     let g:asynctasks_term_pos = 'curwin'
