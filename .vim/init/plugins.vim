@@ -773,7 +773,20 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   " tmux 中使用vim 复制
   Plug 'roxma/vim-tmux-clipboard'
 
-  Plug 'benmills/vimux'
+  Plug 'preservim/vimux'
+  nnoremap <silent> <Leader>vc :<c-u>VimuxClearRunnerHistory<CR>
+  nnoremap <silent> <Leader>vd :<c-u>VimuxScrollDownInspect<CR>
+  nnoremap <silent> <Leader>vq :<c-u>VimuxCloseRunner<CR>
+  nnoremap <silent> <Leader>vt :<c-u>VimuxTogglePane<CR>
+  nnoremap <silent> <Leader>vu :<c-u>VimuxScrollUpInspect<CR>
+  nnoremap <silent> <Leader>vx :<c-u>VimuxInterruptRunner<CR>
+  nnoremap <silent> <leader>vi :<c-u>VimuxInspectRunner<cr>
+  nnoremap <silent> <leader>vl :<c-u>VimuxRunLastCommand<cr>
+  nnoremap <silent> <leader>vo :<c-u>VimuxOpenRunner<cr>
+  nnoremap <silent> <leader>vp :<c-u>VimuxPromptCommand<cr>
+  nnoremap <silent> <leader>vz :<c-u>VimuxZoomRunner<cr>
+  nnoremap <silent> <Leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
+
   function! s:run_tmux(opts)
     let cwd = getcwd()
     call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
@@ -781,16 +794,9 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 
   let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
   let g:asyncrun_runner.tmux = function('s:run_tmux')
+  let g:VimuxCloseOnExit = 1
 
-  nnoremap <leader>vp :<c-u>VimuxPromptCommand<cr>
-  nnoremap <leader>vl :<c-u>VimuxRunLastCommand<cr>
-  nnoremap <Leader>vk :<c-u>VimuxInterruptRunner<CR>
-  nnoremap <leader>vi :<c-u>VimuxInspectRunner<cr>
-  nnoremap <leader>vz :<c-u>VimuxZoomRunner<cr>
-  nnoremap <Leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
-  nnoremap <Leader>vq :<c-u>VimuxCloseRunner<CR>
-
-  Plug 'christoomey/vim-tmux-navigator'
+ Plug 'christoomey/vim-tmux-navigator'
   let g:tmux_navigator_no_mappings = 1
   nnoremap <silent> <m-h> :<c-u>TmuxNavigateLeft<cr>
   nnoremap <silent> <m-j> :<c-u>TmuxNavigateDown<cr>

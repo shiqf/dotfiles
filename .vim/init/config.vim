@@ -103,7 +103,7 @@ if has('nvim') == 0 && has('gui_running') == 0
     call s:metacode(nr2char(char2nr('a') + i))
     call s:metacode(nr2char(char2nr('A') + i))
   endfor
-  for c in [',', '.', '/', ';', '{', '}']
+  for c in [',', '.', '/', ';', '{', '}', '\']
     call s:metacode(c)
   endfor
   for c in ['?', ':', '-', '_', '+', '=', "'"]

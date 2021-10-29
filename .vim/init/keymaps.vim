@@ -110,7 +110,15 @@ function! Tab_MoveRight()
   endif
 endfunc
 
+if !exists('g:lasttab')
+  let g:lasttab = 1
+endif
+
+nnoremap <silent> <c-w><c-t> :<c-u>exe "tabn ".g:lasttab<CR>
+autocmd TabLeave * let g:lasttab = tabpagenr()
+
 noremap <silent> <c-w>tq :<c-u>tabclose<cr>
+noremap <silent> <c-w>tc :<c-u>tabclose<cr>
 noremap <silent> <c-w>to :<c-u>tabonly<cr>
 
 " windows 上使用 powershell 来作为默认终端
