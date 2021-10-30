@@ -13,10 +13,6 @@ elif [[ $(uname -s) =~ Darwin ]]; then
     #######################################################################
     #                             Mac 环境软件安装                        #
     #######################################################################
-    if [[ $(which zsh) =~ zsh$ && ! -e ~/.zplug ]]; then
-        git clone https://github.com/zplug/zplug ~/.zplug
-    fi
-
     if [[ ! $(which brew) =~ brew$ ]]; then
         #  home brew 软件管理软件
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -48,6 +44,7 @@ fi
 
 dires=(
     ~/backup/.                  # 创建备份配置文件夹
+    "${dotfileDir}/.zplug/."
     ~/.config/.
 )
 
@@ -110,7 +107,7 @@ if [[ $(uname -s) =~ ^MSYS_NT || $(uname -s) =~ ^MINGW64_NT ]]; then
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     fi
-elif [[ $(uname -s) =~ Darwin ]]; then
+elif [[ $(uname -s) =~ Darwin || $(uname -s) =~ Linux ]]; then
     if [[ ! -e ~/.vim/autoload/plug.vim ]]; then
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -119,14 +116,9 @@ elif [[ $(uname -s) =~ Darwin ]]; then
     if [[ ! -e ~/.tmux/plugins/tpm ]]; then
         git clone https://github.com/tmux-plugins/tpm  ~/.tmux/plugins/tpm
     fi
-elif [[ $(uname -s) =~ Linux ]]; then
-    if [[ ! -e ~/.vim/autoload/plug.vim ]]; then
-        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    fi
-    # tmux 插件管理插件安装
-    if [[ ! -e ~/.tmux/plugins/tpm ]]; then
-        git clone https://github.com/tmux-plugins/tpm  ~/.tmux/plugins/tpm
+
+    if [[ $(which zsh) =~ zsh$ && "$(ls -A ~/.zplug)" == "" ]]; then
+        git clone https://github.com/zplug/zplug ~/.zplug
     fi
 else
     :

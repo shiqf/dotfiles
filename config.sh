@@ -17,6 +17,7 @@ export dotfiles=(
     .vim               # vim 插件目录
     .vimrc             # vim 编辑器配置文件
     .ycm_extra_conf.py # c 语言语义补全配置文件
+    .zplug             # zplug 插件安装目录
     .zshrc             # zsh 的配置文件
 )
 
