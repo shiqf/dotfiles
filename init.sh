@@ -29,11 +29,11 @@ elif [[ $(uname -s) =~ Darwin ]]; then
         sudo chsh -s "$(which zsh)"
     fi
 
-    if [[ $(which zsh) =~ zsh$ && ! -e "${dotfiledir}/.zplug" ]]; then
+    if [[ $(which zsh) =~ zsh$ && ! -e "${dotfileDir}/.zplug" ]]; then
         git clone https://github.com/zplug/zplug "${dotfileDir}/.zplug"
     fi
 else
-    if [[ $(which zsh) =~ zsh$ && ! -e "${dotfiledir}/.zplug" ]]; then
+    if [[ $(which zsh) =~ zsh$ && ! -e "${dotfileDir}/.zplug" ]]; then
         git clone https://github.com/zplug/zplug "${dotfileDir}/.zplug"
     fi
     #######################################################################
@@ -48,7 +48,6 @@ fi
 
 dires=(
     ~/backup/.                  # 创建备份配置文件夹
-    "${dotfileDir}/.zplug/."
     ~/.config/.
 )
 
