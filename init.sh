@@ -28,9 +28,13 @@ elif [[ $(uname -s) =~ Darwin ]]; then
     if [[ ! $SHELL =~ zsh$ ]]; then
         sudo chsh -s "$(which zsh)"
     fi
+
+    if [[ $(which zsh) =~ zsh$ && ! -e "${dotfiledir}/.zplug" ]]; then
+        git clone https://github.com/zplug/zplug "${dotfileDir}/.zplug"
+    fi
 else
-    if [[ $(which zsh) =~ zsh$ && ! -e ~/.zplug ]]; then
-        git clone https://github.com/zplug/zplug ~/.zplug
+    if [[ $(which zsh) =~ zsh$ && ! -e "${dotfiledir}/.zplug" ]]; then
+        git clone https://github.com/zplug/zplug "${dotfileDir}/.zplug"
     fi
     #######################################################################
     #                         其他环境软件安装                            #
@@ -115,10 +119,6 @@ elif [[ $(uname -s) =~ Darwin || $(uname -s) =~ Linux ]]; then
     # tmux 插件管理插件安装
     if [[ ! -e ~/.tmux/plugins/tpm ]]; then
         git clone https://github.com/tmux-plugins/tpm  ~/.tmux/plugins/tpm
-    fi
-
-    if [[ $(which zsh) =~ zsh$ && "$(ls -A ~/.zplug)" == "" ]]; then
-        git clone https://github.com/zplug/zplug ~/.zplug
     fi
 else
     :
