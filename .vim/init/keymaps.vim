@@ -11,6 +11,11 @@
 "
 " vim: set ts=4 sw=4 tw=78 noet :
 "=============================================================================
+inoremap <c-n> <c-x><c-n>
+inoremap <c-p> <c-x><c-p>
+inoremap <c-x><c-n> <c-n>
+inoremap <c-x><c-p> <c-p>
+inoremap <c-l> <c-x><c-l>
 
 " 至上/下行末尾
 nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
@@ -213,7 +218,7 @@ noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 
 " 在可视模式上的重复宏的功能增强
-xnoremap @ :@<left>normal @
+xnoremap @ :normal @@<cr>
 
 " 替换内容
 function! s:Replace()
@@ -247,12 +252,11 @@ nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :<c-u>edit!<cr>
 
 " 打开 fugitive 插件中的状态窗口
-nnoremap <silent> g<cr> :<c-u>Git<cr>
-nnoremap g<space> :<c-u>Git 
-nnoremap !<space> :<c-u>Git! 
+nnoremap <silent> g<cr> :<c-u>Git!<cr>
+nnoremap g<space> :<c-u>! <home>Git
 
 nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph
-nnoremap <leader>gc :<c-u> -n<home>Git clean -xdf
+nnoremap <leader>gc :<c-u> -n<home>Git! clean -xdf
 
 xnoremap <silent> ado :diffget<cr>
 xnoremap <silent> 2do :diffget //2<cr>
@@ -271,10 +275,9 @@ nnoremap <silent> 3dp :diffput //3<cr>
 "                                 文件类型映射
 "-----------------------------------------------------------------------------
 augroup InitFileTypesMapGroup
-
   " 清除同组的历史 autocommand
-  au!
+  autocmd!
 
-  au FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
+  autocmd FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
 
 augroup END
