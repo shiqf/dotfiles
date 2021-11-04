@@ -46,8 +46,8 @@ if (v:version >= 802)
     endif
   endfunction
 
-  xnoremap * <cmd>call <sid>vSetSearch('*')<cr>//<cr>
-  xnoremap # <cmd>call <sid>vSetSearch('#')<cr>??<cr>
+  xnoremap * <cmd>call <SID>vSetSearch('*')<cr>//<cr>
+  xnoremap # <cmd>call <SID>vSetSearch('#')<cr>??<cr>
 else
   function! s:vSetSearch(cmdtype)
     let temp = @@
@@ -56,8 +56,8 @@ else
     let @@ = temp
   endfunction
 
-  xnoremap * :call <sid>vSetSearch('/')<cr>/<c-r>=@/<cr><cr>
-  xnoremap # :call <sid>vSetSearch('?')<cr>?<c-r>=@/<cr><cr>
+  xnoremap * :call <SID>vSetSearch('/')<cr>/<c-r>=@/<cr><cr>
+  xnoremap # :call <SID>vSetSearch('?')<cr>?<c-r>=@/<cr><cr>
 endif
 
 

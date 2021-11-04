@@ -73,7 +73,7 @@ cnoremap <c-_> <c-k>
 " 打开命令窗口、查询历史窗口
 cnoremap <c-j> <c-f>
 
-cnoremap <c-l> <c-right>
+cnoremap <c-l> <c-right><right>
 
 " 和在终端下的 ctrl-d 一样的效果
 function! s:CtrlD()
@@ -218,19 +218,32 @@ noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 
 " 在可视模式上的重复宏的功能增强
-xnoremap @ :normal @@<cr>
+xnoremap <silent> @ :normal @@<cr>
 
 " 替换内容
 function! s:Replace()
-  return '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
+  let l:temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
+  let @/ = '\V' . substitute(escape(l:temp, '\/'), '\n', '\\n', 'g')
+endfunction
+
+function! s:Pattern()
+  if mode() ==# 'v'
+    let l:temp = @@
+    normal! y
+    call setreg('"', '\V' . substitute(escape(l:temp, '\/'), '\n', '\\n', 'g'))
+    let @@ = l:temp
+  else
+    let l:temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
+    call setreg('"', '\V' . substitute(escape(l:temp, '\/'), '\n', '\\n', 'g'))
+  endif
 endfunction
 
 " go to changed place and chang world
-nnoremap <silent>g. /<c-r>-<cr>cgn<c-r>='.'->getreg()<cr><esc>
-xnoremap gr :s/<c-r>=<SID>Replace()<cr>/<c-r>='.'->getreg()<cr>/&
+nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
+xnoremap g. <cmd>call <SID>Pattern()<cr>:/g<home>s/<c-r>"/<c-r>='.'->getreg()<cr>
 
-nnoremap & :<c-u>/&<home>s//<c-r>=<SID>Replace()<cr>
-xnoremap & :~&<CR>
+nnoremap & :~&<cr>
+xnoremap & :~&<cr>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
@@ -242,7 +255,7 @@ inoremap <c-o><c-m> <esc>gi
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
 
 nmap <leader>ee :<c-u>edit %%<home>
-xmap <leader>e y:<c-u>edit <c-r>=<SID>Replace()<cr>
+xmap <leader>e y:<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>
 nmap <leader>es :<c-u>split %%<home>
 nmap <leader>ev :<c-u>vsplit %%<home>
 nmap <leader>et :<c-u>tabedit %%<home>
