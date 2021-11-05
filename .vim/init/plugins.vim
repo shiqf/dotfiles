@@ -450,7 +450,7 @@ if index(g:bundle_group, 'tags') >= 0 && v:version >= 800
         \ '.root',
         \ ]
 
-  let g:gutentags_exclude_filetypes = ['markdown', 'startify', 'css']
+  let g:gutentags_exclude_filetypes = ['markdown', 'startify', 'css', '']
   let g:gutentags_exclude_project_root = ['/usr/local', '.notags']
   " 去除生成标签的文件夹
   let g:gutentags_ctags_exclude = ['node_modules', '.cache']
