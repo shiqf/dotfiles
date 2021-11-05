@@ -64,6 +64,7 @@ cnoremap <c-n> <down>
 " ALT 键移动增强
 cnoremap <m-h> <c-left>
 cnoremap <m-l> <c-right>
+cnoremap <m-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
 
 " ctrl+k 删除到行末
 cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
@@ -220,7 +221,7 @@ nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<cr>
 
-function s:OriginPattern(arg)
+function! s:OriginPattern(arg)
   return '\V' . substitute(escape(a:arg, '\/'), '\n', '\\n', 'g')
 endfunction
 
@@ -230,7 +231,7 @@ function! s:Replace()
   let @/ = l:temp !=# '' ? s:OriginPattern(l:temp) : ''
 endfunction
 
-" 用修改项作为替换项, 修改内容作为替换内容
+" 用寄存器 "0, "- 作为替换项
 function! s:Pattern()
   if mode() ==# 'v'
     let l:temp = @@
@@ -246,9 +247,13 @@ function! s:Pattern()
   endif
 endfunction
 
-" go to changed place and chang world
-nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
-xnoremap g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
+if v:version >= 802
+  " 将修改 "." 命令与 ":s" 命令结合起来
+  " 将修改再次重复运用于匹配的修改原文, 跳转到修改原文并改变通过 "." 命令, 使用前用 g.
+  nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
+  " 用修改("0, "-)作为替换项, 修改内容作为替换内容
+  xnoremap         g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
+endif
 
 nnoremap & :~&<cr>
 xnoremap & :~&<cr>
@@ -262,7 +267,7 @@ inoremap <c-o><c-m> <esc>gi
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
 
-nmap <leader>ee :<c-u>edit %%<home>
+nmap <leader>ef :<c-u>edit %%<home>
 xmap <leader>e y:<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>
 nmap <leader>es :<c-u>split %%<home>
 nmap <leader>ev :<c-u>vsplit %%<home>

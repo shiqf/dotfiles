@@ -30,7 +30,7 @@ endif
 " 调用man程序在vim内部查看命令
 runtime ftplugin/man.vim
 
-if (v:version >= 802)
+if v:version >= 802
   " 可视模式下的面向字符用 * 号匹配字符串
   function! s:vSetSearch(mode)
     if mode() ==# 'v'
