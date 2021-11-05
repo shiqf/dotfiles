@@ -220,27 +220,35 @@ nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<cr>
 
+function s:OriginPattern(arg)
+  return '\V' . substitute(escape(a:arg, '\/'), '\n', '\\n', 'g')
+endfunction
+
 " 替换内容
 function! s:Replace()
   let l:temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
-  let @/ = '\V' . substitute(escape(l:temp, '\/'), '\n', '\\n', 'g')
+  let @/ = l:temp !=# '' ? s:OriginPattern(l:temp) : ''
 endfunction
 
+" 用修改项作为替换项, 修改内容作为替换内容
 function! s:Pattern()
   if mode() ==# 'v'
     let l:temp = @@
     normal! y
-    call setreg('"', '\V' . substitute(escape(l:temp, '\/'), '\n', '\\n', 'g'))
+    let @/ = s:OriginPattern(@@)
     let @@ = l:temp
   else
-    let l:temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
-    call setreg('"', '\V' . substitute(escape(l:temp, '\/'), '\n', '\\n', 'g'))
+    let l:mode = '"'->getregtype()
+    let l:temp = '"'->getreg()
+    if l:mode ==# 'v' && l:temp !=# ''
+      let @/ = s:OriginPattern(l:temp)
+    endif
   endif
 endfunction
 
 " go to changed place and chang world
 nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
-xnoremap g. <cmd>call <SID>Pattern()<cr>:/g<home>s/<c-r>"/<c-r>='.'->getreg()<cr>
+xnoremap g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
 
 nnoremap & :~&<cr>
 xnoremap & :~&<cr>
