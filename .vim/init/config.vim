@@ -32,17 +32,16 @@ runtime ftplugin/man.vim
 
 if v:version >= 802
   " 可视模式下的面向字符用 * 号匹配字符串
-  function! s:vSetSearch(mode)
+  function! s:vSetSearch(cmdtype)
     if mode() ==# 'v'
       let temp = @@
       normal! y
-      let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+      let @/ = '\V' . substitute(escape(@@, '\/'), '\n', '\\n', 'g')
       let @@ = temp
     else
-      exec 'keepjumps normal! ' . a:mode . 'N'
+      exec 'keepjumps normal! ' . a:cmdtype . 'N'
       " TODO 为什么要这样才行?
-      let temp = @/
-      let @/ = temp
+      let @/ = @/
     endif
   endfunction
 
@@ -90,7 +89,7 @@ endif
 
 "-----------------------------------------------------------------------------
 "        终端下允许 ALT，详见：http://www.skywind.me/blog/archives/2021
-"        记得设置 ttimeout （见 init-basic.vim） 和 ttimeoutlen （上面）
+"        记得设置 ttimeout, ttimeoutlen见 （上面）
 "-----------------------------------------------------------------------------
 if has('nvim') == 0 && has('gui_running') == 0
   function! s:metacode(key)
