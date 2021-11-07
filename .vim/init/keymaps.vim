@@ -253,6 +253,10 @@ if v:version >= 802
   nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
   " 用修改("0, "-)作为替换项, 修改内容作为替换内容
   xnoremap         g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
+else
+  nnoremap <silent>g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
+  " 字符向可视模式功能缺失
+  xnoremap         g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
 endif
 
 nnoremap & :~&<cr>
