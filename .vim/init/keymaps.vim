@@ -232,7 +232,7 @@ function! s:Replace()
 endfunction
 
 function s:FirstCharToLower(reg)
-  return a:reg =~ '^\u' ? tolower(a:reg[0:0]) . a:reg[1:-1] : a:reg
+  return a:reg =~ '^\u' ? len(a:reg) > 1 ? tolower(a:reg[0:0]) . a:reg[1:-1] : tolower(a:reg) : a:reg
 endfunction
 
 " 用寄存器 "0, "- 作为替换项
