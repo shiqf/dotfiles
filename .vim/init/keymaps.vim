@@ -222,13 +222,17 @@ nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 xnoremap <silent> @ :normal @@<cr>
 
 function! s:OriginPattern(arg)
-  return '\V' . substitute(escape(a:arg, '\/'), '\n', '\\n', 'g')
+  return a:arg =~ '\W' ? '\V' . substitute(escape(a:arg, '\/'), '\n', '\\n', 'g') : a:arg
 endfunction
 
 " 替换内容
 function! s:Replace()
   let l:temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
   let @/ = l:temp !=# '' ? s:OriginPattern(l:temp) : ''
+endfunction
+
+function s:FirstCharToLower(reg)
+  return a:reg =~ '^\u' ? tolower(a:reg[0:0]) . a:reg[1:-1] : a:reg
 endfunction
 
 " 用寄存器 "0, "- 作为替换项
@@ -252,11 +256,15 @@ if v:version >= 802
   " 将修改再次重复运用于匹配的修改原文, 跳转到修改原文并改变通过 "." 命令, 使用前用 g.
   nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
   " 用修改("0, "-)作为替换项, 修改内容作为替换内容
-  xnoremap         g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
+  xnoremap g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
+  xnoremap g, <cmd>call <SID>Pattern() \| set hls<cr>
+        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
 else
   nnoremap <silent>g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
   " 字符向可视模式功能缺失
-  xnoremap         g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
+  xnoremap g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
+  xnoremap g, :<c-u>call <SID>Pattern() \| set hls<cr>gv
+        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
 endif
 
 nnoremap & :~&<cr>
