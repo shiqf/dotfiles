@@ -9,7 +9,7 @@
 "   - 配置微调
 "   - 文件类型微调
 "
-" vim: set ts=4 sw=4 tw=78 noet :
+" vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
 
 "-----------------------------------------------------------------------------
@@ -29,46 +29,6 @@ endif
 
 " 调用man程序在vim内部查看命令
 runtime ftplugin/man.vim
-
-if v:version >= 802
-  " 可视模式下的面向字符用 * 号匹配字符串
-  function! s:vSetSearch(cmdtype)
-    if mode() ==# 'v'
-      let temp = @@
-      normal! y
-      let @/ = '\V' . substitute(escape(@@, '\/'), '\n', '\\n', 'g')
-      let @@ = temp
-    else
-      exec 'keepjumps normal! ' . a:cmdtype . 'N'
-      " TODO 为什么要这样才行?
-      let @/ = @/
-    endif
-  endfunction
-
-  xnoremap * <cmd>call <SID>vSetSearch('*')<cr>//<cr>
-  xnoremap # <cmd>call <SID>vSetSearch('#')<cr>??<cr>
-else
-  function! s:vSetSearch(cmdtype)
-    let temp = @@
-    normal! gvy
-    let @/ = '\V' . substitute(escape(@@, a:cmdtype.'\'), '\n', '\\n', 'g')
-    let @@ = temp
-  endfunction
-
-  xnoremap * :call <SID>vSetSearch('/')<cr>/<c-r>=@/<cr><cr>
-  xnoremap # :call <SID>vSetSearch('?')<cr>?<c-r>=@/<cr><cr>
-endif
-
-
-" 将 quickfix 列表中的文件加入到 arglist 中去重复, 后可以使用 :argdo 命令执行
-command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
-function! QuickfixFilenames()
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
-endfunction
 
 
 "-----------------------------------------------------------------------------

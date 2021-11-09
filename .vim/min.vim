@@ -46,6 +46,12 @@ LoadScript init/keymaps.vim
 " 设定 tabsize
 LoadScript init/tabsize.vim
 
+" 加载错误修正
+LoadScript init/abbr.vim
+
+" 自定义功能按键映射
+LoadScript init/function_keymaps.vim
+
 if has('win64') || has('win32')
   colorscheme slate
 endif

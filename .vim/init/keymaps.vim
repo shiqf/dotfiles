@@ -9,7 +9,7 @@
 "   - TAB：创建，关闭.
 "   - 各个模式中的映射增强
 "
-" vim: set ts=4 sw=4 tw=78 noet :
+" vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
 inoremap <c-n> <c-x><c-n>
 inoremap <c-p> <c-x><c-p>
@@ -73,19 +73,8 @@ cnoremap <c-_> <c-k>
 
 " 打开命令窗口、查询历史窗口
 cnoremap <c-j> <c-f>
-
+cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<c-d>"
 cnoremap <c-l> <c-right><right>
-
-" 和在终端下的 ctrl-d 一样的效果
-function! s:CtrlD()
-  if strlen(getcmdline()) == 0
-    return "\<esc>"
-  elseif strlen(getcmdline()) > getcmdpos() - 1
-    return "\<Del>"
-  endif
-  return "\<c-d>"
-endfunc
-cnoremap <expr> <c-d> <SID>CtrlD()
 
 
 "-----------------------------------------------------------------------------
@@ -120,7 +109,7 @@ if !exists('g:lasttab')
   let g:lasttab = 1
 endif
 
-nnoremap <silent> <c-w><c-t> :<c-u>exe "tabn ".g:lasttab<CR>
+nnoremap <silent> <c-w><c-t> :<c-u>exe "tabn ".g:lasttab<cr>
 autocmd TabLeave * let g:lasttab = tabpagenr()
 
 noremap <silent> <c-w>tq :<c-u>tabclose<cr>
@@ -221,101 +210,12 @@ nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<cr>
 
-function! s:OriginPattern(arg)
-  return a:arg =~ '\W' ? '\V' . substitute(escape(a:arg, '\/'), '\n', '\\n', 'g') : a:arg
-endfunction
-
-" 替换内容
-function! s:Replace()
-  let l:temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
-  let @/ = l:temp !=# '' ? s:OriginPattern(l:temp) : ''
-endfunction
-
-function s:FirstCharToLower(reg)
-  return a:reg =~ '^\u' ? len(a:reg) > 1 ? tolower(a:reg[0:0]) . a:reg[1:-1] : tolower(a:reg) : a:reg
-endfunction
-
-" 用寄存器 "0, "- 作为替换项
-function! s:Pattern()
-  if mode() ==# 'v'
-    let l:temp = @@
-    normal! y
-    let @/ = s:OriginPattern(@@)
-    let @@ = l:temp
-  else
-    let l:mode = '"'->getregtype()
-    let l:temp = '"'->getreg()
-    if l:mode ==# 'v' && l:temp !=# ''
-      let @/ = s:OriginPattern(l:temp)
-    endif
-  endif
-endfunction
-
-if v:version >= 802
-  " 将修改 "." 命令与 ":s" 命令结合起来
-  " 将修改再次重复运用于匹配的修改原文, 跳转到修改原文并改变通过 "." 命令, 使用前用 g.
-  nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
-  " 用修改("0, "-)作为替换项, 修改内容作为替换内容
-  xnoremap g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
-  xnoremap g, <cmd>call <SID>Pattern() \| set hls<cr>
-        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
-else
-  nnoremap <silent>g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
-  " 字符向可视模式功能缺失
-  xnoremap g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
-  xnoremap g, :<c-u>call <SID>Pattern() \| set hls<cr>gv
-        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
-endif
-
-nnoremap & :~&<cr>
-xnoremap & :~&<cr>
+nnoremap &  :~&<cr>
+xnoremap &  :~&<cr>
+nnoremap g& :%~&<cr>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
 nnoremap 1P "1P
 
 inoremap <c-o><c-m> <esc>gi
-
-" 在命令行中展开当前文件的目录
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
-
-nmap <leader>ef :<c-u>edit %%<home>
-xmap <leader>e y:<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>
-nmap <leader>es :<c-u>split %%<home>
-nmap <leader>ev :<c-u>vsplit %%<home>
-nmap <leader>et :<c-u>tabedit %%<home>
-nmap <leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<cr><home>
-
-nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<cr><cr>
-nnoremap <silent><leader>e. :<c-u>edit!<cr>
-
-" 打开 fugitive 插件中的状态窗口
-nnoremap <silent> g<cr> :<c-u>Git!<cr>
-nnoremap g<space> :<c-u>! <home>Git
-
-nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph
-nnoremap <leader>gc :<c-u> -n<home>Git! clean -xdf
-
-xnoremap <silent> ado :diffget<cr>
-xnoremap <silent> 2do :diffget //2<cr>
-xnoremap <silent> 3do :diffget //3<cr>
-nnoremap <silent> 2do :diffget //2<cr>
-nnoremap <silent> 3do :diffget //3<cr>
-
-xnoremap <silent> adp :diffput<cr>
-xnoremap <silent> 2dp :diffput //2<cr>
-xnoremap <silent> 3dp :diffput //3<cr>
-nnoremap <silent> 2dp :diffput //2<cr>
-nnoremap <silent> 3dp :diffput //3<cr>
-
-
-"-----------------------------------------------------------------------------
-"                                 文件类型映射
-"-----------------------------------------------------------------------------
-augroup InitFileTypesMapGroup
-  " 清除同组的历史 autocommand
-  autocmd!
-
-  autocmd FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
-
-augroup END
