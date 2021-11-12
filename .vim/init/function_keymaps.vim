@@ -2,6 +2,8 @@
 "
 "               function_keymaps.vim - 功能映射
 "
+"   - tab：创建，关闭.
+"
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
 
@@ -80,22 +82,24 @@ else
         \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
 endif
 
+xnoremap <c-c> "+y
+
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
 
-nmap <leader>ef :<c-u>edit %%<home>
-xmap <leader>e y:<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>
-nmap <leader>es :<c-u>split %%<home>
-nmap <leader>ev :<c-u>vsplit %%<home>
-nmap <leader>et :<c-u>tabedit %%<home>
+nmap <leader>ef :<c-u>edit %%<c-left>
+nmap <leader>es :<c-u>split %%<c-left>
+nmap <leader>ev :<c-u>vsplit %%<c-left>
+nmap <leader>et :<c-u>tabedit %%<c-left>
 nmap <leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<cr><home>
+xmap <leader>e y:<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>
 
 nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :<c-u>edit!<cr>
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :<c-u>Git!<cr>
-nnoremap g<space> :<c-u>! <home>Git
+nnoremap g<space> :<c-u>Git! 
 
 nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph
 nnoremap <leader>gc :<c-u> -n<home>Git! clean -xdf
@@ -133,3 +137,5 @@ function! QuickfixFilenames()
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
+nnoremap <silent> [l :<c-u>labove<cr>
+nnoremap <silent> ]l :<c-u>lbelow<cr>

@@ -6,20 +6,11 @@
 "   - 命令模式下使用 Emacs 风格的编辑操作
 "   - 窗口切换：ALT+hjkl
 "   - 命令模式下使用 Emacs 风格的编辑操作
-"   - TAB：创建，关闭.
+"   - tab：创建，关闭，上一个，下一个，首个，末个，左移，右移
 "   - 各个模式中的映射增强
 "
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
-inoremap <c-n> <c-x><c-n>
-inoremap <c-p> <c-x><c-p>
-inoremap <c-x><c-n> <c-n>
-inoremap <c-x><c-p> <c-p>
-inoremap <c-l> <c-x><c-l>
-
-" 至上/下行末尾
-nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
-nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
 
 "-----------------------------------------------------------------------------
 "                          插入模式下使用 EMACS 键位
@@ -34,9 +25,6 @@ inoremap <m-d> <esc>g`^cw
 
 " 类似终端下的 ctrl-y
 inoremap <c-y> <c-a>
-
-" 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
-inoremap <c-j> <c-o>m`<c-o>2$
 
 " ctrl+k 删除到行末
 inoremap <c-k> <c-\><c-o>"_d$
@@ -74,21 +62,29 @@ cnoremap <c-_> <c-k>
 " 打开命令窗口、查询历史窗口
 cnoremap <c-j> <c-f>
 cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<c-d>"
-cnoremap <c-l> <c-right><right>
 
+inoremap <m-h> <c-left>
+inoremap <m-l> <c-right>
+
+
+" 至上/下行末尾
+nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
+nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
+
+function! s:AddToJumpList()
+  let l:col = len(getline('.'))
+  let l:curCol = getcurpos()[-1]
+  return l:curCol < l:col + 1 ? "\<c-\>\<c-o>m`" : ''
+endfunction
+
+" 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
+inoremap <silent><expr> <c-j> <SID>AddToJumpList() . "\<esc>jA"
+inoremap <silent><expr> <m-j> <SID>AddToJumpList() . "\<esc>jA"
+inoremap <silent><expr> <m-k> <SID>AddToJumpList() . "\<esc>kA"
 
 "-----------------------------------------------------------------------------
-"          TAB：创建，关闭，上一个，下一个，首个，末个，左移，右移，
+"          tab：创建，关闭，上一个，下一个，首个，末个，左移，右移，
 "-----------------------------------------------------------------------------
-" 快速切换tab 使用标签 参考unimparied
-nnoremap <silent> ]g gt
-nnoremap <silent> [g gT
-nnoremap <silent> [G :<c-u>tabfirst<cr>
-nnoremap <silent> ]G :<c-u>tablast<cr>
-
-nnoremap <silent> [l :<c-u>labove<cr>
-nnoremap <silent> ]l :<c-u>lbelow<cr>
-
 " 左移 tab
 function! Tab_MoveLeft()
   let l:tabnr = tabpagenr() - 2
@@ -105,13 +101,30 @@ function! Tab_MoveRight()
   endif
 endfunc
 
-if !exists('g:lasttab')
-  let g:lasttab = 1
-endif
+function! Tab_Left()
+  let l:count = v:count != 0 ? v:count : 1
+  let l:currentTab = tabpagenr()
+  return l:currentTab - l:count < 1 ? 1 : l:currentTab - l:count
+endfunction
 
-nnoremap <silent> <c-w><c-t> :<c-u>exe "tabn ".g:lasttab<cr>
-autocmd TabLeave * let g:lasttab = tabpagenr()
+function! Tab_Right()
+  let l:count = v:count != 0 ? v:count : 1
+  let l:currentTab = tabpagenr()
+  let l:maxTab = tabpagenr('$')
+  return l:currentTab + l:count > l:maxTab ? l:maxTab : l:currentTab + l:count
+endfunction
 
+" 快速切换tab 使用标签 参考unimparied
+nnoremap <silent> ]g :<c-u>exec "tabn ".Tab_Right()<cr>
+nnoremap <silent> [g :<c-u>exec "tabn ".Tab_Left()<cr>
+nnoremap <silent> [G :<c-u>tabfirst<cr>
+nnoremap <silent> ]G :<c-u>tablast<cr>
+
+noremap <silent> <c-w>th :<c-u>call Tab_MoveLeft()<cr>
+noremap <silent> <c-w>tl :<c-u>call Tab_MoveRight()<cr>
+
+" g<tab> 回到上个 tab
+noremap <c-w>td :<c-u>tabdo 
 noremap <silent> <c-w>tq :<c-u>tabclose<cr>
 noremap <silent> <c-w>tc :<c-u>tabclose<cr>
 noremap <silent> <c-w>to :<c-u>tabonly<cr>
@@ -128,10 +141,6 @@ else
   noremap <silent> <c-w>ts :<c-u>terminal<cr>
   noremap <silent> <c-w>tv :<c-u>vertical terminal<cr>
 endif
-noremap <silent> <c-w>th :<c-u>call Tab_MoveLeft()<cr>
-noremap <silent> <c-w>tl :<c-u>call Tab_MoveRight()<cr>
-
-noremap <c-w>td :<c-u>tabdo 
 
 
 "-----------------------------------------------------------------------------
@@ -146,10 +155,6 @@ if !exists('$TMUX')
   noremap <silent> <m-k> <c-w>k
 endif
 
-inoremap <m-h> <esc><c-w>h
-inoremap <m-l> <esc><c-w>l
-inoremap <m-j> <esc><c-w>j
-inoremap <m-k> <esc><c-w>k
 
 if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   " vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
@@ -218,4 +223,10 @@ nnoremap g& :%~&<cr>
 nnoremap 1p "1p
 nnoremap 1P "1P
 
+inoremap <c-n> <c-x><c-n>
+inoremap <c-p> <c-x><c-p>
+inoremap <c-x><c-n> <c-n>
+inoremap <c-x><c-p> <c-p>
+inoremap <c-l> <c-x><c-l>
 inoremap <c-o><c-m> <esc>gi
+

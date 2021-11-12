@@ -70,6 +70,7 @@ set hlsearch
 " 查找输入时动态增量显示查找结果
 set incsearch
 
+" 根据首字母大小写确定补全大小写
 set infercase
 
 "-----------------------------------------------------------------------------
@@ -168,7 +169,7 @@ endif
 "                                 比较模式配置
 "-----------------------------------------------------------------------------
 if has("patch-8.1.2289")
-    set diffopt=internal,filler,closeoff,algorithm:patience
+    set diffopt=internal,filler,closeoff,algorithm:histogram
 endif
 
 "-----------------------------------------------------------------------------
