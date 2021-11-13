@@ -63,24 +63,23 @@ cnoremap <c-_> <c-k>
 cnoremap <c-j> <c-f>
 cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<c-d>"
 
-inoremap <m-h> <c-left>
-inoremap <m-l> <c-right>
-
-
 " 至上/下行末尾
 nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
 nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
 
 function! s:AddToJumpList()
-  let l:col = len(getline('.'))
+  let l:col = strwidth(getline('.'))
   let l:curCol = getcurpos()[-1]
   return l:curCol < l:col + 1 ? "\<c-\>\<c-o>m`" : ''
 endfunction
 
 " 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
-inoremap <silent><expr> <c-j> <SID>AddToJumpList() . "\<esc>jA"
-inoremap <silent><expr> <m-j> <SID>AddToJumpList() . "\<esc>jA"
-inoremap <silent><expr> <m-k> <SID>AddToJumpList() . "\<esc>kA"
+inoremap <expr> <c-j> <SID>AddToJumpList() . "\<esc>jA"
+inoremap <expr> <m-j> <SID>AddToJumpList() . "\<esc>jA"
+inoremap <expr> <m-k> <SID>AddToJumpList() . "\<esc>kA"
+inoremap <m-h> <c-left>
+inoremap <m-l> <c-right>
+
 
 "-----------------------------------------------------------------------------
 "          tab：创建，关闭，上一个，下一个，首个，末个，左移，右移，
@@ -228,5 +227,4 @@ inoremap <c-p> <c-x><c-p>
 inoremap <c-x><c-n> <c-n>
 inoremap <c-x><c-p> <c-p>
 inoremap <c-l> <c-x><c-l>
-inoremap <c-o><c-m> <esc>gi
-
+inoremap <c-o><c-j> <esc>gi
