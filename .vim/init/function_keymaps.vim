@@ -2,8 +2,6 @@
 "
 "               function_keymaps.vim - 功能映射
 "
-"   - tab：创建，关闭.
-"
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
 
@@ -13,8 +11,8 @@ endfunction
 
 " 替换内容
 function! s:Replace()
-  let temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
-  let @/ = temp !=# '' ? s:OriginPattern(temp) : ''
+  let l:temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
+  let @/ = l:temp !=# '' ? s:OriginPattern(l:temp) : ''
 endfunction
 
 function s:FirstCharToLower(reg)
@@ -24,15 +22,14 @@ endfunction
 " 用寄存器 "0, "- 作为替换项
 function! s:Pattern()
   if mode() ==# 'v'
-    let temp = @@
+    let l:temp = @@
     normal! y
     let @/ = s:OriginPattern(@@)
-    let @@ = temp
+    let @@ = l:temp
   else
-    let mode = '"'->getregtype()
-    let temp = '"'->getreg()
-    if mode ==# 'v' && temp !=# ''
-      let @/ = s:OriginPattern(temp)
+    let l:temp = '"'->getreg()
+    if '"'->getregtype() ==# 'v' && l:temp !=# ''
+      let @/ = s:OriginPattern(l:temp)
     endif
   endif
 endfunction
@@ -41,10 +38,10 @@ if v:version >= 802
   " 可视模式下的面向字符用 * 号匹配字符串
   function! s:vSetSearch(cmdtype)
     if mode() ==# 'v'
-      let temp = @@
+      let l:temp = @@
       normal! y
       let @/ = s:OriginPattern(@@)
-      let @@ = temp
+      let @@ = l:temp
     else
       exec 'keepjumps normal! ' . a:cmdtype . 'N'
       " TODO 为什么要这样才行?
@@ -65,10 +62,10 @@ if v:version >= 802
         \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
 else
   function! s:vSetSearch(cmdtype)
-    let temp = @@
+    let l:temp = @@
     normal! gvy
     let @/ = s:OriginPattern(@@)
-    let @@ = temp
+    let @@ = l:temp
   endfunction
 
   xnoremap * :call <SID>vSetSearch('/')<cr>/<c-r>=@/<cr><cr>
@@ -92,6 +89,7 @@ nmap <leader>es :<c-u>split %%<c-left>
 nmap <leader>ev :<c-u>vsplit %%<c-left>
 nmap <leader>et :<c-u>tabedit %%<c-left>
 nmap <leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<cr><home>
+nmap <leader>ee :<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>tab
 xmap <leader>e y:<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>
 
 nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<cr><cr>

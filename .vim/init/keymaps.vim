@@ -222,9 +222,6 @@ nnoremap g& :%~&<cr>
 nnoremap 1p "1p
 nnoremap 1P "1P
 
-inoremap <c-n> <c-x><c-n>
-inoremap <c-p> <c-x><c-p>
-inoremap <c-x><c-n> <c-n>
-inoremap <c-x><c-p> <c-p>
 inoremap <c-l> <c-x><c-l>
 inoremap <c-o><c-j> <esc>gi
+set cpt=.,w,b
