@@ -90,7 +90,7 @@ nmap <leader>ev :<c-u>vsplit %%<c-left>
 nmap <leader>et :<c-u>tabedit %%<c-left>
 nmap <leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<cr><home>
 nmap <leader>ee :<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>tab
-xmap <leader>e y:<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>
+xmap <leader>e y:<c-u>edit <c-r>='0'->getregtype() ==# 'v' ? '0'->getreg() : ''<cr><home>tab
 
 nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :<c-u>edit!<cr>
