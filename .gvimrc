@@ -6,8 +6,12 @@ if has('mac')
   set macmeta
 endif
 
-" 取消游标闪烁
-set gcr=a:block-blinkon0
+" 取消 gui 游标闪烁
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:block-ver15-blinkon0-iCursor
 
 " 设置 gui vim 窗口大小
 set columns=120 lines=36
