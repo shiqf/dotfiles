@@ -11,7 +11,7 @@ endfunction
 
 " 替换内容
 function! s:Replace()
-  let l:temp = '"'->getregtype() ==# 'v' ? '"'->getreg() : ''
+  let l:temp = getregtype('"') ==# 'v' ? getreg('"') : ''
   let @/ = l:temp !=# '' ? s:OriginPattern(l:temp) : ''
 endfunction
 
@@ -21,14 +21,19 @@ endfunction
 
 " 用寄存器 "0, "- 作为替换项
 function! s:Pattern()
-  if mode() ==# 'v'
+  if v:version < 802 && visualmode() ==# 'v'
+    let @@ = l:temp
+    normal! gvy
+    let @/ = s:OriginPattern(@@)
+    let @@ = l:temp
+  elseif mode() ==# 'v'
     let l:temp = @@
     normal! y
     let @/ = s:OriginPattern(@@)
     let @@ = l:temp
   else
-    let l:temp = '"'->getreg()
-    if '"'->getregtype() ==# 'v' && l:temp !=# ''
+    let l:temp = getreg('"')
+    if getregtype('"') ==# 'v' && l:temp !=# ''
       let @/ = s:OriginPattern(l:temp)
     endif
   endif
@@ -44,7 +49,6 @@ if v:version >= 802
       let @@ = l:temp
     else
       exec 'keepjumps normal! ' . a:cmdtype . 'N'
-      " TODO 为什么要这样才行?
       let @/ = @/
     endif
   endfunction
@@ -53,30 +57,30 @@ if v:version >= 802
   xnoremap # <cmd>call <SID>vSetSearch('#')<cr>??<cr>
   " 将修改 "." 命令与 ":s" 命令结合起来
   " 将修改再次重复运用于匹配的修改原文, 跳转到修改原文并改变通过 "." 命令, 使用前用 g.
-  nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
+  nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>=getreg('.')<cr><esc>
   " 用修改("0, "-)作为替换项, 修改内容作为替换内容
-  xnoremap g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
-  nnoremap gS <cmd>call <SID>Pattern() \| set hls<cr>
-        \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
-  xnoremap g, <cmd>call <SID>Pattern() \| set hls<cr>
-        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
+  xnoremap g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>=getreg('.')<cr>/g<left><left>
+  nnoremap gz <cmd>call <SID>Pattern() \| set hls<cr>
+        \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
+  xnoremap gz <cmd>call <SID>Pattern() \| set hls<cr>
+        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
 else
-  function! s:vSetSearch(cmdtype)
+  function! s:vSetSearch()
     let l:temp = @@
     normal! gvy
     let @/ = s:OriginPattern(@@)
     let @@ = l:temp
   endfunction
 
-  xnoremap * :call <SID>vSetSearch('/')<cr>/<c-r>=@/<cr><cr>
-  xnoremap # :call <SID>vSetSearch('?')<cr>?<c-r>=@/<cr><cr>
-  nnoremap <silent>g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>='.'->getreg()<cr><esc>
+  xnoremap * :call <SID>vSetSearch()<cr>//<cr><cr>
+  xnoremap # :call <SID>vSetSearch()<cr>??<cr><cr>
+  nnoremap <silent>g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>=getreg('.')<cr><esc>
   " 字符向可视模式功能缺失
-  xnoremap g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>='.'->getreg()<cr>/g<left><left>
-  nnoremap gS :<c-u>call <SID>Pattern() \| set hls<cr>
-        \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
-  xnoremap g, :<c-u>call <SID>Pattern() \| set hls<cr>gv
-        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower('.'->getreg())<cr>/g<left><left>
+  xnoremap g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>=getreg('.')<cr>/g<left><left>
+  nnoremap gz :<c-u>call <SID>Pattern() \| set hls<cr>
+        \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
+  xnoremap gz :<c-u>call <SID>Pattern() \| set hls<cr>gv
+        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
 endif
 
 xnoremap <c-c> "+y
@@ -89,8 +93,8 @@ nmap <leader>es :<c-u>split %%<c-left>
 nmap <leader>ev :<c-u>vsplit %%<c-left>
 nmap <leader>et :<c-u>tabedit %%<c-left>
 nmap <leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<cr><home>
-nmap <leader>ee :<c-u>edit <c-r>='"'->getregtype() ==# 'v' ? '"'->getreg() : ''<cr><home>tab
-xmap <leader>e y:<c-u>edit <c-r>='0'->getregtype() ==# 'v' ? '0'->getreg() : ''<cr><home>tab
+nmap <leader>ee :<c-u>edit <c-r>=getregtype('"') ==# 'v' ? getreg('"') : ''<cr><home>tab
+xmap <leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? getreg('"') : ''<cr><home>tab
 
 nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<cr><cr>
 nnoremap <silent><leader>e. :<c-u>edit!<cr>
@@ -99,8 +103,9 @@ nnoremap <silent><leader>e. :<c-u>edit!<cr>
 nnoremap <silent> g<cr> :<c-u>Git!<cr>
 nnoremap g<space> :<c-u>Git! 
 
-nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph
+nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph --author=
 nnoremap <leader>gc :<c-u> -n<home>Git! clean -xdf
+nnoremap <leader>ge :<c-u>Gedit %
 
 xnoremap <silent> ado :diffget<cr>
 xnoremap <silent> 2do :diffget //2<cr>
@@ -135,5 +140,16 @@ function! QuickfixFilenames()
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
-nnoremap <silent> [l :<c-u>labove<cr>
-nnoremap <silent> ]l :<c-u>lbelow<cr>
+function! QFdelete(bufnr) range
+  let l:qfl = getqflist()
+  call remove(l:qfl, a:firstline - 1, a:lastline - 1)
+  call setqflist([], 'r', {'items': l:qfl})
+  call setpos('.', [a:bufnr, a:firstline, 1, 0])
+endfunction
+
+augroup QFList | au!
+  autocmd BufWinEnter quickfix if &bt ==# 'quickfix'
+  autocmd BufWinEnter quickfix    nnoremap <silent><buffer>dd :call QFdelete(bufnr())<cr>
+  autocmd BufWinEnter quickfix    vnoremap <silent><buffer>d  :call QFdelete(bufnr())<cr>
+  autocmd BufWinEnter quickfix endif
+augroup END

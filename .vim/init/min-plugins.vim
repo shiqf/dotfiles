@@ -51,7 +51,6 @@ Plug 'tpope/vim-unimpaired'
 
 " 添加／删除／改变成对符号 ds, ys, cs, 可视模式使用 S 作为前缀
 Plug 'tpope/vim-surround'
-let g:surround_46 = "<\r>"
 
 " 多单词查询、代替、缩写
 Plug 'tpope/vim-abolish'
@@ -132,13 +131,19 @@ if has('python3')
   nnoremap <m-F> :<c-u>LeaderfFunctionAll<cr>
 
   " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
-  nnoremap <m-t> :<c-u>LeaderfBufTag!<cr>
+  nnoremap <m-t> :<c-u>LeaderfBufTag<cr>
 
   " 全局 tags 模糊匹配
   nnoremap <m-T> :<c-u>LeaderfBufTagAll<cr>
 
+  " 命令历史
+  nnoremap <m-c> :<c-u>LeaderfHistoryCmd<cr>
+
   " Leaderf 自己的命令模糊匹配
   nnoremap <m-s> :<c-u>LeaderfSelf<cr>
+
+  noremap ]r :<c-u>Leaderf --next<cr>
+  noremap [r :<c-u>Leaderf --previous<cr>
 
   " 最大历史文件保存 2048 个
   let g:Lf_MruMaxFiles = 2048

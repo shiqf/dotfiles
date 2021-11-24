@@ -214,9 +214,13 @@ nnoremap <silent> <c-l> :nohlsearch<cr><c-l>
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<cr>
 
-nnoremap &  :~&<cr>
-xnoremap &  :~&<cr>
-nnoremap g& :%~&<cr>
+nnoremap <silent> &  :<c-u>exec '~& ' . (v:count == 0 ? 1 : v:count)<cr>
+xnoremap <silent> &  :~&<cr>
+nnoremap <silent> g& :%~&<cr>
+
+" 错误导航
+nnoremap <silent> [l :<c-u>labove<cr>
+nnoremap <silent> ]l :<c-u>lbelow<cr>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
@@ -224,4 +228,7 @@ nnoremap 1P "1P
 
 inoremap <c-l> <c-x><c-l>
 inoremap <c-o><c-j> <esc>gi
-set cpt=.,w,b
+
+nnoremap <LeftMouse> m'<LeftMouse>
+
+noremap \ :
