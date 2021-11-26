@@ -22,7 +22,7 @@ endfunction
 " 用寄存器 "0, "- 作为替换项
 function! s:Pattern()
   if v:version < 802 && visualmode() ==# 'v'
-    let @@ = l:temp
+    let l:temp = @@
     normal! gvy
     let @/ = s:OriginPattern(@@)
     let @@ = l:temp
@@ -83,6 +83,40 @@ else
         \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
 endif
 
+if !exists("g:vpaste")
+  let g:vpaste = ''
+endif
+
+if v:version >= 802
+  function! s:P()
+    if mode() ==# 'v' && getregtype('"') ==# 'v'
+      let l:temp = @a
+      let g:vpaste = @"
+      normal! "ay
+      let @/ = s:OriginPattern(@a)
+      let @a = l:temp
+    else
+      normal! p
+    endif
+  endfunction
+
+  xnoremap <silent> p <cmd>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
+else
+  function! s:P()
+    if visualmode() ==# 'v' && getregtype('"') ==# 'v'
+      let l:temp = @a
+      let g:vpaste = @"
+      normal! gv"ay
+      let @/ = s:OriginPattern(@a)
+      let @a = l:temp
+    else
+      normal! gvp
+    endif
+  endfunction
+
+  xnoremap <silent> p :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
+endif
+
 xnoremap <c-c> "+y
 
 " 在命令行中展开当前文件的目录
@@ -101,11 +135,12 @@ nnoremap <silent><leader>e. :<c-u>edit!<cr>
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :<c-u>Git!<cr>
-nnoremap g<space> :<c-u>Git! 
+nnoremap g<space> :<c-u>! difftool<home>Git
 
-nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph --author=
-nnoremap <leader>gc :<c-u> -n<home>Git! clean -xdf
 nnoremap <leader>ge :<c-u>Gedit %
+nnoremap <leader>gl :<c-u>Gclog! --author=
+nnoremap <leader>gc :<c-u> -n<home>Git! clean -xdf
+" nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph --author=
 
 xnoremap <silent> ado :diffget<cr>
 xnoremap <silent> 2do :diffget //2<cr>
@@ -119,16 +154,6 @@ xnoremap <silent> 3dp :diffput //3<cr>
 nnoremap <silent> 2dp :diffput //2<cr>
 nnoremap <silent> 3dp :diffput //3<cr>
 
-
-"-----------------------------------------------------------------------------
-"                                 文件类型映射
-"-----------------------------------------------------------------------------
-augroup InitFileTypesMapGroup
-  " 清除同组的历史 autocommand
-  autocmd!
-
-  autocmd FileType vim nnoremap <silent> <leader>s :w \| source %<cr>
-augroup END
 
 " 将 quickfix 列表中的文件加入到 arglist 中去重复, 后可以使用 :argdo 命令执行
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
