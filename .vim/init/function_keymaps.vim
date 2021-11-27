@@ -21,14 +21,9 @@ endfunction
 
 " 用寄存器 "0, "- 作为替换项
 function! s:Pattern()
-  if v:version < 802 && visualmode() ==# 'v'
+  if visualmode() ==# 'v'
     let l:temp = @@
     normal! gvy
-    let @/ = s:OriginPattern(@@)
-    let @@ = l:temp
-  elseif mode() ==# 'v'
-    let l:temp = @@
-    normal! y
     let @/ = s:OriginPattern(@@)
     let @@ = l:temp
   else
@@ -55,15 +50,6 @@ if v:version >= 802
 
   xnoremap * <cmd>call <SID>vSetSearch('*')<cr>//<cr>
   xnoremap # <cmd>call <SID>vSetSearch('#')<cr>??<cr>
-  " 将修改 "." 命令与 ":s" 命令结合起来
-  " 将修改再次重复运用于匹配的修改原文, 跳转到修改原文并改变通过 "." 命令, 使用前用 g.
-  nnoremap <silent>g. <cmd>call <SID>Replace() \| set hls<cr>cgn<c-r>=getreg('.')<cr><esc>
-  " 用修改("0, "-)作为替换项, 修改内容作为替换内容
-  xnoremap g. <cmd>call <SID>Pattern() \| set hls<cr>:s/<c-r>//<c-r>=getreg('.')<cr>/g<left><left>
-  nnoremap gz <cmd>call <SID>Pattern() \| set hls<cr>
-        \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
-  xnoremap gz <cmd>call <SID>Pattern() \| set hls<cr>
-        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
 else
   function! s:vSetSearch()
     let l:temp = @@
@@ -72,52 +58,33 @@ else
     let @@ = l:temp
   endfunction
 
-  xnoremap * :call <SID>vSetSearch()<cr>//<cr><cr>
-  xnoremap # :call <SID>vSetSearch()<cr>??<cr><cr>
-  nnoremap <silent>g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>=getreg('.')<cr><esc>
-  " 字符向可视模式功能缺失
-  xnoremap g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>=getreg('.')<cr>/g<left><left>
-  nnoremap gz :<c-u>call <SID>Pattern() \| set hls<cr>
-        \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
-  xnoremap gz :<c-u>call <SID>Pattern() \| set hls<cr>gv
-        \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
+  xnoremap * :<c-u>call <SID>vSetSearch()<cr>//<cr>
+  xnoremap # :<c-u>call <SID>vSetSearch()<cr>??<cr>
 endif
+
+" 将修改 "." 命令与 ":s" 命令结合起来
+" 将修改再次重复运用于匹配的修改原文, 跳转到修改原文并改变通过 "." 命令, 使用前用 g.
+" 用修改("0, "-)作为替换项, 修改内容作为替换内容
+nnoremap <silent>g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>=getreg('.')<cr><esc>
+xnoremap g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>=getreg('.')<cr>/g<left><left>
+nnoremap gz :<c-u>call <SID>Pattern() \| set hls<cr>
+      \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
+xnoremap gz :<c-u>call <SID>Pattern() \| set hls<cr>gv
+      \:S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
 
 if !exists("g:vpaste")
   let g:vpaste = ''
 endif
 
-if v:version >= 802
-  function! s:P()
-    if mode() ==# 'v' && getregtype('"') ==# 'v'
-      let l:temp = @a
-      let g:vpaste = @"
-      normal! "ay
-      let @/ = s:OriginPattern(@a)
-      let @a = l:temp
-    else
-      normal! p
-    endif
-  endfunction
+function! s:P()
+  let l:temp = @a
+  let g:vpaste = @"
+  normal! gv"ay
+  let @/ = s:OriginPattern(@a)
+  let @a = l:temp
+endfunction
 
-  xnoremap <silent> p <cmd>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
-else
-  function! s:P()
-    if visualmode() ==# 'v' && getregtype('"') ==# 'v'
-      let l:temp = @a
-      let g:vpaste = @"
-      normal! gv"ay
-      let @/ = s:OriginPattern(@a)
-      let @a = l:temp
-    else
-      normal! gvp
-    endif
-  endfunction
-
-  xnoremap <silent> p :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
-endif
-
-xnoremap <c-c> "+y
+xnoremap <silent> p :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
@@ -135,12 +102,12 @@ nnoremap <silent><leader>e. :<c-u>edit!<cr>
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :<c-u>Git!<cr>
-nnoremap g<space> :<c-u>! difftool<home>Git
+nnoremap g<space> :<c-u>Git! 
 
 nnoremap <leader>ge :<c-u>Gedit %
 nnoremap <leader>gl :<c-u>Gclog! --author=
 nnoremap <leader>gc :<c-u> -n<home>Git! clean -xdf
-" nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph --author=
+nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph --author=
 
 xnoremap <silent> ado :diffget<cr>
 xnoremap <silent> 2do :diffget //2<cr>

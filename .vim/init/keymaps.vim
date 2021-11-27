@@ -232,3 +232,7 @@ inoremap <c-o><c-j> <esc>gi
 nnoremap <LeftMouse> m'<LeftMouse>
 
 noremap \ :
+
+cnoremap <c-l> <c-right><right>
+
+xnoremap <c-c> "+y
