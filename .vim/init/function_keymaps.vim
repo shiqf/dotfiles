@@ -81,10 +81,14 @@ function! s:P()
   let g:vpaste = @"
   normal! gv"ay
   let @/ = s:OriginPattern(@a)
+  if &cb =~ 'unnamed'
+    let g:vpaste = @*
+    let @* = @a
+  endif
   let @a = l:temp
 endfunction
 
-xnoremap <silent> p :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
+xnoremap <silent> P :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'

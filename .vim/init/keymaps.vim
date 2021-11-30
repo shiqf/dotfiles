@@ -103,6 +103,9 @@ endfunc
 function! Tab_Left()
   let l:count = v:count != 0 ? v:count : 1
   let l:currentTab = tabpagenr()
+  if l:currentTab == 1 && l:count == 1
+    return tabpagenr('$')
+  endif
   return l:currentTab - l:count < 1 ? 1 : l:currentTab - l:count
 endfunction
 
@@ -110,6 +113,9 @@ function! Tab_Right()
   let l:count = v:count != 0 ? v:count : 1
   let l:currentTab = tabpagenr()
   let l:maxTab = tabpagenr('$')
+  if l:count == 1 && l:currentTab == l:maxTab
+    return 1
+  endif
   return l:currentTab + l:count > l:maxTab ? l:maxTab : l:currentTab + l:count
 endfunction
 
@@ -230,8 +236,6 @@ inoremap <c-l> <c-x><c-l>
 inoremap <c-o><c-j> <esc>gi
 
 nnoremap <LeftMouse> m'<LeftMouse>
-
-noremap \ :
 
 cnoremap <c-l> <c-right><right>
 

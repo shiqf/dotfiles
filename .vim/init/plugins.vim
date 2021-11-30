@@ -778,28 +778,30 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   " tmux 中使用vim 复制
   Plug 'roxma/vim-tmux-clipboard'
 
-  Plug 'preservim/vimux'
-  nnoremap <silent> <Leader>vc :<c-u>VimuxClearRunnerHistory<CR>
-  nnoremap <silent> <Leader>vd :<c-u>VimuxScrollDownInspect<CR>
-  nnoremap <silent> <Leader>vq :<c-u>VimuxCloseRunner<CR>
-  nnoremap <silent> <Leader>vt :<c-u>VimuxTogglePane<CR>
-  nnoremap <silent> <Leader>vu :<c-u>VimuxScrollUpInspect<CR>
-  nnoremap <silent> <Leader>vx :<c-u>VimuxInterruptRunner<CR>
-  nnoremap <silent> <leader>vi :<c-u>VimuxInspectRunner<cr>
-  nnoremap <silent> <leader>vl :<c-u>VimuxRunLastCommand<cr>
-  nnoremap <silent> <leader>vo :<c-u>VimuxOpenRunner<cr>
-  nnoremap <silent> <leader>vp :<c-u>VimuxPromptCommand<cr>
-  nnoremap <silent> <leader>vz :<c-u>VimuxZoomRunner<cr>
-  nnoremap <silent> <Leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
+  if has("patch-7.4.1154")
+    Plug 'preservim/vimux'
+    nnoremap <silent> <Leader>vc :<c-u>VimuxClearRunnerHistory<CR>
+    nnoremap <silent> <Leader>vd :<c-u>VimuxScrollDownInspect<CR>
+    nnoremap <silent> <Leader>vq :<c-u>VimuxCloseRunner<CR>
+    nnoremap <silent> <Leader>vt :<c-u>VimuxTogglePane<CR>
+    nnoremap <silent> <Leader>vu :<c-u>VimuxScrollUpInspect<CR>
+    nnoremap <silent> <Leader>vx :<c-u>VimuxInterruptRunner<CR>
+    nnoremap <silent> <leader>vi :<c-u>VimuxInspectRunner<cr>
+    nnoremap <silent> <leader>vl :<c-u>VimuxRunLastCommand<cr>
+    nnoremap <silent> <leader>vo :<c-u>VimuxOpenRunner<cr>
+    nnoremap <silent> <leader>vp :<c-u>VimuxPromptCommand<cr>
+    nnoremap <silent> <leader>vz :<c-u>VimuxZoomRunner<cr>
+    nnoremap <silent> <Leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
 
-  function! s:run_tmux(opts)
-    let cwd = getcwd()
-    call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
-  endfunction
+    function! s:run_tmux(opts)
+      let cwd = getcwd()
+      call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
+    endfunction
 
-  let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
-  let g:asyncrun_runner.tmux = function('s:run_tmux')
-  let g:VimuxCloseOnExit = 1
+    let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
+    let g:asyncrun_runner.tmux = function('s:run_tmux')
+    let g:VimuxCloseOnExit = 1
+  endif
 
  Plug 'christoomey/vim-tmux-navigator'
   let g:tmux_navigator_no_mappings = 1
@@ -808,6 +810,8 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   nnoremap <silent> <m-k> :<c-u>TmuxNavigateUp<cr>
   nnoremap <silent> <m-l> :<c-u>TmuxNavigateRight<cr>
   nnoremap <silent> <m-\> :<c-u>TmuxNavigatePrevious<cr>
+
+  Plug 'wellle/tmux-complete.vim'
 endif
 
 
@@ -848,6 +852,16 @@ if index(g:bundle_group, 'tool') >= 0
 
   Plug 'liuchengxu/vista.vim'
   nnoremap <leader>nv :<c-u>Vista!!<cr>
+
+  Plug 'RRethy/vim-illuminate'
+
+  Plug 'lfv89/vim-interestingwords'
+
+  Plug 'junegunn/vim-peekaboo'
+
+  Plug 'AndrewRadev/undoquit.vim'
+
+  Plug 'TaDaa/vimade'
 
   " Plug 'mbbill/undotree'
   " nnoremap <silent> <leader>nu :UndotreeToggle<CR>
