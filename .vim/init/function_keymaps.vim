@@ -77,18 +77,14 @@ if !exists("g:vpaste")
 endif
 
 function! s:P()
-  let l:temp = @a
-  let g:vpaste = @"
-  normal! gv"ay
-  let @/ = s:OriginPattern(@a)
-  if &cb =~ 'unnamed'
-    let g:vpaste = @*
-    let @* = @a
-  endif
-  let @a = l:temp
+  let l:register = v:register
+  let l:temp = getreg(l:register)
+  let g:vpaste = l:temp
+  exec 'normal! ' . 'gv"' . l:register . 'pu'
+  let @/ = s:OriginPattern(@-)
 endfunction
 
-xnoremap <silent> P :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
+xnoremap <silent> p :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'

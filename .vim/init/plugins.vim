@@ -181,7 +181,7 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   " git 仓库使用 histogram 算法进行 diff
   let g:signify_vcs_cmds = {
-        \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
+        \ 'git': 'git diff --no-color --diff-algorithm=patience --no-ext-diff -U0 -- %f',
         \}
 
   " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
@@ -780,18 +780,18 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 
   if has("patch-7.4.1154")
     Plug 'preservim/vimux'
-    nnoremap <silent> <Leader>vc :<c-u>VimuxClearRunnerHistory<CR>
-    nnoremap <silent> <Leader>vd :<c-u>VimuxScrollDownInspect<CR>
-    nnoremap <silent> <Leader>vq :<c-u>VimuxCloseRunner<CR>
-    nnoremap <silent> <Leader>vt :<c-u>VimuxTogglePane<CR>
-    nnoremap <silent> <Leader>vu :<c-u>VimuxScrollUpInspect<CR>
-    nnoremap <silent> <Leader>vx :<c-u>VimuxInterruptRunner<CR>
+    nnoremap <silent> <leader>vc :<c-u>VimuxClearRunnerHistory<CR>
+    nnoremap <silent> <leader>vd :<c-u>VimuxScrollDownInspect<CR>
+    nnoremap <silent> <leader>vq :<c-u>VimuxCloseRunner<CR>
+    nnoremap <silent> <leader>vt :<c-u>VimuxTogglePane<CR>
+    nnoremap <silent> <leader>vu :<c-u>VimuxScrollUpInspect<CR>
+    nnoremap <silent> <leader>vx :<c-u>VimuxInterruptRunner<CR>
     nnoremap <silent> <leader>vi :<c-u>VimuxInspectRunner<cr>
     nnoremap <silent> <leader>vl :<c-u>VimuxRunLastCommand<cr>
     nnoremap <silent> <leader>vo :<c-u>VimuxOpenRunner<cr>
     nnoremap <silent> <leader>vp :<c-u>VimuxPromptCommand<cr>
     nnoremap <silent> <leader>vz :<c-u>VimuxZoomRunner<cr>
-    nnoremap <silent> <Leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
+    nnoremap <silent> <leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
 
     function! s:run_tmux(opts)
       let cwd = getcwd()
@@ -853,15 +853,23 @@ if index(g:bundle_group, 'tool') >= 0
   Plug 'liuchengxu/vista.vim'
   nnoremap <leader>nv :<c-u>Vista!!<cr>
 
+  " 点亮当前光标下的单词
   Plug 'RRethy/vim-illuminate'
 
+  " 高亮多个单词
   Plug 'lfv89/vim-interestingwords'
 
-  Plug 'junegunn/vim-peekaboo'
-
+  " 恢复关闭的缓冲区
   Plug 'AndrewRadev/undoquit.vim'
 
-  Plug 'TaDaa/vimade'
+  " 专注模式
+  Plug 'junegunn/goyo.vim'
+
+  " 可视化寄存器
+  Plug 'junegunn/vim-peekaboo'
+
+  " " 高亮当前缓冲区
+  " Plug 'TaDaa/vimade'
 
   " Plug 'mbbill/undotree'
   " nnoremap <silent> <leader>nu :UndotreeToggle<CR>

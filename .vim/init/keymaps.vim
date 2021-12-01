@@ -240,3 +240,5 @@ nnoremap <LeftMouse> m'<LeftMouse>
 cnoremap <c-l> <c-right><right>
 
 xnoremap <c-c> "+y
+xnoremap <m-l> >gv
+xnoremap <m-h> <gv
