@@ -78,8 +78,7 @@ endif
 
 function! s:P()
   let l:register = v:register
-  let l:temp = getreg(l:register)
-  let g:vpaste = l:temp
+  let g:vpaste = getreg(l:register)
   exec 'normal! ' . 'gv"' . l:register . 'pu'
   let @/ = s:OriginPattern(@-)
 endfunction

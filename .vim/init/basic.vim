@@ -169,7 +169,7 @@ endif
 "                                 比较模式配置
 "-----------------------------------------------------------------------------
 if has("patch-8.1.0360")
-    set diffopt+=internal,algorithm:patience
+    set diffopt+=internal,algorithm:histogram
 endif
 
 "-----------------------------------------------------------------------------
