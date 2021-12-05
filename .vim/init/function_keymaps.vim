@@ -4,9 +4,17 @@
 "
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
-
-function! s:OriginPattern(arg)
-  return a:arg =~ '\W' ? '\V' . substitute(escape(a:arg, '\/'), '\n', '\\n', 'g') : a:arg
+function! s:OriginPattern(arg, ...)
+  let l:isWord = a:0 > 0 ? a:1 : 0
+  if a:arg !~ '\W'
+    if l:isWord == 1
+      return '\v<' . a:arg . '>'
+    else
+      return a:arg
+    endif
+  else
+    return '\V' . substitute(escape(a:arg, '\/'), '\n', '\\n', 'g')
+  endif
 endfunction
 
 " 替换内容
@@ -20,16 +28,17 @@ function s:FirstCharToLower(reg)
 endfunction
 
 " 用寄存器 "0, "- 作为替换项
-function! s:Pattern()
+function! s:Pattern(...)
+  let l:isWord = a:0 > 0 ? a:1 : 0
   if visualmode() ==# 'v'
     let l:temp = @@
     normal! gvy
-    let @/ = s:OriginPattern(@@)
+    let @/ = s:OriginPattern(@@, l:isWord)
     let @@ = l:temp
   else
     let l:temp = getreg('"')
     if getregtype('"') ==# 'v' && l:temp !=# ''
-      let @/ = s:OriginPattern(l:temp)
+      let @/ = s:OriginPattern(l:temp, l:isWord)
     endif
   endif
 endfunction
@@ -65,7 +74,8 @@ endif
 " 将修改 "." 命令与 ":s" 命令结合起来
 " 将修改再次重复运用于匹配的修改原文, 跳转到修改原文并改变通过 "." 命令, 使用前用 g.
 " 用修改("0, "-)作为替换项, 修改内容作为替换内容
-nnoremap <silent>g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>=getreg('.')<cr><esc>
+xnoremap . :<c-u>call <SID>Pattern(1) \| set hls<cr>gv:s/<c-r>//<c-r>=getreg('.')<cr>/g<left><left>
+nnoremap g. :<c-u>call <SID>Replace() \| set hls<cr>cgn<c-r>=getreg('.')<cr><esc>
 xnoremap g. :<c-u>call <SID>Pattern() \| set hls<cr>gv:s/<c-r>//<c-r>=getreg('.')<cr>/g<left><left>
 nnoremap gz :<c-u>call <SID>Pattern() \| set hls<cr>
       \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<cr>/<c-r>=<SID>FirstCharToLower(getreg('.'))<cr>/g<left><left>
@@ -101,7 +111,7 @@ nnoremap <silent><leader>e. :<c-u>edit!<cr>
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :<c-u>Git!<cr>
-nnoremap g<space> :<c-u>Git! 
+nnoremap g<space> :<c-u>Git!
 
 nnoremap <leader>ge :<c-u>Gedit %
 nnoremap <leader>gl :<c-u>Gclog! --author=
