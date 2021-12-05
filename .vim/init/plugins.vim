@@ -864,6 +864,7 @@ if index(g:bundle_group, 'tool') >= 0
 
   " 专注模式
   Plug 'junegunn/goyo.vim'
+  let g:goyo_width = 120
 
   " " 可视化寄存器
   " Plug 'junegunn/vim-peekaboo'
