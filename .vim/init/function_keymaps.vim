@@ -88,9 +88,13 @@ endif
 
 function! s:P()
   let l:register = v:register
-  let g:vpaste = getreg(l:register)
-  exec 'normal! ' . 'gv"' . l:register . 'pu'
-  let @/ = s:OriginPattern(@-)
+  if visualmode() ==# 'v'
+    let g:vpaste = getreg(l:register)
+    exec 'normal! ' . 'gv"' . l:register . 'pu'
+    let @/ = s:OriginPattern(@-)
+  else
+    exec 'normal! ' . 'gv"' . l:register . 'p'
+  endif
 endfunction
 
 " TODO viusal line and visual block improved
@@ -112,7 +116,7 @@ nnoremap <silent><leader>e. :<c-u>edit!<cr>
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<cr> :<c-u>Git!<cr>
-nnoremap g<space> :<c-u>Git!
+nnoremap g<space> :<c-u>Git! 
 
 nnoremap <leader>ge :<c-u>Gedit %
 nnoremap <leader>gl :<c-u>Gclog! --author=
