@@ -93,6 +93,7 @@ function! s:P()
   let @/ = s:OriginPattern(@-)
 endfunction
 
+" TODO viusal line and visual block improved
 xnoremap <silent> p :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
 
 " 在命令行中展开当前文件的目录
