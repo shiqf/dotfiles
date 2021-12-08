@@ -97,11 +97,12 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'skywind3000/asynctasks.vim'
 
   let g:asyncrun_rootmarks = ['.git', '.hg', '.svn', '.root']
-  " let g:asyncrun_open = 10 " 不自动打开 quickfix
+  " TODO 声音不同
+  let g:asyncrun_open = 10 " 不自动打开 quickfix
   let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
   let g:asynctasks_term_reuse = 1
   let g:asynctasks_term_focus = 0
-  let g:asyncrun_bell =  1
+  let g:asyncrun_bell = 1
   let g:asyncrun_trim = 1
   if exists('$TMUX')
     let g:asynctasks_term_pos = 'tmux'
@@ -117,6 +118,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   nnoremap <silent> <leader>ae :<c-u>AsyncTaskEdit<cr>
   nnoremap <silent> <leader>al :<c-u>AsyncTaskList<cr>
 
+  nnoremap <silent> <leader>2 :<c-u>AsyncTask file-obj<cr>
   nnoremap <silent> <leader>5 :<c-u>AsyncTask file-run<cr>
   nnoremap <silent> <leader>6 :<c-u>AsyncTask project-run<cr>
   nnoremap <silent> <leader>7 :<c-u>AsyncTask project-build<cr>
@@ -183,6 +185,12 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:signify_vcs_cmds = {
         \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
         \}
+
+  " 显示 quickfix 列表和 location 列表
+  Plug 'Valloric/ListToggle'
+  let g:lt_location_list_toggle_map = '<leader>l'
+  let g:lt_quickfix_list_toggle_map = '<leader>q'
+  let g:lt_height = 10
 
   " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
   " Plug 'asins/vim-dict'
@@ -292,7 +300,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   nnoremap <m-n> :<c-u>LeaderfMru<cr>
 
   " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-f> :<c-u>LeaderfFunction!<cr>
+  nnoremap <m-f> :<c-u>LeaderfFunction<cr>
 
   " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
   nnoremap <m-F> :<c-u>LeaderfFunctionAll<cr>
@@ -411,12 +419,6 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   Plug 'skywind3000/leaderf-snippet'
   inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<cr>
   let g:Lf_PreviewResult.snippet = 1
-
-  " 显示 quickfix 列表和 location 列表
-  Plug 'Valloric/ListToggle'
-  let g:lt_location_list_toggle_map = '<leader>l'
-  let g:lt_quickfix_list_toggle_map = '<leader>q'
-  let g:lt_height = 10
 endif
 
 
@@ -757,6 +759,11 @@ if index(g:bundle_group, 'themes') >= 0
   let g:airline#extensions#syntastic#enabled    = 0
   let g:airline#extensions#csv#enabled          = 0
   let g:airline#extensions#vimagit#enabled      = 0
+
+  let g:airline_section_c =
+        \"%{winnr()}: ".
+        \"%<%f%m %#__accent_red#".
+        \"%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#"
 endif
 
 
@@ -864,7 +871,7 @@ if index(g:bundle_group, 'tool') >= 0
 
   " 专注模式
   Plug 'junegunn/goyo.vim'
-  let g:goyo_width = 120
+  let g:goyo_width = 140
 
   " " 可视化寄存器
   " Plug 'junegunn/vim-peekaboo'

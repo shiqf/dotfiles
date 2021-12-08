@@ -68,6 +68,7 @@ set t_Co=256
 set statusline=                                 " 清空状态栏
 set statusline+=\ %F                            " 文件名
 set statusline+=\ [%1*%M%*%n%R%H]               " buffer 编号和状态
+set statusline+=\ %{winnr()}                    " 文件窗口位置
 set statusline+=%=                              " 向右对齐
 set statusline+=\ %y                            " 文件类型
 

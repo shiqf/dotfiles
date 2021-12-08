@@ -11,12 +11,12 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
 
 let g:asyncrun_rootmarks = ['.git', '.hg', '.svn', '.root']
-let g:asynctasks_term_pos = 'tab'
 let g:asyncrun_open = 10
 let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
 let g:asynctasks_term_reuse = 1
 let g:asynctasks_term_focus = 0
-let g:asyncrun_bell =  1
+let g:asyncrun_bell = 1
+let g:asyncrun_trim = 1
 if has('win64') || has('win32')
   let g:asynctasks_term_pos = 'external'
 else
@@ -29,6 +29,7 @@ nnoremap <silent> <leader>am :<c-u>AsyncTaskMacro<cr>
 nnoremap <silent> <leader>ae :<c-u>AsyncTaskEdit<cr>
 nnoremap <silent> <leader>al :<c-u>AsyncTaskList<cr>
 
+nnoremap <silent> <leader>2 :<c-u>AsyncTask file-obj<cr>
 nnoremap <silent> <leader>5 :<c-u>AsyncTask file-run<cr>
 nnoremap <silent> <leader>6 :<c-u>AsyncTask project-run<cr>
 nnoremap <silent> <leader>7 :<c-u>AsyncTask project-build<cr>
@@ -125,7 +126,7 @@ if has('python3')
   nnoremap <m-n> :<c-u>LeaderfMru<cr>
 
   " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-f> :<c-u>LeaderfFunction!<cr>
+  nnoremap <m-f> :<c-u>LeaderfFunction<cr>
 
   " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
   nnoremap <m-F> :<c-u>LeaderfFunctionAll<cr>
