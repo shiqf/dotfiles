@@ -226,8 +226,8 @@ if index(g:bundle_group, 'textobj') >= 0
   " 参数文本对象：i,/a, 包括参数或者列表元素
   Plug 'sgur/vim-textobj-parameter'
 
-  " 函数文本对象：if/af 支持 c/c++/vim/java
-  Plug 'kana/vim-textobj-function', { 'for': ['c', 'cpp', 'vim', 'java'] }
+  " " 函数文本对象：if/af 支持 c/c++/vim/java
+  " Plug 'kana/vim-textobj-function', { 'for': ['c', 'cpp', 'vim', 'java'] }
 
   " " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
   " Plug 'bps/vim-textobj-python', { 'for': 'python' }
