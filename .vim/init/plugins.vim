@@ -412,9 +412,9 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
     xnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<cr>
-    nnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", expand("<cword>"))<cr>
+    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<cr>\b" --hidden<home>Leaderf! rg -e "\b
   endif
-  noremap <leader>nr :<c-u>Leaderf! --recall<CR>
+  noremap <leader>or :<c-u>Leaderf! --recall<CR>
 
   Plug 'skywind3000/leaderf-snippet'
   inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<cr>
@@ -531,7 +531,7 @@ if has('python3')
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
     let g:UltiSnipsEditSplit           = 'vertical'
-    nnoremap <leader>ns :<c-u>snippets<home>UltiSnipsAddFiletypes 
+    nnoremap <leader>os :<c-u>snippets<home>UltiSnipsAddFiletypes 
   endif
 
 
@@ -776,7 +776,7 @@ if index(g:bundle_group, 'nerdtree') >= 0
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0
-  noremap <leader>nt :<c-u>NERDTreeToggle<cr>
+  noremap <leader>ot :<c-u>NERDTreeToggle<cr>
 endif
 
 
@@ -858,13 +858,25 @@ if index(g:bundle_group, 'tool') >= 0
   let g:rainbow_active = 1
 
   Plug 'liuchengxu/vista.vim'
-  nnoremap <leader>nv :<c-u>Vista!!<cr>
+  nnoremap <leader>ov :<c-u>Vista!!<cr>
 
   " 点亮当前光标下的单词
   Plug 'RRethy/vim-illuminate'
+  let g:Illuminate_highlightUnderCursor = 0
 
   " 高亮多个单词
-  Plug 'lfv89/vim-interestingwords'
+  Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-mark'
+  let g:mwAutoLoadMarks = 1
+  let g:mwIgnoreCase = 0
+  let g:mwDefaultHighlightingPalette = 'extended'
+  let g:mwDefaultHighlightingNum = 8
+  nmap <leader>om <Plug>MarkToggle
+  nmap <leader>M  <Plug>MarkAllClear
+  nmap [m <Plug>MarkSearchUsedGroupPrev
+  nmap ]m <Plug>MarkSearchUsedGroupNext
+  nmap [M <Plug>MarkSearchGroup1Next
+  nmap <expr> ]M '<Plug>MarkSearchGroup' . mark#GetCount() . 'Next'
+  nmap <expr> m v:count > 0 && v:count <= g:mwDefaultHighlightingNum ? '<Plug>MarkSearchGroup' . v:count . 'Next' : 'm'
 
   " 恢复关闭的缓冲区
   Plug 'AndrewRadev/undoquit.vim'
@@ -880,7 +892,7 @@ if index(g:bundle_group, 'tool') >= 0
   " Plug 'TaDaa/vimade'
 
   " Plug 'mbbill/undotree'
-  " nnoremap <silent> <leader>nu :UndotreeToggle<CR>
+  " nnoremap <silent> <leader>ou :UndotreeToggle<CR>
   " if has("persistent_undo")
   "   set undodir=$HOME."/.undodir"
   "   set undofile

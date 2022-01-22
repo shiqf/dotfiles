@@ -97,8 +97,7 @@ function! s:P()
   endif
 endfunction
 
-" TODO viusal line and visual block improved
-xnoremap <silent> p :<c-u>call <SID>P()<cr>cgn<c-r>=g:vpaste<cr><esc>
+xnoremap <silent>p :<c-u>call <SID>P()<cr>:<c-u>if visualmode() ==# 'v'<Bar>exec 'normal! cgn' . g:vpaste<Bar>endif<cr>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'

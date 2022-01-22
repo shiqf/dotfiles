@@ -238,9 +238,9 @@ if has('python3')
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
     xnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<cr>
-    nnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", expand("<cword>"))<cr>
+    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<cr>\b" --hidden<home>Leaderf! rg -e "\b
   endif
-  noremap <leader>nr :<C-U>Leaderf! --recall<CR>
+  noremap <leader>or :<C-U>Leaderf! --recall<CR>
 endif
 
 "-----------------------------------------------------------------------------

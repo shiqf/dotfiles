@@ -27,6 +27,8 @@ set nocompatible
 " 补全内容选项 help complete
 set complete=.,w,b,t
 
+set viminfo^=!
+
 " 禁用声音
 " set visualbell t_vb=
 
