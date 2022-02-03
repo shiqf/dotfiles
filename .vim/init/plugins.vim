@@ -411,7 +411,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<cr>
+    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<cr> --hidden<home>Leaderf! rg -F <right>
     nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<cr>\b" --hidden<home>Leaderf! rg -e "\b
   endif
   noremap <leader>or :<c-u>Leaderf! --recall<CR>
@@ -720,7 +720,7 @@ if index(g:bundle_group, 'ale') >= 0
   let g:ale_python_flake8_options  ='--conf=' . s:lintcfg('flake8.conf')
   let g:ale_python_pylint_options  ='--rcfile=' . s:lintcfg('pylint.conf')
   let g:ale_python_pylint_options .=' --disable=W'
-  let g:ale_c_gcc_options          ='-Wall -O2 -std=c11'
+  let g:ale_c_gcc_options          ='-Wall -O2 -std=c17'
   let g:ale_c_cppcheck_options     =''
   let g:ale_cpp_cc_options         ='-Wall -O2 -std=c++17'
   let g:ale_cpp_gcc_options        ='-Wall -O2 -std=c++17'
@@ -777,6 +777,7 @@ if index(g:bundle_group, 'nerdtree') >= 0
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0
   noremap <leader>ot :<c-u>NERDTreeToggle<cr>
+  noremap <leader>oc :<c-u>NERDTreeToggle %<cr>
 endif
 
 
