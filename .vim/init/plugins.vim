@@ -407,7 +407,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<cr> --hidden<home>Leaderf! rg -F <right>
+    xnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<cr>
     nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<cr>\b" --hidden<home>Leaderf! rg -e "\b
   endif
   noremap <leader>or :<c-u>Leaderf! --recall<CR>
@@ -788,7 +788,7 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
     Plug 'preservim/vimux'
     nnoremap <silent> <leader>vp :<c-u>VimuxPromptCommand<cr>
     nnoremap <silent> <leader>vl :<c-u>VimuxRunLastCommand<cr>
-    nnoremap <silent> <leader>v<C-c> :<c-u>VimuxInterruptRunner<CR>
+    nnoremap <silent> <leader>vk :<c-u>VimuxInterruptRunner<CR>
     nnoremap <silent> <leader>vu :<c-u>VimuxScrollUpInspect<CR>
     nnoremap <silent> <leader>vd :<c-u>VimuxScrollDownInspect<CR>
     nnoremap <silent> <leader>vi :<c-u>VimuxInspectRunner<cr>

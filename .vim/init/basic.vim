@@ -52,7 +52,7 @@ set nowrap
 set ruler
 
 " 命令行历史记录数
-set history=200
+set history=500
 
 " 增减去除八进制
 set nrformats-=octal
