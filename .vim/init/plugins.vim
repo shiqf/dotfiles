@@ -32,7 +32,7 @@ if !exists('g:bundle_group')
   " 文件快速导航、tags 标签、代码片段、智能补全、调试、语法检测
   let g:bundle_group += ['leaderf', 'tags', 'snippets', 'ycm', 'debug', 'ale']
   " 状态栏、目录、终端复用、markdown、工具
-  let g:bundle_group += ['themes', 'nerdtree', 'tmux', 'markdown', 'tool']
+  let g:bundle_group += ['themes', 'nerdtree', 'tmux', 'tool']
 endif
 
 
@@ -84,7 +84,6 @@ if index(g:bundle_group, 'basic') >= 0
 
   " Git 支持
   Plug 'tpope/vim-fugitive'
-
 endif
 
 
@@ -133,7 +132,6 @@ if index(g:bundle_group, 'enhanced') >= 0
   map <leader>F <plug>(easymotion-F)
   map <leader>j <plug>(easymotion-j)
   map <leader>k <plug>(easymotion-k)
-  " 忽略大小写
   let g:EasyMotion_smartcase = 1
 
   " 配对括号和引号自动补全
@@ -154,9 +152,9 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_exclude_filetypes = ['nerdtree']
   let g:qfenter_keymap            = {}
   let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
-  let g:qfenter_keymap.vopen      = ['<c-]>' ,'gO', 's']
-  let g:qfenter_keymap.hopen      = ['<c-x>' ,'o', 'i']
-  let g:qfenter_keymap.topen      = ['<c-t>' ,'O', 'T']
+  let g:qfenter_keymap.vopen      = ['<c-]>', 's']
+  let g:qfenter_keymap.hopen      = ['<c-x>', 'i']
+  let g:qfenter_keymap.topen      = ['<c-t>', 'T']
 
   " 展示开始画面，显示最近编辑过的文件
   Plug 'mhinz/vim-startify'
@@ -210,7 +208,6 @@ endif
 "                           文本对象：textobj 全家桶
 "-----------------------------------------------------------------------------
 if index(g:bundle_group, 'textobj') >= 0
-
   " 基础插件：提供让用户方便的自定义文本对象的接口
   Plug 'kana/vim-textobj-user'
 
@@ -245,7 +242,6 @@ endif
 "                                 文件类型扩展
 "-----------------------------------------------------------------------------
 if index(g:bundle_group, 'filetypes') >= 0
-
   " 额外语法文件
   Plug 'justinmk/vim-syntax-extra', { 'for': ['bison', 'c', 'cpp', 'flex'] }
 
@@ -661,6 +657,7 @@ if has('python3')
     let g:vimspector_sidebar_width = 80
     let g:vimspector_code_minwidth = 85
     let g:vimspector_terminal_minwidth = 75
+    nmap <leader>db <Plug>VimspectorBreakpoints
   endif
 endif
 
@@ -773,6 +770,7 @@ endif
 if index(g:bundle_group, 'nerdtree') >= 0
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  let g:NERDTreeWinSize = 60
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0
@@ -788,18 +786,17 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 
   if has("patch-7.4.1154")
     Plug 'preservim/vimux'
-    nnoremap <silent> <leader>vc :<c-u>VimuxClearRunnerHistory<CR>
-    nnoremap <silent> <leader>vd :<c-u>VimuxScrollDownInspect<CR>
-    nnoremap <silent> <leader>vq :<c-u>VimuxCloseRunner<CR>
-    nnoremap <silent> <leader>vt :<c-u>VimuxTogglePane<CR>
-    nnoremap <silent> <leader>vu :<c-u>VimuxScrollUpInspect<CR>
-    nnoremap <silent> <leader>vx :<c-u>VimuxInterruptRunner<CR>
-    nnoremap <silent> <leader>vi :<c-u>VimuxInspectRunner<cr>
-    nnoremap <silent> <leader>vl :<c-u>VimuxRunLastCommand<cr>
-    nnoremap <silent> <leader>vo :<c-u>VimuxOpenRunner<cr>
     nnoremap <silent> <leader>vp :<c-u>VimuxPromptCommand<cr>
+    nnoremap <silent> <leader>vl :<c-u>VimuxRunLastCommand<cr>
+    nnoremap <silent> <leader>v<C-c> :<c-u>VimuxInterruptRunner<CR>
+    nnoremap <silent> <leader>vu :<c-u>VimuxScrollUpInspect<CR>
+    nnoremap <silent> <leader>vd :<c-u>VimuxScrollDownInspect<CR>
+    nnoremap <silent> <leader>vi :<c-u>VimuxInspectRunner<cr>
+    nnoremap <silent> <leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>:VimuxClearRunnerHistory<CR>
+    nnoremap <silent> <leader>vt :<c-u>VimuxTogglePane<CR>
+    nnoremap <silent> <leader>vo :<c-u>VimuxOpenRunner<cr>
+    nnoremap <silent> <leader>vc :<c-u>VimuxCloseRunner<CR>
     nnoremap <silent> <leader>vz :<c-u>VimuxZoomRunner<cr>
-    nnoremap <silent> <leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>
 
     function! s:run_tmux(opts)
       let cwd = getcwd()
@@ -823,30 +820,6 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 endif
 
 
-" if index(g:bundle_group, 'markdown') >= 0
-"   Plug 'mzlogin/vim-markdown-toc', { 'for': [ 'markdown' ] }
-"   let g:vmt_auto_update_on_save = 1
-"   let g:vmt_cycle_list_item_markers = 1
-"   Plug 'plasticboy/vim-markdown', { 'for': [ 'markdown' ] }
-"   Plug 'iamcco/markdown-preview.nvim', {
-"         \ 'do': 'cd app & npm install --registry=https://registry.npm.taobao.org',
-"         \ 'for': [ 'markdown' ]
-"         \ }
-"   let g:vim_markdown_math = 1
-"   let g:mkdp_preview_options = {
-"         \ 'mkit': {},
-"         \ 'katex': {},
-"         \ 'uml': {},
-"         \ 'maid': {},
-"         \ 'disable_sync_scroll': 0,
-"         \ 'sync_scroll_type': 'middle',
-"         \ 'hide_yaml_meta': 1,
-"         \ 'sequence_diagrams': {},
-"         \ 'flowchart_diagrams': {}
-"         \ }
-" endif
-
-
 if index(g:bundle_group, 'tool') >= 0
   " 对齐
   Plug 'godlygeek/tabular'
@@ -865,12 +838,17 @@ if index(g:bundle_group, 'tool') >= 0
   Plug 'RRethy/vim-illuminate'
   let g:Illuminate_highlightUnderCursor = 0
 
+  augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+  augroup END
+
   " 高亮多个单词
   Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-mark'
   let g:mwAutoLoadMarks = 1
   let g:mwIgnoreCase = 0
-  let g:mwDefaultHighlightingPalette = 'extended'
-  let g:mwDefaultHighlightingNum = 8
+  let g:mwDefaultHighlightingPalette = 'maximum'
+  let g:mwDefaultHighlightingNum = 18
   nmap <leader>om <Plug>MarkToggle
   nmap <leader>M  <Plug>MarkAllClear
   nmap [m <Plug>MarkSearchUsedGroupPrev
@@ -886,8 +864,7 @@ if index(g:bundle_group, 'tool') >= 0
   Plug 'junegunn/goyo.vim'
   let g:goyo_width = 140
 
-  " " 可视化寄存器
-  " Plug 'junegunn/vim-peekaboo'
+  Plug 'elzr/vim-json'
 
   " " 高亮当前缓冲区
   " Plug 'TaDaa/vimade'
@@ -906,10 +883,6 @@ if index(g:bundle_group, 'tool') >= 0
 
   " " 帮助emmet显示snippets提示
   " Plug 'jceb/emmet.snippets', { 'for': ['html'] }
-
-  " Plug 'voldikss/vim-translator'
-  " nmap <c-k> <Plug>TranslateW
-  " vmap <c-k> <Plug>TranslateWV
 endif
 
 

@@ -25,7 +25,7 @@
 set nocompatible
 
 " 补全内容选项 help complete
-set complete=.,w,b,t
+set complete=.,w,t
 
 set viminfo^=!
 
