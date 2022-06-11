@@ -407,7 +407,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u> --hidden<home><c-r>=printf("Leaderf! rg -F %s", leaderf#Rg#visual())<cr>
+    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<cr> --hidden<home>Leaderf! rg -F <right>
     nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<cr>\b" --hidden<home>Leaderf! rg -e "\b
   endif
   noremap <leader>or :<c-u>Leaderf! --recall<CR>
