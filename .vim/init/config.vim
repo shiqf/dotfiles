@@ -42,6 +42,7 @@ set ttimeoutlen=50
 
 if $TMUX != ''
   set ttimeoutlen=35
+  set ttymouse=xterm2
 elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
   set ttimeoutlen=85
 endif
