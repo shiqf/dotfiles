@@ -215,7 +215,7 @@ noremap <silent> <leader>Q :<c-u>qall!<cr>
 noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 
 " 恢复非高亮
-nnoremap <silent> <c-l> :nohlsearch<cr>
+nnoremap <silent> <c-l> :nohlsearch<cr>:redraw!<cr>
 
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<cr>

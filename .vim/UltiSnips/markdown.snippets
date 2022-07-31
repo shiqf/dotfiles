@@ -197,12 +197,12 @@ endsnippet
 # 	__${1:bold}__
 
 snippet === "一级标题" b
-`!v repeat('=', strlen(getline(line('.') - 1)))`
+`!v repeat('=', strdisplaywidth(getline(line('.') - 1)))`
 ${0}
 endsnippet
 
 snippet --- "二级标题" b
-`!v repeat('-', strlen(getline(line('.') - 1)))`
+`!v repeat('-', strdisplaywidth(getline(line('.') - 1)))`
 ${0}
 endsnippet
 

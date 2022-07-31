@@ -68,6 +68,8 @@ let g:AutoPairsShortcutToggle     = '<M-a>'
 let g:AutoPairsMapCh              = 0
 let g:AutoPairsMoveCharacter      = ''
 let g:AutoPairsShortcutJump       = ''
+autocmd FileType cpp let b:AutoPairs = AutoPairsDefine({'\w\zs<' : '>'})
+autocmd FileType markdown let b:AutoPairs = AutoPairsDefine({'[' : ''})
 
 " 交换选定范围
 Plug 'tommcdo/vim-exchange'
@@ -78,7 +80,7 @@ let g:qfenter_keymap       = {}
 let g:qfenter_keymap.open  = ['<CR>', '<2-LeftMouse>']
 let g:qfenter_keymap.vopen = ['<c-]>' ,'gO', 's']
 let g:qfenter_keymap.hopen = ['<c-x>' ,'o', 'i']
-let g:qfenter_keymap.topen = ['<c-t>' ,'O', 'T']
+let g:qfenter_keymap.topen = ['<c-t>' ,'O', 't']
 
 " 基础插件：提供让用户方便的自定义文本对象的接口
 Plug 'kana/vim-textobj-user'

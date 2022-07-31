@@ -134,6 +134,7 @@ endif
 " 会令一些支持 xterm 不完全的终端解析错误，显示为错误的字符，比如 q 字符
 " 如果你确认你的终端支持，不会在一些不兼容的终端上运行该配置，可以注释
 if (!has('gui_running')) && has('terminal') && has('patch-8.0.1200') && has('nvim') == 0
+  set termwinscroll=100000
   let g:termcap_guicursor = &guicursor
   let g:termcap_t_RS = &t_RS
   let g:termcap_t_SH = &t_SH

@@ -143,6 +143,8 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:AutoPairsMapCh              = 0
   let g:AutoPairsMoveCharacter      = ''
   let g:AutoPairsShortcutJump       = ''
+  autocmd FileType cpp let b:AutoPairs = AutoPairsDefine({'\w\zs<' : '>'})
+  autocmd FileType markdown let b:AutoPairs = AutoPairsDefine({'[' : ''})
 
   " 交换选定范围
   Plug 'tommcdo/vim-exchange'
@@ -154,7 +156,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
   let g:qfenter_keymap.vopen      = ['<c-]>', 's']
   let g:qfenter_keymap.hopen      = ['<c-x>', 'i']
-  let g:qfenter_keymap.topen      = ['<c-t>', 'T']
+  let g:qfenter_keymap.topen      = ['<c-t>', 't']
 
   " 展示开始画面，显示最近编辑过的文件
   Plug 'mhinz/vim-startify'
@@ -166,7 +168,6 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:startify_session_delete_buffers = 1
   let g:startify_session_autoload       = 0
   let g:startify_change_to_dir          = 1
-  let g:startify_bookmarks              = [{'z': '~/.zshrc'}]
 
   " 用于在侧边符号栏显示 git/svn 的 diff
   Plug 'mhinz/vim-signify'
@@ -247,6 +248,10 @@ if index(g:bundle_group, 'filetypes') >= 0
 
   " C++ 语法高亮增强，支持 11/14/17 标准
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+  let g:cpp_class_decl_highlight = 1
+  let g:cpp_class_scope_highlight = 1
+  let g:cpp_concepts_highlight = 1
+  let g:cpp_member_variable_highlight = 1
 
   " " python 语法文件增强
   " Plug 'vim-python/python-syntax', { 'for': ['python'] }
@@ -717,7 +722,7 @@ if index(g:bundle_group, 'ale') >= 0
   let g:ale_python_flake8_options  ='--conf=' . s:lintcfg('flake8.conf')
   let g:ale_python_pylint_options  ='--rcfile=' . s:lintcfg('pylint.conf')
   let g:ale_python_pylint_options .=' --disable=W'
-  let g:ale_c_gcc_options          ='-Wall -O2 -std=c17'
+  let g:ale_c_gcc_options          ='-Wall -O2 -std=c11'
   let g:ale_c_cppcheck_options     =''
   let g:ale_cpp_cc_options         ='-Wall -O2 -std=c++17'
   let g:ale_cpp_gcc_options        ='-Wall -O2 -std=c++17'
@@ -725,11 +730,11 @@ if index(g:bundle_group, 'ale') >= 0
 
   let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
-  " 如果有 clang 时
-  if executable('clang')
-    let g:ale_linters.c   += ['clang', 'clangtidy']
-    let g:ale_linters.cpp += ['clang', 'clangtidy']
-  endif
+  " " 如果有 clang 时
+  " if executable('clang')
+  "   let g:ale_linters.c   += ['clang', 'clangtidy']
+  "   let g:ale_linters.cpp += ['clang', 'clangtidy']
+  " endif
 
   let g:ale_sign_column_always = 1
 
@@ -808,7 +813,7 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
     let g:VimuxCloseOnExit = 1
   endif
 
- Plug 'christoomey/vim-tmux-navigator'
+  Plug 'christoomey/vim-tmux-navigator'
   let g:tmux_navigator_no_mappings = 1
   nnoremap <silent> <m-h> :<c-u>TmuxNavigateLeft<cr>
   nnoremap <silent> <m-j> :<c-u>TmuxNavigateDown<cr>
