@@ -38,8 +38,18 @@ noremap! <m-l> <right>
 noremap! <m-k> <up>
 noremap! <m-j> <down>
 
+" 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
 inoremap <m-o> <c-o><c-o>
 inoremap <m-i> <c-o><c-i>
+
+function! s:AddToJumpList()
+  let l:col = strwidth(getline('.'))
+  let l:curCol = getcurpos()[-1]
+  return l:curCol < l:col + 1 ? "\<c-\>\<c-o>m`" : ''
+endfunction
+
+inoremap <expr> <c-j> <SID>AddToJumpList() . "\<esc>jA"
+inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? <SID>AddToJumpList() . "\<esc>kA" : "<c-\><c-o>\"_d$"
 
 "-----------------------------------------------------------------------------
 "                     命令模式下使用 Emacs 风格的编辑操作
@@ -56,20 +66,6 @@ cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
 " 打开命令窗口、查询历史窗口
 cnoremap <c-j>  <c-f>
 cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<c-d>"
-
-" 至上/下行末尾
-nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
-nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
-
-function! s:AddToJumpList()
-  let l:col = strwidth(getline('.'))
-  let l:curCol = getcurpos()[-1]
-  return l:curCol < l:col + 1 ? "\<c-\>\<c-o>m`" : ''
-endfunction
-
-" 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
-inoremap <expr> <c-j> <SID>AddToJumpList() . "\<esc>jA"
-inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? <SID>AddToJumpList() . "\<esc>kA" : "<c-\><c-o>\"_d$"
 
 "-----------------------------------------------------------------------------
 "          tab：创建，关闭，上一个，下一个，首个，末个，左移，右移，
@@ -205,7 +201,11 @@ noremap <silent> <leader>Q :<c-u>qall!<cr>
 noremap <silent> <leader>S :<c-u>wa \| qall<cr>
 
 " 恢复非高亮
-nnoremap <silent> <c-l> :nohlsearch<cr>:redraw!<cr>
+nnoremap <silent> <c-l> :<c-u>nohlsearch<cr>:redraw!<cr>
+
+" 至上/下行末尾
+nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
+nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
 
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<cr>
