@@ -13,54 +13,48 @@
 "=============================================================================
 
 "-----------------------------------------------------------------------------
-"                          插入模式下使用 EMACS 键位
+"                          插入模式 命令模式下使用 EMACS 键位
 "-----------------------------------------------------------------------------
-inoremap <c-f> <right>
-inoremap <c-b> <left>
+noremap! <c-f> <right>
+noremap! <c-b> <left>
+noremap! <c-e> <end>
+noremap! <m-f> <c-right>
+noremap! <m-b> <c-left>
+
 inoremap <c-a> <c-\><c-o>_
-inoremap <c-e> <end>
-inoremap <m-f> <c-right>
-inoremap <m-b> <c-left>
 inoremap <m-d> <esc>g`^cw
 
 " 类似终端下的 ctrl-y
 inoremap <c-y> <c-a>
 
-" ctrl+k 删除到行末
-inoremap <c-k> <c-\><c-o>"_d$
 inoremap <c-w> <c-g>u<c-w>
 inoremap <c-u> <c-g>u<c-u>
 
 " 使用 <c-_> 代替 <c-k>
-inoremap <c-_> <c-k>
+noremap! <c-_> <c-k>
 
+noremap! <m-h> <left>
+noremap! <m-l> <right>
+noremap! <m-k> <up>
+noremap! <m-j> <down>
+
+inoremap <m-o> <c-o><c-o>
+inoremap <m-i> <c-o><c-i>
 
 "-----------------------------------------------------------------------------
 "                     命令模式下使用 Emacs 风格的编辑操作
 "-----------------------------------------------------------------------------
-cnoremap <c-f> <right>
-cnoremap <c-b> <left>
 cnoremap <c-a> <home>
-cnoremap <c-e> <end>
-cnoremap <m-f> <c-right>
-cnoremap <m-b> <c-left>
 cnoremap <m-d> <c-f>de<c-c>
 
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
 
-" ALT 键移动增强
-cnoremap <m-h> <c-left>
-cnoremap <m-l> <c-right>
-cnoremap <m-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
-
 " ctrl+k 删除到行末
 cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
-" 使用 <c-_> 代替 <c-k>
-cnoremap <c-_> <c-k>
 
 " 打开命令窗口、查询历史窗口
-cnoremap <c-j> <c-f>
+cnoremap <c-j>  <c-f>
 cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<c-d>"
 
 " 至上/下行末尾
@@ -75,11 +69,7 @@ endfunction
 
 " 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
 inoremap <expr> <c-j> <SID>AddToJumpList() . "\<esc>jA"
-inoremap <expr> <m-j> <SID>AddToJumpList() . "\<esc>jA"
-inoremap <expr> <m-k> <SID>AddToJumpList() . "\<esc>kA"
-inoremap <m-h> <c-left>
-inoremap <m-l> <c-right>
-
+inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? <SID>AddToJumpList() . "\<esc>kA" : "<c-\><c-o>\"_d$"
 
 "-----------------------------------------------------------------------------
 "          tab：创建，关闭，上一个，下一个，首个，末个，左移，右移，
