@@ -28,11 +28,15 @@
 "                     默认情况下的分组，可以再前面覆盖之
 "-----------------------------------------------------------------------------
 if !exists('g:bundle_group')
-  let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'filetypes']
-  " 文件快速导航、tags 标签、代码片段、智能补全、调试、语法检测
-  let g:bundle_group += ['leaderf', 'tags', 'snippets', 'ycm', 'debug', 'ale']
-  " 状态栏、目录、终端复用、markdown、工具
-  let g:bundle_group += ['themes', 'nerdtree', 'tmux', 'tool']
+  let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'leaderf']
+  if exists('g:max')
+    " tags 标签、代码片段、智能补全、调试、语法检测
+    let g:bundle_group += ['tags', 'snippets', 'ycm', 'debug', 'ale']
+    " 主题、文件类型、工具、目录
+    let g:bundle_group += ['themes', 'filetypes', 'tool', 'nerdtree']
+  endif
+    " 终端复用
+  let g:bundle_group += ['tmux']
 endif
 
 
@@ -97,8 +101,8 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   let g:asyncrun_rootmarks = ['.git', '.hg', '.svn', '.root']
   " TODO 声音不同
-  let g:asyncrun_open = 10 " 不自动打开 quickfix
-  let g:asynctasks_term_rows = 10    " 设置纵向切割时，高度为 10
+  let g:asyncrun_open = 6 " 不自动打开 quickfix
+  let g:asynctasks_term_rows = 6    " 设置纵向切割时，高度为 6
   let g:asynctasks_term_reuse = 1
   let g:asynctasks_term_focus = 0
   let g:asyncrun_bell = 1
@@ -124,16 +128,6 @@ if index(g:bundle_group, 'enhanced') >= 0
   nnoremap <silent> <leader>8 :<c-u>AsyncTask file-debug<cr>
   nnoremap <silent> <leader>9 :<c-u>AsyncTask file-build<cr>
 
-  " 全文快速移动, <leader>f{char} 即可触发
-  Plug 'easymotion/vim-easymotion'
-
-  map <leader>s <plug>(easymotion-overwin-f)
-  map <leader>f <plug>(easymotion-f)
-  map <leader>F <plug>(easymotion-F)
-  map <leader>j <plug>(easymotion-j)
-  map <leader>k <plug>(easymotion-k)
-  let g:EasyMotion_smartcase = 1
-
   " 配对括号和引号自动补全
   Plug 'jiangmiao/auto-pairs'
 
@@ -157,39 +151,66 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_keymap.vopen      = ['<c-]>', 's']
   let g:qfenter_keymap.hopen      = ['<c-x>', 'i']
   let g:qfenter_keymap.topen      = ['<c-t>', 't']
+  let g:qfenter_autoclose         = 1
 
-  " 展示开始画面，显示最近编辑过的文件
-  Plug 'mhinz/vim-startify'
-
-  " 默认不显示 startify
-  let g:startify_disable_at_vimenter    = 0
-  let g:startify_session_dir            = '~/.vim/session'
-  let g:startify_session_persistence    = 1
-  let g:startify_session_delete_buffers = 1
-  let g:startify_session_autoload       = 0
-  let g:startify_change_to_dir          = 1
-
-  " 用于在侧边符号栏显示 git/svn 的 diff
-  Plug 'mhinz/vim-signify'
-
-  " signify 调优
-  let g:signify_vcs_list               = ['git', 'svn']
-  let g:signify_sign_add               = '+'
-  let g:signify_sign_delete            = '_'
-  let g:signify_sign_delete_first_line = '-'
-  let g:signify_sign_change            = '~'
-  let g:signify_sign_changedelete      = g:signify_sign_change
-
-  " git 仓库使用 histogram 算法进行 diff
-  let g:signify_vcs_cmds = {
-        \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
-        \}
+  " 高亮多个单词
+  Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-mark'
+  let g:mwAutoLoadMarks = 1
+  let g:mwIgnoreCase = 0
+  let g:mwDefaultHighlightingPalette = 'maximum'
+  let g:mwDefaultHighlightingNum = 18
+  nmap <leader>om <Plug>MarkToggle
+  nmap <leader>M  <Plug>MarkAllClear
+  nmap [m <Plug>MarkSearchUsedGroupPrev
+  nmap ]m <Plug>MarkSearchUsedGroupNext
+  nmap [M <Plug>MarkSearchGroup1Next
+  nmap <expr> ]M '<Plug>MarkSearchGroup' . mark#GetCount() . 'Next'
+  nmap <expr> m v:count > 0 && v:count <= g:mwDefaultHighlightingNum ? '<Plug>MarkSearchGroup' . v:count . 'Next' : 'm'
 
   " 显示 quickfix 列表和 location 列表
   Plug 'Valloric/ListToggle'
   let g:lt_location_list_toggle_map = '<leader>l'
   let g:lt_quickfix_list_toggle_map = '<leader>q'
   let g:lt_height = 10
+
+  if exists('g:max')
+    " 全文快速移动, <leader>f{char} 即可触发
+    Plug 'easymotion/vim-easymotion'
+
+    map <leader>s <plug>(easymotion-overwin-f)
+    map <leader>f <plug>(easymotion-f)
+    map <leader>F <plug>(easymotion-F)
+    map <leader>j <plug>(easymotion-j)
+    map <leader>k <plug>(easymotion-k)
+    let g:EasyMotion_smartcase = 1
+
+    " 展示开始画面，显示最近编辑过的文件
+    Plug 'mhinz/vim-startify'
+
+    " 默认不显示 startify
+    let g:startify_disable_at_vimenter    = 0
+    let g:startify_session_dir            = '~/.vim/session'
+    let g:startify_session_persistence    = 1
+    let g:startify_session_delete_buffers = 1
+    let g:startify_session_autoload       = 0
+    let g:startify_change_to_dir          = 1
+
+    " 用于在侧边符号栏显示 git/svn 的 diff
+    Plug 'mhinz/vim-signify'
+
+    " signify 调优
+    let g:signify_vcs_list               = ['git', 'svn']
+    let g:signify_sign_add               = '+'
+    let g:signify_sign_delete            = '_'
+    let g:signify_sign_delete_first_line = '-'
+    let g:signify_sign_change            = '~'
+    let g:signify_sign_changedelete      = g:signify_sign_change
+
+    " git 仓库使用 histogram 算法进行 diff
+    let g:signify_vcs_cmds = {
+          \  'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
+          \ }
+  endif
 
   " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
   " Plug 'asins/vim-dict'
@@ -242,7 +263,7 @@ endif
 "-----------------------------------------------------------------------------
 "                                 文件类型扩展
 "-----------------------------------------------------------------------------
-if index(g:bundle_group, 'filetypes') >= 0
+if index(g:bundle_group, 'filetypes') >= 0 && exists('g:max')
   " 额外语法文件
   Plug 'justinmk/vim-syntax-extra', { 'for': ['bison', 'c', 'cpp', 'flex'] }
 
@@ -416,10 +437,6 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<cr>\b" --hidden<home>Leaderf! rg -e "\b
   endif
   noremap <leader>or :<c-u>Leaderf! --recall<CR>
-
-  Plug 'skywind3000/leaderf-snippet'
-  inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<cr>
-  let g:Lf_PreviewResult.snippet = 1
 endif
 
 
@@ -533,6 +550,10 @@ if has('python3')
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
     let g:UltiSnipsEditSplit           = 'vertical'
     nnoremap <leader>os :<c-u>snippets<home>UltiSnipsAddFiletypes 
+
+    Plug 'skywind3000/leaderf-snippet'
+    inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<cr>
+    let g:Lf_PreviewResult.snippet = 1
   endif
 
 
@@ -545,6 +566,10 @@ if has('python3')
     else
       Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --ts-completer --java-completer' }
     endif
+
+    let g:ycm_enable_inlay_hints = 1
+    let g:ycm_clear_inlay_hints_in_insert_mode = 1
+    nnoremap <silent> gch <Plug>(YCMToggleInlayHints)
 
     let g:ycm_max_diagnostics_to_display = 0
 
@@ -847,20 +872,6 @@ if index(g:bundle_group, 'tool') >= 0
     autocmd!
     autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
   augroup END
-
-  " 高亮多个单词
-  Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-mark'
-  let g:mwAutoLoadMarks = 1
-  let g:mwIgnoreCase = 0
-  let g:mwDefaultHighlightingPalette = 'maximum'
-  let g:mwDefaultHighlightingNum = 18
-  nmap <leader>om <Plug>MarkToggle
-  nmap <leader>M  <Plug>MarkAllClear
-  nmap [m <Plug>MarkSearchUsedGroupPrev
-  nmap ]m <Plug>MarkSearchUsedGroupNext
-  nmap [M <Plug>MarkSearchGroup1Next
-  nmap <expr> ]M '<Plug>MarkSearchGroup' . mark#GetCount() . 'Next'
-  nmap <expr> m v:count > 0 && v:count <= g:mwDefaultHighlightingNum ? '<Plug>MarkSearchGroup' . v:count . 'Next' : 'm'
 
   " 恢复关闭的缓冲区
   Plug 'AndrewRadev/undoquit.vim'

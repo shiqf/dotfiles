@@ -23,13 +23,14 @@ command! -nargs=1 LoadScript exec 'so '. s:home . '/' . '<args>'
 "                              设置通用前缀空格键
 "-----------------------------------------------------------------------------
 let mapleader="\<Space>"
+set nocompatible
 
 "-----------------------------------------------------------------------------
 "                                   模块加载
 "-----------------------------------------------------------------------------
 
 " 插件配置
-LoadScript init/min-plugins.vim
+LoadScript init/plugins.vim
 
 " 加载基础配置
 LoadScript init/basic.vim
@@ -52,6 +53,4 @@ LoadScript init/abbr.vim
 " 自定义功能按键映射
 LoadScript init/function_keymaps.vim
 
-if has('win64') || has('win32')
-  colorscheme slate
-endif
+colorscheme slate

@@ -48,6 +48,11 @@ set autoindent
 " 关闭自动换行
 set nowrap
 
+" 单行过长. 平滑滚动
+if has("patch-9.0.0640")
+  set sms
+endif
+
 " 显示光标位置
 set ruler
 
