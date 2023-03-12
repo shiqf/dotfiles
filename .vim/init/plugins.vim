@@ -158,12 +158,12 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:mwAutoLoadMarks = 1
   let g:mwIgnoreCase = 0
   let g:mwDefaultHighlightingPalette = 'maximum'
-  let g:mwDefaultHighlightingNum = 18
+  let g:mwDefaultHighlightingNum = 22
   nmap <leader>om <Plug>MarkToggle
   nmap <leader>M  <Plug>MarkAllClear
   nmap [m <Plug>MarkSearchUsedGroupPrev
   nmap ]m <Plug>MarkSearchUsedGroupNext
-  nmap [M <Plug>MarkSearchGroup1Next
+  nmap [M <Plug>MarkSearchGroup1Prev
   nmap <expr> ]M '<Plug>MarkSearchGroup' . mark#GetCount() . 'Next'
   nmap <expr> m v:count > 0 && v:count <= g:mwDefaultHighlightingNum ? '<Plug>MarkSearchGroup' . v:count . 'Next' : 'm'
 
@@ -171,7 +171,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'Valloric/ListToggle'
   let g:lt_location_list_toggle_map = '<leader>l'
   let g:lt_quickfix_list_toggle_map = '<leader>q'
-  let g:lt_height = 10
+  let g:lt_height = 6
 
   if exists('g:max')
     " 全文快速移动, <leader>f{char} 即可触发
