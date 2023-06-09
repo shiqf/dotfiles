@@ -4,23 +4,23 @@
 "
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
-function! s:OriginPattern(arg, ...)
-  let l:isWord = a:0 > 0 ? a:1 : 0
-  if a:arg !~ '\W'
-    if l:isWord == 1
-      return '\v<' . a:arg . '>'
+function! s:OriginPattern(reg, isWord = 0, isLineWise = 0)
+  let l:string = visualmode() ==# 'V' && a:isLineWise == 0 ? a:reg[0:-2] : a:reg
+  if l:string !~ '\W'
+    if a:isWord == 1
+      return '\v<' . l:string . '>'
     else
-      return a:arg
+      return l:string
     endif
   else
-    return '\V' . substitute(escape(a:arg, '\/'), '\n', '\\n', 'g')
+    return '\V' . substitute(escape(l:string, '\/'), '\n', '\\n', 'g')
   endif
 endfunction
 
 " 替换内容
 function! s:Replace()
-  let l:temp = getregtype('"') ==# 'v' ? getreg('"') : ''
-  let @/ = l:temp !=# '' ? s:OriginPattern(l:temp) : ''
+  let l:reg = getregtype('"') ==# 'v' ? getreg('"') : ''
+  let @/ = l:reg !=# '' ? s:OriginPattern(l:reg) : ''
 endfunction
 
 function s:FirstCharToLower(reg)
@@ -28,17 +28,16 @@ function s:FirstCharToLower(reg)
 endfunction
 
 " 用寄存器 "0, "- 作为替换项
-function! s:Pattern(...)
-  let l:isWord = a:0 > 0 ? a:1 : 0
+function! s:Pattern(isWord = 0)
   if mode() ==# 'v'
-    let l:temp = @@
+    let l:reg = @@
     normal! y
-    let @/ = s:OriginPattern(@@, l:isWord)
-    let @@ = l:temp
+    let @/ = s:OriginPattern(@@, a:isWord)
+    let @@ = l:reg
   else
-    let l:temp = getreg('"')
-    if getregtype('"') ==# 'v' && l:temp !=# ''
-      let @/ = s:OriginPattern(l:temp, l:isWord)
+    let l:reg = getreg('"')
+    if getregtype('"') ==# 'v' && l:reg !=# ''
+      let @/ = s:OriginPattern(l:reg, a:isWord)
     endif
   endif
 endfunction
@@ -46,10 +45,10 @@ endfunction
 " 可视模式下的面向字符用 * 号匹配字符串
 function! s:vSetSearch(cmdtype)
   if mode() ==# 'v'
-    let l:temp = @@
+    let l:reg = @@
     normal! y
     let @/ = s:OriginPattern(@@)
-    let @@ = l:temp
+    let @@ = l:reg
   else
     exec 'keepjumps normal! ' . a:cmdtype . 'N'
     let @/ = @/
@@ -76,17 +75,18 @@ if !exists("g:vpaste")
 endif
 
 function! s:P()
-  let l:register = v:register
-  if mode() ==# 'v'
-    let g:vpaste = getreg(l:register)
-    exec 'normal! "' . l:register . 'pu'
-    let @/ = s:OriginPattern(@")
+  let l:registerName = v:register
+  if mode() ==? 'v'
+    let g:vpaste = getreg(l:registerName)
+    let l:lineWise = getregtype(l:registerName) ==# 'V' ? 1 : 0
+    exec 'normal! "' . l:registerName . 'pu'
+    let @/ = s:OriginPattern(@", 0, l:lineWise)
   else
-    exec 'normal! "' . l:register . 'p'
+    exec 'normal! "' . l:registerName . 'p'
   endif
 endfunction
 
-xnoremap <silent>p <Cmd>call <SID>P()<CR>:<c-u>if visualmode() ==# 'v'<Bar>exec 'normal! cgn' . g:vpaste<Bar>endif<CR>
+xnoremap <silent>p <Cmd>call <SID>P()<Bar>set hls<Bar>if visualmode() ==? 'v'<Bar>exec 'normal! cgn' . g:vpaste<Bar>endif<CR>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
