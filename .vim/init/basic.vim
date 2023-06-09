@@ -33,7 +33,7 @@ set viminfo^=!
 " set visualbell t_vb=
 
 " 设置 Backspace 键模式
-if !has('nvim') && has("patch-8.2.0590")
+if !has('nvim')
   set backspace=3
 else
   set backspace=2
@@ -48,7 +48,7 @@ set autoindent
 " 关闭自动换行
 set nowrap
 
-" 单行过长. 平滑滚动
+" set nowrap 单行过长. 平滑滚动
 if has("patch-9.0.0640")
   set sms
 endif
@@ -175,9 +175,7 @@ endif
 "-----------------------------------------------------------------------------
 "                                 比较模式配置
 "-----------------------------------------------------------------------------
-if has("patch-8.1.0360")
-    set diffopt+=internal,algorithm:histogram
-endif
+set diffopt+=internal,algorithm:histogram
 
 "-----------------------------------------------------------------------------
 "                        文件搜索和补全时忽略下面扩展名

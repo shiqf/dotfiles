@@ -22,7 +22,7 @@ set laststatus=2
 set number
 
 " 总是显示侧边栏（用于显示 mark/gitdiff/诊断信息）
-if has("patch-7.4.2201") && exists('g:max')
+if exists('g:max')
   set signcolumn=yes
 endif
 

@@ -54,6 +54,10 @@ snippet pr "private"
 private:
 endsnippet
 
+snippet po "protected"
+protected:
+endsnippet
+
 snippet fa "for (auto : )" iw
 for (auto ${1:v} : ${2:collection})
 {
@@ -68,6 +72,9 @@ for (auto ${1:i} = ${2:container}.begin(); $1 != $2.end(); ++$1)
 }
 endsnippet
 
+snippet tf "typename... " w
+template <typename... ${1:T}>
+endsnippet
 # snippet "^(?.+\w)\s*<+" "<< " r
 # `!p snip.rv = snip.p` << "$2"
 # endsnippet
