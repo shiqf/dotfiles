@@ -207,13 +207,6 @@ nnoremap <silent> <c-l> :<c-u>nohlsearch<cr>:redraw!<cr>
 nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
 nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
 
-" 在可视模式上的重复宏的功能增强
-xnoremap <silent> @ :normal @@<cr>
-
-nnoremap <silent> &  :<c-u>exec '~& ' . (v:count == 0 ? 1 : v:count)<cr>
-xnoremap <silent> &  :~&<cr>
-nnoremap <silent> g& :%~&<cr>
-
 " 错误导航
 nnoremap <silent> [l :<c-u>labove<cr>
 nnoremap <silent> ]l :<c-u>lbelow<cr>

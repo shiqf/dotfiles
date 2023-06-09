@@ -4,45 +4,15 @@
 "
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
-function! s:OriginPattern(reg, isWord = 0, isLineWise = 0)
-  let l:string = visualmode() ==# 'V' && a:isLineWise == 0 ? a:reg[0:-2] : a:reg
-  if l:string !~ '\W'
-    if a:isWord == 1
-      return '\v<' . l:string . '>'
-    else
-      return l:string
-    endif
+function! s:OriginPattern(reg, isWord = 0)
+  if a:reg !~ '\W'
+    return a:isWord == 1 ? '\v<' . a:reg . '>' : a:reg
   else
-    return '\V' . substitute(escape(l:string, '\/'), '\n', '\\n', 'g')
+    return '\V' . substitute(escape(a:reg, '\/'), '\n', '\\n', 'g')
   endif
 endfunction
 
-" 替换内容
-function! s:Replace()
-  let l:reg = getregtype('"') ==# 'v' ? getreg('"') : ''
-  let @/ = l:reg !=# '' ? s:OriginPattern(l:reg) : ''
-endfunction
-
-function s:FirstCharToLower(reg)
-  return a:reg =~ '^\u' ? len(a:reg) > 1 ? tolower(a:reg[0:0]) . a:reg[1:-1] : tolower(a:reg) : a:reg
-endfunction
-
-" 用寄存器 "0, "- 作为替换项
-function! s:Pattern(isWord = 0)
-  if mode() ==# 'v'
-    let l:reg = @@
-    normal! y
-    let @/ = s:OriginPattern(@@, a:isWord)
-    let @@ = l:reg
-  else
-    let l:reg = getreg('"')
-    if getregtype('"') ==# 'v' && l:reg !=# ''
-      let @/ = s:OriginPattern(l:reg, a:isWord)
-    endif
-  endif
-endfunction
-
-" 可视模式下的面向字符用 * 号匹配字符串
+" 面向字符可视模式下的面向字符用 */# 号匹配字符串. @@ == @" unname register
 function! s:vSetSearch(cmdtype)
   if mode() ==# 'v'
     let l:reg = @@
@@ -55,20 +25,54 @@ function! s:vSetSearch(cmdtype)
   endif
 endfunction
 
-xnoremap * <cmd>call <SID>vSetSearch('*')<CR>//<CR>
-xnoremap # <cmd>call <SID>vSetSearch('#')<CR>??<CR>
+xnoremap *  <Cmd>call <SID>vSetSearch('*')<CR>//<CR>
+xnoremap #  <Cmd>call <SID>vSetSearch('#')<CR>??<CR>
+
+" 用寄存器 "", "/ 作为替换项
+function! s:Pattern(isWord = 0)
+  let l:reg = @@
+  if mode() ==# 'v'
+    normal! y
+    let @/ = s:OriginPattern(@@, a:isWord)
+    let @@ = l:reg
+  else
+    if getregtype('"') ==# 'v' && l:reg !=# ''
+      let @/ = s:OriginPattern(l:reg, a:isWord)
+    endif
+  endif
+endfunction
 
 " 将修改 "." 命令与 ":s" 命令结合起来
-" 将修改再次重复运用于匹配的修改原文, 跳转到修改原文并改变通过 "." 命令, 使用前用 g.
-" 用修改("0, "-)作为替换项, 修改内容作为替换内容
+" 用修改("", "/)作为替换项, 修改内容作为替换内容.
+" 面向字符的与 g. 的区别是完整单词匹配. 面向行的可视模式与 g. 相同
 xnoremap .  <Cmd>call <SID>Pattern(1)<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
-nnoremap g. <Cmd>call <SID>Replace() <Bar>set hls<CR>cgn<c-r>=getreg('.')<CR><esc>
-xnoremap g. <Cmd>call <SID>Pattern() <Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
+
+" 被替换内容
+function! s:Replace()
+  let @/ = getregtype('"') ==# 'v' && @@ !=# '' ? s:OriginPattern(@@) : ''
+endfunction
+
+" 根据面向字符或行有两种情况(v: "", V: "/), 行与 "." 的可视映射相同. 列块暂时没有应用.
+xnoremap g. <Cmd>call <SID>Pattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
+" 跳转到与之前修改内容相同的地方并修改(需先有修改操作).
+" 使用前用 g. 再通过 "." 命令重复运用.(go to same context change place and do ".")
+nnoremap g. <Cmd>call <SID>Replace()<Bar>set hls<CR>cgn<c-r>=getreg('.')<CR><esc>
+
+function s:FirstCharToLower(reg)
+  return a:reg =~ '^\u' ? len(a:reg) > 1 ? tolower(a:reg[0:0]) . a:reg[1:-1] : tolower(a:reg) : a:reg
+endfunction
 
 nnoremap gz <Cmd>call <SID>Pattern()<Bar>set hls<CR>
       \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<left><left>
-xnoremap gz <Cmd>call <SID>Pattern()<Bar> set hls<CR>
+xnoremap gz <Cmd>call <SID>Pattern()<Bar>set hls<CR>
       \:S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<left><left>
+
+nnoremap <silent> &  :<c-u>exec '~& ' . (v:count == 0 ? 1 : v:count)<cr>
+xnoremap <silent> &  :~&<cr>
+nnoremap <silent> g& :%~&<cr>
+
+" 在可视模式上的重复宏的功能增强
+xnoremap <silent> @ :normal @@<cr>
 
 if !exists("g:vpaste")
   let g:vpaste = ''
@@ -78,15 +82,20 @@ function! s:P()
   let l:registerName = v:register
   if mode() ==? 'v'
     let g:vpaste = getreg(l:registerName)
-    let l:lineWise = getregtype(l:registerName) ==# 'V' ? 1 : 0
+    let l:regtype = getregtype(l:registerName)
     exec 'normal! "' . l:registerName . 'pu'
-    let @/ = s:OriginPattern(@", 0, l:lineWise)
+    if l:regtype ==# 'v' && visualmode() ==# 'V'
+      let g:vpaste = g:vpaste . "\n"
+    endif
+    let @/ = s:OriginPattern(@@)
   else
     exec 'normal! "' . l:registerName . 'p'
   endif
 endfunction
 
-xnoremap <silent>p <Cmd>call <SID>P()<Bar>set hls<Bar>if visualmode() ==? 'v'<Bar>exec 'normal! cgn' . g:vpaste<Bar>endif<CR>
+" 可视模式下替换选中内容, 并使用 "." 命令复用上次替换内容.
+xnoremap <silent>p <Cmd>call <SID>P()<Bar>set hls<Bar>set paste<Bar>
+      \if visualmode() ==? 'v'<Bar>exec 'normal! cgn' . g:vpaste<Bar>endif<Bar>set nopaste<CR>
 
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
@@ -96,8 +105,8 @@ nmap <leader>es :<c-u>split %%<c-left>
 nmap <leader>ev :<c-u>vsplit %%<c-left>
 nmap <leader>et :<c-u>tabedit %%<c-left>
 nmap <leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<CR><home>
-nmap <leader>ee :<c-u>edit <c-r>=getregtype('"') ==# 'v' ? getreg('"') : ''<CR><home>tab
-xmap <leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? getreg('"') : ''<CR><home>tab
+nmap <leader>ee :<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><home>tab
+xmap <leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><home>tab
 
 nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<CR><CR>
 nnoremap <silent><leader>e. :<c-u>edit!<CR>
