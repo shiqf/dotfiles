@@ -4,11 +4,12 @@
 "
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
-function! s:OriginPattern(reg, isWord = 0)
-  if a:reg !~ '\W'
-    return a:isWord == 1 ? '\v<' . a:reg . '>' : a:reg
+function! s:OriginPattern(reg, isWord = v:false)
+  let l:string = getregtype('"') ==# 'V' ? a:reg[0:-2] : a:reg
+  if l:string !~ '\W'
+    return a:isWord ? '\v<' . l:string . '>' : l:string
   else
-    return '\V' . substitute(escape(a:reg, '\/'), '\n', '\\n', 'g')
+    return '\V' . substitute(escape(l:string, '\/'), '\n', '\\n', 'g')
   endif
 endfunction
 
@@ -28,43 +29,55 @@ endfunction
 xnoremap *  <Cmd>call <SID>vSetSearch('*')<CR>//<CR>
 xnoremap #  <Cmd>call <SID>vSetSearch('#')<CR>??<CR>
 
-" 用寄存器 "", "/ 作为替换项
-function! s:Pattern(isWord = 0)
-  let l:reg = @@
-  if mode() ==# 'v'
-    normal! y
+" 被替换内容
+function! s:Replace(isWord = v:true)
+  if @@ !=# ''
     let @/ = s:OriginPattern(@@, a:isWord)
+  endif
+endfunction
+
+" 用寄存器 "", "/ 作为替换项
+function! s:vPattern()
+  if mode() ==? 'v'
+    let l:reg = @@
+    normal! y
+    let @/ = s:OriginPattern(@@, v:true)
     let @@ = l:reg
   else
-    if getregtype('"') ==# 'v' && l:reg !=# ''
-      let @/ = s:OriginPattern(l:reg, a:isWord)
-    endif
+    call s:Replace()
   endif
 endfunction
 
 " 将修改 "." 命令与 ":s" 命令结合起来
-" 用修改("", "/)作为替换项, 修改内容作为替换内容.
-" 面向字符的与 g. 的区别是完整单词匹配. 面向行的可视模式与 g. 相同
-xnoremap .  <Cmd>call <SID>Pattern(1)<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
+" 用修改("", "/)作为替换项, 修改内容 ". 作为替换内容.
+" 面向字符的与 g. 的区别是完整单词匹配. 面向块的可视模式与 g. 相同
+xnoremap .  <Cmd>call <SID>vPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
 
-" 被替换内容
-function! s:Replace()
-  let @/ = getregtype('"') ==# 'v' && @@ !=# '' ? s:OriginPattern(@@) : ''
+" 用寄存器 "", "/ 作为替换项
+function! s:vVPattern()
+  if mode() ==# 'v'
+    let l:reg = @@
+    normal! y
+    let @/ = s:OriginPattern(@@)
+    let @@ = l:reg
+  else
+    call s:Replace(v:false)
+  endif
 endfunction
 
-" 根据面向字符或行有两种情况(v: "", V: "/), 行与 "." 的可视映射相同. 列块暂时没有应用.
-xnoremap g. <Cmd>call <SID>Pattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
+" 根据面向字符或行有两种情况(v: "", V: "/), 行与 "." 的可视映射相同. 列块暂时没有应用 TODO.
+xnoremap g. <Cmd>call <SID>vVPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
 " 跳转到与之前修改内容相同的地方并修改(需先有修改操作).
-" 使用前用 g. 再通过 "." 命令重复运用.(go to same context change place and do ".")
+" 使用前用 g. 再通过 "." 命令重复运用.(go to same change context place and do ".")
 nnoremap g. <Cmd>call <SID>Replace()<Bar>set hls<CR>cgn<c-r>=getreg('.')<CR><esc>
 
 function s:FirstCharToLower(reg)
   return a:reg =~ '^\u' ? len(a:reg) > 1 ? tolower(a:reg[0:0]) . a:reg[1:-1] : tolower(a:reg) : a:reg
 endfunction
 
-nnoremap gz <Cmd>call <SID>Pattern()<Bar>set hls<CR>
+nnoremap gz <Cmd>call <SID>vVPattern()<Bar>set hls<CR>
       \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<left><left>
-xnoremap gz <Cmd>call <SID>Pattern()<Bar>set hls<CR>
+xnoremap gz <Cmd>call <SID>vVPattern()<Bar>set hls<CR>
       \:S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<left><left>
 
 nnoremap <silent> &  :<c-u>exec '~& ' . (v:count == 0 ? 1 : v:count)<cr>
@@ -84,8 +97,8 @@ function! s:P()
     let g:vpaste = getreg(l:registerName)
     let l:regtype = getregtype(l:registerName)
     exec 'normal! "' . l:registerName . 'pu'
-    if l:regtype ==# 'v' && visualmode() ==# 'V'
-      let g:vpaste = g:vpaste . "\n"
+    if l:regtype ==# 'V' && visualmode() ==# 'V'
+      let g:vpaste = g:vpaste[0:-2]
     endif
     let @/ = s:OriginPattern(@@)
   else
@@ -180,7 +193,7 @@ if has('terminal')
     if term_pos[1] <= winheight(winnr())
       let req_vis = min([winheight(winnr()), term_pos[1]])
       if vis_lines <= req_vis | call feedkeys("i", "x") | endif
-      " if size has shrunk, match visible empty lines on entry
+    " if size has shrunk, match visible empty lines on entry
     else
       let req_vis_empty = term_pos[0] - term_pos[1]
       let req_vis_empty = min([winheight(winnr()), req_vis_empty])
