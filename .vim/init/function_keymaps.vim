@@ -4,6 +4,14 @@
 "
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
+if !exists("g:cvWord")
+  let g:cvWord = v:false
+endif
+
+if !exists("g:vpaste")
+  let g:vpaste = ''
+endif
+
 function! s:OriginPattern(reg, isWord = v:false)
   let l:string = getregtype('"') ==# 'V' ? a:reg[0:-2] : a:reg
   if l:string !~ '\W'
@@ -23,8 +31,12 @@ function! s:SetReplace(isWord)
 endfunction
 
 " 被替换内容
-function! s:Replace(isWord = v:false)
-  let l:isWord = mode() == 'n' ? v:true : a:isWord
+function! s:Replace(isWord = v:true)
+  let l:isWord = a:isWord
+  if g:cvWord
+    let g:cvWord = v:false
+    let l:isWord = v:false
+  endif
   if @@ !=# ''
     let @/ = s:OriginPattern(@@, l:isWord)
   endif
@@ -55,16 +67,22 @@ function! s:vPattern()
   if mode() ==# 'v'
     call s:SetReplace(v:false)
   else
-    call s:Replace()
+    call s:Replace(v:false)
   endif
 endfunction
 
+function! s:vcFlagSet()
+  if mode() ==# 'v'
+    let g:cvWord = v:true
+  endif
+endfunction
+
+xnoremap c <Cmd>call <SID>vcFlagSet()<CR>c
 " 将修改 "." 命令与 ":s" 命令结合起来
 " 用修改("", "/)作为替换项, 修改内容 ". 作为替换内容.
 " 面向字符/块的与 g. 的区别是完整单词匹配.
 " 列块暂时没有应用 TODO.
 xnoremap . <Cmd>call <SID>vVPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
-
 xnoremap g. <Cmd>call <SID>vPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
 " 跳转到与之前修改内容相同的地方并修改(需先有修改操作).
 " 使用前用 g. 再通过 "." 命令重复运用.(go to same change context place and do ".")
@@ -85,10 +103,6 @@ nnoremap <silent> g& :%~&<cr>
 
 " 在可视模式上的重复宏的功能增强
 xnoremap <silent> @ :normal @@<cr>
-
-if !exists("g:vpaste")
-  let g:vpaste = ''
-endif
 
 function! s:P()
   let l:registerName = v:register
