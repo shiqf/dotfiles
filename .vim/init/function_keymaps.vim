@@ -13,36 +13,47 @@ function! s:OriginPattern(reg, isWord = v:false)
   endif
 endfunction
 
-" 面向字符可视模式下的面向字符用 */# 号匹配字符串. @@ == @" unname register
+" @@ == @" unname register
+" 用寄存器 ""[0(复制), 1(行), -(单行内)], 设置 "/ 作为替换项
+function! s:SetReplace(isWord)
+  let l:reg = @@
+  normal! y
+  let @/ = s:OriginPattern(@@, a:isWord)
+  let @@ = l:reg
+endfunction
+
+" 被替换内容
+function! s:Replace(isWord = v:false)
+  let l:isWord = mode() == 'n' ? v:true : a:isWord
+  if @@ !=# ''
+    let @/ = s:OriginPattern(@@, l:isWord)
+  endif
+endfunction
+
+" 面向字符可视模式下的面向字符用 */# 号匹配字符串. 
 function! s:vSetSearch(cmdtype)
   if mode() ==# 'v'
-    let l:reg = @@
-    normal! y
-    let @/ = s:OriginPattern(@@)
-    let @@ = l:reg
+    call s:SetReplace(v:false)
   else
     exec 'keepjumps normal! ' . a:cmdtype . 'N'
     let @/ = @/
   endif
 endfunction
 
-xnoremap *  <Cmd>call <SID>vSetSearch('*')<CR>//<CR>
-xnoremap #  <Cmd>call <SID>vSetSearch('#')<CR>??<CR>
+xnoremap *  <Cmd>call <SID>vSetSearch('*')<Bar>//<CR>
+xnoremap #  <Cmd>call <SID>vSetSearch('#')<Bar>??<CR>
 
-" 被替换内容
-function! s:Replace(isWord = v:true)
-  if @@ !=# ''
-    let @/ = s:OriginPattern(@@, a:isWord)
+function! s:vVPattern()
+  if mode() ==? 'v'
+    call s:SetReplace(v:true)
+  else
+    call s:Replace(v:true)
   endif
 endfunction
 
-" 用寄存器 "", "/ 作为替换项
 function! s:vPattern()
-  if mode() ==? 'v'
-    let l:reg = @@
-    normal! y
-    let @/ = s:OriginPattern(@@, v:true)
-    let @@ = l:reg
+  if mode() ==# 'v'
+    call s:SetReplace(v:false)
   else
     call s:Replace()
   endif
@@ -50,34 +61,22 @@ endfunction
 
 " 将修改 "." 命令与 ":s" 命令结合起来
 " 用修改("", "/)作为替换项, 修改内容 ". 作为替换内容.
-" 面向字符的与 g. 的区别是完整单词匹配. 面向块的可视模式与 g. 相同
-xnoremap .  <Cmd>call <SID>vPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
+" 面向字符/块的与 g. 的区别是完整单词匹配.
+" 列块暂时没有应用 TODO.
+xnoremap . <Cmd>call <SID>vVPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
 
-" 用寄存器 "", "/ 作为替换项
-function! s:vVPattern()
-  if mode() ==# 'v'
-    let l:reg = @@
-    normal! y
-    let @/ = s:OriginPattern(@@)
-    let @@ = l:reg
-  else
-    call s:Replace(v:false)
-  endif
-endfunction
-
-" 根据面向字符或行有两种情况(v: "", V: "/), 行与 "." 的可视映射相同. 列块暂时没有应用 TODO.
-xnoremap g. <Cmd>call <SID>vVPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
+xnoremap g. <Cmd>call <SID>vPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
 " 跳转到与之前修改内容相同的地方并修改(需先有修改操作).
 " 使用前用 g. 再通过 "." 命令重复运用.(go to same change context place and do ".")
 nnoremap g. <Cmd>call <SID>Replace()<Bar>set hls<CR>cgn<c-r>=getreg('.')<CR><esc>
 
-function s:FirstCharToLower(reg)
+function! s:FirstCharToLower(reg)
   return a:reg =~ '^\u' ? len(a:reg) > 1 ? tolower(a:reg[0:0]) . a:reg[1:-1] : tolower(a:reg) : a:reg
 endfunction
 
-nnoremap gz <Cmd>call <SID>vVPattern()<Bar>set hls<CR>
+nnoremap gz <Cmd>call <SID>vPattern()<Bar>set hls<CR>
       \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<left><left>
-xnoremap gz <Cmd>call <SID>vVPattern()<Bar>set hls<CR>
+xnoremap gz <Cmd>call <SID>vPattern()<Bar>set hls<CR>
       \:S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<left><left>
 
 nnoremap <silent> &  :<c-u>exec '~& ' . (v:count == 0 ? 1 : v:count)<cr>
