@@ -117,7 +117,7 @@ endif
 
 if has('nvim') == 0
   let &t_SI = "\<Esc>[6 q"   " SI = 插入模式
-  let &t_SR = "\<Esc>[4 q" " SR = 替换模式
+  let &t_SR = "\<Esc>[4 q"   " SR = 替换模式
   let &t_EI = "\<Esc>[2 q"   " EI = 普通模式
 endif
 

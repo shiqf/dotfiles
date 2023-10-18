@@ -28,7 +28,7 @@ zplug junegunn/fzf-bin, \
 # Supports oh-my-zsh plugins and the like
 
 # git 命令别名alias
-zplug plugins/brew,   from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+# zplug plugins/brew,   from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 zplug plugins/git,    from:oh-my-zsh
 zplug plugins/docker, from:oh-my-zsh
 zplug plugins/python, from:oh-my-zsh
@@ -38,7 +38,7 @@ zplug plugins/python, from:oh-my-zsh
 # pfd返回最先打开的finder的位置
 # 显示/隐藏文件 showfiles, hidefiles
 # quick-look, man-preview
-zplug plugins/macos,  from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+# zplug plugins/macos,  from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 zplug plugins/sudo, from:oh-my-zsh
 # ta: tmux attach -t
 # tad: tmux attach -d -t

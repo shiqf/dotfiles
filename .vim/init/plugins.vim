@@ -31,11 +31,11 @@ if !exists('g:bundle_group')
   let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'leaderf']
   if exists('g:max')
     " tags 标签、代码片段、智能补全、调试、语法检测
-    let g:bundle_group += ['tags', 'snippets', 'ycm', 'debug', 'ale']
+    let g:bundle_group += ['tags', 'snippets', 'ycm', 'debug']
     " 主题、文件类型、工具、目录
     let g:bundle_group += ['themes', 'filetypes', 'tool', 'nerdtree']
   endif
-    " 终端复用
+  " 终端复用
   let g:bundle_group += ['tmux']
 endif
 
@@ -346,10 +346,11 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   let g:Lf_MruMaxFiles = 2048
 
   " 如何识别项目目录，从当前文件目录向父目录递归知道碰到下面的文件/目录
-  let g:Lf_RootMarkers = ['.root', '.svn', '.git']
+  let g:Lf_RootMarkers = ['.rgignore', '.svn', '.git']
   let g:Lf_WorkingDirectoryMode = 'Ac'
   let g:Lf_WindowHeight = 0.30
   let g:Lf_CacheDirectory = expand('~/.vim/cache')
+  let g:Lf_MruEnableFrecency = 1
 
   " ui 定制
   let g:Lf_StlSeparator = { 'left': '>', 'right': '<', 'font': '' }
@@ -430,11 +431,12 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   " gs: global search(全局查找)
   " --hidden 查找以 '.' 开始的文件或目录
   if executable('rg')
-    let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
+    " let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --hidden<home>Leaderf! rg -F <right>
-    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --hidden<home>Leaderf! rg -e "\b
+    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --no-ignore<home>Leaderf! rg -F <right>
+    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --no-ignore<home>Leaderf! rg -e "\b
+    nnoremap <leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", tolower(expand("<cfile>:r")))<CR> --no-ignore<CR>
   endif
   noremap <leader>or :<c-u>Leaderf! --recall<CR>
 endif
@@ -445,7 +447,7 @@ endif
 "-----------------------------------------------------------------------------
 " 不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root 文件
 " 详细用法见：https://zhuanlan.zhihu.com/p/36279445
-if index(g:bundle_group, 'tags') >= 0 && v:version >= 800
+if index(g:bundle_group, 'tags') >= 0
   " 提供 ctags/gtags 后台数据库自动更新功能
   Plug 'ludovicchabant/vim-gutentags'
 
@@ -465,15 +467,9 @@ if index(g:bundle_group, 'tags') >= 0 && v:version >= 800
   " 第一个 GTAGSLABEL 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用
   " gtags 本地分析器，而其他语言使用 pygments 模块。
   let $GTAGSLABEL = 'native-pygments'
-  let $GTAGSCONF = expand('~/.gtags.conf')
 
-  " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
-  let g:gutentags_project_root = [
-        \ '.git',
-        \ '.hg',
-        \ '.svn',
-        \ '.root',
-        \ ]
+  " 设定项目目录标志：.rgignore
+  let g:gutentags_project_root = [ '.rgignore' ]
 
   let g:gutentags_exclude_filetypes = ['markdown', 'startify', 'css', '']
   let g:gutentags_exclude_project_root = ['/usr/local', '.notags']
@@ -749,8 +745,8 @@ if index(g:bundle_group, 'ale') >= 0
   let g:ale_python_pylint_options .=' --disable=W'
   let g:ale_c_gcc_options          ='-Wall -O2 -std=c11'
   let g:ale_c_cppcheck_options     =''
-  let g:ale_cpp_cc_options         ='-Wall -O2 -std=c++2a'
-  let g:ale_cpp_gcc_options        ='-Wall -O2 -std=c++2a'
+  let g:ale_cpp_cc_options         ='-Wall -O2 -std=c++20'
+  let g:ale_cpp_gcc_options        ='-Wall -O2 -std=c++20'
   let g:ale_cpp_cppcheck_options   =''
 
   let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']

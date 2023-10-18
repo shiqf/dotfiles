@@ -77,7 +77,10 @@ function! s:vcFlagSet()
   endif
 endfunction
 
-xnoremap c <Cmd>call <SID>vcFlagSet()<CR>c
+for key in [ 'c', 's', 'd' ]
+  execute 'xnoremap ' .. key .. ' <Cmd>call <SID>vcFlagSet()<CR>' .. key
+endfor
+
 " 将修改 "." 命令与 ":s" 命令结合起来
 " 用修改("", "/)作为替换项, 修改内容 ". 作为替换内容.
 " 面向字符/块的与 g. 的区别是完整单词匹配.

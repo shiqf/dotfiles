@@ -1,5 +1,3 @@
-!*.sh
-!.config
 !.eslintrc.js
 !.gitignore
 !.gtags.conf
@@ -7,8 +5,7 @@
 !.ideavimrc
 !.rgignore
 !.tmux.conf
-!.vim
 !.vimrc
 !.ycm_extra_conf.py
 !.zshrc
-.git
+!.vim/

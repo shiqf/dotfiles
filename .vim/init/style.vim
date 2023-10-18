@@ -21,10 +21,10 @@ set laststatus=2
 " 总是显示行号
 set number
 
-" 总是显示侧边栏（用于显示 mark/gitdiff/诊断信息）
-if exists('g:max')
-  set signcolumn=yes
-endif
+" " 总是显示侧边栏（用于显示 mark/gitdiff/诊断信息）
+" if exists('g:max')
+"   set signcolumn=yes
+" endif
 
 " 总是显示标签栏
 set showtabline=2
