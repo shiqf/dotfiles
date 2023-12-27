@@ -85,8 +85,8 @@ endfor
 " 用修改("", "/)作为替换项, 修改内容 ". 作为替换内容.
 " 面向字符/块的与 g. 的区别是完整单词匹配.
 " 列块暂时没有应用 TODO.
-xnoremap . <Cmd>call <SID>vVPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
-xnoremap g. <Cmd>call <SID>vPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<left><left>
+xnoremap . <Cmd>call <SID>vVPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<Left><Left>
+xnoremap g. <Cmd>call <SID>vPattern()<Bar>set hls<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<Left><Left>
 " 跳转到与之前修改内容相同的地方并修改(需先有修改操作).
 " 使用前用 g. 再通过 "." 命令重复运用.(go to same change context place and do ".")
 nnoremap g. <Cmd>call <SID>Replace()<Bar>set hls<CR>cgn<c-r>=getreg('.')<CR><esc>
@@ -96,16 +96,16 @@ function! s:FirstCharToLower(reg)
 endfunction
 
 nnoremap gz <Cmd>call <SID>vPattern()<Bar>set hls<CR>
-      \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<left><left>
+      \:<c-u>S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<Left><Left>
 xnoremap gz <Cmd>call <SID>vPattern()<Bar>set hls<CR>
-      \:S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<left><left>
+      \:S/<c-r>=<SID>FirstCharToLower(@/)<CR>/<c-r>=<SID>FirstCharToLower(getreg('.'))<CR>/g<Left><Left>
 
-nnoremap <silent> &  :<c-u>exec '~& ' . (v:count == 0 ? 1 : v:count)<cr>
-xnoremap <silent> &  :~&<cr>
-nnoremap <silent> g& :%~&<cr>
+nnoremap <silent> &  :<c-u>exec '~& ' . (v:count == 0 ? 1 : v:count)<CR>
+xnoremap <silent> &  :~&<CR>
+nnoremap <silent> g& :%~&<CR>
 
 " 在可视模式上的重复宏的功能增强
-xnoremap <silent> @ :normal @@<cr>
+xnoremap <silent> @ :normal @@<CR>
 
 function! s:P()
   let l:registerName = v:register
@@ -129,25 +129,25 @@ xnoremap <silent>p <Cmd>call <SID>P()<Bar>set hls<Bar>set paste<Bar>
 " 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
 
-nmap <leader>ef :<c-u>edit %%<c-left>
-nmap <leader>es :<c-u>split %%<c-left>
-nmap <leader>ev :<c-u>vsplit %%<c-left>
-nmap <leader>et :<c-u>tabedit %%<c-left>
-nmap <leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<CR><home>
-nmap <leader>ee :<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><home>tab
-xmap <leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><home>tab
+nmap <Leader>ef :<c-u>edit %%<C-Left>
+nmap <Leader>es :<c-u>split %%<C-Left>
+nmap <Leader>ev :<c-u>vsplit %%<C-Left>
+nmap <Leader>et :<c-u>tabedit %%<C-Left>
+nmap <Leader>ew :<c-u>cd <c-r>=expand('%:h').'/'<CR><Home>
+nmap <Leader>ee :<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><Home>tab
+xmap <Leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><Home>tab
 
-nnoremap <silent><leader>ed :<c-u>edit <c-r>=expand('%:h')<CR><CR>
-nnoremap <silent><leader>e. :<c-u>edit!<CR>
+nnoremap <silent><Leader>ed :<c-u>edit <c-r>=expand('%:h')<CR><CR>
+nnoremap <silent><Leader>e. :<c-u>edit!<CR>
 
 " 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<CR> :<c-u>Git!<CR>
 nnoremap g<space> :<c-u>Git! 
 
-nnoremap <leader>ge :<c-u>Gedit %
-nnoremap <leader>gl :<c-u>Gclog! --author=
-nnoremap <leader>gc :<c-u> -n<home>Git! clean -xdf
-nnoremap <leader>gp :<c-u> --all<home>Git! log --oneline --decorate --graph --author=
+nnoremap <Leader>ge :<c-u>Gedit %
+nnoremap <Leader>gl :<c-u>Gclog! --author=
+nnoremap <Leader>gc :<c-u> -n<Home>Git! clean -xdf
+nnoremap <Leader>gp :<c-u> --all<Home>Git! log --oneline --decorate --graph --author=
 
 xnoremap <silent> ado :diffget<CR>
 xnoremap <silent> 2do :diffget //2<CR>
@@ -179,7 +179,7 @@ function! QFdelete(bufnr) range
   call setpos('.', [a:bufnr, a:firstline, 1, 0])
 endfunction
 
-augroup QFList | au!
+augroup QFList | autocmd!
   autocmd BufWinEnter quickfix if &bt ==# 'quickfix'
   autocmd BufWinEnter quickfix    nnoremap <silent><buffer>dd :call QFdelete(bufnr())<CR>
   autocmd BufWinEnter quickfix    vnoremap <silent><buffer>d  :call QFdelete(bufnr())<CR>

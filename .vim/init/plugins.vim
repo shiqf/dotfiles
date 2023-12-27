@@ -115,18 +115,18 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:asynctasks_term_pos = 'curwin'
   endif
 
-  noremap <leader>ar :AsyncRun 
-  nnoremap <silent> <leader>as :<c-u>AsyncStop<CR>
-  nnoremap <silent> <leader>am :<c-u>AsyncTaskMacro<CR>
-  nnoremap <silent> <leader>ae :<c-u>AsyncTaskEdit<CR>
-  nnoremap <silent> <leader>al :<c-u>AsyncTaskList<CR>
+  noremap <Leader>ar :AsyncRun 
+  nnoremap <silent> <Leader>as :<c-u>AsyncStop<CR>
+  nnoremap <silent> <Leader>am :<c-u>AsyncTaskMacro<CR>
+  nnoremap <silent> <Leader>ae :<c-u>AsyncTaskEdit<CR>
+  nnoremap <silent> <Leader>al :<c-u>AsyncTaskList<CR>
 
-  nnoremap <silent> <leader>2 :<c-u>AsyncTask file-obj<CR>
-  nnoremap <silent> <leader>5 :<c-u>AsyncTask file-run<CR>
-  nnoremap <silent> <leader>6 :<c-u>AsyncTask project-run<CR>
-  nnoremap <silent> <leader>7 :<c-u>AsyncTask project-build<CR>
-  nnoremap <silent> <leader>8 :<c-u>AsyncTask file-debug<CR>
-  nnoremap <silent> <leader>9 :<c-u>AsyncTask file-build<CR>
+  nnoremap <silent> <Leader>2 :<c-u>AsyncTask file-obj<CR>
+  nnoremap <silent> <Leader>5 :<c-u>AsyncTask file-run<CR>
+  nnoremap <silent> <Leader>6 :<c-u>AsyncTask project-run<CR>
+  nnoremap <silent> <Leader>7 :<c-u>AsyncTask project-build<CR>
+  nnoremap <silent> <Leader>8 :<c-u>AsyncTask file-debug<CR>
+  nnoremap <silent> <Leader>9 :<c-u>AsyncTask file-build<CR>
 
   " 配对括号和引号自动补全
   Plug 'jiangmiao/auto-pairs'
@@ -159,8 +159,8 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:mwIgnoreCase = 0
   let g:mwDefaultHighlightingPalette = 'maximum'
   let g:mwDefaultHighlightingNum = 44
-  nmap <leader>om <Plug>MarkToggle
-  nmap <leader>M  <Plug>MarkAllClear
+  nmap <Leader>om <Plug>MarkToggle
+  nmap <Leader>M  <Plug>MarkAllClear
   nmap [m <Plug>MarkSearchUsedGroupPrev
   nmap ]m <Plug>MarkSearchUsedGroupNext
   nmap [M <Plug>MarkSearchGroup1Prev
@@ -169,19 +169,19 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   " 显示 quickfix 列表和 location 列表
   Plug 'Valloric/ListToggle'
-  let g:lt_location_list_toggle_map = '<leader>l'
-  let g:lt_quickfix_list_toggle_map = '<leader>q'
+  let g:lt_location_list_toggle_map = '<Leader>l'
+  let g:lt_quickfix_list_toggle_map = '<Leader>q'
   let g:lt_height = 6
 
   if exists('g:max')
-    " 全文快速移动, <leader>f{char} 即可触发
+    " 全文快速移动, <Leader>f{char} 即可触发
     Plug 'easymotion/vim-easymotion'
 
-    map <leader>s <plug>(easymotion-overwin-f)
-    map <leader>f <plug>(easymotion-f)
-    map <leader>F <plug>(easymotion-F)
-    map <leader>j <plug>(easymotion-j)
-    map <leader>k <plug>(easymotion-k)
+    map <Leader>s <plug>(easymotion-overwin-f)
+    map <Leader>f <plug>(easymotion-f)
+    map <Leader>F <plug>(easymotion-F)
+    map <Leader>j <plug>(easymotion-j)
+    map <Leader>k <plug>(easymotion-k)
     let g:EasyMotion_smartcase = 1
 
     " 展示开始画面，显示最近编辑过的文件
@@ -434,11 +434,11 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     " let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --no-ignore<home>Leaderf! rg -F <right>
-    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --no-ignore<home>Leaderf! rg -e "\b
-    nnoremap <leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", tolower(expand("<cfile>:r")))<CR> --no-ignore<CR>
+    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --no-ignore<Home>Leaderf! rg -F <Right>
+    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --no-ignore<Home>Leaderf! rg -e "\b
+    nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", tolower(expand("<cfile>:r")))<CR> --no-ignore<CR>
   endif
-  noremap <leader>or :<c-u>Leaderf! --recall<CR>
+  noremap <Leader>or :<c-u>Leaderf! --recall<CR>
 endif
 
 
@@ -452,16 +452,16 @@ if index(g:bundle_group, 'tags') >= 0
   Plug 'ludovicchabant/vim-gutentags'
 
   " 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
-  " <leader>cs - 查看光标下符号的引用
-  " <leader>cg - 查看光标下符号的定义
-  " <leader>cd - 查看该函数调用了哪些函数
-  " <leader>cc - 查看有哪些函数调用了该函数
-  " <leader>ct - 查看光标下字符串
-  " <leader>ce - 查看光标下正则
-  " <leader>cf - 查找光标下的文件
-  " <leader>ci - 查找哪些文件 include 了本文件
-  " <leader>ca - 查看光标下符号赋值的地方
-  " <leader>cz - 查看光标下符号分配的位置
+  " <Leader>cs - 查看光标下符号的引用
+  " <Leader>cg - 查看光标下符号的定义
+  " <Leader>cd - 查看该函数调用了哪些函数
+  " <Leader>cc - 查看有哪些函数调用了该函数
+  " <Leader>ct - 查看光标下字符串
+  " <Leader>ce - 查看光标下正则
+  " <Leader>cf - 查找光标下的文件
+  " <Leader>ci - 查找哪些文件 include 了本文件
+  " <Leader>ca - 查看光标下符号赋值的地方
+  " <Leader>cz - 查看光标下符号分配的位置
   Plug 'skywind3000/gutentags_plus'
 
   " 第一个 GTAGSLABEL 告诉 gtags 默认 C/C++/Java 等六种原生支持的代码直接使用
@@ -545,7 +545,7 @@ if has('python3')
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
     let g:UltiSnipsEditSplit           = 'vertical'
-    nnoremap <leader>os :<c-u>snippets<home>UltiSnipsAddFiletypes 
+    nnoremap <Leader>os :<c-u>snippets<Home>UltiSnipsAddFiletypes 
 
     Plug 'skywind3000/leaderf-snippet'
     inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<CR>
@@ -574,8 +574,8 @@ if has('python3')
     let g:ycm_key_list_previous_completion = ['<c-p>']
     let g:ycm_key_list_stop_completion = ['<c-s>']
     let g:ycm_key_invoke_completion = '<c-z>'
-    " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <leader>d
-    let g:ycm_key_detailed_diagnostics = '<leader>d'
+    " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <Leader>d
+    let g:ycm_key_detailed_diagnostics = '<Leader>d'
 
     if has('nvim')
       set completeopt+=preview
@@ -683,7 +683,7 @@ if has('python3')
     let g:vimspector_sidebar_width = 80
     let g:vimspector_code_minwidth = 85
     let g:vimspector_terminal_minwidth = 75
-    nmap <leader>db <Plug>VimspectorBreakpoints
+    nmap <Leader>db <Plug>VimspectorBreakpoints
   endif
 endif
 
@@ -800,8 +800,8 @@ if index(g:bundle_group, 'nerdtree') >= 0
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0
-  noremap <leader>ot :<c-u>NERDTreeToggle<CR>
-  noremap <leader>oc :<c-u>NERDTreeToggle %<CR>
+  noremap <Leader>ot :<c-u>NERDTreeToggle<CR>
+  noremap <Leader>oc :<c-u>NERDTreeToggle %<CR>
 endif
 
 
@@ -811,17 +811,17 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   Plug 'roxma/vim-tmux-clipboard'
 
   Plug 'preservim/vimux'
-  nnoremap <silent> <leader>vp :<c-u>VimuxPromptCommand<CR>
-  nnoremap <silent> <leader>vl :<c-u>VimuxRunLastCommand<CR>
-  nnoremap <silent> <leader>vk :<c-u>VimuxInterruptRunner<CR>
-  nnoremap <silent> <leader>vu :<c-u>VimuxScrollUpInspect<CR>
-  nnoremap <silent> <leader>vd :<c-u>VimuxScrollDownInspect<CR>
-  nnoremap <silent> <leader>vi :<c-u>VimuxInspectRunner<CR>
-  nnoremap <silent> <leader>v<C-l> :<c-u>VimuxClearTerminalScreen<CR>:VimuxClearRunnerHistory<CR>
-  nnoremap <silent> <leader>vt :<c-u>VimuxTogglePane<CR>
-  nnoremap <silent> <leader>vo :<c-u>VimuxOpenRunner<CR>
-  nnoremap <silent> <leader>vc :<c-u>VimuxCloseRunner<CR>
-  nnoremap <silent> <leader>vz :<c-u>VimuxZoomRunner<CR>
+  nnoremap <silent> <Leader>vp      :<c-u>VimuxPromptCommand<CR>
+  nnoremap <silent> <Leader>vl      :<c-u>VimuxRunLastCommand<CR>
+  nnoremap <silent> <Leader>vk      :<c-u>VimuxInterruptRunner<CR>
+  nnoremap <silent> <Leader>vu      :<c-u>VimuxScrollUpInspect<CR>
+  nnoremap <silent> <Leader>vd      :<c-u>VimuxScrollDownInspect<CR>
+  nnoremap <silent> <Leader>vi      :<c-u>VimuxInspectRunner<CR>
+  nnoremap <silent> <Leader>v<C-l>  :<c-u>VimuxClearTerminalScreen<CR>:VimuxClearRunnerHistory<CR>
+  nnoremap <silent> <Leader>vt      :<c-u>VimuxTogglePane<CR>
+  nnoremap <silent> <Leader>vo      :<c-u>VimuxOpenRunner<CR>
+  nnoremap <silent> <Leader>vc      :<c-u>VimuxCloseRunner<CR>
+  nnoremap <silent> <Leader>vz      :<c-u>VimuxZoomRunner<CR>
 
   function! s:run_tmux(opts)
     let cwd = getcwd()
@@ -868,7 +868,7 @@ if index(g:bundle_group, 'tool') >= 0
   " Plug 'markonm/traces.vim'
 
   " Plug 'liuchengxu/vista.vim'
-  " nnoremap <leader>ov :<c-u>Vista!!<CR>
+  " nnoremap <Leader>ov :<c-u>Vista!!<CR>
 
   " " 专注模式
   " Plug 'junegunn/goyo.vim'
@@ -880,7 +880,7 @@ if index(g:bundle_group, 'tool') >= 0
   " Plug 'TaDaa/vimade'
 
   " Plug 'mbbill/undotree'
-  " nnoremap <silent> <leader>ou :UndotreeToggle<CR>
+  " nnoremap <silent> <Leader>ou :UndotreeToggle<CR>
   " if has("persistent_undo")
   "   set undodir=$HOME."/.undodir"
   "   set undofile

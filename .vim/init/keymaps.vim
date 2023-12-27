@@ -15,14 +15,14 @@
 "-----------------------------------------------------------------------------
 "                          插入模式 命令模式下使用 EMACS 键位
 "-----------------------------------------------------------------------------
-noremap! <c-f> <right>
-noremap! <c-b> <left>
-noremap! <c-e> <end>
-noremap! <m-f> <c-right>
-noremap! <m-b> <c-left>
+noremap! <c-f> <Right>
+noremap! <c-b> <Left>
+noremap! <c-e> <End>
+noremap! <m-f> <C-Right>
+noremap! <m-b> <C-Left>
 
 inoremap <c-a> <c-\><c-o>_
-inoremap <m-d> <esc>g`^cw
+inoremap <m-d> <Esc>g`^cw
 
 " 类似终端下的 ctrl-y
 inoremap <c-y> <c-a>
@@ -33,10 +33,10 @@ inoremap <c-u> <c-g>u<c-u>
 " 使用 <c-_> 代替 <c-k>
 noremap! <c-_> <c-k>
 
-noremap! <m-h> <left>
-noremap! <m-l> <right>
-noremap! <m-k> <up>
-noremap! <m-j> <down>
+noremap! <m-h> <Left>
+noremap! <m-l> <Right>
+noremap! <m-k> <Up>
+noremap! <m-j> <Down>
 
 " 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
 inoremap <m-o> <c-o><c-o>
@@ -48,24 +48,24 @@ function! s:AddToJumpList()
   return l:curCol < l:col + 1 ? "\<c-\>\<c-o>m`" : ''
 endfunction
 
-inoremap <expr> <c-j> <SID>AddToJumpList() . "\<esc>jA"
-inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? <SID>AddToJumpList() . "\<esc>kA" : "<c-\><c-o>\"_d$"
+inoremap <expr> <c-j> <SID>AddToJumpList() . "\<Esc>jA"
+inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? <SID>AddToJumpList() . "\<Esc>kA" : "<c-\><c-o>\"_d$"
 
 "-----------------------------------------------------------------------------
 "                     命令模式下使用 Emacs 风格的编辑操作
 "-----------------------------------------------------------------------------
-cnoremap <c-a> <home>
+cnoremap <c-a> <Home>
 cnoremap <m-d> <c-f>de<c-c>
 
-cnoremap <c-p> <up>
-cnoremap <c-n> <down>
+cnoremap <c-p> <Up>
+cnoremap <c-n> <Down>
 
 " ctrl+k 删除到行末
-cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<cr>
+cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<CR>
 
 " 打开命令窗口、查询历史窗口
 cnoremap <c-j>  <c-f>
-cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<c-d>"
+cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<Esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<c-d>"
 
 "-----------------------------------------------------------------------------
 "          tab：创建，关闭，上一个，下一个，首个，末个，左移，右移，
@@ -106,31 +106,31 @@ function! Tab_Right()
 endfunction
 
 " 快速切换tab 使用标签 参考unimparied
-nnoremap <silent> ]g :<c-u>exec "tabn ".Tab_Right()<cr>
-nnoremap <silent> [g :<c-u>exec "tabn ".Tab_Left()<cr>
-nnoremap <silent> [G :<c-u>tabfirst<cr>
-nnoremap <silent> ]G :<c-u>tablast<cr>
+nnoremap <silent> ]g :<c-u>exec "tabn ".Tab_Right()<CR>
+nnoremap <silent> [g :<c-u>exec "tabn ".Tab_Left()<CR>
+nnoremap <silent> [G :<c-u>tabfirst<CR>
+nnoremap <silent> ]G :<c-u>tablast<CR>
 
-noremap <silent> <c-w>th :<c-u>call Tab_MoveLeft()<cr>
-noremap <silent> <c-w>tl :<c-u>call Tab_MoveRight()<cr>
+noremap <silent> <c-w>th :<c-u>call Tab_MoveLeft()<CR>
+noremap <silent> <c-w>tl :<c-u>call Tab_MoveRight()<CR>
 
 " g<tab> 回到上个 tab
 noremap <c-w>td :<c-u>tabdo 
-noremap <silent> <c-w>tq :<c-u>tabclose<cr>
-noremap <silent> <c-w>tc :<c-u>tabclose<cr>
-noremap <silent> <c-w>to :<c-u>tabonly<cr>
+noremap <silent> <c-w>tq :<c-u>tabclose<CR>
+noremap <silent> <c-w>tc :<c-u>tabclose<CR>
+noremap <silent> <c-w>to :<c-u>tabonly<CR>
 
 " windows 上使用 powershell 来作为默认终端
 if executable('powershell')
   " powershell 中使用 emacs 键位
   " Set-PSReadLineOption -EditMode Emacs
-  noremap <silent> <c-w>tt :<c-u>tab terminal powershell<cr>
-  noremap <silent> <c-w>ts :<c-u>terminal powershell<cr>
-  noremap <silent> <c-w>tv :<c-u>vertical terminal powershell<cr>
+  noremap <silent> <c-w>tt :<c-u>tab terminal powershell<CR>
+  noremap <silent> <c-w>ts :<c-u>terminal powershell<CR>
+  noremap <silent> <c-w>tv :<c-u>vertical terminal powershell<CR>
 else
-  noremap <silent> <c-w>tt :<c-u>tab terminal<cr>
-  noremap <silent> <c-w>ts :<c-u>terminal<cr>
-  noremap <silent> <c-w>tv :<c-u>vertical terminal<cr>
+  noremap <silent> <c-w>tt :<c-u>tab terminal<CR>
+  noremap <silent> <c-w>ts :<c-u>terminal<CR>
+  noremap <silent> <c-w>tv :<c-u>vertical terminal<CR>
 endif
 
 
@@ -157,11 +157,11 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   tnoremap <silent> <m-j> <c-_>j
   tnoremap <silent> <m-k> <c-_>k
 
-  tnoremap <silent> <m-f> <esc>f
-  tnoremap <silent> <m-b> <esc>b
-  tnoremap <silent> <m-d> <esc>d
-  tnoremap <silent> <m-u> <esc>u
-  tnoremap <silent> <m-c> <esc>c
+  tnoremap <silent> <m-f> <Esc>f
+  tnoremap <silent> <m-b> <Esc>b
+  tnoremap <silent> <m-d> <Esc>d
+  tnoremap <silent> <m-u> <Esc>u
+  tnoremap <silent> <m-c> <Esc>c
 
   " 终端模式切换普通终端模式
   tnoremap <silent> <m-q> <c-\><c-n>
@@ -170,8 +170,8 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   " tab 切换
   tnoremap ]g <c-_>gt
   tnoremap [g <c-_>gT
-  tnoremap ]G <c-_>:<c-u>tablast<cr>
-  tnoremap [G <c-_>:<c-u>tabfirst<cr>
+  tnoremap ]G <c-_>:<c-u>tablast<CR>
+  tnoremap [G <c-_>:<c-u>tabfirst<CR>
 
   " tnoremap <Esc> <c-_>N
   set notimeout ttimeout timeoutlen=100
@@ -194,33 +194,33 @@ endif
 nnoremap Q gq
 
 " 保存
-nnoremap <silent> <c-s> :w<cr>
+nnoremap <silent> <c-s> :w<CR>
 
 " 强制退出
-noremap <silent> <leader>Q :<c-u>qall!<cr>
-noremap <silent> <leader>S :<c-u>wa \| qall<cr>
+noremap <silent> <Leader>Q :<c-u>qall!<CR>
+noremap <silent> <Leader>S :<c-u>wa \| qall<CR>
 
 " 恢复非高亮
-nnoremap <silent> <c-l> :<c-u>nohlsearch<cr>:redraw!<cr>
+nnoremap <silent> <c-l> :<c-u>nohlsearch<CR>:redraw!<CR>
 
 " 至上/下行末尾
-nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<cr>
-nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<cr>
+nnoremap <silent> <c-k> :<c-u>execute 'normal! ' . v:count . 'kg_'<CR>
+nnoremap <silent> <c-j> :<c-u>execute 'normal! ' . (v:count > 1 ? v:count + 1 : 2) . 'g_'<CR>
 
 " 错误导航
-nnoremap <silent> [l :<c-u>labove<cr>
-nnoremap <silent> ]l :<c-u>lbelow<cr>
+nnoremap <silent> [l :<c-u>labove<CR>
+nnoremap <silent> ]l :<c-u>lbelow<CR>
 
 " 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
 nnoremap 1P "1P
 
 inoremap <c-l> <c-x><c-l>
-inoremap <c-o><c-j> <esc>gi
+inoremap <c-o><c-j> <Esc>gi
 
 nnoremap <LeftMouse> m'<LeftMouse>
 
-cnoremap <c-l> <c-right><right>
+cnoremap <c-l> <C-Right><Right>
 
 xnoremap <c-c> "+y
 xnoremap <m-l> >gv
