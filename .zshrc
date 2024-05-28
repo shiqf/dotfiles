@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+ZPLUG_CACHE_DIR="$HOME/.cache/zplug"
+
 source ~/.zplug/init.zsh
 # Make sure to use double quotes
 zplug zsh-users/zsh-autosuggestions     # 智能提示输入 ctrl-f 确认补全, alt-f 补全单词

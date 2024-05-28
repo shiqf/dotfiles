@@ -349,7 +349,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   let g:Lf_RootMarkers = ['.rgignore', '.svn', '.git']
   let g:Lf_WorkingDirectoryMode = 'Ac'
   let g:Lf_WindowHeight = 0.30
-  let g:Lf_CacheDirectory = expand('~/.vim/cache')
+  let g:Lf_CacheDirectory = expand('~/.cache')
   let g:Lf_MruEnableFrecency = 1
 
   " ui 定制
@@ -428,6 +428,10 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   let g:Lf_PopupPreviewPosition = 'top'      " 指定 popup window / floating window 的位置。
   let g:Lf_PreviewHorizontalPosition = 'top' " 指定 popup window / floating window 的位置。
 
+  function! s:fileName()
+    return split(tolower(expand("<cfile>:r")), '^\.\/')[0]
+  endfunction
+
   " gs: global search(全局查找)
   " --hidden 查找以 '.' 开始的文件或目录
   if executable('rg')
@@ -436,7 +440,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     let g:Lf_UseMemoryCache = 0
     xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --no-ignore<Home>Leaderf! rg -F <Right>
     nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --no-ignore<Home>Leaderf! rg -e "\b
-    nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", tolower(expand("<cfile>:r")))<CR> --no-ignore<CR>
+    nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", <SID>fileName())<CR> --no-ignore<CR>
   endif
   noremap <Leader>or :<c-u>Leaderf! --recall<CR>
 endif
@@ -851,7 +855,7 @@ if index(g:bundle_group, 'tool') >= 0
 
   augroup illuminate_augroup
     autocmd!
-    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+    autocmd VimEnter * highlight illuminatedWord cterm=strikethrough,bold,underline,italic gui=underline
   augroup END
 
   " 恢复关闭的缓冲区
