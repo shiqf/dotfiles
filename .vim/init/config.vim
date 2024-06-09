@@ -58,7 +58,7 @@ if has('nvim') == 0 && has('gui_running') == 0
   endfor
   for i in range(26)
     MetaCode(nr2char(char2nr('a') + i))
-    MetaCode(nr2char(char2nr('A') + i))
+    # MetaCode(nr2char(char2nr('A') + i))
   endfor
   for c in [',', '.', '/', ';', '{', '}', '\']
     MetaCode(c)
