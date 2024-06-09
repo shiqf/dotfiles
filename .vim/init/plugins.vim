@@ -28,32 +28,25 @@
 "                     默认情况下的分组，可以再前面覆盖之
 "-----------------------------------------------------------------------------
 if !exists('g:bundle_group')
-  let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'leaderf']
+  let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'leaderf', 'snippets']
   if exists('g:max')
-    " tags 标签、代码片段、智能补全、调试、语法检测
-    let g:bundle_group += ['tags', 'snippets', 'ycm', 'debug']
-    " 主题、文件类型、工具、目录
-    let g:bundle_group += ['themes', 'filetypes', 'tool', 'nerdtree']
+    " tags 标签、智能补全、调试
+    let g:bundle_group += ['tags', 'ycm', 'debug']
+    " 文件类型、主题、目录
+    let g:bundle_group += ['nerdtree', 'filetypes', 'themes']
+  else
+    " 语法检测
+    let g:bundle_group += ['ale']
   endif
-  " 终端复用
-  let g:bundle_group += ['tmux']
+  " 工具、终端复用
+  let g:bundle_group += ['highlight', 'tmux', 'tool']
 endif
-
-
-"-----------------------------------------------------------------------------
-"                          计算当前 vim-init 的子路径
-"-----------------------------------------------------------------------------
-let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-function! s:path(path)
-  let path = expand(s:home . '/' . a:path )
-  return substitute(path, '\\', '/', 'g')
-endfunc
-
 
 "-----------------------------------------------------------------------------
 "                         在 ~/.vim/bundle 下安装插件
 "-----------------------------------------------------------------------------
-call plug#begin(get(g:, 'bundle_home', s:home . '/bundle'))
+let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+call plug#begin(get(g:, 'bundle_home', s:home .. '/bundle'))
 
 " " vim 中文说明文档 ./vimcdoc.sh -i安装
 " Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
@@ -90,7 +83,6 @@ if index(g:bundle_group, 'basic') >= 0
   Plug 'tpope/vim-fugitive'
 endif
 
-
 "-----------------------------------------------------------------------------
 "                                   增强插件
 "-----------------------------------------------------------------------------
@@ -101,7 +93,7 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   let g:asyncrun_rootmarks = ['.git', '.hg', '.svn', '.root']
   " TODO 声音不同
-  let g:asyncrun_open = 6 " 不自动打开 quickfix
+  let g:asyncrun_open = 6           " 不自动打开 quickfix
   let g:asynctasks_term_rows = 6    " 设置纵向切割时，高度为 6
   let g:asynctasks_term_reuse = 1
   let g:asynctasks_term_focus = 0
@@ -112,7 +104,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   elseif has('win64') || has('win32')
     let g:asynctasks_term_pos = 'external'
   else
-    let g:asynctasks_term_pos = 'curwin'
+    let g:asynctasks_term_pos = 'right'
   endif
 
   noremap <Leader>ar :AsyncRun 
@@ -130,48 +122,46 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   " 配对括号和引号自动补全
   Plug 'jiangmiao/auto-pairs'
-
   let g:AutoPairsFlyMode            = 0
   let g:AutoPairsShortcutBackInsert = '<M-z>'
   let g:AutoPairsShortcutToggle     = '<M-a>'
   let g:AutoPairsMapCh              = 0
   let g:AutoPairsMoveCharacter      = ''
   let g:AutoPairsShortcutJump       = ''
-  autocmd FileType cpp let b:AutoPairs = AutoPairsDefine({'\w\zs<' : '>'})
-  autocmd FileType markdown let b:AutoPairs = AutoPairsDefine({'[' : ''})
+  autocmd FileType * let b:AutoPairs = AutoPairsDefine({'\zs[': ''})
+  autocmd FileType cpp let b:AutoPairs = AutoPairsDefine({'\w\zs<': '>'})
+  autocmd FileType markdown let b:AutoPairs = AutoPairsDefine({'[': ''})
 
   " 交换选定范围
   Plug 'tommcdo/vim-exchange'
-
-  " quickfix 增强
-  Plug 'yssl/QFEnter'
-  let g:qfenter_exclude_filetypes = ['nerdtree']
-  let g:qfenter_keymap            = {}
-  let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
-  let g:qfenter_keymap.vopen      = ['<c-]>', 's']
-  let g:qfenter_keymap.hopen      = ['<c-x>', 'i']
-  let g:qfenter_keymap.topen      = ['<c-t>', 't']
-  let g:qfenter_autoclose         = 1
-
-  " 高亮多个单词
-  Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-mark'
-  let g:mwAutoLoadMarks = 1
-  let g:mwIgnoreCase = 0
-  let g:mwDefaultHighlightingPalette = 'maximum'
-  let g:mwDefaultHighlightingNum = 44
-  nmap <Leader>om <Plug>MarkToggle
-  nmap <Leader>M  <Plug>MarkAllClear
-  nmap [m <Plug>MarkSearchUsedGroupPrev
-  nmap ]m <Plug>MarkSearchUsedGroupNext
-  nmap [M <Plug>MarkSearchGroup1Prev
-  nmap <expr> ]M '<Plug>MarkSearchGroup' . mark#GetCount() . 'Next'
-  nmap <expr> m v:count > 0 && v:count <= g:mwDefaultHighlightingNum ? '<Plug>MarkSearchGroup' . v:count . 'Next' : 'm'
 
   " 显示 quickfix 列表和 location 列表
   Plug 'Valloric/ListToggle'
   let g:lt_location_list_toggle_map = '<Leader>l'
   let g:lt_quickfix_list_toggle_map = '<Leader>q'
   let g:lt_height = 6
+
+  " 恢复关闭的缓冲区
+  Plug 'AndrewRadev/undoquit.vim'
+
+  " 彩虹括号 利用区分括号配对
+  Plug 'luochen1990/rainbow'
+  let g:rainbow_active = 1
+
+  " 用于在侧边符号栏显示 git/svn 的 diff
+  Plug 'mhinz/vim-signify'
+  " signify 调优
+  let g:signify_vcs_list               = ['git', 'svn']
+  let g:signify_sign_add               = '+'
+  let g:signify_sign_delete            = '_'
+  let g:signify_sign_delete_first_line = '-'
+  let g:signify_sign_change            = '~'
+  let g:signify_sign_changedelete      = g:signify_sign_change
+
+  " git 仓库使用 histogram 算法进行 diff
+  let g:signify_vcs_cmds = {
+        \'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
+        \}
 
   if exists('g:max')
     " 全文快速移动, <Leader>f{char} 即可触发
@@ -194,22 +184,6 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:startify_session_delete_buffers = 1
     let g:startify_session_autoload       = 0
     let g:startify_change_to_dir          = 1
-
-    " 用于在侧边符号栏显示 git/svn 的 diff
-    Plug 'mhinz/vim-signify'
-
-    " signify 调优
-    let g:signify_vcs_list               = ['git', 'svn']
-    let g:signify_sign_add               = '+'
-    let g:signify_sign_delete            = '_'
-    let g:signify_sign_delete_first_line = '-'
-    let g:signify_sign_change            = '~'
-    let g:signify_sign_changedelete      = g:signify_sign_change
-
-    " git 仓库使用 histogram 算法进行 diff
-    let g:signify_vcs_cmds = {
-          \  'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
-          \ }
   endif
 
   " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
@@ -224,7 +198,6 @@ if index(g:bundle_group, 'enhanced') >= 0
   " " 提供 gist 接口
   " Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 endif
-
 
 "-----------------------------------------------------------------------------
 "                           文本对象：textobj 全家桶
@@ -259,7 +232,6 @@ if index(g:bundle_group, 'textobj') >= 0
   " Plug 'jceb/vim-textobj-uri'
 endif
 
-
 "-----------------------------------------------------------------------------
 "                                 文件类型扩展
 "-----------------------------------------------------------------------------
@@ -289,7 +261,6 @@ if index(g:bundle_group, 'filetypes') >= 0 && exists('g:max')
   " rust 语法增强
   " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 endif
-
 
 "-----------------------------------------------------------------------------
 "     LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
@@ -428,23 +399,27 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   let g:Lf_PopupPreviewPosition = 'top'      " 指定 popup window / floating window 的位置。
   let g:Lf_PreviewHorizontalPosition = 'top' " 指定 popup window / floating window 的位置。
 
-  function! s:fileName()
-    return split(tolower(expand("<cfile>:r")), '^\.\/')[0]
-  endfunction
-
   " gs: global search(全局查找)
   " --hidden 查找以 '.' 开始的文件或目录
   if executable('rg')
+    function! FileName()
+      let l:lowerFile = tolower(expand("<cfile>:r"))
+      if l:lowerFile == ''
+        echomsg 'fileName is empty string'
+        return ''
+      endif
+      return split(lowerFile, '^\.\/')[0]
+    endfunc
+
     " let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
     xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --no-ignore<Home>Leaderf! rg -F <Right>
     nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --no-ignore<Home>Leaderf! rg -e "\b
-    nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", <SID>fileName())<CR> --no-ignore<CR>
+    nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", <SID>FileName())<CR> --no-ignore<CR>
   endif
   noremap <Leader>or :<c-u>Leaderf! --recall<CR>
 endif
-
 
 "-----------------------------------------------------------------------------
 "                   自动生成 ctags/gtags，并提供自动索引功能
@@ -517,6 +492,16 @@ if index(g:bundle_group, 'tags') >= 0
   " let g:gutentags_trace = 1
   " let g:gutentags_define_advanced_commands = 1
 
+  " quickfix 增强
+  Plug 'yssl/QFEnter'
+  let g:qfenter_exclude_filetypes = ['nerdtree']
+  let g:qfenter_keymap            = {}
+  let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
+  let g:qfenter_keymap.vopen      = ['<c-]>', 's']
+  let g:qfenter_keymap.hopen      = ['<c-x>', 'i']
+  let g:qfenter_keymap.topen      = ['<c-t>', 't']
+  let g:qfenter_autoclose         = 1
+
   " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
   Plug 'skywind3000/vim-preview'
 
@@ -534,7 +519,6 @@ if index(g:bundle_group, 'tags') >= 0
     autocmd FileType qf nnoremap <silent><buffer> p :<c-u>PreviewQuickfix<CR>
   augroup end
 endif
-
 
 if has('python3')
   "---------------------------------------------------------------------------
@@ -555,7 +539,6 @@ if has('python3')
     inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<CR>
     let g:Lf_PreviewResult.snippet = 1
   endif
-
 
   "---------------------------------------------------------------------------
   "                          ycm 基于语义的自动补全
@@ -676,7 +659,6 @@ if has('python3')
     augroup end
   endif
 
-
   if index(g:bundle_group, 'debug') >= 0
     if has('win64') || has('win32')
       Plug 'puremourning/vimspector', {'do': 'python install_gadget.py --all --force-enable-node --disable-tcl --update-gadget-config'}
@@ -690,7 +672,6 @@ if has('python3')
     nmap <Leader>db <Plug>VimspectorBreakpoints
   endif
 endif
-
 
 "-----------------------------------------------------------------------------
 "                        ale：动态语法检查
@@ -731,12 +712,16 @@ if index(g:bundle_group, 'ale') >= 0
         \ 'typescript': ['eslint', 'tslint'],
         \ }
 
+  function! Path(path)
+    let s:pathTemp = expand(s:home .. '/' .. a:path)
+    return substitute(s:pathTemp, '\\', '/', 'g')
+  endfunc
 
   " 获取 pylint, flake8 的配置文件，在 init/tools/conf 下面
-  function s:lintcfg(name)
-    let conf = s:path('tools/conf/')
-    let path1 = conf . a:name
-    let path2 = expand('~/.vim/linter/' . a:name)
+  function! s:Lintcfg(name)
+    let conf = Path('tools/conf/')
+    let path1 = conf .. a:name
+    let path2 = expand('~/.vim/linter/' .. a:name)
     if filereadable(path2)
       return path2
     endif
@@ -744,14 +729,14 @@ if index(g:bundle_group, 'ale') >= 0
   endfunc
 
   " 设置 flake8/pylint 的参数
-  let g:ale_python_flake8_options  ='--conf=' . s:lintcfg('flake8.conf')
-  let g:ale_python_pylint_options  ='--rcfile=' . s:lintcfg('pylint.conf')
-  let g:ale_python_pylint_options .=' --disable=W'
-  let g:ale_c_gcc_options          ='-Wall -O2 -std=c11'
-  let g:ale_c_cppcheck_options     =''
-  let g:ale_cpp_cc_options         ='-Wall -O2 -std=c++20'
-  let g:ale_cpp_gcc_options        ='-Wall -O2 -std=c++20'
-  let g:ale_cpp_cppcheck_options   =''
+  let g:ale_python_flake8_options   ='--conf=' .. s:Lintcfg('flake8.conf')
+  let g:ale_python_pylint_options   ='--rcfile=' .. s:Lintcfg('pylint.conf')
+  let g:ale_python_pylint_options ..=' --disable=W'
+  let g:ale_c_gcc_options           ='-Wall -O2 -std=c11'
+  let g:ale_c_cppcheck_options      =''
+  let g:ale_cpp_cc_options          ='-Wall -O2 -std=c++20'
+  let g:ale_cpp_gcc_options         ='-Wall -O2 -std=c++20'
+  let g:ale_cpp_cppcheck_options    =''
 
   let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
@@ -767,7 +752,6 @@ if index(g:bundle_group, 'ale') >= 0
   let g:ale_sign_error='x'
   let g:ale_sign_warning='^'
 endif
-
 
 "-----------------------------------------------------------------------------
 "                                    themes
@@ -793,7 +777,6 @@ if index(g:bundle_group, 'themes') >= 0
         \"%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#"
 endif
 
-
 "-----------------------------------------------------------------------------
 "                                   NERDTree
 "-----------------------------------------------------------------------------
@@ -807,7 +790,6 @@ if index(g:bundle_group, 'nerdtree') >= 0
   noremap <Leader>ot :<c-u>NERDTreeToggle<CR>
   noremap <Leader>oc :<c-u>NERDTreeToggle %<CR>
 endif
-
 
 " tmux 相关
 if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
@@ -829,7 +811,7 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 
   function! s:run_tmux(opts)
     let cwd = getcwd()
-    call VimuxRunCommand('cd ' . shellescape(cwd) . '; ' . a:opts.cmd)
+    call VimuxRunCommand('cd ' .. shellescape(cwd) .. '; ' .. a:opts.cmd)
   endfunction
 
   let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
@@ -847,8 +829,21 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   Plug 'wellle/tmux-complete.vim'
 endif
 
+if index(g:bundle_group, 'highlight') >= 0
+  " 高亮多个单词
+  Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-mark'
+  let g:mwAutoLoadMarks = 1
+  let g:mwIgnoreCase = 0
+  let g:mwDefaultHighlightingPalette = 'maximum'
+  let g:mwDefaultHighlightingNum = 44
+  nmap <Leader>om <Plug>MarkToggle
+  nmap <Leader>M  <Plug>MarkAllClear
+  nmap [m <Plug>MarkSearchUsedGroupPrev
+  nmap ]m <Plug>MarkSearchUsedGroupNext
+  nmap [M <Plug>MarkSearchGroup1Prev
+  nmap <expr> ]M '<Plug>MarkSearchGroup' .. mark#GetCount() .. 'Next'
+  nmap <expr> m v:count > 0 && v:count <= g:mwDefaultHighlightingNum ? '<Plug>MarkSearchGroup' .. v:count .. 'Next' : 'm'
 
-if index(g:bundle_group, 'tool') >= 0
   " 点亮当前光标下的单词
   Plug 'RRethy/vim-illuminate'
   let g:Illuminate_highlightUnderCursor = 0
@@ -857,19 +852,16 @@ if index(g:bundle_group, 'tool') >= 0
     autocmd!
     autocmd VimEnter * highlight illuminatedWord cterm=strikethrough,bold,underline,italic gui=underline
   augroup END
+endif
 
-  " 恢复关闭的缓冲区
-  Plug 'AndrewRadev/undoquit.vim'
-
-  " 彩虹括号 利用区分括号配对
-  Plug 'luochen1990/rainbow'
-  let g:rainbow_active = 1
+if index(g:bundle_group, 'tool') >= 0
+  " Plug 'github/copilot.vim'
 
   " " 对齐
   " Plug 'godlygeek/tabular'
 
-  " " 预览命令行命令效果
-  " Plug 'markonm/traces.vim'
+  " 预览命令行命令效果
+  Plug 'markonm/traces.vim'
 
   " Plug 'liuchengxu/vista.vim'
   " nnoremap <Leader>ov :<c-u>Vista!!<CR>
