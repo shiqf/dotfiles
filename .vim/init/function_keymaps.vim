@@ -159,16 +159,6 @@ xnoremap <silent> 3dp :diffput //3<CR>
 nnoremap <silent> 2dp :diffput //2<CR>
 nnoremap <silent> 3dp :diffput //3<CR>
 
-# 将 quickfix 列表中的文件加入到 arglist 中去重复, 后可以使用 :argdo 命令执行
-command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
-def QuickfixFilenames(): string
-  var buffer_numbers = {}
-  for quickfix_item in getqflist()
-    var buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
-enddef
-
 def QFdelete(bufnr: number): void
   var qfl = getqflist()
   var firstline: number
@@ -202,6 +192,16 @@ augroup QFList | autocmd!
   autocmd BufWinEnter quickfix    nnoremap         <buffer>dh :<c-u>exec <SID>Count() .. 'chistory'<CR>
   autocmd BufWinEnter quickfix endif
 augroup END
+
+# 将 quickfix 列表中的文件加入到 arglist 中去重复, 后可以使用 :argdo 命令执行
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+def QuickfixFilenames(): string
+  var buffer_numbers = {}
+  for quickfix_item in getqflist()
+    buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+enddef
 
 if has('terminal')
   var term_pos = {} # { bufnr: [winheight, n visible lines] }
