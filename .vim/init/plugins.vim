@@ -402,7 +402,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   " gs: global search(全局查找)
   " --hidden 查找以 '.' 开始的文件或目录
   if executable('rg')
-    function! FileName()
+    function! s:FileName()
       let l:lowerFile = tolower(expand("<cfile>:r"))
       if l:lowerFile == ''
         echomsg 'fileName is empty string'
