@@ -144,11 +144,10 @@ augroup vimStartup
   au!
 
   # 打开文件时恢复上一次光标所在位置
-  autocmd BufReadPost *
+  au BufReadPost *
         \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
         \ |   exe "normal! g`\""
         \ | endif
-
 augroup END
 
 #-----------------------------------------------------------------------------
@@ -192,7 +191,6 @@ augroup InitFileTypesGroup
   au FileType qf setlocal nonumber norelativenumber
 
   au FileType man setlocal nolist
-
 augroup END
 
 #-----------------------------------------------------------------------------

@@ -140,7 +140,7 @@ nnoremap <silent><Leader>e. :<c-u>edit!<CR>
 
 # 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<CR> :<c-u>Git!<CR>
-nnoremap g<space> :<c-u> <Home>Git!
+nnoremap g<space> :<c-u>Git! 
 
 nnoremap <Leader>ge :<c-u>Gedit %
 nnoremap <Leader>gl :<c-u>Gclog! --author=
@@ -159,17 +159,8 @@ xnoremap <silent> 3dp :diffput //3<CR>
 nnoremap <silent> 2dp :diffput //2<CR>
 nnoremap <silent> 3dp :diffput //3<CR>
 
-def QFdelete(bufnr: number): void
+def QFdelete(bufnr: number, firstline: number, lastline: number): void
   var qfl = getqflist()
-  var firstline: number
-  var lastline: number
-  if mode() !~ 'v'
-    firstline = line('.')
-    lastline = firstline + (v:count > 0 ? v:count - 1 : 0)
-  else
-    firstline = line("'<")
-    lastline = line("'>")
-  endif
   remove(qfl, firstline - 1, lastline - 1)
   setqflist([], 'r', {'items': qfl})
   setpos('.', [bufnr, firstline, 1, 0])
@@ -179,22 +170,6 @@ def Count(): string
   if v:count == 0 | return '' | else | return string(v:count) | endif
 enddef
 
-augroup QFList | autocmd!
-  autocmd BufWinEnter quickfix if &bt ==# 'quickfix'
-  autocmd BufWinEnter quickfix    nnoremap <silent><buffer>dd :<c-u>call <SID>QFdelete(bufnr())<CR>
-  autocmd BufWinEnter quickfix    xnoremap <silent><buffer>d  :call <SID>QFdelete(bufnr())<CR>
-  autocmd BufWinEnter quickfix    nnoremap <silent><buffer>ds :<c-u>Cfilter //<CR>
-  autocmd BufWinEnter quickfix    nnoremap <silent><buffer>dc :<c-u>Cfilter! //<CR>
-  autocmd BufWinEnter quickfix    nnoremap <silent><buffer>[d :<c-u>colder<CR>
-  autocmd BufWinEnter quickfix    nnoremap <silent><buffer>]d :<c-u>cnewer<CR>
-  autocmd BufWinEnter quickfix    nnoremap <silent><buffer>[D :<c-u>1chistory<CR>
-  autocmd BufWinEnter quickfix    nnoremap <silent><buffer>]D :<c-u>exec getqflist({'nr': '$'}).nr .. 'chistory'<CR>
-  autocmd BufWinEnter quickfix    nnoremap         <buffer>dh :<c-u>exec <SID>Count() .. 'chistory'<CR>
-  autocmd BufWinEnter quickfix endif
-augroup END
-
-# 将 quickfix 列表中的文件加入到 arglist 中去重复, 后可以使用 :argdo 命令执行
-command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
 def QuickfixFilenames(): string
   var buffer_numbers = {}
   for quickfix_item in getqflist()
@@ -202,6 +177,36 @@ def QuickfixFilenames(): string
   endfor
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 enddef
+# 将 quickfix 列表中的文件加入到 arglist 中去重复, 后可以使用 :argdo 命令执行
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+
+def RangeViusal(): string
+  return line("'<") .. ',' .. line("'>")
+enddef
+
+def RangeNormal(): string
+  var firstLine = line('.')
+  var lastLine = firstLine + (v:count > 0 ? v:count - 1 : 0)
+  return firstLine .. ',' .. lastLine
+enddef
+
+augroup QFList
+  au!
+  au BufWinEnter quickfix if &bt ==# 'quickfix'
+  au BufWinEnter quickfix    nnoremap <silent><buffer> dd :<c-u>call <SID>QFdelete(bufnr(), line('.'), line('.') + (v:count > 0 ? v:count - 1 : 0))<CR>
+  au BufWinEnter quickfix    xnoremap <silent><buffer> d  :<c-u>call <SID>QFdelete(bufnr(), line("'<"), line("'>"))<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> ds :<c-u>Cfilter //<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> dc :<c-u>Cfilter! //<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> [F :<c-u>1chistory<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> ]F :<c-u>exec getqflist({'nr': '$'}).nr .. 'chistory'<CR>
+  au BufWinEnter quickfix    nnoremap <buffer> dh         :<c-u>exec <SID>Count() .. 'chistory'<CR>
+  au BufWinEnter quickfix    nnoremap <buffer> d<space>   :<c-u>Cfilter //<Left>
+  au BufWinEnter quickfix    nnoremap <buffer> A          :<c-u>Qargs<Bar>q<Bar>args<CR>
+  au BufWinEnter quickfix    nnoremap <buffer> cd         :<c-u><c-r>=<SID>RangeNormal()<CR>cdo s//<c-r>=getreg('.')<CR>/gc<Left><Left><Left>
+  au BufWinEnter quickfix    xnoremap <buffer> cd         :<c-u><c-r>=<SID>RangeViusal()<CR>cdo s//<c-r>=getreg('.')<CR>/gc<Left><Left><Left>
+  au BufWinEnter quickfix    noremap  <buffer> cf         :<c-u>/g <Bar> update<Home>cfdo %s//<c-r>=getreg('.')<CR>
+  au BufWinEnter quickfix endif
+augroup END
 
 if has('terminal')
   var term_pos = {} # { bufnr: [winheight, n visible lines] }

@@ -92,7 +92,6 @@ if index(g:bundle_group, 'enhanced') >= 0
   Plug 'skywind3000/asynctasks.vim'
 
   let g:asyncrun_rootmarks = ['.git', '.hg', '.svn', '.root']
-  " TODO 声音不同
   let g:asyncrun_open = 6           " 不自动打开 quickfix
   let g:asynctasks_term_rows = 6    " 设置纵向切割时，高度为 6
   let g:asynctasks_term_reuse = 1
@@ -128,9 +127,9 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:AutoPairsMapCh              = 0
   let g:AutoPairsMoveCharacter      = ''
   let g:AutoPairsShortcutJump       = ''
-  autocmd FileType * let b:AutoPairs = AutoPairsDefine({'\zs[': ''})
-  autocmd FileType cpp let b:AutoPairs = AutoPairsDefine({'\w\zs<': '>'})
-  autocmd FileType markdown let b:AutoPairs = AutoPairsDefine({'[': ''})
+  au FileType * let b:AutoPairs = AutoPairsDefine({'\zs[': ''})
+  au FileType cpp let b:AutoPairs = AutoPairsDefine({'\w\zs<': '>'})
+  au FileType markdown let b:AutoPairs = AutoPairsDefine({'[': ''})
 
   " 交换选定范围
   Plug 'tommcdo/vim-exchange'
@@ -162,6 +161,16 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:signify_vcs_cmds = {
         \'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
         \}
+
+  " quickfix 增强
+  Plug 'yssl/QFEnter'
+  let g:qfenter_exclude_filetypes = ['nerdtree']
+  let g:qfenter_keymap            = {}
+  let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
+  let g:qfenter_keymap.vopen      = ['<c-]>', 's']
+  let g:qfenter_keymap.hopen      = ['<c-x>', 'i']
+  let g:qfenter_keymap.topen      = ['<c-t>', 't']
+  let g:qfenter_autoclose         = 1
 
   if exists('g:max')
     " 全文快速移动, <Leader>f{char} 即可触发
@@ -403,8 +412,8 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   " --hidden 查找以 '.' 开始的文件或目录
   if executable('rg')
     function! s:FileName()
-      let l:lowerFile = tolower(expand("<cfile>:r"))
-      if l:lowerFile == ''
+      let lowerFile = tolower(expand("<cfile>:r"))
+      if lowerFile == ''
         echomsg 'fileName is empty string'
         return ''
       endif
@@ -414,8 +423,8 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     " let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --no-ignore<Home>Leaderf! rg -F <Right>
-    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --no-ignore<Home>Leaderf! rg -e "\b
+    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --hidden<Home>Leaderf! rg -F <Right>
+    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --hidden<Home>Leaderf! rg -e "\b
     nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", <SID>FileName())<CR> --no-ignore<CR>
   endif
   noremap <Leader>or :<c-u>Leaderf! --recall<CR>
@@ -492,16 +501,6 @@ if index(g:bundle_group, 'tags') >= 0
   " let g:gutentags_trace = 1
   " let g:gutentags_define_advanced_commands = 1
 
-  " quickfix 增强
-  Plug 'yssl/QFEnter'
-  let g:qfenter_exclude_filetypes = ['nerdtree']
-  let g:qfenter_keymap            = {}
-  let g:qfenter_keymap.open       = ['<CR>', '<2-LeftMouse>']
-  let g:qfenter_keymap.vopen      = ['<c-]>', 's']
-  let g:qfenter_keymap.hopen      = ['<c-x>', 'i']
-  let g:qfenter_keymap.topen      = ['<c-t>', 't']
-  let g:qfenter_autoclose         = 1
-
   " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
   Plug 'skywind3000/vim-preview'
 
@@ -516,7 +515,7 @@ if index(g:bundle_group, 'tags') >= 0
   noremap <silent><m-p> :PreviewClose<CR>
 
   augroup QuickFixPreview
-    autocmd FileType qf nnoremap <silent><buffer> p :<c-u>PreviewQuickfix<CR>
+    au FileType qf nnoremap <silent><buffer> p :<c-u>PreviewQuickfix<CR>
   augroup end
 endif
 
@@ -633,28 +632,28 @@ if has('python3')
           \ }
 
     augroup ycmFileTypeMap
-      autocmd!
+      au!
 
-      autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,rust,typescript
+      au FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,rust,typescript
             \ nnoremap gcd :YcmCompleter GoTo<CR>
 
       " 重构后的结果会加入到 quickfix 中，方便查看修改
-      autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
+      au FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
             \ nnoremap gcr :YcmCompleter RefactorRename 
 
-      autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
+      au FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
             \ nnoremap gcs :YcmCompleter RestartServer<CR>
 
-      autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
+      au FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
             \ nnoremap gcf :YcmCompleter Format<CR>
 
-      autocmd FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
+      au FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
             \ nnoremap gct :YcmCompleter GetType<CR>
 
-      autocmd FileType java,javascript,typescript
+      au FileType java,javascript,typescript
             \ nnoremap gco :YcmCompleter OrganizeImports<CR>
 
-      autocmd FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
+      au FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
             \ nnoremap gcx :YcmCompleter FixIt<CR>
     augroup end
   endif
@@ -849,8 +848,8 @@ if index(g:bundle_group, 'highlight') >= 0
   let g:Illuminate_highlightUnderCursor = 0
 
   augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * highlight illuminatedWord cterm=strikethrough,bold,underline,italic gui=underline
+    au!
+    au VimEnter * highlight illuminatedWord cterm=strikethrough,bold,underline,italic gui=underline
   augroup END
 endif
 
