@@ -85,7 +85,7 @@ xnoremap g. <Cmd>call <SID>PatternV()<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<Left>
 
 # 跳转到与之前修改内容相同的地方并修改(需先有修改操作).
 # 使用前用 g. 再通过 "." 命令重复运用.(go to same change context place and do ".")
-nnoremap g. <Cmd>call <SID>Replace()<Bar>set hls<CR>cgn<c-r>=getreg('.')<CR><Esc>
+nnoremap g. <Cmd>call <SID>Replace()<Bar>set ei=all<CR>cgn<c-r>=getreg('.')<CR><Esc><Cmd>set ei=<Bar>set hls<CR>
 
 def WordToLower(reg: string): string
   return reg =~ '^\u' ? tolower(reg) : reg

@@ -198,6 +198,7 @@ augroup END
 #-----------------------------------------------------------------------------
 augroup AutoHighlighting
     au!
-    au CmdlineEnter /,\? set hlsearch
-    au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<cr>", 'n')
+    au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
+    au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
 augroup END
+nnoremap . <Cmd>exec 'noau normal! ' .. (v:count > 0 ? v:count - 1 : 1) .. '.'<CR>
