@@ -50,8 +50,8 @@ def AddToJumpList(): string
   return curCol < col + 1 ? "\<c-\>\<c-o>m`" : ''
 enddef
 
-inoremap <expr> <c-j> <SID>AddToJumpList() .. "\<Esc>jA"
-inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? <SID>AddToJumpList() .. "\<Esc>kA" : "<c-\><c-o>\"_d$"
+inoremap <expr> <c-j> $"{<SID>AddToJumpList()}\<Esc>jA"
+inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? $"{<SID>AddToJumpList()}\<Esc>kA" : "<c-\><c-o>\"_d$"
 
 #-----------------------------------------------------------------------------
 #                     命令模式下使用 Emacs 风格的编辑操作
@@ -76,7 +76,7 @@ cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<Esc>" : strlen(getcmdline()
 def TabMoveLeft(): void
   var tabnr = tabpagenr() - 2
   if tabnr >= 0
-    exec 'tabmove ' .. tabnr
+    exec $'tabmove {tabnr}'
   endif
 enddef
 
@@ -84,32 +84,30 @@ enddef
 def TabMoveRight(): void
   var tabnr = tabpagenr() + 1
   if tabnr <= tabpagenr('$')
-    exec 'tabmove ' .. tabnr
+    exec $'tabmove {tabnr}'
   endif
 enddef
 
 def TabLeft(): number
-  var count = v:count != 0 ? v:count : 1
   var currentTab = tabpagenr()
-  if currentTab == 1 && count == 1
+  if currentTab == 1 && v:count1 == 1
     return tabpagenr('$')
   endif
-  return currentTab - count < 1 ? 1 : currentTab - count
+  return currentTab - v:count1 > 1 ? currentTab - v:count1 : 1
 enddef
 
 def TabRight(): number
-  var count = v:count != 0 ? v:count : 1
   var currentTab = tabpagenr()
   var maxTab = tabpagenr('$')
-  if count == 1 && currentTab == maxTab
+  if v:count1 == 1 && currentTab == maxTab
     return 1
   endif
-  return currentTab + count > maxTab ? maxTab : currentTab + count
+  return currentTab + v:count1 > maxTab ? maxTab : currentTab + v:count1
 enddef
 
 # 快速切换tab 使用标签 参考unimparied
-nnoremap <silent> ]g <Cmd>exec "tabn " .. <SID>TabRight()<CR>
-nnoremap <silent> [g <Cmd>exec "tabn " .. <SID>TabLeft()<CR>
+nnoremap <silent> ]g <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
+nnoremap <silent> [g <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
 nnoremap <silent> [G :<c-u>tabfirst<CR>
 nnoremap <silent> ]G :<c-u>tablast<CR>
 
@@ -203,8 +201,8 @@ noremap <silent> <Leader>S :<c-u>wa \| qall<CR>
 nnoremap <silent> <c-l> :<c-u>nohlsearch<CR>:redraw!<CR>
 
 # 至上/下行末尾
-nnoremap <silent> <c-k> <Cmd>execute 'normal! ' .. v:count .. 'kg_'<CR>
-nnoremap <silent> <c-j> <Cmd>execute 'normal! ' .. (v:count > 1 ? v:count + 1 : 2) .. 'g_'<CR>
+nnoremap <silent> <c-k> <Cmd>exec $'normal! {v:count1}kg_'<CR>
+nnoremap <silent> <c-j> <Cmd>exec $'normal! {v:count1 + 1}g_'<CR>
 
 # 错误导航
 nnoremap <silent> [l :<c-u>labove<CR>

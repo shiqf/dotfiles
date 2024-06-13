@@ -46,7 +46,7 @@ endif
 "                         在 ~/.vim/bundle 下安装插件
 "-----------------------------------------------------------------------------
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-call plug#begin(get(g:, 'bundle_home', s:home .. '/bundle'))
+call plug#begin(get(g:, 'bundle_home', $'{s:home}/bundle'))
 
 " " vim 中文说明文档 ./vimcdoc.sh -i安装
 " Plug 'yianwillis/vimcdoc', { 'do': './vimcdoc.sh -i' }
@@ -712,15 +712,15 @@ if index(g:bundle_group, 'ale') >= 0
         \ }
 
   function! Path(path)
-    let s:pathTemp = expand(s:home .. '/' .. a:path)
+    let s:pathTemp = expand($'{s:home}/{a:path}')
     return substitute(s:pathTemp, '\\', '/', 'g')
   endfunc
 
   " 获取 pylint, flake8 的配置文件，在 init/tools/conf 下面
   function! s:Lintcfg(name)
     let conf = Path('tools/conf/')
-    let path1 = conf .. a:name
-    let path2 = expand('~/.vim/linter/' .. a:name)
+    let path1 = $'{conf}{a:name}'
+    let path2 = expand($'~/.vim/linter/{a:name}')
     if filereadable(path2)
       return path2
     endif
@@ -728,8 +728,8 @@ if index(g:bundle_group, 'ale') >= 0
   endfunc
 
   " 设置 flake8/pylint 的参数
-  let g:ale_python_flake8_options   ='--conf=' .. s:Lintcfg('flake8.conf')
-  let g:ale_python_pylint_options   ='--rcfile=' .. s:Lintcfg('pylint.conf')
+  let g:ale_python_flake8_options   =$'--conf={s:Lintcfg('flake8.conf')}'
+  let g:ale_python_pylint_options   =$'--rcfile={s:Lintcfg('pylint.conf')}'
   let g:ale_python_pylint_options ..=' --disable=W'
   let g:ale_c_gcc_options           ='-Wall -O2 -std=c11'
   let g:ale_c_cppcheck_options      =''
@@ -771,8 +771,8 @@ if index(g:bundle_group, 'themes') >= 0
   let g:airline#extensions#vimagit#enabled      = 0
 
   let g:airline_section_c =
-        \"%{winnr()}: ".
-        \"%<%f%m %#__accent_red#".
+        \"%{winnr()}: "..
+        \"%<%f%m %#__accent_red#"..
         \"%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#"
 endif
 
@@ -810,7 +810,7 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 
   function! s:run_tmux(opts)
     let cwd = getcwd()
-    call VimuxRunCommand('cd ' .. shellescape(cwd) .. '; ' .. a:opts.cmd)
+    call VimuxRunCommand($'cd {shellescape(cwd)}; {a:opts.cmd}')
   endfunction
 
   let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
@@ -840,8 +840,8 @@ if index(g:bundle_group, 'highlight') >= 0
   nmap [m <Plug>MarkSearchUsedGroupPrev
   nmap ]m <Plug>MarkSearchUsedGroupNext
   nmap [M <Plug>MarkSearchGroup1Prev
-  nmap <expr> ]M '<Plug>MarkSearchGroup' .. mark#GetCount() .. 'Next'
-  nmap <expr> m v:count > 0 && v:count <= g:mwDefaultHighlightingNum ? '<Plug>MarkSearchGroup' .. v:count .. 'Next' : 'm'
+  nmap <expr> ]M $'<Plug>MarkSearchGroup{mark#GetCount()}Next'
+  nmap <expr> m v:count > 0 && v:count <= g:mwDefaultHighlightingNum ? $'<Plug>MarkSearchGroup{v:count}Next' : 'm'
 
   " 点亮当前光标下的单词
   Plug 'RRethy/vim-illuminate'

@@ -51,7 +51,7 @@ endif
 #-----------------------------------------------------------------------------
 if has('nvim') == 0 && has('gui_running') == 0
   def MetaCode(key: string): void
-    exec 'set <M-' .. key .. ">=\e" .. key
+    exec $"set <M-{key}>=\e{key}"
   enddef
   for i in range(10)
     MetaCode(nr2char(char2nr('0') + i))
@@ -73,7 +73,7 @@ endif
 #-----------------------------------------------------------------------------
 def KeyEscape(name: string, code: string): void
   if has('nvim') == 0 && has('gui_running') == 0
-    exec 'set ' .. name .. "=\e" .. code
+    exec $"set {name}=\e{code}"
   endif
 enddef
 
@@ -201,4 +201,4 @@ augroup AutoHighlighting
     au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
     au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
 augroup END
-nnoremap . <Cmd>exec 'noau normal! ' .. (v:count > 0 ? v:count - 1 : 1) .. '.'<CR>
+nnoremap . <Cmd>exec $'noau normal! {v:count1}.'<CR>

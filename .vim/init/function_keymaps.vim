@@ -16,7 +16,7 @@ endif
 def OriginPattern(reg: string, isWord: bool = v:false): string
   var stringReg = getregtype('"') ==# 'V' ? reg[0 : -2] : reg
   if stringReg !~ '\W'
-    return isWord ? '\v<' .. stringReg .. '>' : stringReg
+    return isWord ? $'\v<{stringReg}>' : stringReg
   else
     return '\V' .. substitute(escape(stringReg, '\/'), '\n', '\\n', 'g')
   endif
@@ -36,7 +36,7 @@ def VSetSearch(cmdtype: string): void
   if mode() ==# 'v'
     SetReplace(v:false)
   else
-    exec 'keepjumps normal! ' .. cmdtype .. 'N'
+    exec $'keepjumps normal! {cmdtype}N'
     setreg('/', getreg('/'))
   endif
 enddef
@@ -70,7 +70,7 @@ def VcFlagSet(): void
 enddef
 
 for key in ['c', 's', 'd']
-  execute 'xnoremap ' .. key .. ' <Cmd>call <SID>VcFlagSet()<CR>' .. key
+  execute $'xnoremap {key} <Cmd>call <SID>VcFlagSet()<CR> {key}'
 endfor
 
 # 将修改 "." 命令与 ":s" 命令结合起来
@@ -98,7 +98,7 @@ nnoremap gz <Cmd>call <SID>PatternV()<CR>
 xnoremap gz <Cmd>call <SID>PatternV()<CR>
       \:S/<c-r>=<SID>WordToLower(@/)<CR>/<c-r>=<SID>WordToLower(getreg('.'))<CR>/g<Left><Left>
 
-nnoremap <silent> &  :<c-u>exec '~& ' .. (v:count == 0 ? 1 : v:count)<CR>
+nnoremap <silent> &  :&&<CR>
 xnoremap <silent> &  :~&<CR>
 nnoremap <silent> g& :%~&<CR>
 
@@ -110,13 +110,13 @@ def P()
   if mode() ==? 'v'
     g:vpaste = getreg(registerName)
     var regtype = getregtype(registerName)
-    exec 'normal! "' .. registerName .. 'pu'
+    exec $'normal! "{registerName}pu'
     if regtype ==# 'V' && visualmode() ==# 'V'
       g:vpaste = g:vpaste[0 : -2]
     endif
     setreg('/', OriginPattern(getreg('@')))
   else
-    exec 'normal! "' .. registerName .. 'p'
+    exec $'normal! "{registerName}p'
   endif
 enddef
 
@@ -186,14 +186,14 @@ enddef
 
 def RangeNormal(): string
   var firstLine = line('.')
-  var lastLine = firstLine + (v:count > 0 ? v:count - 1 : 0)
-  return firstLine .. ',' .. lastLine
+  var lastLine = firstLine + v:count1 - 1
+  return $'{firstLine},{lastLine}'
 enddef
 
 augroup QFList
   au!
   au BufWinEnter quickfix if &bt ==# 'quickfix'
-  au BufWinEnter quickfix    nnoremap <silent><buffer> dd :<c-u>call <SID>QFdelete(bufnr(), line('.'), line('.') + (v:count > 0 ? v:count - 1 : 0))<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> dd :<c-u>call <SID>QFdelete(bufnr(), line('.'), line('.') + v:count1 - 1)<CR>
   au BufWinEnter quickfix    xnoremap <silent><buffer> d  :<c-u>call <SID>QFdelete(bufnr(), line("'<"), line("'>"))<CR>
   au BufWinEnter quickfix    nnoremap <silent><buffer> ds :<c-u>Cfilter //<CR>
   au BufWinEnter quickfix    nnoremap <silent><buffer> dc :<c-u>Cfilter! //<CR>
