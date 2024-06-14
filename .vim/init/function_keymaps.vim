@@ -139,7 +139,7 @@ nnoremap <silent><Leader>ed :<c-u>edit <c-r>=expand('%:h')<CR><CR>
 nnoremap <silent><Leader>e. :<c-u>edit!<CR>
 
 # 打开 fugitive 插件中的状态窗口
-nnoremap <silent> g<CR> :<c-u>Git!<CR>
+nnoremap <silent> g<CR> <Cmd>Git!<CR>
 nnoremap g<space> :<c-u>Git! 
 
 nnoremap <Leader>ge :<c-u>Gedit %

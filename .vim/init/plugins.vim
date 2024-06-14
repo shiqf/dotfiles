@@ -107,17 +107,17 @@ if index(g:bundle_group, 'enhanced') >= 0
   endif
 
   noremap <Leader>ar :AsyncRun 
-  nnoremap <silent> <Leader>as :<c-u>AsyncStop<CR>
-  nnoremap <silent> <Leader>am :<c-u>AsyncTaskMacro<CR>
-  nnoremap <silent> <Leader>ae :<c-u>AsyncTaskEdit<CR>
-  nnoremap <silent> <Leader>al :<c-u>AsyncTaskList<CR>
+  nnoremap <silent> <Leader>as <Cmd>AsyncStop<CR>
+  nnoremap <silent> <Leader>am <Cmd>AsyncTaskMacro<CR>
+  nnoremap <silent> <Leader>ae <Cmd>AsyncTaskEdit<CR>
+  nnoremap <silent> <Leader>al <Cmd>AsyncTaskList<CR>
 
-  nnoremap <silent> <Leader>2 :<c-u>AsyncTask file-obj<CR>
-  nnoremap <silent> <Leader>5 :<c-u>AsyncTask file-run<CR>
-  nnoremap <silent> <Leader>6 :<c-u>AsyncTask project-run<CR>
-  nnoremap <silent> <Leader>7 :<c-u>AsyncTask project-build<CR>
-  nnoremap <silent> <Leader>8 :<c-u>AsyncTask file-debug<CR>
-  nnoremap <silent> <Leader>9 :<c-u>AsyncTask file-build<CR>
+  nnoremap <silent> <Leader>2 <Cmd>AsyncTask file-obj<CR>
+  nnoremap <silent> <Leader>5 <Cmd>AsyncTask file-run<CR>
+  nnoremap <silent> <Leader>6 <Cmd>AsyncTask project-run<CR>
+  nnoremap <silent> <Leader>7 <Cmd>AsyncTask project-build<CR>
+  nnoremap <silent> <Leader>8 <Cmd>AsyncTask file-debug<CR>
+  nnoremap <silent> <Leader>9 <Cmd>AsyncTask file-build<CR>
 
   " 配对括号和引号自动补全
   Plug 'jiangmiao/auto-pairs'
@@ -296,31 +296,31 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   let g:Lf_ShortcutB = '<m-b>'
 
   " CTRL+n 打开当前项目最近使用的文件 MRU，进行模糊匹配
-  nnoremap <c-n> :<c-u>LeaderfMruCwd<CR>
+  nnoremap <c-n> <Cmd>LeaderfMruCwd<CR>
 
   " ALT+n 打开最近使用的文件 MRU，进行模糊匹配
-  nnoremap <m-n> :<c-u>LeaderfMru<CR>
+  nnoremap <m-n> <Cmd>LeaderfMru<CR>
 
   " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-f> :<c-u>LeaderfFunction<CR>
+  nnoremap <m-f> <Cmd>LeaderfFunction<CR>
 
   " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-F> :<c-u>LeaderfFunctionAll<CR>
+  nnoremap <m-F> <Cmd>LeaderfFunctionAll<CR>
 
   " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
-  nnoremap <m-t> :<c-u>LeaderfBufTag<CR>
+  nnoremap <m-t> <Cmd>LeaderfBufTag<CR>
 
   " 全局 tags 模糊匹配
-  nnoremap <m-T> :<c-u>LeaderfBufTagAll<CR>
+  nnoremap <m-T> <Cmd>LeaderfBufTagAll<CR>
 
   " 命令历史
-  nnoremap <m-c> :<c-u>LeaderfHistoryCmd<CR>
+  nnoremap <m-c> <Cmd>LeaderfHistoryCmd<CR>
 
   " Leaderf 自己的命令模糊匹配
-  nnoremap <m-s> :<c-u>LeaderfSelf<CR>
+  nnoremap <m-s> <Cmd>LeaderfSelf<CR>
 
-  noremap ]r :<c-u>Leaderf --next<CR>
-  noremap [r :<c-u>Leaderf --previous<CR>
+  noremap ]r <Cmd>Leaderf --next<CR>
+  noremap [r <Cmd>Leaderf --previous<CR>
 
   " 最大历史文件保存 2048 个
   let g:Lf_MruMaxFiles = 2048
@@ -427,7 +427,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --hidden<Home>Leaderf! rg -e "\b
     nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", <SID>FileName())<CR> --no-ignore<CR>
   endif
-  noremap <Leader>or :<c-u>Leaderf! --recall<CR>
+  noremap <Leader>or <Cmd>Leaderf! --recall<CR>
 endif
 
 "-----------------------------------------------------------------------------
@@ -786,8 +786,8 @@ if index(g:bundle_group, 'nerdtree') >= 0
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeHijackNetrw = 0
-  noremap <Leader>ot :<c-u>NERDTreeToggle<CR>
-  noremap <Leader>oc :<c-u>NERDTreeToggle %<CR>
+  noremap <Leader>ot <Cmd>NERDTreeToggle<CR>
+  noremap <Leader>oc <Cmd>NERDTreeToggle %<CR>
 endif
 
 " tmux 相关
@@ -796,17 +796,17 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   Plug 'roxma/vim-tmux-clipboard'
 
   Plug 'preservim/vimux'
-  nnoremap <silent> <Leader>vp      :<c-u>VimuxPromptCommand<CR>
-  nnoremap <silent> <Leader>vl      :<c-u>VimuxRunLastCommand<CR>
-  nnoremap <silent> <Leader>vk      :<c-u>VimuxInterruptRunner<CR>
-  nnoremap <silent> <Leader>vu      :<c-u>VimuxScrollUpInspect<CR>
-  nnoremap <silent> <Leader>vd      :<c-u>VimuxScrollDownInspect<CR>
-  nnoremap <silent> <Leader>vi      :<c-u>VimuxInspectRunner<CR>
-  nnoremap <silent> <Leader>v<C-l>  :<c-u>VimuxClearTerminalScreen<CR>:VimuxClearRunnerHistory<CR>
-  nnoremap <silent> <Leader>vt      :<c-u>VimuxTogglePane<CR>
-  nnoremap <silent> <Leader>vo      :<c-u>VimuxOpenRunner<CR>
-  nnoremap <silent> <Leader>vc      :<c-u>VimuxCloseRunner<CR>
-  nnoremap <silent> <Leader>vz      :<c-u>VimuxZoomRunner<CR>
+  nnoremap <silent> <Leader>vp      <Cmd>VimuxPromptCommand<CR>
+  nnoremap <silent> <Leader>vl      <Cmd>VimuxRunLastCommand<CR>
+  nnoremap <silent> <Leader>vk      <Cmd>VimuxInterruptRunner<CR>
+  nnoremap <silent> <Leader>vu      <Cmd>VimuxScrollUpInspect<CR>
+  nnoremap <silent> <Leader>vd      <Cmd>VimuxScrollDownInspect<CR>
+  nnoremap <silent> <Leader>vi      <Cmd>VimuxInspectRunner<CR>
+  nnoremap <silent> <Leader>v<C-l>  <Cmd>VimuxClearTerminalScreen<CR>:VimuxClearRunnerHistory<CR>
+  nnoremap <silent> <Leader>vt      <Cmd>VimuxTogglePane<CR>
+  nnoremap <silent> <Leader>vo      <Cmd>VimuxOpenRunner<CR>
+  nnoremap <silent> <Leader>vc      <Cmd>VimuxCloseRunner<CR>
+  nnoremap <silent> <Leader>vz      <Cmd>VimuxZoomRunner<CR>
 
   function! s:run_tmux(opts)
     let cwd = getcwd()
@@ -819,11 +819,11 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 
   Plug 'christoomey/vim-tmux-navigator'
   let g:tmux_navigator_no_mappings = 1
-  nnoremap <silent> <m-h> :<c-u>TmuxNavigateLeft<CR>
-  nnoremap <silent> <m-j> :<c-u>TmuxNavigateDown<CR>
-  nnoremap <silent> <m-k> :<c-u>TmuxNavigateUp<CR>
-  nnoremap <silent> <m-l> :<c-u>TmuxNavigateRight<CR>
-  nnoremap <silent> <m-\> :<c-u>TmuxNavigatePrevious<CR>
+  nnoremap <silent> <m-h> <Cmd>TmuxNavigateLeft<CR>
+  nnoremap <silent> <m-j> <Cmd>TmuxNavigateDown<CR>
+  nnoremap <silent> <m-k> <Cmd>TmuxNavigateUp<CR>
+  nnoremap <silent> <m-l> <Cmd>TmuxNavigateRight<CR>
+  nnoremap <silent> <m-\> <Cmd>TmuxNavigatePrevious<CR>
 
   Plug 'wellle/tmux-complete.vim'
 endif
@@ -863,7 +863,7 @@ if index(g:bundle_group, 'tool') >= 0
   Plug 'markonm/traces.vim'
 
   " Plug 'liuchengxu/vista.vim'
-  " nnoremap <Leader>ov :<c-u>Vista!!<CR>
+  " nnoremap <Leader>ov <Cmd>Vista!!<CR>
 
   " " 专注模式
   " Plug 'junegunn/goyo.vim'

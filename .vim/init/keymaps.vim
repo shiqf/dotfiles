@@ -108,29 +108,29 @@ enddef
 # 快速切换tab 使用标签 参考unimparied
 nnoremap <silent> ]g <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
 nnoremap <silent> [g <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
-nnoremap <silent> [G :<c-u>tabfirst<CR>
-nnoremap <silent> ]G :<c-u>tablast<CR>
+nnoremap <silent> [G <Cmd>tabfirst<CR>
+nnoremap <silent> ]G <Cmd>tablast<CR>
 
 noremap <silent> <c-w>th <Cmd>call <SID>TabMoveLeft()<CR>
 noremap <silent> <c-w>tl <Cmd>call <SID>TabMoveRight()<CR>
 
 # g<tab> 回到上个 tab
 noremap <c-w>td : <Home>tabdo
-noremap <silent> <c-w>tq :<c-u>tabclose<CR>
-noremap <silent> <c-w>tc :<c-u>tabclose<CR>
-noremap <silent> <c-w>to :<c-u>tabonly<CR>
+noremap <silent> <c-w>tq <Cmd>tabclose<CR>
+noremap <silent> <c-w>tc <Cmd>tabclose<CR>
+noremap <silent> <c-w>to <Cmd>tabonly<CR>
 
 # windows 上使用 powershell 来作为默认终端
 if executable('powershell')
   # powershell 中使用 emacs 键位
   # Set-PSReadLineOption -EditMode Emacs
-  noremap <silent> <c-w>tt :<c-u>tab terminal powershell<CR>
-  noremap <silent> <c-w>ts :<c-u>terminal powershell<CR>
-  noremap <silent> <c-w>tv :<c-u>vertical terminal powershell<CR>
+  noremap <silent> <c-w>tt <Cmd>tab terminal powershell<CR>
+  noremap <silent> <c-w>ts <Cmd>terminal powershell<CR>
+  noremap <silent> <c-w>tv <Cmd>vertical terminal powershell<CR>
 else
-  noremap <silent> <c-w>tt :<c-u>tab terminal<CR>
-  noremap <silent> <c-w>ts :<c-u>terminal<CR>
-  noremap <silent> <c-w>tv :<c-u>vertical terminal<CR>
+  noremap <silent> <c-w>tt <Cmd>tab terminal<CR>
+  noremap <silent> <c-w>ts <Cmd>terminal<CR>
+  noremap <silent> <c-w>tv <Cmd>vertical terminal<CR>
 endif
 
 #-----------------------------------------------------------------------------
@@ -158,8 +158,6 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   tnoremap <silent> <m-f> <Esc>f
   tnoremap <silent> <m-b> <Esc>b
   tnoremap <silent> <m-d> <Esc>d
-  tnoremap <silent> <m-u> <Esc>u
-  tnoremap <silent> <m-c> <Esc>c
 
   # 终端模式切换普通终端模式
   tnoremap <silent> <m-q> <c-\><c-n>
@@ -168,8 +166,8 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   # tab 切换
   tnoremap ]g <c-_>gt
   tnoremap [g <c-_>gT
-  tnoremap ]G <c-_>:<c-u>tablast<CR>
-  tnoremap [G <c-_>:<c-u>tabfirst<CR>
+  tnoremap ]G <Cmd>tablast<CR>
+  tnoremap [G <Cmd>tabfirst<CR>
 
   # tnoremap <Esc> <c-_>N
   set notimeout ttimeout timeoutlen=100
@@ -194,19 +192,19 @@ nnoremap Q gq
 nnoremap <silent> <c-s> :w<CR>
 
 # 强制退出
-noremap <silent> <Leader>Q :<c-u>qall!<CR>
-noremap <silent> <Leader>S :<c-u>wa \| qall<CR>
+noremap <silent> <Leader>Q <Cmd>qall!<CR>
+noremap <silent> <Leader>S <Cmd>wa \| qall<CR>
 
 # 恢复非高亮
-nnoremap <silent> <c-l> :<c-u>nohlsearch<CR>:redraw!<CR>
+nnoremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
 
 # 至上/下行末尾
 nnoremap <silent> <c-k> <Cmd>exec $'normal! {v:count1}kg_'<CR>
 nnoremap <silent> <c-j> <Cmd>exec $'normal! {v:count1 + 1}g_'<CR>
 
 # 错误导航
-nnoremap <silent> [l :<c-u>labove<CR>
-nnoremap <silent> ]l :<c-u>lbelow<CR>
+nnoremap <silent> [l <Cmd>labove<CR>
+nnoremap <silent> ]l <Cmd>lbelow<CR>
 
 # 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
