@@ -41,8 +41,8 @@ def VSetSearch(cmdtype: string): void
   endif
 enddef
 
-xnoremap *  <Cmd>call <SID>VSetSearch('*')<Bar>//<CR>
-xnoremap #  <Cmd>call <SID>VSetSearch('#')<Bar>??<CR>
+xnoremap * <Cmd>call <SID>VSetSearch('*')<Bar>//<CR>
+xnoremap # <Cmd>call <SID>VSetSearch('#')<Bar>??<CR>
 
 # 被替换内容
 def Replace(isWord: bool = v:true): void

@@ -111,26 +111,26 @@ nnoremap <silent> [g <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
 nnoremap <silent> [G <Cmd>tabfirst<CR>
 nnoremap <silent> ]G <Cmd>tablast<CR>
 
-noremap <silent> <c-w>th <Cmd>call <SID>TabMoveLeft()<CR>
-noremap <silent> <c-w>tl <Cmd>call <SID>TabMoveRight()<CR>
+nnoremap <silent> <c-w>th <Cmd>call <SID>TabMoveLeft()<CR>
+nnoremap <silent> <c-w>tl <Cmd>call <SID>TabMoveRight()<CR>
 
 # g<tab> 回到上个 tab
-noremap <c-w>td : <Home>tabdo
-noremap <silent> <c-w>tq <Cmd>tabclose<CR>
-noremap <silent> <c-w>tc <Cmd>tabclose<CR>
-noremap <silent> <c-w>to <Cmd>tabonly<CR>
+nnoremap <c-w>td :tabdo 
+nnoremap <silent> <c-w>tq <Cmd>tabclose<CR>
+nnoremap <silent> <c-w>tc <Cmd>tabclose<CR>
+nnoremap <silent> <c-w>to <Cmd>tabonly<CR>
 
 # windows 上使用 powershell 来作为默认终端
 if executable('powershell')
   # powershell 中使用 emacs 键位
   # Set-PSReadLineOption -EditMode Emacs
-  noremap <silent> <c-w>tt <Cmd>tab terminal powershell<CR>
-  noremap <silent> <c-w>ts <Cmd>terminal powershell<CR>
-  noremap <silent> <c-w>tv <Cmd>vertical terminal powershell<CR>
+  nnoremap <silent> <c-w>tt <Cmd>tab terminal powershell<CR>
+  nnoremap <silent> <c-w>ts <Cmd>terminal powershell<CR>
+  nnoremap <silent> <c-w>tv <Cmd>vertical terminal powershell<CR>
 else
-  noremap <silent> <c-w>tt <Cmd>tab terminal<CR>
-  noremap <silent> <c-w>ts <Cmd>terminal<CR>
-  noremap <silent> <c-w>tv <Cmd>vertical terminal<CR>
+  nnoremap <silent> <c-w>tt <Cmd>tab terminal<CR>
+  nnoremap <silent> <c-w>ts <Cmd>terminal<CR>
+  nnoremap <silent> <c-w>tv <Cmd>vertical terminal<CR>
 endif
 
 #-----------------------------------------------------------------------------
@@ -189,7 +189,7 @@ endif
 nnoremap Q gq
 
 # 保存
-nnoremap <silent> <c-s> :w<CR>
+nnoremap <silent> <c-s> <Cmd>w<CR>
 
 # 强制退出
 noremap <silent> <Leader>Q <Cmd>qall!<CR>
@@ -215,8 +215,5 @@ inoremap <c-o><c-j> <Esc>gi
 
 nnoremap <LeftMouse> m'<LeftMouse>
 
-cnoremap <c-l> <C-Right><Right>
-
-xnoremap <c-c> "+y
 xnoremap <m-l> >gv
 xnoremap <m-h> <gv
