@@ -23,8 +23,8 @@ noremap! <c-e> <End>
 noremap! <m-f> <C-Right>
 noremap! <m-b> <C-Left>
 
-inoremap <c-a> <c-\><c-o>_
-inoremap <m-d> <Esc>g`^cw
+inoremap <c-a> <Cmd>normal! _<CR>
+inoremap <m-d> <Cmd>normal! de<CR>
 
 # 类似终端下的 ctrl-y
 inoremap <c-y> <c-a>
@@ -196,7 +196,7 @@ noremap <silent> <Leader>Q <Cmd>qall!<CR>
 noremap <silent> <Leader>S <Cmd>wa \| qall<CR>
 
 # 恢复非高亮
-nnoremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
+noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
 
 # 至上/下行末尾
 nnoremap <silent> <c-k> <Cmd>exec $'normal! {v:count1}kg_'<CR>

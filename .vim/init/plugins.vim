@@ -172,6 +172,18 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_keymap.topen      = ['<c-t>', 't']
   let g:qfenter_autoclose         = 1
 
+  Plug 'skywind3000/vim-quickui'
+  let g:quickui_color_scheme = 'borland'
+  let g:quickui_preview_w = 100
+  let g:quickui_preview_h = 15
+
+  augroup MyQuickfixPreview
+    au!
+    au FileType qf noremap <silent><buffer> p     <Cmd>call quickui#tools#preview_quickfix()<CR>
+    au FileType qf noremap <silent><buffer> <m-u> <Cmd>call quickui#preview#scroll(-5)<CR>
+    au FileType qf noremap <silent><buffer> <m-d> <Cmd>call quickui#preview#scroll(5)<CR>
+  augroup END
+
   if exists('g:max')
     " 全文快速移动, <Leader>f{char} 即可触发
     Plug 'easymotion/vim-easymotion'
@@ -304,14 +316,14 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   " ALT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
   nnoremap <m-f> <Cmd>LeaderfFunction<CR>
 
-  " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
-  nnoremap <m-F> <Cmd>LeaderfFunctionAll<CR>
+  " " ALT+SHIFT+f 打开函数列表，按 i 进入模糊匹配，ESC 退出
+  " nnoremap <m-F> <Cmd>LeaderfFunctionAll<CR>
 
   " ALT+t 打开 tag 列表，i 进入模糊匹配，ESC退出
   nnoremap <m-t> <Cmd>LeaderfBufTag<CR>
 
-  " 全局 tags 模糊匹配
-  nnoremap <m-T> <Cmd>LeaderfBufTagAll<CR>
+  " " 全局 tags 模糊匹配
+  " nnoremap <m-T> <Cmd>LeaderfBufTagAll<CR>
 
   " 命令历史
   nnoremap <m-c> <Cmd>LeaderfHistoryCmd<CR>
@@ -500,23 +512,6 @@ if index(g:bundle_group, 'tags') >= 0
 
   " let g:gutentags_trace = 1
   " let g:gutentags_define_advanced_commands = 1
-
-  " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
-  Plug 'skywind3000/vim-preview'
-
-  noremap <m-u> :<c-u>PreviewScroll -1<CR>
-  noremap <m-i> :<c-u>PreviewScroll +1<CR>
-  inoremap <m-u> <c-\><c-o>:PreviewScroll -1<CR>
-  inoremap <m-i> <c-\><c-o>:PreviewScroll +1<CR>
-
-  noremap <silent><m-;> :PreviewTag<CR>
-  noremap <silent><m-,> :PreviewGoto edit<CR>
-  noremap <silent><m-.> :PreviewGoto tabe<CR>
-  noremap <silent><m-p> :PreviewClose<CR>
-
-  augroup QuickFixPreview
-    au FileType qf nnoremap <silent><buffer> p :<c-u>PreviewQuickfix<CR>
-  augroup end
 endif
 
 if has('python3')
@@ -535,7 +530,7 @@ if has('python3')
     nnoremap <Leader>os :<c-u>snippets<Home>UltiSnipsAddFiletypes 
 
     Plug 'skywind3000/leaderf-snippet'
-    inoremap <c-x><c-j> <c-\><c-o>:Leaderf snippet<CR>
+    inoremap <c-x><c-j> <Cmd>Leaderf snippet<CR>
     let g:Lf_PreviewResult.snippet = 1
   endif
 
@@ -563,14 +558,7 @@ if has('python3')
     " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <Leader>d
     let g:ycm_key_detailed_diagnostics = '<Leader>d'
 
-    if has('nvim')
-      set completeopt+=preview
-      " 禁用预览功能：扰乱视听 默认 0 为禁用
-      let g:ycm_add_preview_to_completeopt = 0
-      let g:ycm_autoclose_preview_window_after_completion = 1
-    else
-      set completeopt+=popup
-    endif
+    set completeopt+=popup
 
     let g:ycm_server_log_level = 'info'
     " 禁用诊断功能：我们用前面更好用的 ALE 代替, 默认 0

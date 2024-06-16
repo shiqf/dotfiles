@@ -70,7 +70,7 @@ def VcFlagSet(): void
 enddef
 
 for key in ['c', 's', 'd']
-  execute $'xnoremap {key} <Cmd>call <SID>VcFlagSet()<CR> {key}'
+  execute $'xnoremap {key} <Cmd>call <SID>VcFlagSet()<CR>{key}'
 endfor
 
 # 将修改 "." 命令与 ":s" 命令结合起来
