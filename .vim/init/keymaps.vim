@@ -93,7 +93,7 @@ def TabLeft(): number
   if currentTab == 1 && v:count1 == 1
     return tabpagenr('$')
   endif
-  return currentTab - v:count1 > 1 ? currentTab - v:count1 : 1
+  return max([currentTab - v:count1, 1])
 enddef
 
 def TabRight(): number
@@ -102,7 +102,7 @@ def TabRight(): number
   if v:count1 == 1 && currentTab == maxTab
     return 1
   endif
-  return currentTab + v:count1 > maxTab ? maxTab : currentTab + v:count1
+  return min([currentTab + v:count1, maxTab])
 enddef
 
 # 快速切换tab 使用标签 参考unimparied
@@ -110,6 +110,7 @@ nnoremap <silent> ]g <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
 nnoremap <silent> [g <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
 nnoremap <silent> [G <Cmd>tabfirst<CR>
 nnoremap <silent> ]G <Cmd>tablast<CR>
+nnoremap <silent> <m-o> <Cmd>normal! g<tab><CR>
 
 nnoremap <silent> <c-w>th <Cmd>call <SID>TabMoveLeft()<CR>
 nnoremap <silent> <c-w>tl <Cmd>call <SID>TabMoveRight()<CR>
@@ -136,38 +137,49 @@ endif
 #-----------------------------------------------------------------------------
 #                              窗口切换：ALT+hjkl
 #-----------------------------------------------------------------------------
-# 传统的 CTRL+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL+hjkl 在
+# 传统的 CTRL-W+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL-W+hjkl 在
 # bash/zsh 及带文本界面的程序中都是重要键位需要保留
-if !exists('$TMUX')
-  noremap <silent> <m-h> <c-w>h
-  noremap <silent> <m-l> <c-w>l
-  noremap <silent> <m-j> <c-w>j
-  noremap <silent> <m-k> <c-w>k
-endif
+noremap <silent> <m-h> <Cmd>wincmd h<CR>
+noremap <silent> <m-l> <Cmd>wincmd l<CR>
+noremap <silent> <m-j> <Cmd>wincmd j<CR>
+noremap <silent> <m-k> <Cmd>wincmd k<CR>
 
 if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   # vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
   # 设置 termwinkey 为 CTRL 加减号（GVIM），有些终端下是 CTRL+?
   # 后面四个键位是搭配 termwinkey 的，如果 termwinkey 更改，也要改
   set termwinkey=<c-_>
-  tnoremap <silent> <m-h> <c-_>h
-  tnoremap <silent> <m-l> <c-_>l
-  tnoremap <silent> <m-j> <c-_>j
-  tnoremap <silent> <m-k> <c-_>k
-
   tnoremap <silent> <m-f> <Esc>f
   tnoremap <silent> <m-b> <Esc>b
   tnoremap <silent> <m-d> <Esc>d
+
+  #---------------------------------------------------------------------------
+  #                            终端窗口切换：ALT+hjkl
+  #---------------------------------------------------------------------------
+  if exists('$TMUX')
+    tnoremap <silent> <m-h> <Cmd>TmuxNavigateLeft<CR>
+    tnoremap <silent> <m-l> <Cmd>TmuxNavigateRight<CR>
+    tnoremap <silent> <m-j> <Cmd>TmuxNavigateDown<CR>
+    tnoremap <silent> <m-k> <Cmd>TmuxNavigateUp<CR>
+    tnoremap <silent> <m-\> <Cmd>TmuxNavigatePrevious<CR>
+  else
+    tnoremap <silent> <m-h> <Cmd>wincmd h<CR>
+    tnoremap <silent> <m-l> <Cmd>wincmd l<CR>
+    tnoremap <silent> <m-j> <Cmd>wincmd j<CR>
+    tnoremap <silent> <m-k> <Cmd>wincmd k<CR>
+    tnoremap <silent> <m-\> <Cmd>wincmd p<CR>
+  endif
 
   # 终端模式切换普通终端模式
   tnoremap <silent> <m-q> <c-\><c-n>
   tnoremap <silent> <m-p> <c-_>"0
 
   # tab 切换
-  tnoremap ]g <c-_>gt
-  tnoremap [g <c-_>gT
+  tnoremap ]g <Cmd>normal! gt<CR>
+  tnoremap [g <Cmd>normal! gT<CR>
   tnoremap ]G <Cmd>tablast<CR>
   tnoremap [G <Cmd>tabfirst<CR>
+  tnoremap <m-o> <Cmd>normal! g<tab><CR>
 
   # tnoremap <Esc> <c-_>N
   set notimeout ttimeout timeoutlen=100
@@ -193,7 +205,7 @@ nnoremap <silent> <c-s> <Cmd>w<CR>
 
 # 强制退出
 noremap <silent> <Leader>Q <Cmd>qall!<CR>
-noremap <silent> <Leader>S <Cmd>wa \| qall<CR>
+noremap <silent> <Leader>S <Cmd>wall<Bar>qall<CR>
 
 # 恢复非高亮
 noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
@@ -214,6 +226,3 @@ inoremap <c-l> <c-x><c-l>
 inoremap <c-o><c-j> <Esc>gi
 
 nnoremap <LeftMouse> m'<LeftMouse>
-
-xnoremap <m-l> >gv
-xnoremap <m-h> <gv

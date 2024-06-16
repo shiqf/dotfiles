@@ -808,9 +808,9 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   Plug 'christoomey/vim-tmux-navigator'
   let g:tmux_navigator_no_mappings = 1
   nnoremap <silent> <m-h> <Cmd>TmuxNavigateLeft<CR>
+  nnoremap <silent> <m-l> <Cmd>TmuxNavigateRight<CR>
   nnoremap <silent> <m-j> <Cmd>TmuxNavigateDown<CR>
   nnoremap <silent> <m-k> <Cmd>TmuxNavigateUp<CR>
-  nnoremap <silent> <m-l> <Cmd>TmuxNavigateRight<CR>
   nnoremap <silent> <m-\> <Cmd>TmuxNavigatePrevious<CR>
 
   Plug 'wellle/tmux-complete.vim'
