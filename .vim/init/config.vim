@@ -200,5 +200,5 @@ augroup AutoHighlighting
     au!
     au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
     au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
-    nnoremap . <Cmd>exec $'noau normal! {v:count1}.'<CR>
+    nnoremap . <Cmd>exec $'noau normal! {v:count == 0 ? "" : v:count}.'<CR>
 augroup END
