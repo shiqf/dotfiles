@@ -623,26 +623,26 @@ if has('python3')
       au!
 
       au FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,python,rust,typescript
-            \ nnoremap gcd :YcmCompleter GoTo<CR>
+            \ nnoremap gcd <Cmd>YcmCompleter GoTo<CR>
 
       " 重构后的结果会加入到 quickfix 中，方便查看修改
       au FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
-            \ nnoremap gcr :YcmCompleter RefactorRename 
+            \ nnoremap gcr :<c-u>YcmCompleter RefactorRename 
 
       au FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
-            \ nnoremap gcs :YcmCompleter RestartServer<CR>
+            \ nnoremap gcs <Cmd>YcmCompleter RestartServer<CR>
 
       au FileType c,cpp,objc,objcpp,cuda,java,javascript,go,typescript,rust,cs
-            \ nnoremap gcf :YcmCompleter Format<CR>
+            \ nnoremap gcf <Cmd>YcmCompleter Format<CR>
 
       au FileType c,cpp,objc,objcpp,cuda,java,javascript,go,python,typescript,rust
-            \ nnoremap gct :YcmCompleter GetType<CR>
+            \ nnoremap gct <Cmd>YcmCompleter GetType<CR>
 
       au FileType java,javascript,typescript
-            \ nnoremap gco :YcmCompleter OrganizeImports<CR>
+            \ nnoremap gco <Cmd>YcmCompleter OrganizeImports<CR>
 
       au FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
-            \ nnoremap gcx :YcmCompleter FixIt<CR>
+            \ nnoremap gcx <Cmd>YcmCompleter FixIt<CR>
     augroup end
   endif
 
@@ -812,6 +812,12 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   nnoremap <silent> <m-j> <Cmd>TmuxNavigateDown<CR>
   nnoremap <silent> <m-k> <Cmd>TmuxNavigateUp<CR>
   nnoremap <silent> <m-\> <Cmd>TmuxNavigatePrevious<CR>
+
+  tnoremap <silent> <m-h> <Cmd>TmuxNavigateLeft<CR>
+  tnoremap <silent> <m-l> <Cmd>TmuxNavigateRight<CR>
+  tnoremap <silent> <m-j> <Cmd>TmuxNavigateDown<CR>
+  tnoremap <silent> <m-k> <Cmd>TmuxNavigateUp<CR>
+  tnoremap <silent> <m-\> <Cmd>TmuxNavigatePrevious<CR>
 
   Plug 'wellle/tmux-complete.vim'
 endif

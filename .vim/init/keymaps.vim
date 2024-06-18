@@ -139,10 +139,13 @@ endif
 #-----------------------------------------------------------------------------
 # 传统的 CTRL-W+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL-W+hjkl 在
 # bash/zsh 及带文本界面的程序中都是重要键位需要保留
-noremap <silent> <m-h> <Cmd>wincmd h<CR>
-noremap <silent> <m-l> <Cmd>wincmd l<CR>
-noremap <silent> <m-j> <Cmd>wincmd j<CR>
-noremap <silent> <m-k> <Cmd>wincmd k<CR>
+if !exists('$TMUX')
+  nnoremap <silent> <m-h> <Cmd>wincmd h<CR>
+  nnoremap <silent> <m-l> <Cmd>wincmd l<CR>
+  nnoremap <silent> <m-j> <Cmd>wincmd j<CR>
+  nnoremap <silent> <m-k> <Cmd>wincmd k<CR>
+  nnoremap <silent> <m-\> <Cmd>wincmd p<CR>
+endif
 
 if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   # vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
@@ -156,13 +159,7 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   #---------------------------------------------------------------------------
   #                            终端窗口切换：ALT+hjkl
   #---------------------------------------------------------------------------
-  if exists('$TMUX')
-    tnoremap <silent> <m-h> <Cmd>TmuxNavigateLeft<CR>
-    tnoremap <silent> <m-l> <Cmd>TmuxNavigateRight<CR>
-    tnoremap <silent> <m-j> <Cmd>TmuxNavigateDown<CR>
-    tnoremap <silent> <m-k> <Cmd>TmuxNavigateUp<CR>
-    tnoremap <silent> <m-\> <Cmd>TmuxNavigatePrevious<CR>
-  else
+  if !exists('$TMUX')
     tnoremap <silent> <m-h> <Cmd>wincmd h<CR>
     tnoremap <silent> <m-l> <Cmd>wincmd l<CR>
     tnoremap <silent> <m-j> <Cmd>wincmd j<CR>

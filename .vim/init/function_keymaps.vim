@@ -193,15 +193,15 @@ enddef
 augroup QFList
   au!
   au BufWinEnter quickfix if &bt ==# 'quickfix'
-  au BufWinEnter quickfix    nnoremap <silent><buffer> dd :<c-u>call <SID>QFdelete(bufnr(), line('.'), line('.') + v:count1 - 1)<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> dd <Cmd>call <SID>QFdelete(bufnr(), line('.'), line('.') + v:count1 - 1)<CR>
   au BufWinEnter quickfix    xnoremap <silent><buffer> d  :<c-u>call <SID>QFdelete(bufnr(), line("'<"), line("'>"))<CR>
-  au BufWinEnter quickfix    nnoremap <silent><buffer> ds :<c-u>Cfilter //<CR>
-  au BufWinEnter quickfix    nnoremap <silent><buffer> dc :<c-u>Cfilter! //<CR>
-  au BufWinEnter quickfix    nnoremap <silent><buffer> [F :<c-u>1chistory<CR>
-  au BufWinEnter quickfix    nnoremap <silent><buffer> ]F :<c-u>exec getqflist({'nr': '$'}).nr .. 'chistory'<CR>
-  au BufWinEnter quickfix    nnoremap <buffer> dh         :<c-u>exec <SID>Count() .. 'chistory'<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> ds <Cmd>Cfilter //<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> dc <Cmd>Cfilter! //<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> [F <Cmd>1chistory<CR>
+  au BufWinEnter quickfix    nnoremap <silent><buffer> ]F <Cmd>exec getqflist({'nr': '$'}).nr .. 'chistory'<CR>
+  au BufWinEnter quickfix    nnoremap <buffer> dh         <Cmd>exec $'{<SID>Count()}chistory'<CR>
   au BufWinEnter quickfix    nnoremap <buffer> d<space>   :<c-u>Cfilter //<Left>
-  au BufWinEnter quickfix    nnoremap <buffer> A          :<c-u>Qargs<Bar>q<Bar>args<CR>
+  au BufWinEnter quickfix    nnoremap <buffer> A          <Cmd>Qargs<Bar>q<Bar>args<CR>
   au BufWinEnter quickfix    nnoremap <buffer> cd         :<c-u><c-r>=<SID>RangeNormal()<CR>cdo s//<c-r>=getreg('.')<CR>/gc<Left><Left><Left>
   au BufWinEnter quickfix    xnoremap <buffer> cd         :<c-u><c-r>=<SID>RangeViusal()<CR>cdo s//<c-r>=getreg('.')<CR>/gc<Left><Left><Left>
   au BufWinEnter quickfix    noremap  <buffer> cf         :<c-u>/g <Bar> update<Home>cfdo %s//<c-r>=getreg('.')<CR>
