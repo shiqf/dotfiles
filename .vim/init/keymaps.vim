@@ -204,9 +204,6 @@ nnoremap <silent> <c-s> <Cmd>w<CR>
 noremap <silent> <Leader>Q <Cmd>qall!<CR>
 noremap <silent> <Leader>S <Cmd>wall<Bar>qall<CR>
 
-# 恢复非高亮
-noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
-
 # 至上/下行末尾
 nnoremap <silent> <c-k> <Cmd>exec $'normal! {v:count1}kg_'<CR>
 nnoremap <silent> <c-j> <Cmd>exec $'normal! {v:count1 + 1}g_'<CR>
@@ -223,3 +220,17 @@ inoremap <c-l> <c-x><c-l>
 inoremap <c-o><c-j> <Esc>gi
 
 nnoremap <LeftMouse> m'<LeftMouse>
+
+#-----------------------------------------------------------------------------
+#                             高亮查找单词后取消高亮
+#-----------------------------------------------------------------------------
+augroup AutoHighlighting
+    au!
+    au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
+    au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
+    au CursorHold * call feedkeys("\<Cmd>noh\<CR>", 'n')
+    nnoremap . <Cmd>exec $'noau normal! {v:count == 0 ? "" : v:count}.'<CR>
+augroup END
+
+# 恢复非高亮
+noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>

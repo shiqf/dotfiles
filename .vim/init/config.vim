@@ -192,13 +192,3 @@ augroup InitFileTypesGroup
 
   au FileType man setlocal nolist
 augroup END
-
-#-----------------------------------------------------------------------------
-#                             高亮查找单词后取消高亮
-#-----------------------------------------------------------------------------
-augroup AutoHighlighting
-    au!
-    au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
-    au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
-    nnoremap . <Cmd>exec $'noau normal! {v:count == 0 ? "" : v:count}.'<CR>
-augroup END
