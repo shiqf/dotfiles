@@ -229,8 +229,9 @@ augroup AutoHighlighting
     au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
     au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
     au CursorHold * call feedkeys("\<Cmd>noh\<CR>", 'n')
+    # au CursorHold * call feedkeys("\<Cmd>redraw!\<CR>", 'n')
     nnoremap . <Cmd>exec $'noau normal! {v:count == 0 ? "" : v:count}.'<CR>
 augroup END
 
-# 恢复非高亮
-noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
+# # 恢复非高亮
+# noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>

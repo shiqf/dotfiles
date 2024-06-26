@@ -121,8 +121,8 @@ def P()
 enddef
 
 # 可视模式下替换选中内容, 并使用 "." 命令复用上次替换内容.
-xnoremap <silent>p <Cmd>call <SID>P()<Bar>set hls<Bar>set paste<Bar>
-      \if visualmode() ==? 'v'<Bar>exec 'normal! cgn' .. g:vpaste<Bar>endif<Bar>set nopaste<CR>
+xnoremap <silent>p <Cmd>call <SID>P()<Bar>set paste<Bar>
+      \if visualmode() ==? 'v'<Bar>exec 'normal! cgn' .. g:vpaste<Bar>endif<Bar>set nopaste<Bar>set hls<CR>
 
 # 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
@@ -141,6 +141,11 @@ nnoremap <silent><Leader>e. :<c-u>edit!<CR>
 # 打开 fugitive 插件中的状态窗口
 nnoremap <silent> g<CR> <Cmd>Git!<CR>
 nnoremap g<space> :<c-u>Git! 
+
+nnoremap [d <Cmd>if &diff == v:true<Bar>wincmd j<Bar>exec 'normal [mdv'<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
+nnoremap ]d <Cmd>if &diff == v:true<Bar>wincmd j<Bar>exec 'normal ]mdv'<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
+nnoremap [D <Cmd>if &diff == v:true<Bar>exec ':Git!'<Bar>exec 'normal gUdv'<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
+nnoremap ]D <Cmd>if &diff == v:true<Bar>exec ':Git!'<Bar>exec 'normal gU}kdv'<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
 
 nnoremap <Leader>ge :<c-u>Gedit %
 nnoremap <Leader>gl :<c-u>Gclog! --author=
@@ -200,7 +205,7 @@ augroup QFList
   au BufWinEnter quickfix    nnoremap <silent><buffer> [F <Cmd>1chistory<CR>
   au BufWinEnter quickfix    nnoremap <silent><buffer> ]F <Cmd>exec getqflist({'nr': '$'}).nr .. 'chistory'<CR>
   au BufWinEnter quickfix    nnoremap <buffer> dh         <Cmd>exec $'{<SID>Count()}chistory'<CR>
-  au BufWinEnter quickfix    nnoremap <buffer> d<space>   :<c-u>Cfilter //<Left>
+  au BufWinEnter quickfix    nnoremap <buffer> d<space>   :<c-u>Cfilter /<c-r><c-w>/<Left>
   au BufWinEnter quickfix    nnoremap <buffer> A          <Cmd>Qargs<Bar>q<Bar>args<CR>
   au BufWinEnter quickfix    nnoremap <buffer> cd         :<c-u><c-r>=<SID>RangeNormal()<CR>cdo s//<c-r>=getreg('.')<CR>/gc<Left><Left><Left>
   au BufWinEnter quickfix    xnoremap <buffer> cd         :<c-u><c-r>=<SID>RangeViusal()<CR>cdo s//<c-r>=getreg('.')<CR>/gc<Left><Left><Left>

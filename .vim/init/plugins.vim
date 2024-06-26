@@ -99,7 +99,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:asyncrun_bell = 1
   let g:asyncrun_trim = 1
   if exists('$TMUX')
-    let g:asynctasks_term_pos = 'tmux'
+    let g:asynctasks_term_pos = 'test'
   elseif has('win64') || has('win32')
     let g:asynctasks_term_pos = 'external'
   else
@@ -432,10 +432,15 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
       return split(lowerFile, '^\.\/')[0]
     endfunc
 
+    let g:GSFlag = ''
+    function! s:Flag()
+      let g:GSFlag = mode() ==# '' ? ' --no-ignore' : ''
+    endfunction
+
     " let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs :<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --hidden<Home>Leaderf! rg -F <Right>
+    xnoremap gs <Cmd>call <SID>Flag()<CR>:<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --hidden<c-r>=g:GSFlag<CR><Home>Leaderf! rg -F <Right>
     nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --hidden<Home>Leaderf! rg -e "\b
     nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", <SID>FileName())<CR> --no-ignore<CR>
   endif
@@ -790,7 +795,7 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   nnoremap <silent> <Leader>vu      <Cmd>VimuxScrollUpInspect<CR>
   nnoremap <silent> <Leader>vd      <Cmd>VimuxScrollDownInspect<CR>
   nnoremap <silent> <Leader>vi      <Cmd>VimuxInspectRunner<CR>
-  nnoremap <silent> <Leader>v<C-l>  <Cmd>VimuxClearTerminalScreen<CR>:VimuxClearRunnerHistory<CR>
+  nnoremap <silent> <Leader>v<C-l>  <Cmd>VimuxClearTerminalScreen<Bar>VimuxClearRunnerHistory<CR>
   nnoremap <silent> <Leader>vt      <Cmd>VimuxTogglePane<CR>
   nnoremap <silent> <Leader>vo      <Cmd>VimuxOpenRunner<CR>
   nnoremap <silent> <Leader>vc      <Cmd>VimuxCloseRunner<CR>
@@ -798,11 +803,12 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 
   function! s:run_tmux(opts)
     let cwd = getcwd()
-    call VimuxRunCommand($'cd {shellescape(cwd)}; {a:opts.cmd}')
+    let cmd = split(a:opts.cmd, $'{cwd}/')
+    call VimuxRunCommand($'cd {cwd}; "{cmd[1]}')
   endfunction
 
   let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
-  let g:asyncrun_runner.tmux = function('s:run_tmux')
+  let g:asyncrun_runner.test = function('s:run_tmux')
   " let g:VimuxCloseOnExit = 1
 
   Plug 'christoomey/vim-tmux-navigator'
