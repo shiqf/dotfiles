@@ -3,12 +3,13 @@ vim9script
 #
 #           config.vim - 正常模式下的配置，在 basic.vim 后调用
 #
-#   - 设置通用前缀空格键
 #   - 功能插件开启
 #   - 备份设置
 #   - 防止tmux下vim的背景色显示异常
 #   - 配置微调
 #   - 文件类型微调
+#   - 高亮查找单词后取消高亮
+#   - 终端设置，隐藏行号和侧边栏
 #
 # vim: set ts=2 sw=2 tw=78 et :
 #=============================================================================
@@ -111,12 +112,6 @@ if &term =~# '256color'
   set t_ut=
 endif
 
-if has('nvim') == 0
-  &t_SI = "\<Esc>[6 q"   # SI = 插入模式
-  &t_SR = "\<Esc>[4 q"   # SR = 替换模式
-  &t_EI = "\<Esc>[2 q"   # EI = 普通模式
-endif
-
 #-----------------------------------------------------------------------------
 #                                   配置微调
 #-----------------------------------------------------------------------------
@@ -192,3 +187,38 @@ augroup InitFileTypesGroup
 
   au FileType man setlocal nolist
 augroup END
+
+#-----------------------------------------------------------------------------
+#                             高亮查找单词后取消高亮
+#-----------------------------------------------------------------------------
+augroup AutoHighlighting
+    au!
+    au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
+    au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
+    au CursorHold * call feedkeys("\<Cmd>noh\<CR>", 'n')
+    # au CursorHold * call feedkeys("\<Cmd>redraw!\<CR>", 'n')
+    nnoremap . <Cmd>exec $'noau normal! {v:count == 0 ? "" : v:count}.'<CR>
+augroup END
+
+# # 恢复非高亮
+# noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
+
+#-----------------------------------------------------------------------------
+#                          终端设置，隐藏行号和侧边栏
+#-----------------------------------------------------------------------------
+if has('terminal') && exists(':terminal') == 2
+  if exists('##TerminalOpen')
+    augroup VimUnixTerminalGroup
+      au!
+      au TerminalOpen * setlocal nonumber signcolumn=no
+    augroup END
+  endif
+endif
+
+# Tweaks for browsing
+g:netrw_banner = 0        # disable annoying banner
+# g:netrw_browse_split = 4  # open in prior window
+# g:netrw_altv = 1          # open splits to the right
+g:netrw_liststyle = 3     # tree view
+# g:netrw_list_hide = netrw_gitignore#Hide()
+# g:netrw_list_hide ..= ',\(^\|\s\s\)\zs\.\S\+'

@@ -7,7 +7,7 @@ vim9script
 #   - 颜色主题：色彩文件位于 colors 目录中
 #   - 状态栏设置
 #   - 更改样式
-#   - 终端设置，隐藏行号和侧边栏
+#   - 游标形状
 #
 # vim: set ts=2 sw=2 tw=78 et :
 #=============================================================================
@@ -108,21 +108,8 @@ hi! Pmenu guibg=gray guifg=black ctermbg=gray ctermfg=black
 hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
 
 #-----------------------------------------------------------------------------
-#                          终端设置，隐藏行号和侧边栏
+#                                   游标形状
 #-----------------------------------------------------------------------------
-if has('terminal') && exists(':terminal') == 2
-  if exists('##TerminalOpen')
-    augroup VimUnixTerminalGroup
-      au!
-      au TerminalOpen * setlocal nonumber signcolumn=no
-    augroup END
-  endif
-endif
-
-# Tweaks for browsing
-g:netrw_banner = 0        # disable annoying banner
-# g:netrw_browse_split = 4  # open in prior window
-# g:netrw_altv = 1          # open splits to the right
-g:netrw_liststyle = 3     # tree view
-# g:netrw_list_hide = netrw_gitignore#Hide()
-# g:netrw_list_hide ..= ',\(^\|\s\s\)\zs\.\S\+'
+&t_SI = "\<Esc>[6 q"   # SI = 插入模式
+&t_SR = "\<Esc>[4 q"   # SR = 替换模式
+&t_EI = "\<Esc>[2 q"   # EI = 普通模式

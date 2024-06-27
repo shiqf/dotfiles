@@ -131,19 +131,29 @@ nmap <Leader>ef :<c-u>edit %%<C-Left>
 nmap <Leader>es :<c-u>split %%<C-Left>
 nmap <Leader>ev :<c-u>vsplit %%<C-Left>
 nmap <Leader>et :<c-u>tabedit %%<C-Left>
-nmap <Leader>ew :<c-u>cd <c-r>=expand('%:h') .. '/'<CR><Home>
+nmap <Leader>ew :<c-u>lcd <c-r>=$'{expand('%:h')}/'<CR><Home>
 nmap <Leader>ee :<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><Home>tab
 xmap <Leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><Home>tab
 
-nnoremap <silent><Leader>ed :<c-u>edit <c-r>=expand('%:h')<CR><CR>
-nnoremap <silent><Leader>e. :<c-u>edit!<CR>
+nnoremap <silent><Leader>ed <Cmd>exec $'edit {expand('%:h')}'<CR>
+nnoremap <silent><Leader>e. <Cmd>edit!<CR>
+
+g:fugitiveWinnr = 0
+def PreviewWindowOpened(): number
+  for nr in range(1, winnr('$'))
+    if getwinvar(nr, '&ft') ==# 'fugitive'
+      return nr
+    endif
+  endfor
+  return 0
+enddef
 
 # 打开 fugitive 插件中的状态窗口
-nnoremap <silent> g<CR> <Cmd>Git!<CR>
+nnoremap <silent> g<CR> <Cmd>Git!<Bar>exec 'normal gu'<CR>
 nnoremap g<space> :<c-u>Git! 
 
-nnoremap [d <Cmd>if &diff == v:true<Bar>wincmd j<Bar>exec 'normal [mdv'<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
-nnoremap ]d <Cmd>if &diff == v:true<Bar>wincmd j<Bar>exec 'normal ]mdv'<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
+nnoremap [d <Cmd>if &diff == v:true && <SID>PreviewWindowOpened() != 0<Bar>exec $'normal! {g:fugitiveWinnr}<c-w><c-w>'<Bar>exec 'normal [mdv'<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
+nnoremap ]d <Cmd>if &diff == v:true && <SID>PreviewWindowOpened() != 0<Bar>exec $'normal! {g:fugitiveWinnr}<c-w><c-w>'<Bar>exec 'normal ]mdv'<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
 nnoremap [D <Cmd>if &diff == v:true<Bar>exec ':Git!'<Bar>exec 'normal gUdv'<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
 nnoremap ]D <Cmd>if &diff == v:true<Bar>exec ':Git!'<Bar>exec 'normal gU}kdv'<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
 
@@ -152,17 +162,17 @@ nnoremap <Leader>gl :<c-u>Gclog! --author=
 nnoremap <Leader>gc :<c-u> -n<Home>Git! clean -xdf
 nnoremap <Leader>gp :<c-u> --all<Home>Git! log --oneline --decorate --graph --author=
 
-xnoremap <silent> ado :diffget<CR>
-xnoremap <silent> 2do :diffget //2<CR>
-xnoremap <silent> 3do :diffget //3<CR>
-nnoremap <silent> 2do :diffget //2<CR>
-nnoremap <silent> 3do :diffget //3<CR>
+xnoremap <silent> ado <Cmd>diffget<CR>
+xnoremap <silent> 2do <Cmd>diffget //2<CR>
+xnoremap <silent> 3do <Cmd>diffget //3<CR>
+nnoremap <silent> 2do <Cmd>diffget //2<CR>
+nnoremap <silent> 3do <Cmd>diffget //3<CR>
 
-xnoremap <silent> adp :diffput<CR>
-xnoremap <silent> 2dp :diffput //2<CR>
-xnoremap <silent> 3dp :diffput //3<CR>
-nnoremap <silent> 2dp :diffput //2<CR>
-nnoremap <silent> 3dp :diffput //3<CR>
+xnoremap <silent> adp <Cmd>diffput<CR>
+xnoremap <silent> 2dp <Cmd>diffput //2<CR>
+xnoremap <silent> 3dp <Cmd>diffput //3<CR>
+nnoremap <silent> 2dp <Cmd>diffput //2<CR>
+nnoremap <silent> 3dp <Cmd>diffput //3<CR>
 
 def QFdelete(bufnr: number, firstline: number, lastline: number): void
   var qfl = getqflist()

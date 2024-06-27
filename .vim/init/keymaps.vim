@@ -40,9 +40,9 @@ noremap! <m-l> <Right>
 noremap! <m-k> <Up>
 noremap! <m-j> <Down>
 
-# 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
-inoremap <m-o> <c-o><c-o>
-inoremap <m-i> <c-o><c-i>
+# 下/上行至末尾
+nnoremap <silent> <c-j> <Cmd>exec $'normal! {v:count1 + 1}g_'<CR>
+nnoremap <silent> <c-k> <Cmd>exec $'normal! {v:count1}kg_'<CR>
 
 def AddToJumpList(): string
   var col = strwidth(getline('.'))
@@ -204,13 +204,9 @@ nnoremap <silent> <c-s> <Cmd>w<CR>
 noremap <silent> <Leader>Q <Cmd>qall!<CR>
 noremap <silent> <Leader>S <Cmd>wall<Bar>qall<CR>
 
-# 至上/下行末尾
-nnoremap <silent> <c-k> <Cmd>exec $'normal! {v:count1}kg_'<CR>
-nnoremap <silent> <c-j> <Cmd>exec $'normal! {v:count1 + 1}g_'<CR>
-
 # 错误导航
-nnoremap <silent> [l <Cmd>labove<CR>
-nnoremap <silent> ]l <Cmd>lbelow<CR>
+nnoremap <silent> [l <Cmd>exec $'{v:count1}labove'<CR>
+nnoremap <silent> ]l <Cmd>exec $'{v:count1}lbelow'<CR>
 
 # 可以使用 "1p 后用 u. 方式可以获取先前删除文本的内容。详情：redo-register
 nnoremap 1p "1p
@@ -219,19 +215,6 @@ nnoremap 1P "1P
 inoremap <c-l> <c-x><c-l>
 inoremap <c-o><c-j> <Esc>gi
 
-nnoremap <LeftMouse> m'<LeftMouse>
-
-#-----------------------------------------------------------------------------
-#                             高亮查找单词后取消高亮
-#-----------------------------------------------------------------------------
-augroup AutoHighlighting
-    au!
-    au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
-    au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
-    au CursorHold * call feedkeys("\<Cmd>noh\<CR>", 'n')
-    # au CursorHold * call feedkeys("\<Cmd>redraw!\<CR>", 'n')
-    nnoremap . <Cmd>exec $'noau normal! {v:count == 0 ? "" : v:count}.'<CR>
-augroup END
-
-# # 恢复非高亮
-# noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
+# 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
+inoremap <m-o> <c-o><c-o>
+inoremap <m-i> <c-o><c-i>

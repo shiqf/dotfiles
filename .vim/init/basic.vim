@@ -34,11 +34,7 @@ set viminfo^=!
 # set visualbell t_vb=
 
 # 设置 Backspace 键模式
-if !has('nvim')
-  set backspace=3
-else
-  set backspace=2
-endif
+set backspace=3
 
 # 自动缩进
 set autoindent
@@ -50,9 +46,7 @@ set autoindent
 set nowrap
 
 # set nowrap 单行过长. 平滑滚动
-if has("patch-9.0.0640")
-  set sms
-endif
+set sms
 
 # 显示光标位置
 set ruler
@@ -75,7 +69,7 @@ set ignorecase
 # 智能搜索大小写判断，默认忽略大小写，除非搜索内容包含大写字母
 set smartcase
 
-# 开启高亮搜索内容, 通 <c-l> 消除高亮 ( 做了映射 )
+# 开启高亮搜索内容
 set hlsearch
 
 # 查找输入时动态增量显示查找结果
