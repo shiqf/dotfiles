@@ -138,24 +138,68 @@ xmap <Leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><Home>tab
 nnoremap <silent><Leader>ed <Cmd>exec $'edit {expand('%:h')}'<CR>
 nnoremap <silent><Leader>e. <Cmd>edit!<CR>
 
+# 打开 fugitive 插件中的状态窗口
+nnoremap <silent> g<CR> <Cmd>Git!<Bar>exec 'normal gu'<CR>
+nnoremap g<space> :<c-u>Git! 
+
 g:fugitiveWinnr = 0
-def PreviewWindowOpened(): number
+g:gitWinnr = 0
+def PreviewWindowOpened(c: string): number
   for nr in range(1, winnr('$'))
-    if getwinvar(nr, '&ft') ==# 'fugitive'
-      return nr
+    if &diff == v:true
+      if getwinvar(nr, '&ft') ==# 'fugitive'
+        g:fugitiveWinnr = nr
+        return nr
+      endif
+      if getwinvar(nr, '&ft') ==# 'git'
+        g:gitWinnr = nr
+        return nr
+      endif
     endif
   endfor
   return 0
 enddef
 
-# 打开 fugitive 插件中的状态窗口
-nnoremap <silent> g<CR> <Cmd>Git!<Bar>exec 'normal gu'<CR>
-nnoremap g<space> :<c-u>Git! 
+def FugitiveAction(c: string): void
+  if g:fugitiveWinnr != 0
+    exec $':{g:fugitiveWinnr}wincmd w'
+    exec $'normal {v:count1}{c}mdv'
+    g:fugitiveWinnr = 0
+  endif
+  if g:gitWinnr != 0
+    exec $':{g:fugitiveWinnr}wincmd w'
+    wincmd o
+    exec $'normal {v:count1}{c}mo'
+    g:gitWinnr = 0
+  endif
+enddef
 
-nnoremap [d <Cmd>if &diff == v:true && <SID>PreviewWindowOpened() != 0<Bar>exec $'normal! {g:fugitiveWinnr}<c-w><c-w>'<Bar>exec 'normal [mdv'<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
-nnoremap ]d <Cmd>if &diff == v:true && <SID>PreviewWindowOpened() != 0<Bar>exec $'normal! {g:fugitiveWinnr}<c-w><c-w>'<Bar>exec 'normal ]mdv'<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
-nnoremap [D <Cmd>if &diff == v:true<Bar>exec ':Git!'<Bar>exec 'normal gUdv'<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
-nnoremap ]D <Cmd>if &diff == v:true<Bar>exec ':Git!'<Bar>exec 'normal gU}kdv'<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
+def FirstOrLastAction(c: string): void
+  if g:fugitiveWinnr != 0
+    exec $':{g:fugitiveWinnr}wincmd w'
+    if c ==# '['
+      exec 'normal gUdv'
+    elseif c ==# ']'
+      exec 'normal gU}kdv'
+    endif
+    g:fugitiveWinnr = 0
+  endif
+  if g:gitWinnr != 0
+    exec $':{g:fugitiveWinnr}wincmd w'
+    wincmd o
+    if c ==# '['
+      exec 'normal gg]mo'
+    elseif c ==# ']'
+      exec 'normal G[mo'
+    endif
+    g:gitWinnr = 0
+  endif
+enddef
+
+nnoremap [d <Cmd>if <SID>PreviewWindowOpened('[') != 0<Bar>call <SID>FugitiveAction('[')<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
+nnoremap ]d <Cmd>if <SID>PreviewWindowOpened(']') != 0<Bar>call <SID>FugitiveAction(']')<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
+nnoremap [D <Cmd>if <SID>PreviewWindowOpened('[') != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
+nnoremap ]D <Cmd>if <SID>PreviewWindowOpened(']') != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
 
 nnoremap <Leader>ge :<c-u>Gedit %
 nnoremap <Leader>gl :<c-u>Gclog! --author=

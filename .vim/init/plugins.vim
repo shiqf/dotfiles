@@ -127,6 +127,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:AutoPairsMapCh              = 0
   let g:AutoPairsMoveCharacter      = ''
   let g:AutoPairsShortcutJump       = ''
+  let g:AutoPairsShortcutFastWrap   = ''
   au FileType * let b:AutoPairs = AutoPairsDefine({'\zs[': ''})
   au FileType cpp let b:AutoPairs = AutoPairsDefine({'\w\zs<': '>'})
   au FileType markdown let b:AutoPairs = AutoPairsDefine({'[': ''})
@@ -171,6 +172,14 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_keymap.hopen      = ['<c-x>', 'i']
   let g:qfenter_keymap.topen      = ['<c-t>', 't']
   let g:qfenter_autoclose         = 1
+
+  " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
+  Plug 'skywind3000/vim-preview'
+
+  noremap <m-u> <Cmd>PreviewScroll -1<CR>
+  noremap <m-y> <Cmd>PreviewScroll +1<CR>
+  inoremap <m-u> <Cmd>PreviewScroll -1<CR>
+  inoremap <m-y> <Cmd>PreviewScroll +1<CR>
 
   Plug 'skywind3000/vim-quickui'
   let g:quickui_color_scheme = 'borland'
