@@ -47,4 +47,5 @@ augroup FileTypeTab
   au FileType vim         setlocal ts=2 sw=2 sts=2
   au FileType zsh         setlocal ts=4 sw=4 sts=4
   au FileType markdown    setlocal ts=8 sw=8 sts=8
+  au FileType asm         setlocal ts=8 sw=8 sts=8 noet
 augroup END

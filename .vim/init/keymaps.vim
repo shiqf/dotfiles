@@ -32,8 +32,8 @@ inoremap <c-y> <c-a>
 inoremap <c-w> <c-g>u<c-w>
 inoremap <c-u> <c-g>u<c-u>
 
-# 使用 <c-_> 代替 <c-k>
-noremap! <c-_> <c-k>
+# 使用 <m-;> 代替 <c-k>
+noremap! <m-;> <c-k>
 
 noremap! <m-h> <Left>
 noremap! <m-l> <Right>
@@ -147,7 +147,7 @@ if !exists('$TMUX')
   nnoremap <silent> <m-\> <Cmd>wincmd p<CR>
 endif
 
-if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
+if has('terminal') && exists(':terminal') == 2
   # vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
   # 设置 termwinkey 为 CTRL 加减号（GVIM），有些终端下是 CTRL+?
   # 后面四个键位是搭配 termwinkey 的，如果 termwinkey 更改，也要改
@@ -156,6 +156,7 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   tnoremap <silent> <m-b> <Esc>b
   tnoremap <silent> <m-d> <Esc>d
 
+  tmap <m-;> <c-_>
   #---------------------------------------------------------------------------
   #                            终端窗口切换：ALT+hjkl
   #---------------------------------------------------------------------------
@@ -172,23 +173,16 @@ if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   tnoremap <silent> <m-p> <c-_>"0
 
   # tab 切换
-  tnoremap ]g <Cmd>normal! gt<CR>
-  tnoremap [g <Cmd>normal! gT<CR>
-  tnoremap ]G <Cmd>tablast<CR>
-  tnoremap [G <Cmd>tabfirst<CR>
+  tnoremap <c-_>]g <Cmd>normal! gt<CR>
+  tnoremap <c-_>[g <Cmd>normal! gT<CR>
+  tnoremap <c-_>]G <Cmd>tablast<CR>
+  tnoremap <c-_>[G <Cmd>tabfirst<CR>
   tnoremap <m-o> <Cmd>normal! g<tab><CR>
 
+  tnoremap <c-_>th <Cmd>call <SID>TabMoveLeft()<Bar>redraw!<CR>
+  tnoremap <c-_>tl <Cmd>call <SID>TabMoveRight()<Bar>redraw!<CR>
   # tnoremap <Esc> <c-_>N
   set notimeout ttimeout timeoutlen=100
-
-elseif has('nvim')
-  # neovim 没有 termwinkey 支持，必须把 terminal 切换回 normal 模式
-  tnoremap <silent> <m-h> <c-\><c-n><c-w>h
-  tnoremap <silent> <m-l> <c-\><c-n><c-w>l
-  tnoremap <silent> <m-j> <c-\><c-n><c-w>j
-  tnoremap <silent> <m-k> <c-\><c-n><c-w>k
-  tnoremap <silent> <m-q> <c-\><c-n>
-  tnoremap <silent> <m-p> <c-\><c-n>"0pa
 endif
 
 #-----------------------------------------------------------------------------

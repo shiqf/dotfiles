@@ -46,14 +46,26 @@ elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
   set ttimeoutlen=85
 endif
 
-#-----------------------------------------------------------------------------
-#        终端下允许 ALT，详见：http://www.skywind.me/blog/archives/2021
-#        记得设置 ttimeout, ttimeoutlen见 （上面）
-#-----------------------------------------------------------------------------
+def MetaCode(key: string): void
+  exec $"set <M-{key}>=\e{key}"
+enddef
+
+def KeyEscape(name: string, code: string): void
+  exec $"set {name}=\e{code}"
+enddef
+
+var key_maps = {
+    '<F1>':     'OP',    '<F2>':     'OQ',    '<F3>':     'OR',    '<F4>':     'OS',
+  '<S-F1>':  '[1;2P',  '<S-F2>':  '[1;2Q',  '<S-F3>':  '[1;2R',  '<S-F4>':  '[1;2S',
+  '<S-F5>': '[15;2~',  '<S-F6>': '[17;2~',  '<S-F7>': '[18;2~',  '<S-F8>': '[19;2~',
+  '<S-F9>': '[20;2~', '<S-F10>': '[21;2~', '<S-F11>': '[23;2~', '<S-F12>': '[24;2~',
+}
+
 if has('nvim') == 0 && has('gui_running') == 0
-  def MetaCode(key: string): void
-    exec $"set <M-{key}>=\e{key}"
-  enddef
+  #---------------------------------------------------------------------------
+  #        终端下允许 ALT，详见：http://www.skywind.me/blog/archives/2021
+  #        记得设置 ttimeout, ttimeoutlen见 （上面）
+  #---------------------------------------------------------------------------
   for i in range(10)
     MetaCode(nr2char(char2nr('0') + i))
   endfor
@@ -67,27 +79,14 @@ if has('nvim') == 0 && has('gui_running') == 0
   for c in ['?', ':', '-', '_', '+', '=', "'"]
     MetaCode(c)
   endfor
+
+  #---------------------------------------------------------------------------
+  #                    终端下功能键设置, 功能键终端码矫正
+  #---------------------------------------------------------------------------
+  for key in keys(key_maps)
+    KeyEscape(key, key_maps[key])
+  endfor
 endif
-
-#-----------------------------------------------------------------------------
-#                    终端下功能键设置, 功能键终端码矫正
-#-----------------------------------------------------------------------------
-def KeyEscape(name: string, code: string): void
-  if has('nvim') == 0 && has('gui_running') == 0
-    exec $"set {name}=\e{code}"
-  endif
-enddef
-
-var key_maps = {
-    '<F1>':     'OP',    '<F2>':     'OQ',    '<F3>':     'OR',    '<F4>':     'OS',
-  '<S-F1>':  '[1;2P',  '<S-F2>':  '[1;2Q',  '<S-F3>':  '[1;2R',  '<S-F4>':  '[1;2S',
-  '<S-F5>': '[15;2~',  '<S-F6>': '[17;2~',  '<S-F7>': '[18;2~',  '<S-F8>': '[19;2~',
-  '<S-F9>': '[20;2~', '<S-F10>': '[21;2~', '<S-F11>': '[23;2~', '<S-F12>': '[24;2~',
-}
-
-for key in keys(key_maps)
-  KeyEscape(key, key_maps[key])
-endfor
 
 #-----------------------------------------------------------------------------
 #                                   备份设置

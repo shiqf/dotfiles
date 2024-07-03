@@ -122,7 +122,7 @@ enddef
 
 # 可视模式下替换选中内容, 并使用 "." 命令复用上次替换内容.
 xnoremap <silent>p <Cmd>call <SID>P()<Bar>set paste<Bar>
-      \if visualmode() ==? 'v'<Bar>exec 'normal! cgn' .. g:vpaste<Bar>endif<Bar>set nopaste<Bar>set hls<CR>
+      \if visualmode() ==? 'v'<Bar>exec $'normal! cgn{g:vpaste}'<Bar>endif<Bar>set nopaste<Bar>set hls<CR>
 
 # 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
@@ -177,21 +177,13 @@ enddef
 def FirstOrLastAction(c: string): void
   if g:fugitiveWinnr != 0
     exec $':{g:fugitiveWinnr}wincmd w'
-    if c ==# '['
-      exec 'normal gUdv'
-    elseif c ==# ']'
-      exec 'normal gU}kdv'
-    endif
+    if c ==# '[' | exec 'normal gUdv' | elseif c ==# ']' | exec 'normal gU}kdv' | endif
     g:fugitiveWinnr = 0
   endif
   if g:gitWinnr != 0
     exec $':{g:fugitiveWinnr}wincmd w'
     wincmd o
-    if c ==# '['
-      exec 'normal gg]mo'
-    elseif c ==# ']'
-      exec 'normal G[mo'
-    endif
+    if c ==# '[' | exec 'normal gg]mo' | elseif c ==# ']' | exec 'normal G[mo' | endif
     g:gitWinnr = 0
   endif
 enddef
@@ -201,7 +193,7 @@ nnoremap ]d <Cmd>if <SID>PreviewWindowOpened(']') != 0<Bar>call <SID>FugitiveAct
 nnoremap [D <Cmd>if <SID>PreviewWindowOpened('[') != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
 nnoremap ]D <Cmd>if <SID>PreviewWindowOpened(']') != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
 
-nnoremap <Leader>ge :<c-u>Gedit %
+nnoremap <Leader>ge :<c-u>Gedit %<Left>
 nnoremap <Leader>gl :<c-u>Gclog! --author=
 nnoremap <Leader>gc :<c-u> -n<Home>Git! clean -xdf
 nnoremap <Leader>gp :<c-u> --all<Home>Git! log --oneline --decorate --graph --author=
