@@ -74,7 +74,7 @@ cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<Esc>" : strlen(getcmdline()
 #-----------------------------------------------------------------------------
 # 左移 tab
 def TabMoveLeft(): void
-  var tabnr = tabpagenr() - 2
+  var tabnr = tabpagenr() - v:count1 - 1
   if tabnr >= 0
     exec $'tabmove {tabnr}'
   endif
@@ -82,7 +82,7 @@ enddef
 
 # 右移 tab
 def TabMoveRight(): void
-  var tabnr = tabpagenr() + 1
+  var tabnr = tabpagenr() + v:count1
   if tabnr <= tabpagenr('$')
     exec $'tabmove {tabnr}'
   endif
@@ -106,32 +106,32 @@ def TabRight(): number
 enddef
 
 # 快速切换tab 使用标签 参考unimparied
-nnoremap <silent> ]g <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
-nnoremap <silent> [g <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
-nnoremap <silent> [G <Cmd>tabfirst<CR>
-nnoremap <silent> ]G <Cmd>tablast<CR>
-nnoremap <silent> <m-o> <Cmd>normal! g<tab><CR>
+nnoremap <silent> <m-;>h <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
+nnoremap <silent> <m-;>l <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
+nnoremap <silent> <m-;>H <Cmd>tabfirst<CR>
+nnoremap <silent> <m-;>L <Cmd>tablast<CR>
+nnoremap <silent> <m-o>  <Cmd>normal! g<tab><CR>
 
-nnoremap <silent> <c-w>th <Cmd>call <SID>TabMoveLeft()<CR>
-nnoremap <silent> <c-w>tl <Cmd>call <SID>TabMoveRight()<CR>
+nnoremap <silent> <m-;><m-h> <Cmd>call <SID>TabMoveLeft()<CR>
+nnoremap <silent> <m-;><m-l> <Cmd>call <SID>TabMoveRight()<CR>
 
 # g<tab> 回到上个 tab
-nnoremap <c-w>td :tabdo 
-nnoremap <silent> <c-w>tq <Cmd>tabclose<CR>
-nnoremap <silent> <c-w>tc <Cmd>tabclose<CR>
-nnoremap <silent> <c-w>to <Cmd>tabonly<CR>
+nnoremap <m-;>d   :<c-u>tabdo 
+nnoremap <silent> <m-;>q <Cmd>tabclose<CR>
+nnoremap <silent> <m-;>c <Cmd>tabclose<CR>
+nnoremap <silent> <m-;>o <Cmd>tabonly<CR>
 
 # windows 上使用 powershell 来作为默认终端
 if executable('powershell')
   # powershell 中使用 emacs 键位
   # Set-PSReadLineOption -EditMode Emacs
-  nnoremap <silent> <c-w>tt <Cmd>tab terminal powershell<CR>
-  nnoremap <silent> <c-w>ts <Cmd>terminal powershell<CR>
-  nnoremap <silent> <c-w>tv <Cmd>vertical terminal powershell<CR>
+  nnoremap <silent> <m-;>t <Cmd>tab terminal powershell<CR>
+  nnoremap <silent> <m-;>s <Cmd>terminal powershell<CR>
+  nnoremap <silent> <m-;>v <Cmd>vertical terminal powershell<CR>
 else
-  nnoremap <silent> <c-w>tt <Cmd>tab terminal<CR>
-  nnoremap <silent> <c-w>ts <Cmd>terminal<CR>
-  nnoremap <silent> <c-w>tv <Cmd>vertical terminal<CR>
+  nnoremap <silent> <m-;>t <Cmd>tab terminal<CR>
+  nnoremap <silent> <m-;>s <Cmd>terminal<CR>
+  nnoremap <silent> <m-;>v <Cmd>vertical terminal<CR>
 endif
 
 #-----------------------------------------------------------------------------
@@ -173,14 +173,18 @@ if has('terminal') && exists(':terminal') == 2
   tnoremap <silent> <m-p> <c-_>"0
 
   # tab 切换
-  tnoremap <c-_>]g <Cmd>normal! gt<CR>
-  tnoremap <c-_>[g <Cmd>normal! gT<CR>
-  tnoremap <c-_>]G <Cmd>tablast<CR>
-  tnoremap <c-_>[G <Cmd>tabfirst<CR>
-  tnoremap <m-o> <Cmd>normal! g<tab><CR>
+  tnoremap <c-_>h <Cmd>normal! gT<CR>
+  tnoremap <c-_>l <Cmd>normal! gt<CR>
+  tnoremap <c-_>H <Cmd>tabfirst<CR>
+  tnoremap <c-_>L <Cmd>tablast<CR>
+  tnoremap <m-o>  <Cmd>normal! g<tab><CR>
 
-  tnoremap <c-_>th <Cmd>call <SID>TabMoveLeft()<Bar>redraw!<CR>
-  tnoremap <c-_>tl <Cmd>call <SID>TabMoveRight()<Bar>redraw!<CR>
+  tnoremap <c-_><m-h> <Cmd>call <SID>TabMoveLeft()<Bar>redraw!<CR>
+  tnoremap <c-_><m-l> <Cmd>call <SID>TabMoveRight()<Bar>redraw!<CR>
+
+  tnoremap <silent> <c-_>t <Cmd>tab terminal<CR>
+  tnoremap <silent> <c-_>s <Cmd>terminal<CR>
+  tnoremap <silent> <c-_>v <Cmd>vertical terminal<CR>
   # tnoremap <Esc> <c-_>N
   set notimeout ttimeout timeoutlen=100
 endif

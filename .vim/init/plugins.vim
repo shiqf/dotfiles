@@ -173,26 +173,6 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_keymap.topen      = ['<c-t>', 't']
   let g:qfenter_autoclose         = 1
 
-  " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
-  Plug 'skywind3000/vim-preview'
-
-  noremap <m-u> <Cmd>PreviewScroll -1<CR>
-  noremap <m-y> <Cmd>PreviewScroll +1<CR>
-  inoremap <m-u> <Cmd>PreviewScroll -1<CR>
-  inoremap <m-y> <Cmd>PreviewScroll +1<CR>
-
-  Plug 'skywind3000/vim-quickui'
-  let g:quickui_color_scheme = 'borland'
-  let g:quickui_preview_w = 100
-  let g:quickui_preview_h = 15
-
-  augroup MyQuickfixPreview
-    au!
-    au FileType qf noremap <silent><buffer> p     <Cmd>call quickui#tools#preview_quickfix()<CR>
-    au FileType qf noremap <silent><buffer> <m-u> <Cmd>call quickui#preview#scroll(-5)<CR>
-    au FileType qf noremap <silent><buffer> <m-d> <Cmd>call quickui#preview#scroll(5)<CR>
-  augroup END
-
   if exists('g:max')
     " 全文快速移动, <Leader>f{char} 即可触发
     Plug 'easymotion/vim-easymotion'
@@ -214,6 +194,32 @@ if index(g:bundle_group, 'enhanced') >= 0
     let g:startify_session_delete_buffers = 1
     let g:startify_session_autoload       = 0
     let g:startify_change_to_dir          = 1
+
+    Plug 'skywind3000/vim-quickui'
+    let g:quickui_color_scheme = 'borland'
+    let g:quickui_preview_w = 100
+    let g:quickui_preview_h = 15
+
+    augroup MyQuickfixPreview
+      au!
+      au FileType qf noremap <silent><buffer> p     <Cmd>call quickui#tools#preview_quickfix()<CR>
+      au FileType qf noremap <silent><buffer> <m-u> <Cmd>call quickui#preview#scroll(-5)<CR>
+      au FileType qf noremap <silent><buffer> <m-y> <Cmd>call quickui#preview#scroll(5)<CR>
+    augroup END
+  else
+    " 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
+    Plug 'skywind3000/vim-preview'
+
+    nnoremap <m-u> <Cmd>PreviewScroll -1<CR>
+    nnoremap <m-y> <Cmd>PreviewScroll +1<CR>
+    inoremap <m-u> <Cmd>PreviewScroll -1<CR>
+    inoremap <m-y> <Cmd>PreviewScroll +1<CR>
+
+    augroup MyQuickfixPreview
+      au!
+      au FileType qf nnoremap <silent><buffer> p <Cmd>PreviewQuickfix<CR>
+      au FileType qf nnoremap <silent><buffer> P <Cmd>PreviewClose<CR>
+    augroup END
   endif
 
   " " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
@@ -811,9 +817,9 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
   nnoremap <silent> <Leader>vz      <Cmd>VimuxZoomRunner<CR>
 
   function! s:run_tmux(opts)
-    let cwd = getcwd()
-    let cmd = split(a:opts.cmd, $'{cwd}/')
-    call VimuxRunCommand($'cd {cwd}; "{cmd[1]}')
+    let cwd = expand('%:p:h')
+    let exe = split(a:opts.cmd, $'{cwd}/')[0]
+    call VimuxRunCommand($'cd {cwd}; {exe}')
   endfunction
 
   let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})

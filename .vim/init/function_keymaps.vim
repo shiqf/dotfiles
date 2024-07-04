@@ -144,7 +144,7 @@ nnoremap g<space> :<c-u>Git!
 
 g:fugitiveWinnr = 0
 g:gitWinnr = 0
-def PreviewWindowOpened(c: string): number
+def FugitiveOrGitOpened(c: string): number
   for nr in range(1, winnr('$'))
     if &diff == v:true
       if getwinvar(nr, '&ft') ==# 'fugitive'
@@ -160,7 +160,7 @@ def PreviewWindowOpened(c: string): number
   return 0
 enddef
 
-def FugitiveAction(c: string): void
+def FugitiveOrGitAction(c: string): void
   if g:fugitiveWinnr != 0
     exec $':{g:fugitiveWinnr}wincmd w'
     exec $'normal {v:count1}{c}mdv'
@@ -188,10 +188,10 @@ def FirstOrLastAction(c: string): void
   endif
 enddef
 
-nnoremap [d <Cmd>if <SID>PreviewWindowOpened('[') != 0<Bar>call <SID>FugitiveAction('[')<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
-nnoremap ]d <Cmd>if <SID>PreviewWindowOpened(']') != 0<Bar>call <SID>FugitiveAction(']')<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
-nnoremap [D <Cmd>if <SID>PreviewWindowOpened('[') != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
-nnoremap ]D <Cmd>if <SID>PreviewWindowOpened(']') != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
+nnoremap [d <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FugitiveOrGitAction('[')<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
+nnoremap ]d <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FugitiveOrGitAction(']')<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
+nnoremap [D <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
+nnoremap ]D <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
 
 nnoremap <Leader>ge :<c-u>Gedit %<Left>
 nnoremap <Leader>gl :<c-u>Gclog! --author=
