@@ -74,18 +74,14 @@ cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<Esc>" : strlen(getcmdline()
 #-----------------------------------------------------------------------------
 # 左移 tab
 def TabMoveLeft(): void
-  var tabnr = tabpagenr() - v:count1 - 1
-  if tabnr >= 0
-    exec $'tabmove {tabnr}'
-  endif
+  var tabnr = max([tabpagenr() - v:count1 - 1, 0])
+  exec $'tabmove {tabnr}'
 enddef
 
 # 右移 tab
 def TabMoveRight(): void
-  var tabnr = tabpagenr() + v:count1
-  if tabnr <= tabpagenr('$')
-    exec $'tabmove {tabnr}'
-  endif
+  var tabnr = min([tabpagenr() + v:count1, tabpagenr('$')])
+  exec $'tabmove {tabnr}'
 enddef
 
 def TabLeft(): number
@@ -106,14 +102,13 @@ def TabRight(): number
 enddef
 
 # 快速切换tab 使用标签 参考unimparied
-nnoremap <silent> <m-;>h <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
-nnoremap <silent> <m-;>l <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
+nnoremap <silent> <m-;><m-h> <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
+nnoremap <silent> <m-;><m-l> <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
+nnoremap <silent> <m-;>h <Cmd>call <SID>TabMoveLeft()<CR>
+nnoremap <silent> <m-;>l <Cmd>call <SID>TabMoveRight()<CR>
 nnoremap <silent> <m-;>H <Cmd>tabfirst<CR>
 nnoremap <silent> <m-;>L <Cmd>tablast<CR>
 nnoremap <silent> <m-o>  <Cmd>normal! g<tab><CR>
-
-nnoremap <silent> <m-;><m-h> <Cmd>call <SID>TabMoveLeft()<CR>
-nnoremap <silent> <m-;><m-l> <Cmd>call <SID>TabMoveRight()<CR>
 
 # g<tab> 回到上个 tab
 nnoremap <m-;>d   :<c-u>tabdo 
@@ -137,14 +132,20 @@ endif
 #-----------------------------------------------------------------------------
 #                              窗口切换：ALT+hjkl
 #-----------------------------------------------------------------------------
-# 传统的 CTRL-W+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL-W+hjkl 在
-# bash/zsh 及带文本界面的程序中都是重要键位需要保留
 if !exists('$TMUX')
+  # 传统的 CTRL-W+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL-W+hjkl 在
+  # bash/zsh 及带文本界面的程序中都是重要键位需要保留
   nnoremap <silent> <m-h> <Cmd>wincmd h<CR>
   nnoremap <silent> <m-l> <Cmd>wincmd l<CR>
   nnoremap <silent> <m-j> <Cmd>wincmd j<CR>
   nnoremap <silent> <m-k> <Cmd>wincmd k<CR>
   nnoremap <silent> <m-\> <Cmd>wincmd p<CR>
+
+  tnoremap <silent> <m-h> <Cmd>wincmd h<CR>
+  tnoremap <silent> <m-l> <Cmd>wincmd l<CR>
+  tnoremap <silent> <m-j> <Cmd>wincmd j<CR>
+  tnoremap <silent> <m-k> <Cmd>wincmd k<CR>
+  tnoremap <silent> <m-\> <Cmd>wincmd p<CR>
 endif
 
 if has('terminal') && exists(':terminal') == 2
@@ -157,30 +158,18 @@ if has('terminal') && exists(':terminal') == 2
   tnoremap <silent> <m-d> <Esc>d
 
   tmap <m-;> <c-_>
-  #---------------------------------------------------------------------------
-  #                            终端窗口切换：ALT+hjkl
-  #---------------------------------------------------------------------------
-  if !exists('$TMUX')
-    tnoremap <silent> <m-h> <Cmd>wincmd h<CR>
-    tnoremap <silent> <m-l> <Cmd>wincmd l<CR>
-    tnoremap <silent> <m-j> <Cmd>wincmd j<CR>
-    tnoremap <silent> <m-k> <Cmd>wincmd k<CR>
-    tnoremap <silent> <m-\> <Cmd>wincmd p<CR>
-  endif
-
   # 终端模式切换普通终端模式
   tnoremap <silent> <m-q> <c-\><c-n>
   tnoremap <silent> <m-p> <c-_>"0
 
   # tab 切换
-  tnoremap <c-_>h <Cmd>normal! gT<CR>
-  tnoremap <c-_>l <Cmd>normal! gt<CR>
+  tnoremap <c-_><m-h> <Cmd>normal! gT<CR>
+  tnoremap <c-_><m-l> <Cmd>normal! gt<CR>
+  tnoremap <c-_>h <Cmd>call <SID>TabMoveLeft()<Bar>redraw!<CR>
+  tnoremap <c-_>l <Cmd>call <SID>TabMoveRight()<Bar>redraw!<CR>
   tnoremap <c-_>H <Cmd>tabfirst<CR>
   tnoremap <c-_>L <Cmd>tablast<CR>
   tnoremap <m-o>  <Cmd>normal! g<tab><CR>
-
-  tnoremap <c-_><m-h> <Cmd>call <SID>TabMoveLeft()<Bar>redraw!<CR>
-  tnoremap <c-_><m-l> <Cmd>call <SID>TabMoveRight()<Bar>redraw!<CR>
 
   tnoremap <silent> <c-_>t <Cmd>tab terminal<CR>
   tnoremap <silent> <c-_>s <Cmd>terminal<CR>
