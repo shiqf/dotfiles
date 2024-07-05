@@ -138,77 +138,79 @@ xmap <Leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><Home>tab
 nnoremap <silent><Leader>ed <Cmd>exec $'edit {expand('%:h')}'<CR>
 nnoremap <silent><Leader>e. <Cmd>edit!<CR>
 
-# 打开 fugitive 插件中的状态窗口
-nnoremap <silent> g<CR> <Cmd>Git!<Bar>exec 'normal gu'<CR>
-nnoremap g<space> :<c-u>Git! 
+if !exists('g:no_plugin')
+  # 打开 fugitive 插件中的状态窗口
+  nnoremap <silent> g<CR> <Cmd>Git!<Bar>exec 'normal gu'<CR>
+  nnoremap g<space> :<c-u>Git! 
 
-g:fugitiveWinnr = 0
-g:gitWinnr = 0
-def FugitiveOrGitOpened(c: string): number
-  for nr in range(1, winnr('$'))
-    if &diff == v:true
-      if getwinvar(nr, '&ft') ==# 'fugitive'
-        g:fugitiveWinnr = nr
-        return nr
+  g:fugitiveWinnr = 0
+  g:gitWinnr = 0
+  def FugitiveOrGitOpened(c: string): number
+    for nr in range(1, winnr('$'))
+      if &diff == v:true
+        if getwinvar(nr, '&ft') ==# 'fugitive'
+          g:fugitiveWinnr = nr
+          return nr
+        endif
+        if getwinvar(nr, '&ft') ==# 'git'
+          g:gitWinnr = nr
+          return nr
+        endif
       endif
-      if getwinvar(nr, '&ft') ==# 'git'
-        g:gitWinnr = nr
-        return nr
-      endif
+    endfor
+    return 0
+  enddef
+
+  def FugitiveOrGitAction(c: string): void
+    if g:fugitiveWinnr != 0
+      exec $':{g:fugitiveWinnr}wincmd w'
+      exec $'normal {v:count1}{c}mdv'
+      g:fugitiveWinnr = 0
     endif
-  endfor
-  return 0
-enddef
+    if g:gitWinnr != 0
+      exec $':{g:fugitiveWinnr}wincmd w'
+      wincmd o
+      exec $'normal {v:count1}{c}mo'
+      g:gitWinnr = 0
+    endif
+  enddef
 
-def FugitiveOrGitAction(c: string): void
-  if g:fugitiveWinnr != 0
-    exec $':{g:fugitiveWinnr}wincmd w'
-    exec $'normal {v:count1}{c}mdv'
-    g:fugitiveWinnr = 0
-  endif
-  if g:gitWinnr != 0
-    exec $':{g:fugitiveWinnr}wincmd w'
-    wincmd o
-    exec $'normal {v:count1}{c}mo'
-    g:gitWinnr = 0
-  endif
-enddef
+  def FirstOrLastAction(c: string): void
+    if g:fugitiveWinnr != 0
+      exec $':{g:fugitiveWinnr}wincmd w'
+      if c ==# '[' | exec 'normal gUdv' | elseif c ==# ']' | exec 'normal gU}kdv' | endif
+      g:fugitiveWinnr = 0
+    endif
+    if g:gitWinnr != 0
+      exec $':{g:fugitiveWinnr}wincmd w'
+      wincmd o
+      if c ==# '[' | exec 'normal gg]mo' | elseif c ==# ']' | exec 'normal G[mo' | endif
+      g:gitWinnr = 0
+    endif
+  enddef
 
-def FirstOrLastAction(c: string): void
-  if g:fugitiveWinnr != 0
-    exec $':{g:fugitiveWinnr}wincmd w'
-    if c ==# '[' | exec 'normal gUdv' | elseif c ==# ']' | exec 'normal gU}kdv' | endif
-    g:fugitiveWinnr = 0
-  endif
-  if g:gitWinnr != 0
-    exec $':{g:fugitiveWinnr}wincmd w'
-    wincmd o
-    if c ==# '[' | exec 'normal gg]mo' | elseif c ==# ']' | exec 'normal G[mo' | endif
-    g:gitWinnr = 0
-  endif
-enddef
+  nnoremap [d <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FugitiveOrGitAction('[')<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
+  nnoremap ]d <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FugitiveOrGitAction(']')<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
+  nnoremap [D <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
+  nnoremap ]D <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
 
-nnoremap [d <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FugitiveOrGitAction('[')<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
-nnoremap ]d <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FugitiveOrGitAction(']')<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
-nnoremap [D <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
-nnoremap ]D <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
+  nnoremap <Leader>ge :<c-u>Gedit %<Left>
+  nnoremap <Leader>gl :<c-u>Gclog! --author=
+  nnoremap <Leader>gc :<c-u> -n<Home>Git! clean -xdf
+  nnoremap <Leader>gp :<c-u> --all<Home>Git! log --oneline --decorate --graph --author=
 
-nnoremap <Leader>ge :<c-u>Gedit %<Left>
-nnoremap <Leader>gl :<c-u>Gclog! --author=
-nnoremap <Leader>gc :<c-u> -n<Home>Git! clean -xdf
-nnoremap <Leader>gp :<c-u> --all<Home>Git! log --oneline --decorate --graph --author=
+  xnoremap <silent> ado <Cmd>diffget<CR>
+  xnoremap <silent> 2do <Cmd>diffget //2<CR>
+  xnoremap <silent> 3do <Cmd>diffget //3<CR>
+  nnoremap <silent> 2do <Cmd>diffget //2<CR>
+  nnoremap <silent> 3do <Cmd>diffget //3<CR>
 
-xnoremap <silent> ado <Cmd>diffget<CR>
-xnoremap <silent> 2do <Cmd>diffget //2<CR>
-xnoremap <silent> 3do <Cmd>diffget //3<CR>
-nnoremap <silent> 2do <Cmd>diffget //2<CR>
-nnoremap <silent> 3do <Cmd>diffget //3<CR>
-
-xnoremap <silent> adp <Cmd>diffput<CR>
-xnoremap <silent> 2dp <Cmd>diffput //2<CR>
-xnoremap <silent> 3dp <Cmd>diffput //3<CR>
-nnoremap <silent> 2dp <Cmd>diffput //2<CR>
-nnoremap <silent> 3dp <Cmd>diffput //3<CR>
+  xnoremap <silent> adp <Cmd>diffput<CR>
+  xnoremap <silent> 2dp <Cmd>diffput //2<CR>
+  xnoremap <silent> 3dp <Cmd>diffput //3<CR>
+  nnoremap <silent> 2dp <Cmd>diffput //2<CR>
+  nnoremap <silent> 3dp <Cmd>diffput //3<CR>
+endif
 
 def QFdelete(bufnr: number, firstline: number, lastline: number): void
   var qfl = getqflist()
