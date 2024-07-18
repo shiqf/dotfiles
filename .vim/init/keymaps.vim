@@ -102,16 +102,16 @@ def TabRight(): number
 enddef
 
 # 快速切换tab 使用标签 参考unimparied
-nnoremap <silent> <m-;><m-h> <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
-nnoremap <silent> <m-;><m-l> <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
-nnoremap <silent> <m-;>h <Cmd>call <SID>TabMoveLeft()<CR>
-nnoremap <silent> <m-;>l <Cmd>call <SID>TabMoveRight()<CR>
+nnoremap <silent> <m-;><m-h> <Cmd>call <SID>TabMoveLeft()<CR>
+nnoremap <silent> <m-;><m-l> <Cmd>call <SID>TabMoveRight()<CR>
+nnoremap <silent> <m-;>h <Cmd>exec $"tabn {<SID>TabLeft()}"<CR>
+nnoremap <silent> <m-;>l <Cmd>exec $"tabn {<SID>TabRight()}"<CR>
 nnoremap <silent> <m-;>H <Cmd>tabfirst<CR>
 nnoremap <silent> <m-;>L <Cmd>tablast<CR>
 nnoremap <silent> <m-o>  <Cmd>normal! g<tab><CR>
 
 # g<tab> 回到上个 tab
-nnoremap <m-;>d   :<c-u>tabdo 
+nnoremap <m-;>d   :<C-U>tabdo 
 nnoremap <silent> <m-;>q <Cmd>tabclose<CR>
 nnoremap <silent> <m-;>c <Cmd>tabclose<CR>
 nnoremap <silent> <m-;>o <Cmd>tabonly<CR>
@@ -132,7 +132,7 @@ endif
 #-----------------------------------------------------------------------------
 #                              窗口切换：ALT+hjkl
 #-----------------------------------------------------------------------------
-if !exists('$TMUX')
+if !exists('$TMUX') || exists('g:no_plugin')
   # 传统的 CTRL-W+hjkl 移动窗口不适用于 vim 8.1 的终端模式，CTRL-W+hjkl 在
   # bash/zsh 及带文本界面的程序中都是重要键位需要保留
   nnoremap <silent> <m-h> <Cmd>wincmd h<CR>
@@ -163,10 +163,10 @@ if has('terminal') && exists(':terminal') == 2
   tnoremap <silent> <m-p> <c-_>"0
 
   # tab 切换
-  tnoremap <c-_><m-h> <Cmd>normal! gT<CR>
-  tnoremap <c-_><m-l> <Cmd>normal! gt<CR>
-  tnoremap <c-_>h <Cmd>call <SID>TabMoveLeft()<Bar>redraw!<CR>
-  tnoremap <c-_>l <Cmd>call <SID>TabMoveRight()<Bar>redraw!<CR>
+  tnoremap <c-_><m-h> <Cmd>call <SID>TabMoveLeft()<Bar>redraw!<CR>
+  tnoremap <c-_><m-l> <Cmd>call <SID>TabMoveRight()<Bar>redraw!<CR>
+  tnoremap <c-_>h <Cmd>normal! gT<CR>
+  tnoremap <c-_>l <Cmd>normal! gt<CR>
   tnoremap <c-_>H <Cmd>tabfirst<CR>
   tnoremap <c-_>L <Cmd>tablast<CR>
   tnoremap <m-o>  <Cmd>normal! g<tab><CR>
@@ -176,6 +176,8 @@ if has('terminal') && exists(':terminal') == 2
   tnoremap <silent> <c-_>v <Cmd>vertical terminal<CR>
   # tnoremap <Esc> <c-_>N
   set notimeout ttimeout timeoutlen=100
+
+  tnoremap <m-:> <c-_>:
 endif
 
 #-----------------------------------------------------------------------------
@@ -184,8 +186,8 @@ endif
 # 排版
 nnoremap Q gq
 
-# 保存
-nnoremap <silent> <c-s> <Cmd>w<CR>
+# # 保存
+# nnoremap <silent> <c-s> <Cmd>w<CR>
 
 # 强制退出
 noremap <silent> <Leader>Q <Cmd>qall!<CR>

@@ -79,24 +79,23 @@ endfor
 # 面向字符行的与 g. 的区别是: . 的是选中的行全部替换.
 # g. 选中的行作为范围. 修改内容为之前小的修改
 # 列块暂时没有应用 TODO.
-# xnoremap . <Cmd>call <SID>SetReplaceAndSetHighlight()<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<Left><Left>
-xnoremap . <Cmd>call <SID>PatternVv()<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<Left><Left>
-xnoremap g. <Cmd>call <SID>PatternV()<CR>:s/<c-r>//<c-r>=getreg('.')<CR>/g<Left><Left>
+xnoremap .  <Cmd>call <SID>PatternVv()<CR>:s/<C-R>//<C-R>=getreg('.')<CR>/g<Left><Left>
+xnoremap g. <Cmd>call <SID>PatternV()<CR>:s/<C-R>//<C-R>=getreg('.')<CR>/g<Left><Left>
 
 # 跳转到与之前修改内容相同的地方并修改(需先有修改操作).
 # 使用前用 g. 再通过 "." 命令重复运用.(go to same change context place and do ".")
-nnoremap g. <Cmd>call <SID>Replace()<Bar>set ei=all<CR>cgn<c-r>=getreg('.')<CR><Esc><Cmd>set ei=<Bar>set hls<CR>
+nnoremap g. <Cmd>call <SID>Replace()<Bar>set ei=all<CR>cgn<C-R>=getreg('.')<CR><Esc><Cmd>set ei=<Bar>set hls<CR>
 
 def WordToLower(reg: string): string
   return reg =~ '^\u' ? tolower(reg) : reg
 enddef
 
 nnoremap gz <Cmd>call <SID>PatternV()<CR>
-      \:<c-u>S/<c-r>=<SID>WordToLower(@/)<CR>/<c-r>=<SID>WordToLower(getreg('.'))<CR>/g<Left><Left>
+      \:<C-U>S/<C-R>=<SID>WordToLower(@/)<CR>/<C-R>=<SID>WordToLower(getreg('.'))<CR>/g<Left><Left>
 
 # 面向字符的, 与面向行的两种
 xnoremap gz <Cmd>call <SID>PatternV()<CR>
-      \:S/<c-r>=<SID>WordToLower(@/)<CR>/<c-r>=<SID>WordToLower(getreg('.'))<CR>/g<Left><Left>
+      \:S/<C-R>=<SID>WordToLower(@/)<CR>/<C-R>=<SID>WordToLower(getreg('.'))<CR>/g<Left><Left>
 
 nnoremap <silent> &  :&&<CR>
 xnoremap <silent> &  :~&<CR>
@@ -127,21 +126,21 @@ xnoremap <silent>p <Cmd>call <SID>P()<Bar>set paste<Bar>
 # 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
 
-nmap <Leader>ef :<c-u>edit %%<C-Left>
-nmap <Leader>es :<c-u>split %%<C-Left>
-nmap <Leader>ev :<c-u>vsplit %%<C-Left>
-nmap <Leader>et :<c-u>tabedit %%<C-Left>
-nmap <Leader>ew :<c-u>lcd <c-r>=$'{expand('%:h')}/'<CR><Home>
-nmap <Leader>ee :<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><Home>tab
-xmap <Leader>e y:<c-u>edit <c-r>=getregtype('"') ==# 'v' ? @@ : ''<CR><Home>tab
+nmap <Leader>ee :<C-U>edit %%
+nmap <Leader>es :<C-U>split %%<C-Left>
+nmap <Leader>ev :<C-U>vsplit %%<C-Left>
+nmap <Leader>et :<C-U>tabedit %%<C-Left>
+nmap <Leader>ew :<C-U>lcd <C-R>=$'{expand('%:p:h')}/'<CR><Home>
+nmap <Leader>er :<C-U>lcd -<CR>
+nmap <Leader>ef <Cmd>setlocal path=.,,<CR>:<C-U>find <Home>vert s
 
-nnoremap <silent><Leader>ed <Cmd>exec $'edit {expand('%:h')}'<CR>
-nnoremap <silent><Leader>e. <Cmd>edit!<CR>
+nnoremap <Leader>ed <Cmd>exec $'edit {expand('%:h')}'<CR>
+nnoremap <Leader>e. <Cmd>edit!<CR>
 
 if !exists('g:no_plugin')
   # 打开 fugitive 插件中的状态窗口
   nnoremap <silent> g<CR> <Cmd>Git!<Bar>exec 'normal gu'<CR>
-  nnoremap g<space> :<c-u>Git! 
+  nnoremap g<space> :<C-U>Git! 
 
   g:fugitiveWinnr = 0
   g:gitWinnr = 0
@@ -194,10 +193,10 @@ if !exists('g:no_plugin')
   nnoremap [D <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
   nnoremap ]D <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
 
-  nnoremap <Leader>ge :<c-u>Gedit %<Left>
-  nnoremap <Leader>gl :<c-u>Gclog! --author=
-  nnoremap <Leader>gc :<c-u> -n<Home>Git! clean -xdf
-  nnoremap <Leader>gp :<c-u> --all<Home>Git! log --oneline --decorate --graph --author=
+  nnoremap <Leader>ge :<C-U>Gedit %<Left>
+  nnoremap <Leader>gl :<C-U>Gclog! --author=
+  nnoremap <Leader>gc :<C-U> -n<Home>Git! clean -xdf
+  nnoremap <Leader>gp :<C-U> --all<Home>Git! log --oneline --decorate --graph --author=
 
   xnoremap <silent> ado <Cmd>diffget<CR>
   xnoremap <silent> 2do <Cmd>diffget //2<CR>
@@ -247,17 +246,17 @@ augroup QFList
   au!
   au BufWinEnter quickfix if &bt ==# 'quickfix'
   au BufWinEnter quickfix    nnoremap <silent><buffer> dd <Cmd>call <SID>QFdelete(bufnr(), line('.'), line('.') + v:count1 - 1)<CR>
-  au BufWinEnter quickfix    xnoremap <silent><buffer> d  :<c-u>call <SID>QFdelete(bufnr(), line("'<"), line("'>"))<CR>
+  au BufWinEnter quickfix    xnoremap <silent><buffer> d  :<C-U>call <SID>QFdelete(bufnr(), line("'<"), line("'>"))<CR>
   au BufWinEnter quickfix    nnoremap <silent><buffer> ds <Cmd>Cfilter //<CR>
   au BufWinEnter quickfix    nnoremap <silent><buffer> dc <Cmd>Cfilter! //<CR>
   au BufWinEnter quickfix    nnoremap <silent><buffer> [F <Cmd>1chistory<CR>
   au BufWinEnter quickfix    nnoremap <silent><buffer> ]F <Cmd>exec getqflist({'nr': '$'}).nr .. 'chistory'<CR>
   au BufWinEnter quickfix    nnoremap <buffer> dh         <Cmd>exec $'{<SID>Count()}chistory'<CR>
-  au BufWinEnter quickfix    nnoremap <buffer> d<space>   :<c-u>Cfilter /<c-r><c-w>/<Left>
+  au BufWinEnter quickfix    nnoremap <buffer> d<space>   :<C-U>Cfilter /<C-R><c-w>/<Left>
   au BufWinEnter quickfix    nnoremap <buffer> A          <Cmd>Qargs<Bar>q<Bar>args<CR>
-  au BufWinEnter quickfix    nnoremap <buffer> cd         :<c-u><c-r>=<SID>RangeNormal()<CR>cdo s//<c-r>=getreg('.')<CR>/gc<Left><Left><Left>
-  au BufWinEnter quickfix    xnoremap <buffer> cd         :<c-u><c-r>=<SID>RangeViusal()<CR>cdo s//<c-r>=getreg('.')<CR>/gc<Left><Left><Left>
-  au BufWinEnter quickfix    noremap  <buffer> cf         :<c-u>/g <Bar> update<Home>cfdo %s//<c-r>=getreg('.')<CR>
+  au BufWinEnter quickfix    nnoremap <buffer> cd         :<C-U><C-R>=<SID>RangeNormal()<CR>cdo s//<C-R>=getreg('.')<CR>/gc<Left><Left><Left>
+  au BufWinEnter quickfix    xnoremap <buffer> cd         :<C-U><C-R>=<SID>RangeViusal()<CR>cdo s//<C-R>=getreg('.')<CR>/gc<Left><Left><Left>
+  au BufWinEnter quickfix    noremap  <buffer> cf         :<C-U>/g <Bar> update<Home>cfdo %s//<C-R>=getreg('.')<CR>
   au BufWinEnter quickfix endif
 augroup END
 

@@ -455,9 +455,9 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
     " let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs <Cmd>call <SID>Flag()<CR>:<c-u><c-r>=printf("%s", leaderf#Rg#visual())<CR> --hidden<c-r>=g:GSFlag<CR><Home>Leaderf! rg -F <Right>
-    nnoremap gs :<c-u><c-r>=printf("%s", expand("<cword>"))<CR>\b" --hidden<Home>Leaderf! rg -e "\b
-    nnoremap <Leader>gf :<c-u>Leaderf! file --input <c-r>=printf("%s", <SID>FileName())<CR> --no-ignore<CR>
+    xnoremap gs <Cmd>call <SID>Flag()<CR>:<C-U><C-R>=printf("%s", leaderf#Rg#visual())<CR> --hidden<C-R>=g:GSFlag<CR><Home>Leaderf! rg -F <Right>
+    nnoremap gs :<C-U><C-R>=printf("%s", expand("<cword>"))<CR>\b" --hidden<Home>Leaderf! rg -e "\b
+    nnoremap <Leader>gf :<C-U>Leaderf! file --input <C-R>=printf("%s", <SID>FileName())<CR> --no-ignore<CR>
   endif
   noremap <Leader>or <Cmd>Leaderf! --recall<CR>
 endif
@@ -547,7 +547,7 @@ if has('python3')
     let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
     let g:UltiSnipsEditSplit           = 'vertical'
-    nnoremap <Leader>os :<c-u>snippets<Home>UltiSnipsAddFiletypes 
+    nnoremap <Leader>os :<C-U>snippets<Home>UltiSnipsAddFiletypes 
 
     Plug 'skywind3000/leaderf-snippet'
     inoremap <c-x><c-j> <Cmd>Leaderf snippet<CR>
@@ -647,7 +647,7 @@ if has('python3')
 
       " 重构后的结果会加入到 quickfix 中，方便查看修改
       au FileType c,cpp,objc,objcpp,cuda,java,javascript,typescript,rust,cs
-            \ nnoremap gcr :<c-u>YcmCompleter RefactorRename 
+            \ nnoremap gcr :<C-U>YcmCompleter RefactorRename 
 
       au FileType c,cpp,objc,objcpp,cuda,cs,go,java,javascript,rust,typescript
             \ nnoremap gcs <Cmd>YcmCompleter RestartServer<CR>
