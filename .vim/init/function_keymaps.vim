@@ -126,13 +126,13 @@ xnoremap <silent>p <Cmd>call <SID>P()<Bar>set paste<Bar>
 # 在命令行中展开当前文件的目录
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:r') : '%%'
 
-nmap <Leader>ee :<C-U>edit %%
+nmap <Leader>ee :<C-U>edit %%<C-Left>
 nmap <Leader>es :<C-U>split %%<C-Left>
 nmap <Leader>ev :<C-U>vsplit %%<C-Left>
 nmap <Leader>et :<C-U>tabedit %%<C-Left>
 nmap <Leader>ew :<C-U>lcd <C-R>=$'{expand('%:p:h')}/'<CR><Home>
 nmap <Leader>er :<C-U>lcd -<CR>
-nmap <Leader>ef <Cmd>setlocal path=.,,<CR>:<C-U>find <Home>vert s
+nmap <Leader>ef <Cmd>setl path=.,,<CR>:<C-U>find <Home>vert s
 
 nnoremap <Leader>ed <Cmd>exec $'edit {expand('%:h')}'<CR>
 nnoremap <Leader>e. <Cmd>edit!<CR>

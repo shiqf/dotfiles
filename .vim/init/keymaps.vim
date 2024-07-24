@@ -207,3 +207,19 @@ inoremap <c-o><c-j> <Esc>gi
 # 跳转到下一行末尾, 通过<c-o><c-o> 回到跳转点.
 inoremap <m-o> <c-o><c-o>
 inoremap <m-i> <c-o><c-i>
+
+def PathOption(): void
+  setl path=.,,
+  if &ft ==# 'c' || &ft ==# 'cpp'
+    setl path+=/usr/include/**2
+    setl path+=**5
+  endif
+  try
+    normal! gf
+  catch /.*/
+    echo v:exception
+  endtry
+  set path<
+enddef
+
+nnoremap gf <Cmd>call <SID>PathOption()<CR>

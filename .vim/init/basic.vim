@@ -136,7 +136,9 @@ set fileformats=unix,dos,mac
 set hidden
 
 # 使用模糊匹配补全
-set completeopt+=fuzzy
+if !exists("g:max")
+  set completeopt+=fuzzy
+endif
 
 #-----------------------------------------------------------------------------
 #                                 设置代码折叠
@@ -172,6 +174,9 @@ set diffopt+=internal,algorithm:histogram
 #                        文件搜索和补全时忽略下面扩展名
 #-----------------------------------------------------------------------------
 set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class # 临时文件
+
+# 命令行使用插入模式的䃼全样式
+set wildmenu wildoptions=pum,fuzzy pumheight=10
 
 # set wildignore=*.bak,*.info,*.egg-info,*.tmp # 临时文件
 set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,cscope.* # 补全时忽略
