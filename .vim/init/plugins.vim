@@ -186,6 +186,7 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     " 展示开始画面，显示最近编辑过的文件
     Plug 'mhinz/vim-startify'
+    set viminfo^=!
 
     " 默认不显示 startify
     let g:startify_disable_at_vimenter    = 0

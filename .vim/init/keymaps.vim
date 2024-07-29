@@ -221,5 +221,7 @@ def PathOption(): void
   endtry
   set path<
 enddef
-
 nnoremap gf <Cmd>call <SID>PathOption()<CR>
+
+# # 恢复非高亮
+# noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>

@@ -33,11 +33,11 @@ let g:no_plugin = 1
 " 加载基础配置
 LoadScript init/basic.vim
 
-" 界面样式
-LoadScript init/style.vim
-
 " 加载扩展配置
 LoadScript init/config.vim
+
+" 界面样式
+LoadScript init/style.vim
 
 " 自定义按键
 LoadScript init/keymaps.vim

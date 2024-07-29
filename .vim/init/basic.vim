@@ -13,7 +13,6 @@ vim9script
 #   - 其他设置
 #   - 设置代码折叠
 #   - 设置鼠标功能
-#   - 文件搜索和补全时忽略下面扩展名
 #
 # vim: set ts=2 sw=2 tw=78 et :
 #=============================================================================
@@ -24,8 +23,6 @@ vim9script
 #-----------------------------------------------------------------------------
 # 补全内容选项 help complete
 set complete=.,w,t
-
-set viminfo^=!
 
 # 禁用声音
 # set visualbell t_vb=
@@ -164,39 +161,3 @@ if has('mouse')
     set mouse=nvi
   endif
 endif
-
-#-----------------------------------------------------------------------------
-#                                 比较模式配置
-#-----------------------------------------------------------------------------
-set diffopt+=internal,algorithm:histogram
-
-#-----------------------------------------------------------------------------
-#                        文件搜索和补全时忽略下面扩展名
-#-----------------------------------------------------------------------------
-set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class # 临时文件
-
-# 命令行使用插入模式的䃼全样式
-set wildmenu wildoptions=pum,fuzzy pumheight=10
-
-# set wildignore=*.bak,*.info,*.egg-info,*.tmp # 临时文件
-set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,cscope.* # 补全时忽略
-set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex,*.min.* # 编译文件
-set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz # MacOSX/Linux 压缩文件
-set wildignore+=*DS_Store*,*.ipch
-set wildignore+=*.gem
-set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso,*.svg,*.ico
-set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
-set wildignore+=*/.nx/**,*.app,*.git,.git
-set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
-set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
-set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
-set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
-set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
-set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.msu
-set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
-set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
-set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/* # 版本控制文件
-set wildignore+=*.sln,*.Master,*.csproj,*.csproj.user,*.cache
-
-# javascritp/typescript 忽略
-set wildignore+=*sites/*/files/*,*.flac,*.less,*.map,*.scss,*.swo

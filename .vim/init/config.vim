@@ -6,10 +6,13 @@ vim9script
 #   - 功能插件开启
 #   - 备份设置
 #   - 防止tmux下vim的背景色显示异常
+#   - 比较模式配置
 #   - 配置微调
+#   - 改动差异与恢复光标位置
 #   - 文件类型微调
 #   - 高亮查找单词后取消高亮
 #   - 终端设置，隐藏行号和侧边栏
+#   - 文件搜索和补全时忽略下面扩展名
 #
 # vim: set ts=2 sw=2 tw=78 et :
 #=============================================================================
@@ -112,6 +115,11 @@ if &term =~# '256color'
 endif
 
 #-----------------------------------------------------------------------------
+#                                 比较模式配置
+#-----------------------------------------------------------------------------
+set diffopt+=internal,algorithm:histogram
+
+#-----------------------------------------------------------------------------
 #                                   配置微调
 #-----------------------------------------------------------------------------
 # 修正 ScureCRT/XShell 以及某些终端乱码问题，主要原因是不支持一些
@@ -128,6 +136,9 @@ if (!has('gui_running')) && has('terminal') && has('nvim') == 0
   set t_SH=
 endif
 
+#-----------------------------------------------------------------------------
+#                            改动差异与恢复光标位置
+#-----------------------------------------------------------------------------
 # 定义一个 DiffOrig 命令用于查看文件改动
 if !exists(':DiffOrig')
   command! DiffOrig vert new | set bt=nofile | r ++edit# | :1d | diffthis | wincmd p | diffthis
@@ -188,16 +199,13 @@ augroup END
 #                             高亮查找单词后取消高亮
 #-----------------------------------------------------------------------------
 augroup AutoHighlighting
-    au!
-    au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
-    au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
-    au CursorHold * call feedkeys("\<Cmd>noh\<CR>", 'n')
-    # au CursorHold * call feedkeys("\<Cmd>redraw!\<CR>", 'n')
-    nnoremap . <Cmd>exec $'noau normal! {v:count == 0 ? "" : v:count}.'<CR>
+  au!
+  au CmdlineLeave /,\? call feedkeys("\<Cmd>noh\<CR>", 'n')
+  au InsertEnter * call feedkeys("\<Cmd>noh\<CR>", 'n')
+  au CursorHold * call feedkeys("\<Cmd>noh\<CR>", 'n')
+  # au CursorHold * call feedkeys("\<Cmd>redraw!\<CR>", 'n')
+  nnoremap . <Cmd>exec $'noau normal! {v:count == 0 ? "" : v:count}.'<CR>
 augroup END
-
-# # 恢复非高亮
-# noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
 
 #-----------------------------------------------------------------------------
 #                          终端设置，隐藏行号和侧边栏
@@ -218,3 +226,31 @@ g:netrw_banner = 0        # disable annoying banner
 g:netrw_liststyle = 3     # tree view
 # g:netrw_list_hide = netrw_gitignore#Hide()
 # g:netrw_list_hide ..= ',\(^\|\s\s\)\zs\.\S\+'
+
+#-----------------------------------------------------------------------------
+#                        文件搜索和补全时忽略下面扩展名
+#-----------------------------------------------------------------------------
+set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class # 临时文件
+
+# set wildignore=*.bak,*.info,*.egg-info,*.tmp # 临时文件
+set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib,cscope.* # 补全时忽略
+set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex,*.min.* # 编译文件
+set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz # MacOSX/Linux 压缩文件
+set wildignore+=*DS_Store*,*.ipch
+set wildignore+=*.gem
+set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso,*.svg,*.ico
+set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
+set wildignore+=*/.nx/**,*.app,*.git,.git
+set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
+set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
+set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
+set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
+set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.msu
+set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
+set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
+set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/* # 版本控制文件
+set wildignore+=*.sln,*.Master,*.csproj,*.csproj.user,*.cache
+
+# javascritp/typescript 忽略
+set wildignore+=*sites/*/files/*,*.flac,*.less,*.map,*.scss,*.swo
