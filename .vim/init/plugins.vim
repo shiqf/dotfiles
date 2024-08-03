@@ -819,7 +819,8 @@ if exists('$TMUX') && index(g:bundle_group, 'tmux') >= 0
 
   function! s:run_tmux(opts)
     let cwd = expand('%:p:h')
-    let exe = split(a:opts.cmd, $'{cwd}/')[0]
+    let list = split(a:opts.cmd, $'{cwd}/')
+    let exe = join(list, '')
     call VimuxRunCommand($'cd {cwd}; {exe}')
   endfunction
 
