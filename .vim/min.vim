@@ -27,9 +27,6 @@ let mapleader = "\<Space>"
 "-----------------------------------------------------------------------------
 "                                   模块加载
 "-----------------------------------------------------------------------------
-" 插件配置
-LoadScript init/plugins.vim
-
 " 加载基础配置
 LoadScript init/basic.vim
 
@@ -47,5 +44,8 @@ LoadScript init/tabsize.vim
 
 " 自定义功能按键映射
 LoadScript init/function_keymaps.vim
+
+" 插件配置
+LoadScript init/plugins.vim
 
 colorscheme slate

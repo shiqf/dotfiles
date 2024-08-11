@@ -165,12 +165,14 @@ if !exists('g:no_plugin')
       exec $':{g:fugitiveWinnr}wincmd w'
       exec $'normal {v:count1}{c}mdv'
       g:fugitiveWinnr = 0
+      return
     endif
     if g:gitWinnr != 0
       exec $':{g:fugitiveWinnr}wincmd w'
       wincmd o
       exec $'normal {v:count1}{c}mo'
       g:gitWinnr = 0
+      return
     endif
   enddef
 

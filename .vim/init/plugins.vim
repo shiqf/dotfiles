@@ -357,7 +357,7 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
   let g:Lf_RootMarkers = ['.rgignore', '.svn', '.git']
   let g:Lf_WorkingDirectoryMode = 'Ac'
   let g:Lf_WindowHeight = 0.30
-  let g:Lf_CacheDirectory = expand('~/.cache')
+  let g:Lf_CacheDirectory = expand('~/.cache/')
   let g:Lf_MruEnableFrecency = 1
 
   " ui 定制

@@ -27,9 +27,6 @@ let g:max = 1
 "-----------------------------------------------------------------------------
 "                                   模块加载
 "-----------------------------------------------------------------------------
-" 插件加载
-LoadScript init/plugins.vim
-
 " 加载基础配置
 LoadScript init/basic.vim
 
@@ -47,6 +44,9 @@ LoadScript init/tabsize.vim
 
 " 自定义功能按键映射
 LoadScript init/function_keymaps.vim
+
+" 插件加载
+LoadScript init/plugins.vim
 
 " 自定义主题
 LoadScript init/colors.vim
