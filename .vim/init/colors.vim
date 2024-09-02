@@ -1,4 +1,4 @@
-" 首先需要设置iterm2终端的profiles菜单下的Colors中的
+" 首先需要设置 iterm2 终端的 profiles 菜单下的 Colors 中的
 " Color presets 设置为Solarized Dark主题
 " 当使用 tmux 或 gui vim 时使用该主题
 try

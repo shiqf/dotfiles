@@ -210,8 +210,9 @@ inoremap <m-o> <c-o><c-o>
 inoremap <m-i> <c-o><c-i>
 
 def PathOption(): void
-  setl path=.,,
+  setl path&
   if &ft ==# 'c' || &ft ==# 'cpp'
+    setl path-=/usr/include
     setl path+=/usr/include/**2
     setl path+=**5
   endif

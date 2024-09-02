@@ -48,4 +48,4 @@ LoadScript init/function_keymaps.vim
 " 插件配置
 LoadScript init/plugins.vim
 
-colorscheme slate
+colorscheme habamax

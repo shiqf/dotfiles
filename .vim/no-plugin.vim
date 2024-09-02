@@ -48,4 +48,4 @@ LoadScript init/tabsize.vim
 " 自定义功能按键映射
 LoadScript init/function_keymaps.vim
 
-colorscheme habamax
+colorscheme slate
