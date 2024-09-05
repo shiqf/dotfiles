@@ -83,8 +83,8 @@ endfor
 # 面向字符行的与 g. 的区别是: . 的是选中的行全部替换.
 # g. 选中的行作为范围. 修改内容为之前小的修改
 # 列块暂时没有应用 TODO.
-xnoremap .  <Cmd>call <SID>PatternVv()<CR>:s/<C-R>//<C-R>=getreg('.')<CR>/g<Left><Left>
-xnoremap g. <Cmd>call <SID>PatternV()<CR>:s/<C-R>//<C-R>=getreg('.')<CR>/g<Left><Left>
+xnoremap .  <Cmd>call <SID>PatternVv()<CR>:s/<C-R>//<C-R>=getreg('.')<CR>/gc<Left><Left>
+xnoremap g. <Cmd>call <SID>PatternV()<CR>:s/<C-R>//<C-R>=getreg('.')<CR>/gc<Left><Left>
 
 # 跳转到与之前修改内容相同的地方并修改(需先有修改操作).
 # 使用前用 g. 再通过 "." 命令重复运用.(go to same change context place and do ".")
@@ -95,11 +95,11 @@ def WordToLower(reg: string): string
 enddef
 
 nnoremap gz <Cmd>call <SID>PatternV()<CR>
-      \:<C-U>S/<C-R>=<SID>WordToLower(@/)<CR>/<C-R>=<SID>WordToLower(getreg('.'))<CR>/g<Left><Left>
+      \:<C-U>gc<Home>S/<C-R>=<SID>WordToLower(@/)<CR>/<C-R>=<SID>WordToLower(getreg('.'))<CR>/
 
 # 面向字符的, 与面向行的两种
 xnoremap gz <Cmd>call <SID>PatternV()<CR>
-      \:S/<C-R>=<SID>WordToLower(@/)<CR>/<C-R>=<SID>WordToLower(getreg('.'))<CR>/g<Left><Left>
+      \:S/<C-R>=<SID>WordToLower(@/)<CR>/<C-R>=<SID>WordToLower(getreg('.'))<CR>/gc<Left><Left>
 
 nnoremap <silent> &  :&&<CR>
 xnoremap <silent> &  :~&<CR>
