@@ -54,6 +54,7 @@ enddef
 inoremap <expr> <c-j> $"{<SID>AddToJumpList()}\<Esc>jA"
 inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? $"{<SID>AddToJumpList()}\<Esc>kA" : "<c-\><c-o>\"_d$"
 
+inoremap <c-s> <c-e>
 #-----------------------------------------------------------------------------
 #                     命令模式下使用 Emacs 风格的编辑操作
 #-----------------------------------------------------------------------------
@@ -213,7 +214,11 @@ def PathOption(): void
   setl path&
   setl path-=/usr/include
   if &ft ==# 'c' || &ft ==# 'cpp'
-    setl path+=/usr/include/**2
+    if has('macunix')
+      setl path+=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/**2
+    elseif has('unix')
+      setl path+=/usr/include/**2
+    endif
     setl path+=**5
   endif
   try
