@@ -23,6 +23,7 @@ command! -nargs=1 LoadScript exec $'so {s:home}/<args>'
 "-----------------------------------------------------------------------------
 set nocompatible
 let mapleader = "\<Space>"
+let g:min = 1
 
 "-----------------------------------------------------------------------------
 "                                   模块加载
@@ -42,10 +43,10 @@ LoadScript init/keymaps.vim
 " 设定 tabsize
 LoadScript init/tabsize.vim
 
-" 自定义功能按键映射
-LoadScript init/function_keymaps.vim
-
 " 插件配置
 LoadScript init/plugins.vim
+
+" 自定义功能按键映射
+LoadScript init/function_keymaps.vim
 
 colorscheme habamax

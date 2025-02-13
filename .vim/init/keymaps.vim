@@ -29,8 +29,10 @@ inoremap <m-d> <Cmd>normal! de<CR>
 # 类似终端下的 ctrl-y
 inoremap <c-y> <c-a>
 
-inoremap <c-w> <c-g>u<c-w>
-inoremap <c-u> <c-g>u<c-u>
+if !exists('g:no_plugin')
+  inoremap <c-w> <c-g>u<c-w>
+  inoremap <c-u> <c-g>u<c-u>
+endif
 
 # 使用 <m-;> 代替 <c-k>
 noremap! <m-;> <c-k>

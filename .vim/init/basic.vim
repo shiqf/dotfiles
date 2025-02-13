@@ -133,8 +133,10 @@ set fileformats=unix,dos,mac
 set hidden
 
 # 使用模糊匹配补全
-if !exists("g:max")
+if exists("g:min")
   set completeopt+=fuzzy
+elseif !exists("g:max")
+  set completeopt+=preinsert
 endif
 
 #-----------------------------------------------------------------------------

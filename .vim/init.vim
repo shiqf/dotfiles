@@ -42,11 +42,11 @@ LoadScript init/keymaps.vim
 " 设定 tabsize
 LoadScript init/tabsize.vim
 
-" 自定义功能按键映射
-LoadScript init/function_keymaps.vim
-
 " 插件加载
 LoadScript init/plugins.vim
+
+" 自定义功能按键映射
+LoadScript init/function_keymaps.vim
 
 " 自定义主题
 LoadScript init/colors.vim
