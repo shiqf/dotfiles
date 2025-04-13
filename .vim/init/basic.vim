@@ -132,13 +132,6 @@ set fileformats=unix,dos,mac
 # 使文件在修改后（不保存），能够使用命令在缓存文件之间跳转
 set hidden
 
-# 使用模糊匹配补全
-if exists("g:min")
-  set completeopt+=fuzzy
-elseif !exists("g:max")
-  set completeopt+=preinsert
-endif
-
 #-----------------------------------------------------------------------------
 #                                 设置代码折叠
 #-----------------------------------------------------------------------------

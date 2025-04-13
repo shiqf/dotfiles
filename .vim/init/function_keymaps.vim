@@ -148,7 +148,7 @@ if !exists('g:no_plugin')
 
   g:fugitiveWinnr = 0
   g:gitWinnr = 0
-  def FugitiveOrGitOpened(c: string): number
+  def DiffWinOpened(): number
     for nr in range(1, winnr('$'))
       if &diff == v:true
         if getwinvar(nr, '&ft') ==# 'fugitive'
@@ -164,7 +164,7 @@ if !exists('g:no_plugin')
     return 0
   enddef
 
-  def FugitiveOrGitAction(c: string): void
+  def DiffMoveAction(c: string): void
     if g:fugitiveWinnr != 0
       exec $':{g:fugitiveWinnr}wincmd w'
       exec $'normal {v:count1}{c}mdv'
@@ -183,7 +183,7 @@ if !exists('g:no_plugin')
   def FirstOrLastAction(c: string): void
     if g:fugitiveWinnr != 0
       exec $':{g:fugitiveWinnr}wincmd w'
-      if c ==# '[' | exec 'normal gUdv' | elseif c ==# ']' | exec 'normal gU}kdv' | endif
+      if c ==# '[' | exec 'normal gUdv' | elseif c ==# ']' | exec 'normal gU][dv' | endif
       g:fugitiveWinnr = 0
     endif
     if g:gitWinnr != 0
@@ -194,12 +194,35 @@ if !exists('g:no_plugin')
     endif
   enddef
 
-  nnoremap [d <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FugitiveOrGitAction('[')<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
-  nnoremap ]d <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FugitiveOrGitAction(']')<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
-  nnoremap [D <Cmd>if <SID>FugitiveOrGitOpened('[') != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
-  nnoremap ]D <Cmd>if <SID>FugitiveOrGitOpened(']') != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
+  nnoremap [d <Cmd>if <SID>DiffWinOpened() != 0<Bar>call <SID>DiffMoveAction('[')<Bar>else<Bar>exec 'normal! [d'<Bar>endif<CR>
+  nnoremap ]d <Cmd>if <SID>DiffWinOpened() != 0<Bar>call <SID>DiffMoveAction(']')<Bar>else<Bar>exec 'normal! ]d'<Bar>endif<CR>
+  nnoremap [D <Cmd>if <SID>DiffWinOpened() != 0<Bar>call <SID>FirstOrLastAction('[')<Bar>else<Bar>exec 'normal! [D'<Bar>endif<CR>
+  nnoremap ]D <Cmd>if <SID>DiffWinOpened() != 0<Bar>call <SID>FirstOrLastAction(']')<Bar>else<Bar>exec 'normal! ]D'<Bar>endif<CR>
+
+  def FugitiveWinOpened(): number
+    for nr in range(1, winnr('$'))
+      if &diff == v:true
+        if getwinvar(nr, '&ft') ==# 'fugitive'
+          g:fugitiveWinnr = nr
+          return nr
+        endif
+      endif
+    endfor
+    return 0
+  enddef
+
+  def FugitiveAction(): void
+    if g:fugitiveWinnr != 0
+      exec $':{g:fugitiveWinnr}wincmd w'
+      exec $'normal -'
+      g:fugitiveWinnr = 0
+      return
+    endif
+  enddef
+  nnoremap <c-s> <Cmd>if <SID>FugitiveWinOpened() != 0<Bar>call <SID>FugitiveAction()<Bar>endif<CR>
 
   nnoremap <Leader>ge :<C-U>Gedit %<Left>
+  nnoremap <Leader>gt :<C-U>Gtabedit %<Left>
   nnoremap <Leader>gl :<C-U>Gclog! --author=
   nnoremap <Leader>gc :<C-U> -n<Home>Git! clean -xdf
   nnoremap <Leader>gp :<C-U> --all<Home>Git! log --oneline --decorate --graph --author=
