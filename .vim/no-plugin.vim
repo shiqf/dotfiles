@@ -49,5 +49,5 @@ LoadScript init/tabsize.vim
 LoadScript init/function_keymaps.vim
 
 colorscheme slate
-# 使用模糊匹配补全
+" 使用模糊匹配补全
 set completeopt+=preinsert
