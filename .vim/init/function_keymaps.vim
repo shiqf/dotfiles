@@ -281,7 +281,7 @@ augroup QFList
   au BufWinEnter quickfix    nnoremap <silent><buffer> [F <Cmd>1chistory<CR>
   au BufWinEnter quickfix    nnoremap <silent><buffer> ]F <Cmd>exec getqflist({'nr': '$'}).nr .. 'chistory'<CR>
   au BufWinEnter quickfix    nnoremap <buffer> dh         <Cmd>exec $'{<SID>Count()}chistory'<CR>
-  au BufWinEnter quickfix    nnoremap <buffer> d<space>   :<C-U>Cfilter /<C-R><c-w>/<Left>
+  au BufWinEnter quickfix    nnoremap <buffer> d<space>   :<C-U>Cfilter /<C-R><C-W>/<Left>
   au BufWinEnter quickfix    nnoremap <buffer> A          <Cmd>Qargs<Bar>q<Bar>args<CR>
   au BufWinEnter quickfix    nnoremap <buffer> cd         :<C-U><C-R>=<SID>RangeNormal()<CR>cdo s//<C-R>=getreg('.')<CR>/gc<Left><Left><Left>
   au BufWinEnter quickfix    xnoremap <buffer> cd         :<C-U><C-R>=<SID>RangeViusal()<CR>cdo s//<C-R>=getreg('.')<CR>/gc<Left><Left><Left>
@@ -305,6 +305,18 @@ if has('terminal')
     if &buftype != 'terminal' || !(mode() == 'n' || mode() == 'v')
       return
     endif
+
+    var flag = v:false
+    for key in keys(term_pos)
+      if string(bufnr()) == key
+        flag = v:true
+        break
+      endif
+    endfor
+    if flag == v:false
+      return
+    endif
+
     var term = term_pos[bufnr()]
     var vis_lines = line('$') - line('w0')
     var vis_empty = winheight(winnr()) - vis_lines

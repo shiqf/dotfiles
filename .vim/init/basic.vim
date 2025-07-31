@@ -22,7 +22,7 @@ vim9script
 #                                   基础设置
 #-----------------------------------------------------------------------------
 # 补全内容选项 help complete
-set complete=.,w,t
+set complete=.^5,w^5,b^5,t^5
 
 # 禁用声音
 # set visualbell t_vb=

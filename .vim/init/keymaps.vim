@@ -69,9 +69,10 @@ cnoremap <c-n> <Down>
 # ctrl+k 删除到行末
 cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<CR>
 
+set wildoptions=pum wildcharm=<C-Z> wildmenu
 # 打开命令窗口、查询历史窗口
 cnoremap <c-j>  <c-f>
-cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<Esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<c-d>"
+cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<Esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<C-Z>"
 
 #-----------------------------------------------------------------------------
 #          tab：创建，关闭，上一个，下一个，首个，末个，左移，右移，
@@ -212,6 +213,10 @@ inoremap <c-o><c-j> <Esc>gi
 inoremap <m-o> <c-o><c-o>
 inoremap <m-i> <c-o><c-i>
 
+if !exists('g:depth')
+  g:depth = 4
+endif
+
 def PathOption(): void
   setl path&
   setl path-=/usr/include
@@ -221,12 +226,12 @@ def PathOption(): void
     elseif has('unix')
       setl path+=/usr/include/**2
     endif
-    setl path+=**5
+    exec $'setl path+=**{g:depth}'
   endif
   try
     normal! gf
   catch /.*/
-    echo v:exception
+    echo v:exception .. "\nor please change the g:depth value(default:4) to find more depth place"
   endtry
   set path<
 enddef
