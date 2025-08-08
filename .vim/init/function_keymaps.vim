@@ -254,7 +254,7 @@ enddef
 def QuickfixFilenames(): string
   var buffer_numbers = {}
   for quickfix_item in getqflist()
-    if quickfix_item['bufnr'] != 0
+    if quickfix_item['valid'] == 1
       buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
     endif
   endfor
