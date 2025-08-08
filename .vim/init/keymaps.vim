@@ -241,3 +241,5 @@ nnoremap gf <Cmd>call <SID>PathOption()<CR>
 # noremap <silent> <c-l> <Cmd>nohlsearch<Bar>redraw!<CR>
 
 nnoremap y<c-e> y$
+
+nnoremap <silent> <Leader>oa <Cmd>args<CR>
