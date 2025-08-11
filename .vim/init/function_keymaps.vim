@@ -201,11 +201,9 @@ if !exists('g:no_plugin')
 
   def FugitiveWinOpened(): number
     for nr in range(1, winnr('$'))
-      if &diff == v:true
-        if getwinvar(nr, '&ft') ==# 'fugitive'
-          g:fugitiveWinnr = nr
-          return nr
-        endif
+      if &diff == v:true && getwinvar(nr, '&ft') ==# 'fugitive'
+        g:fugitiveWinnr = nr
+        return nr
       endif
     endfor
     return 0
@@ -214,9 +212,8 @@ if !exists('g:no_plugin')
   def FugitiveAction(): void
     if g:fugitiveWinnr != 0
       exec $':{g:fugitiveWinnr}wincmd w'
-      exec $'normal -'
+      normal s
       g:fugitiveWinnr = 0
-      return
     endif
   enddef
   nnoremap <c-s> <Cmd>if <SID>FugitiveWinOpened() != 0<Bar>call <SID>FugitiveAction()<Bar>endif<CR>
@@ -264,7 +261,7 @@ enddef
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
 
 def RangeViusal(): string
-  return line("'<") .. ',' .. line("'>")
+  return $'{line("'<")},{line("'>"})'
 enddef
 
 def RangeNormal(): string
@@ -292,7 +289,7 @@ augroup QFList
 augroup END
 
 if has('terminal')
-  var term_pos = {} # { bufnr: [winheight, n visible lines] }
+  var term_pos = {}
 
   def EnterTerminalNormalMode(): void
     if &buftype != 'terminal' || mode() != 't'

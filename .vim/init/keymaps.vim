@@ -231,7 +231,7 @@ def PathOption(): void
   try
     normal! gf
   catch /.*/
-    echo v:exception .. "\nor please change the g:depth value(default:4) to find more depth place"
+    echo v:exception .. $"\n或请修改 g:depth 值(当前: {g:depth}) 查找更加深的目录层级"
   endtry
   set path<
 enddef
@@ -243,3 +243,4 @@ nnoremap gf <Cmd>call <SID>PathOption()<CR>
 nnoremap y<c-e> y$
 
 nnoremap <silent> <Leader>oa <Cmd>args<CR>
+nnoremap <silent> <Leader>on :<C-U>%s///gn<CR>
