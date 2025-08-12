@@ -217,6 +217,16 @@ if !exists('g:no_plugin')
     endif
   enddef
   nnoremap <c-s> <Cmd>if <SID>FugitiveWinOpened() != 0<Bar>call <SID>FugitiveSave()<Bar>endif<CR>
+  nnoremap dv <Cmd>if &ft ==# 'git'<Bar>exe 'normal Ogg]mo'<Bar>endif<CR>
+
+  def FugitiveAddPath(): void
+    if g:fugitiveWinnr != 0
+      exec $':{g:fugitiveWinnr}wincmd w'
+      normal P
+      g:fugitiveWinnr = 0
+    endif
+  enddef
+  nnoremap <c-i> <Cmd>if <SID>FugitiveWinOpened() != 0<Bar>call <SID>FugitiveAddPath()<Bar>endif<CR>
 
   nnoremap <Leader>ge :<C-U>Gedit %<Left>
   nnoremap <Leader>gt :<C-U>Gtabedit %<Left>
@@ -259,6 +269,7 @@ def QuickfixFilenames(): string
 enddef
 # 将 quickfix 列表中的文件加入到 arglist 中去重复, 后可以使用 :argdo 命令执行
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+nnoremap <Leader>ao :<C-U>/g<Home>argdo %s//
 
 def RangeViusal(): string
   return $'{line("'<")},{line("'>"})'
