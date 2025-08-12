@@ -30,16 +30,16 @@
 if !exists('g:bundle_group')
   let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'leaderf', 'snippets']
   if exists('g:max')
-    " tags 标签、智能补全、调试
-    let g:bundle_group += ['tags', 'ycm', 'debug']
+    " 智能补全、调试
+    let g:bundle_group += ['ycm', 'debug']
     " 文件类型、主题、目录
     let g:bundle_group += ['nerdtree', 'filetypes', 'themes']
   else
     " 语法检测
     let g:bundle_group += ['ale']
   endif
-  " 工具、终端复用
-  let g:bundle_group += ['highlight', 'tmux', 'tool']
+  " tags 标签、工具、终端复用
+  let g:bundle_group += ['tags', 'highlight', 'tmux', 'tool']
 endif
 
 "-----------------------------------------------------------------------------
