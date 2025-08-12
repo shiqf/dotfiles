@@ -172,7 +172,7 @@ if !exists('g:no_plugin')
       return
     endif
     if g:gitWinnr != 0
-      exec $':{g:fugitiveWinnr}wincmd w'
+      exec $':{g:gitWinnr}wincmd w'
       wincmd o
       exec $'normal {v:count1}{c}mo'
       g:gitWinnr = 0
@@ -187,7 +187,7 @@ if !exists('g:no_plugin')
       g:fugitiveWinnr = 0
     endif
     if g:gitWinnr != 0
-      exec $':{g:fugitiveWinnr}wincmd w'
+      exec $':{g:gitWinnr}wincmd w'
       wincmd o
       if c ==# '[' | exec 'normal gg]mo' | elseif c ==# ']' | exec 'normal G[mo' | endif
       g:gitWinnr = 0
@@ -209,14 +209,14 @@ if !exists('g:no_plugin')
     return 0
   enddef
 
-  def FugitiveAction(): void
+  def FugitiveSave(): void
     if g:fugitiveWinnr != 0
       exec $':{g:fugitiveWinnr}wincmd w'
       normal s
       g:fugitiveWinnr = 0
     endif
   enddef
-  nnoremap <c-s> <Cmd>if <SID>FugitiveWinOpened() != 0<Bar>call <SID>FugitiveAction()<Bar>endif<CR>
+  nnoremap <c-s> <Cmd>if <SID>FugitiveWinOpened() != 0<Bar>call <SID>FugitiveSave()<Bar>endif<CR>
 
   nnoremap <Leader>ge :<C-U>Gedit %<Left>
   nnoremap <Leader>gt :<C-U>Gtabedit %<Left>
