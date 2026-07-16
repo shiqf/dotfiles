@@ -35,7 +35,7 @@ if !exists('g:bundle_group')
     " 文件类型、主题、目录
     let g:bundle_group += ['nerdtree', 'filetypes', 'themes']
   else
-    " 语法检测
+    " mini plugin: 语法检测
     let g:bundle_group += ['ale']
   endif
   " tags 标签、工具、终端复用
@@ -448,15 +448,33 @@ if index(g:bundle_group, 'leaderf') >= 0 && has('python3')
       return split(lowerFile, '^\.\/')[0]
     endfunc
 
-    let g:GSFlag = ''
-    function! s:Flag()
-      let g:GSFlag = mode() ==# '' ? ' --no-ignore' : ''
+    function! s:visual()
+      let reg = getreg('@')
+      try
+        normal! y
+        return $'"{escape(getreg('@'), '\"')}"'
+      finally
+        call setreg('@', reg, getregtype("@"))
+      endtry
     endfunction
 
-    " let g:Lf_RgConfig = ["--max-columns=150", "--glob=!node_modules/*"]
+    let g:GSFlag = ''
+    let g:Word = ''
+    function! s:Flag()
+      let lfMode = mode()
+      let g:Word = lfMode ==# 'V' ? $"\"{expand("<cword>")}\"" : s:visual()
+      if lfMode ==# ''
+        let g:GSFlag = ' --no-ignore'
+      elseif lfMode ==# 'V'
+        let g:GSFlag = ' --no-ignore --type-not ' .. &ft
+      else
+        let g:GSFlag = ''
+      endif
+    endfunction
+
     let g:Lf_UseCache = 0
     let g:Lf_UseMemoryCache = 0
-    xnoremap gs <Cmd>call <SID>Flag()<CR>:<C-U><C-R>=printf("%s", leaderf#Rg#visual())<CR> --hidden<C-R>=g:GSFlag<CR><Home>Leaderf! rg -F <Right>
+    xnoremap gs <Cmd>call <SID>Flag()<CR>:<C-U><C-R>=printf("%s", g:Word)<CR> --hidden<C-R>=g:GSFlag<CR><Home>Leaderf! rg -F <Right>
     nnoremap gs :<C-U><C-R>=printf("%s", expand("<cword>"))<CR>\b" --hidden<Home>Leaderf! rg -e "\b
     nnoremap <Leader>gf :<C-U>Leaderf! file --input <C-R>=printf("%s", <SID>FileName())<CR> --no-ignore<CR>
   endif
@@ -574,7 +592,7 @@ if has('python3')
     " 触发快捷键设置
     let g:ycm_key_list_select_completion   = ['<c-n>']
     let g:ycm_key_list_previous_completion = ['<c-p>']
-    let g:ycm_key_list_stop_completion = ['<c-s>']
+    " let g:ycm_key_list_stop_completion = ['<c-y>']
     let g:ycm_key_invoke_completion = '<c-z>'
     " 当用户的光标位于诊断行上时用于显示完整诊断文本。默认 <Leader>d
     let g:ycm_key_detailed_diagnostics = '<Leader>d'
@@ -851,7 +869,7 @@ if index(g:bundle_group, 'highlight') >= 0
   let g:mwAutoLoadMarks = 1
   let g:mwIgnoreCase = 0
   let g:mwDefaultHighlightingPalette = 'maximum'
-  let g:mwDefaultHighlightingNum = 44
+  let g:mwDefaultHighlightingNum = 7
   nmap <Leader>om <Plug>MarkToggle
   nmap <Leader>M  <Plug>MarkAllClear
   nmap [m <Plug>MarkSearchUsedGroupPrev

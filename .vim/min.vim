@@ -51,5 +51,5 @@ LoadScript init/function_keymaps.vim
 
 colorscheme habamax
 " 使用模糊匹配补全
+
 set completeopt+=fuzzy
-set cfc+=keyword,files,whole_line

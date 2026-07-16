@@ -22,7 +22,7 @@ vim9script
 #                                   基础设置
 #-----------------------------------------------------------------------------
 # 补全内容选项 help complete
-set complete=.^5,w^5,b^5,t^5
+set complete=.^5,w^5,b^5
 
 # 禁用声音
 # set visualbell t_vb=
@@ -40,7 +40,7 @@ set autoindent
 set nowrap
 
 # set nowrap 单行过长. 平滑滚动
-set sms
+set smoothscroll
 
 # 显示光标位置
 set ruler

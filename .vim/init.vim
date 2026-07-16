@@ -48,5 +48,8 @@ LoadScript init/plugins.vim
 " 自定义功能按键映射
 LoadScript init/function_keymaps.vim
 
-" 自定义主题
-LoadScript init/colors.vim
+colorscheme habamax
+" 使用模糊匹配补全
+
+" " 自定义主题
+" LoadScript init/colors.vim

@@ -42,6 +42,7 @@ noremap! <m-l> <Right>
 noremap! <m-k> <Up>
 noremap! <m-j> <Down>
 noremap! <m-p> <C-R>0
+noremap! <c-s> <c-e>
 
 # 下/上行至末尾
 nnoremap <silent> <c-j> <Cmd>exec $'normal! {v:count1 + 1}g_'<CR>
@@ -56,7 +57,6 @@ enddef
 inoremap <expr> <c-j> $"{<SID>AddToJumpList()}\<Esc>jA"
 inoremap <expr> <c-k> col('$') == getpos('.')[-2] ? $"{<SID>AddToJumpList()}\<Esc>kA" : "<c-\><c-o>\"_d$"
 
-inoremap <c-s> <c-e>
 #-----------------------------------------------------------------------------
 #                     命令模式下使用 Emacs 风格的编辑操作
 #-----------------------------------------------------------------------------
@@ -69,7 +69,6 @@ cnoremap <c-n> <Down>
 # ctrl+k 删除到行末
 cnoremap <c-k> <c-\>e(strpart(getcmdline(), 0, getcmdpos() - 1))<CR>
 
-set wildoptions=pum wildcharm=<C-Z> wildmenu
 # 打开命令窗口、查询历史窗口
 cnoremap <c-j>  <c-f>
 cnoremap <expr> <c-d> strlen(getcmdline()) == 0 ? "\<Esc>" : strlen(getcmdline()) > getcmdpos() - 1 ? "\<Del>" : "\<C-Z>"

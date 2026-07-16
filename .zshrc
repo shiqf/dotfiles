@@ -231,15 +231,12 @@ alias zc='z -c' # 严格匹配当前路径的子路径
 alias zz='z -i' # 使用交互式选择模式
 alias zf='z -I' # 使用 fzf 对多个结果进行选择
 alias zb='z -b' # 快速回到父目录
+# alias clearExec='find . -executable -type f -exec rm {} \;'
 
 # 在命令行直接输入文件名后缀，会在 vim 中打开 ----------------------------------
 
 # 用什么编辑器打开
 export EDITOR='vim'
-
-alias zrc='${EDITOR} ~/.zshrc'
-alias omz='${EDITOR} ~/.zplug/repos/robbyrussell/oh-my-zsh/oh-my-zsh.sh'
-alias typora='open -a typora'
 
 alias -s c=${EDITOR}
 alias -s html=${EDITOR}

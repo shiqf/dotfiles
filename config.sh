@@ -30,7 +30,6 @@ export cmds=(
     fzf                        # 模糊查询
     git                        # 版本控制安装
     global                     # GNU GLOBAL 是一个源代码标记系统
-    proxychains-ng             # 终端代理命令
     python                     # 默认 python3
     ranger                     # 终端文件管理软件
     reattach-to-user-namespace # 用户命名空间，防止因为 shell 的用户空间非当前用户
