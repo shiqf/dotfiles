@@ -46,7 +46,7 @@ set shortmess-=S
 # 命令行使用插入模式的䃼全样式
 set wildmenu wildcharm=<C-Z>
 set wildmode=lastused,list:full
-set wildoptions=pum,fuzzy pumheight=10
+set wildoptions=pum,fuzzy pumheight=5
 
 #-----------------------------------------------------------------------------
 #                     颜色主题：色彩文件位于 colors 目录中

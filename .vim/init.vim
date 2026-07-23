@@ -22,7 +22,7 @@ command! -nargs=1 LoadScript exec $'so {s:home}/<args>'
 "                              设置通用前缀空格键
 "-----------------------------------------------------------------------------
 let mapleader="\<Space>"
-let g:max = 1
+set nocompatible
 
 "-----------------------------------------------------------------------------
 "                                   模块加载
@@ -48,8 +48,5 @@ LoadScript init/plugins.vim
 " 自定义功能按键映射
 LoadScript init/function_keymaps.vim
 
-colorscheme habamax
-" 使用模糊匹配补全
-
-" " 自定义主题
-" LoadScript init/colors.vim
+" 自定义主题
+LoadScript init/colors.vim

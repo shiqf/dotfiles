@@ -23,13 +23,16 @@
 " vim: set ts=2 sw=2 tw=78 et :
 "=============================================================================
 
+if config == 2
+  finish
+endif
 
 "-----------------------------------------------------------------------------
 "                     默认情况下的分组，可以再前面覆盖之
 "-----------------------------------------------------------------------------
 if !exists('g:bundle_group')
   let g:bundle_group  = ['basic', 'enhanced', 'textobj', 'leaderf', 'snippets']
-  if exists('g:max')
+  if config == 0
     " 智能补全、调试
     let g:bundle_group += ['ycm', 'debug']
     " 文件类型、主题、目录
@@ -173,7 +176,7 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:qfenter_keymap.topen      = ['<c-t>', 't']
   let g:qfenter_autoclose         = 1
 
-  if exists('g:max')
+  if config == 0
     " 全文快速移动, <Leader>f{char} 即可触发
     Plug 'easymotion/vim-easymotion'
 
@@ -190,7 +193,7 @@ if index(g:bundle_group, 'enhanced') >= 0
 
     " 默认不显示 startify
     let g:startify_disable_at_vimenter    = 0
-    let g:startify_session_dir            = '~/.vim/session'
+    let g:startify_session_dir            = '~/.cache/session'
     let g:startify_session_persistence    = 1
     let g:startify_session_delete_buffers = 1
     let g:startify_session_autoload       = 0
@@ -272,7 +275,7 @@ endif
 "-----------------------------------------------------------------------------
 "                                 文件类型扩展
 "-----------------------------------------------------------------------------
-if index(g:bundle_group, 'filetypes') >= 0 && exists('g:max')
+if index(g:bundle_group, 'filetypes') >= 0 && config == 0
   " 额外语法文件
   Plug 'justinmk/vim-syntax-extra', { 'for': ['bison', 'c', 'cpp', 'flex'] }
 

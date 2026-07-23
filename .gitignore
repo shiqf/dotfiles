@@ -41,11 +41,11 @@
 tags
 
 # dir
+.zplug/
+.tmux/
+bundle/
 doc/
 syntax/
-bundle/
-.tmux/
 cache/
 session/
 autoload/
-.zplug/
